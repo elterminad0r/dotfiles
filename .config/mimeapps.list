@@ -1,0 +1,12 @@
+[Added Associations]
+text/plain=vim.desktop;libreoffice-writer.desktop;
+text/x-tex=vim.desktop;
+application/pdf=evince.desktop;
+application/x-research-info-systems=vim.desktop;
+
+[Default Applications]
+inode/directory=Thunar-folder-handler.desktop;
+application/pdf=evince.desktop;
+image/png=feh.desktop;
+image/svg+xml=inkscape.desktop;
+image/jpeg=feh.desktop;

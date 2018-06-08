@@ -1,0 +1,68 @@
+#!/usr/bin/sh
+
+alias pacman="pacman --color=auto"
+alias systree='for i in $(pacman -Qeq); do pactree $i; done'
+
+alias grep="grep -i --color=auto"
+alias ack="ack -i"
+
+alias ls="LC_COLLATE=C ls -h --group-directories-first --color=auto"
+alias l="ls -l"
+alias la="ls -la"
+alias lt="\ls -ltrh --color=auto"
+alias lb="ls -lSr"
+alias ldir="ls -l --directory"
+
+alias rm="rm -i"
+alias mv="mv -i"
+alias cp="cp -i"
+
+alias vi=vim
+
+alias lock="light-locker-command -l"
+
+alias maths="ipython --profile=maths"
+
+alias tt='elinks -dump -dump-width $COLUMNS ~/Documents/timetable.html'
+
+alias x="xrdb merge ~/.Xresources"
+
+alias c="xclip -selection clipboard"
+alias v="xclip -selection clipboard -o -"
+
+alias o="mimeopen"
+
+alias lmk="latexmk"
+alias present="evince -s"
+
+alias sudo="sudo "
+
+alias rzsh="sudo ZSH_DISABLE_COMPFIX=true ZDOTDIR=/home/izaak HOME=/home/izaak zsh"
+alias bzsh="ZDOTDIR=/ zsh"
+
+alias vialias="vim ~/.izaak_aliases"
+
+alias wifirestart="sudo systemctl restart NetworkManager.service"
+
+alias gls="git ls-files"
+
+# special git for dotfiles
+alias cfg='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+
+gal() {
+    alias | grep git | grep "$*"
+}
+
+alias syspy="/usr/bin/python"
+alias syspy2="/usr/bin/python"
+
+alias mutt="echo 'use configured mailbox'"
+alias hills_mail='\mutt -F $HOME/.hills_muttrc'
+
+wttr() {
+    curl -H "Accept-Language: ${LANG%_*}" wttr.in/"${*:-Great_Shelford}"
+}
+
+cppath() {
+    realpath $1 | c
+}

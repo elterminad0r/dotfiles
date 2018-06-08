@@ -1,0 +1,16 @@
+#!/usr/bin/sh
+
+set realname = "Izaak van Dongen"
+set from = "iv128358@hillsroad.ac.uk"
+set envelope_from = yes
+
+set imap_user = "iv128358"
+set folder = "imaps://mail.hrsfc.ac.uk/"
+#source pw
+source ~/.hills_pass
+
+#set garbage for now
+set smtp_url = def #"smtp://iv128358@hillsroad.ac.uk@smtp.virgin.net"
+set smtp_pass = abc #$imap_pass
+
+source ~/.muttrc

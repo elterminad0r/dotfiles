@@ -1,0 +1,95 @@
+#!/usr/bin/env python3
+
+"""
+Stateful random background setter
+"""
+
+#TODO add option for a literal path
+
+import sys
+import os
+import os.path
+import pickle
+import collections
+import random
+import argparse
+import subprocess
+
+import gi
+gi.require_version('Notify', '0.7')
+from gi.repository import Notify
+Notify.init("backgrounds")
+
+
+STACK_LOCATION = "/home/izaak/.cache/randombg/stack.pickle"
+
+class BackgroundStack:
+    def __init__(self):
+        self.stack = collections.deque(maxlen=100)
+        self.random_bg()
+
+    def set_bg(self, choice):
+        Notify.Notification.new(
+            "picking {} (stack::{})".format(choice, self.pos)
+            ).show()
+        subprocess.call(["feh", "--bg-scale", os.path.join(
+                                            "/home/izaak/Pictures/wallpapers/",
+                                            choice)])
+
+    def random_bg(self):
+        choice = random.choice(os.listdir("/home/izaak/Pictures/wallpapers/"))
+        self.stack.append(choice)
+        self.pos = len(self.stack) - 1
+        self.set_bg(choice)
+
+    def prev_bg(self):
+        if self.pos > 0:
+            self.pos -= 1
+            self.set_bg(self.stack[self.pos])
+        else:
+            Notify.Notification.new("already at bottom of stack").show()
+
+    def next_bg(self):
+        if self.pos < len(self.stack) - 1:
+            self.pos += 1
+            self.set_bg(self.stack[self.pos])
+        else:
+            Notify.Notification.new("already at top of stack").show()
+
+def get_args():
+    parser = argparse.ArgumentParser(description=__doc__)
+    action = parser.add_mutually_exclusive_group(required=True)
+    action.add_argument("--random", action="store_true",
+                help="choose random next background and move to top of stack")
+    action.add_argument("--next", action="store_true",
+                help="move to next background in stack")
+    action.add_argument("--prev", action="store_true",
+                help="move to previous background in stack")
+    action.add_argument("--init", action="store_true",
+                help="initialise the background stack")
+    return parser.parse_args()
+
+if __name__ == "__main__":
+    args = get_args()
+    if args.init:
+        stack = BackgroundStack()
+        with open(STACK_LOCATION, "wb") as stackfile:
+            pickle.dump(stack, stackfile)
+    else:
+        try:
+            with open(STACK_LOCATION, "rb") as stackfile:
+                stack = pickle.load(stackfile)
+        except Exception:
+            print("ERROR: you may need to initialise with --init\n\n")
+            raise
+        if args.random:
+            stack.random_bg()
+        elif args.prev:
+            stack.prev_bg()
+        elif args.next:
+            stack.next_bg()
+        else:
+            print("unimplemented option")
+
+        with open(STACK_LOCATION, "wb") as stackfile:
+            pickle.dump(stack, stackfile)
