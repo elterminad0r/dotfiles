@@ -1,0 +1,19 @@
+#!/usr/bin/sh
+
+set spoolfile="=INBOX"
+set record="+sent"
+#set mbox="+mbox"
+set postponed="+postponed"
+
+## save copies of sent mail to $record
+set copy=yes
+
+
+set header_cache = ~/.cache/mutt/headercache
+set message_cachedir = ~/.cache/mutt/messagecache
+
+# things I can't live without
+#set sort = threads
+
+alternative_order text/plain text/html
+auto_view text/html

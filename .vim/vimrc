@@ -25,6 +25,7 @@ packadd matchit
 set ts=4
 set sw=4
 set ic
+set infercase
 set et
 set hls
 set is

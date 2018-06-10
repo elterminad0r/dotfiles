@@ -6,6 +6,8 @@ alias systree='for i in $(pacman -Qeq); do pactree $i; done'
 alias grep="grep -i --color=auto"
 alias ack="ack -i"
 
+alias info="info --vi-keys"
+
 alias ls="LC_COLLATE=C ls -h --group-directories-first --color=auto"
 alias l="ls -l"
 alias la="ls -la"
@@ -58,6 +60,7 @@ alias syspy2="/usr/bin/python"
 
 alias mutt="echo 'use configured mailbox'"
 alias hills_mail='\mutt -F $HOME/.hills_muttrc'
+alias gmail='\mutt -F $HOME/.gmail_muttrc'
 
 wttr() {
     curl -H "Accept-Language: ${LANG%_*}" wttr.in/"${*:-Great_Shelford}"
