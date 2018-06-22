@@ -5,6 +5,8 @@ set record="+sent"
 #set mbox="+mbox"
 set postponed="+postponed"
 
+set sidebar_visible = yes
+
 ## save copies of sent mail to $record
 set copy=yes
 

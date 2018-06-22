@@ -43,6 +43,8 @@ alias rzsh="sudo ZSH_DISABLE_COMPFIX=true ZDOTDIR=/home/izaak HOME=/home/izaak z
 alias bzsh="ZDOTDIR=/ zsh"
 
 alias vialias="vim ~/.izaak_aliases"
+alias vi3="vim ~/.config/i3/config"
+alias viz="vim ~/.zshrc"
 
 alias wifirestart="sudo systemctl restart NetworkManager.service"
 

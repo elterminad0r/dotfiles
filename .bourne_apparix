@@ -1,13 +1,38 @@
 #!/usr/bin/env bash
-
-#  BASH-style functions
+#                          BASH and ZSH functions
 #
-#  Name this file for example .bash_apparix in your $HOME directory
-#  and put the line 'source $HOME/.bash_apparix' (without quotes)
-#  in the file $HOME/.bashrc.
-#  If you use the relevant functions, make sure $EDITOR is set
-#  to the name of an available editor.
+#  This file should work for modern bourne-style shells, not including the
+#  bourne shell.  Name this file for example .bourne_apparix in your $HOME
+#  directory, and put the line 'source $HOME/.bourne_apparix' (without quotes)
+#  in the file $HOME/.bashrc or $HOME/.bash_login if you use bash, in the file
+#  $HOME/.zshrc if you use zsh.  If you use zsh, you may need to additionally
+#  put the lines
+#
+#     autoload -Uz compinit
+#     compinit
+#
+#  (without outcommenting them as above) *BEFORE* the line where you source
+#  $HOME/.bourne_apparix. This is not the case for example if you use
+#  oh-my-zsh.
+#
+#  If you use the relevant functions, make sure $EDITOR is set to the name of
+#  an available editor.
+#
+#  I find it useful to have this alias:
+#  alias a=apparix
+#  as I use it in command substitution, e.g.
+#  cp myfile $(a bm)
+#  However, I do not want to spring this on you unsuspectingly, as any
+#  single-character alias is hugely valuable from a Huffman point of view.
+#  If you like it, you'll have to add this line yourself.
 
+ #
+#  Thanks to Sitaram Chamarty for all the important parts of the bash completion
+#  code, and thanks to Izaak van Dongen for figuring out the zsh completion code,
+#  and subsequently improving and standardising the bash completion code.
+ #
+
+alias a=apparix
 
 function toot () {
    if test "$3"; then
@@ -46,7 +71,7 @@ function ald () {
     loc=$(apparix --try-current-first -favour rOl "$1")
   fi
   if [[ $? == 0 ]]; then
-    ls "$loc"
+    ls -d "$loc"
   fi
 }
 
@@ -57,9 +82,9 @@ function als () {
   fi
   if [[ $? == 0 ]]; then
      if test "$2"; then
-       ls "$loc"/$2
+       ls -d "$loc"/$2
     else
-       ls "$loc"
+       ls -d "$loc"
     fi
   fi
 }
@@ -71,7 +96,7 @@ function als1 () {
     loc=$(apparix --try-current-first -favour rOl "$1")
   fi
   if [[ $? == 0 ]]; then
-    ls "$loc"
+    ls -d "$loc"
   fi
 }
 
@@ -163,7 +188,7 @@ if [[ -n $BASH_VERSION ]]; then
         to|als) # complete on directories. this is easy with compgen
           compgen -d -S / -- "$cur_file"
           ;;
-        ae) # complete on filenames. this is a little harder to do nicely
+        ae|apparix|a) # complete on filenames. this is a little harder to do nicely
           _my_compgen "$cur_file"
           ;;
         *)
@@ -193,7 +218,7 @@ if [[ -n $BASH_VERSION ]]; then
       return 0
     }
   # register completions
-  complete -o nospace -F _apparix_comp to als ae
+  complete -o nospace -F _apparix_comp to als ae apparix a
 elif [[ -n $ZSH_VERSION ]]; then
     function _apparix_file {
         _arguments '1:mark:_values "\n" $(cut -d, -f2 $HOME/.apparix{rc,expand})' \
