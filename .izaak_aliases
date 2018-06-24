@@ -57,9 +57,6 @@ gal() {
     alias | grep git | grep "$*"
 }
 
-alias syspy="/usr/bin/python"
-alias syspy2="/usr/bin/python"
-
 alias mutt="echo 'use configured mailbox'"
 alias hills_mail='\mutt -F $HOME/.hills_muttrc'
 alias gmail='\mutt -F $HOME/.gmail_muttrc'

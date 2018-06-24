@@ -243,7 +243,7 @@ bindsym $mod+XF86AudioPrev exec cmus-remote -r && pkill -RTMIN+1 i3blocks
 # Application opening keybinds
 bindsym $mod+bracketright exec firefox
 bindsym $mod+bracketleft exec urxvt -e cmus
-bindsym $mod+numbersign exec urxvt -e /home/izaak/.pyenv/shims/ipython --profile=maths
+bindsym $mod+numbersign exec urxvt -e ipython --profile=maths
 bindsym $mod+apostrophe exec evince "$(xclip -selection clipboard -o -)"
 
 # hide mouse
