@@ -3,6 +3,8 @@
 alias pacman="pacman --color=auto"
 alias systree='for i in $(pacman -Qeq); do pactree $i; done'
 
+alias p="pacman"
+
 alias grep="grep -i --color=auto"
 alias ack="ack -i"
 
@@ -52,6 +54,10 @@ alias gls="git ls-files"
 
 # special git for dotfiles
 alias cfg='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+alias cfga='cfg add --update'
+alias cfgc='cfg commit -v'
+alias cfgst='cfg status'
+alias cfgpush='cfg push -u origin master'
 
 gal() {
     alias | grep git | grep "$*"
