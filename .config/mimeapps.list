@@ -3,6 +3,7 @@ text/plain=vim.desktop;libreoffice-writer.desktop;
 text/x-tex=vim.desktop;
 application/pdf=evince.desktop;
 application/x-research-info-systems=vim.desktop;
+image/gif=feh.desktop;
 
 [Default Applications]
 inode/directory=Thunar-folder-handler.desktop;
