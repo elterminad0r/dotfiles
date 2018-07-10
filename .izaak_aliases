@@ -53,8 +53,12 @@ alias wifirestart="sudo systemctl restart NetworkManager.service"
 alias gls="git ls-files"
 
 # special git for dotfiles
-alias cfg='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
-alias cfga='cfg add --update'
+function cfg {
+    /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME $@
+}
+
+alias cfga='cfg add'
+alias cfgaa='cfg add --update'
 alias cfgc='cfg commit -v'
 alias cfgst='cfg status'
 alias cfgpush='cfg push -u origin master'
