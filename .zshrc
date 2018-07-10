@@ -64,7 +64,6 @@ COMPLETION_WAITING_DOTS="true"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
-  fast-syntax-highlighting
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -151,7 +150,7 @@ setopt globcomplete
 setopt extendedglob
 
 # zsh syntax highlighting, with config from https://blog.patshead.com/2012/01/using-and-customizing-zsh-syntax-highlighting-with-oh-my-zsh.html
-#source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 #ZSH_HIGHLIGHT_STYLES[default]=none
 #ZSH_HIGHLIGHT_STYLES[unknown-token]=fg=red,bold
