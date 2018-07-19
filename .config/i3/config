@@ -51,10 +51,10 @@ bindsym $mod+k focus up
 bindsym $mod+l focus right
 
 # mouve the mouse
-bindsym $mod+Left exec xdotool mousemove_relative -- -50 0
-bindsym $mod+Right exec xdotool mousemove_relative -- 50 0
-bindsym $mod+Up exec xdotool mousemove_relative -- 0 -50
-bindsym $mod+Down exec xdotool mousemove_relative -- -0 50
+bindsym $mod+Left exec xdotool mousemove_relative -- -100 0
+bindsym $mod+Right exec xdotool mousemove_relative -- 100 0
+bindsym $mod+Up exec xdotool mousemove_relative -- 0 -100
+bindsym $mod+Down exec xdotool mousemove_relative -- -0 100
 
 bindsym $mod+Shift+Left exec xdotool mousemove_relative -- -10 0
 bindsym $mod+Shift+Right exec xdotool mousemove_relative -- 10 0
@@ -291,7 +291,6 @@ exec redshift-gtk
 exec nm-applet
 exec light-locker
 exec --no-startup-id ~/bin/randombg --random
-exec pulseaudio
 
 exec urxvt
 exec i3-msg "workspace $ws2; exec firefox"

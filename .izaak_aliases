@@ -51,6 +51,7 @@ alias viz="vim ~/.zshrc"
 alias wifirestart="sudo systemctl restart NetworkManager.service"
 
 alias gls="git ls-files"
+alias grm="git rm"
 
 # special git for dotfiles
 function cfg {

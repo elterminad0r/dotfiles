@@ -2,11 +2,13 @@
 typeset -U path
 path=(~/bin ~/.local/bin $path[@])
 
-#typeset -U fpath
+export PYTHONPATH=~/pybin
+
+typeset -U fpath
 fpath=(~/.zcomp $fpath[@])
 
 # Path to your oh-my-zsh installation.
-export ZSH=/home/izaak/.oh-my-zsh
+export ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
