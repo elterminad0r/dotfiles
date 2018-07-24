@@ -66,7 +66,7 @@ urxvt*font: xft:Liberation Mono:style-Regular:size=12, xft:Symbola:size=12
 
 urxvt*loginSHell: true
 
-urxvt*savelines: 10000
+urxvt*savelines: 8192
 
 *intensityStyles:   false
 
@@ -77,7 +77,7 @@ urxvt*scrollBar: false
 URxvt*iso14755: false
 URxvt*iso14755_52: false
 
-URxvt.perl-ext-common: font-size
+URxvt.perl-ext-common: default,font-size,vtwheel
 
 ! do not scroll with output
 URxvt*scrollTtyOutput: false
@@ -88,8 +88,11 @@ URxvt*scrollWithBuffer: true
 ! scroll back to the bottom on keypress
 URxvt*scrollTtyKeypress: true
 
-1 URxvt.transparent:   true
-1 URxvt.shading:       90
+urxvt*secondaryScreen: 1
+urxvt*secondaryScroll: 0
+
+! URxvt.transparent:   true
+! URxvt.shading:       90
 
 
 

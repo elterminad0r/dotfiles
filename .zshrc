@@ -84,6 +84,9 @@ else
   export EDITOR='vim'
 fi
 
+#export PAGER='vimpager -u ~/.vim/vimrc'
+#alias less=$PAGER
+#
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 

@@ -37,6 +37,8 @@ set t_kb=
 set cm=blowfish2
 set tw=80
 set colorcolumn=+1
+set mouse=a
+map <LeftMouse> <nop>
 
 set list
 set listchars=tab:>-
