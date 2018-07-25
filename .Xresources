@@ -66,7 +66,7 @@ urxvt*font: xft:Liberation Mono:style-Regular:size=12, xft:Symbola:size=12
 
 urxvt*loginSHell: true
 
-urxvt*savelines: 8192
+urxvt*saveLines: 8192
 
 *intensityStyles:   false
 
