@@ -10,6 +10,6 @@
 // install greasemonkey: https://addons.mozilla.org/en-GB/firefox/addon/greasemonkey/
 // then click on the icon and click "new user script"
 
-TODAY_COLOUR = "#000"
+// change the background-color or add CSS to suit your needs
 
 document.getElementsByTagName("head")[0].innerHTML += "<style> div.ef2wWc, div.F262Ye { background-color: #000 } </style>"
