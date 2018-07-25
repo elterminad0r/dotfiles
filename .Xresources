@@ -64,7 +64,7 @@ urxvt*color15: S_base3
 
 urxvt*font: xft:Liberation Mono:style-Regular:size=12, xft:Symbola:size=12
 
-urxvt*loginSHell: true
+urxvt*loginShell: true
 
 urxvt*saveLines: 8192
 
@@ -94,15 +94,13 @@ urxvt*secondaryScroll: 0
 ! URxvt.transparent:   true
 ! URxvt.shading:       90
 
-
-
 !!! Xterm setup
 
 xterm*faceName: xft:Liberation Mono:style-Regular:size=12, xft:Symbola:size=12
 
-xterm*loginSHell: true
+xterm*loginShell: true
 
-xterm*savelines: 1000
+xterm*saveLines: 8192
 
 ! double-click to select whole URLs :D
 xterm*charClass: 33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48
