@@ -212,7 +212,3 @@ elif [[ -n $ZSH_VERSION ]]; then
 fi
 
 export APPARIXLOG=$HOME/.apparixlog
-
-alias via='vi $HOME/.apparixrc'
-
-alias now='cd $(a now)'

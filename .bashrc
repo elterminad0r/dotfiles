@@ -7,8 +7,6 @@
 
 set -o vi
 
-alias ls='ls --color=auto'
-
 alias lx="compgen -A function -abck"
 
 bind '"\t":menu-complete'
