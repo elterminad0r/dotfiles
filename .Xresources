@@ -94,6 +94,11 @@ urxvt*secondaryScroll: 0
 ! URxvt.transparent:   true
 ! URxvt.shading:       90
 
+! lost focus
+URxvt*fading:  10
+
+! URxvt*visualBell:  true
+
 !!! Xterm setup
 
 xterm*faceName: xft:Liberation Mono:style-Regular:size=12, xft:Symbola:size=12
