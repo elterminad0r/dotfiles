@@ -8,6 +8,9 @@ alias p="pacman"
 alias grep="grep -i --color=auto"
 alias ack="ack -i"
 
+# FIXME this doesn't actually work because of hoogle for some reason
+alias hoogle="hoogle --color=true"
+
 alias info="info --vi-keys"
 
 alias ls="LC_COLLATE=C ls -h --group-directories-first --color=auto"
@@ -22,6 +25,7 @@ alias mv="mv -i"
 alias cp="cp -i"
 
 alias vi=vim
+alias view="vim -R"
 
 alias lock="light-locker-command -l"
 
@@ -44,9 +48,14 @@ alias sudo="sudo "
 alias rzsh="sudo ZSH_DISABLE_COMPFIX=true ZDOTDIR=/home/izaak HOME=/home/izaak zsh"
 alias bzsh="ZDOTDIR=/ zsh"
 
-alias vialias="vim ~/.izaak_aliases"
-alias vi3="vim ~/.config/i3/config"
-alias viz="vim ~/.zshrc"
+alias via="vi ~/.izaak_aliases"
+alias vi3="vi ~/.config/i3/config"
+alias viz="vi ~/.zshrc"
+alias vit="vi ~/Documents/TODO"
+alias viv="vi ~/.vim/vimrc"
+alias vif="vi ~/fun"
+alias vix="vi ~/.Xresources"
+alias vienc="vi ~/Documents/.enc/"
 
 alias wifirestart="sudo systemctl restart NetworkManager.service"
 
@@ -57,6 +66,8 @@ alias grm="git rm"
 function cfg {
     /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME $@
 }
+
+# TODO make this automatically generate itself from git plugin
 
 alias cfga='cfg add'
 alias cfgaa='cfg add --update'
