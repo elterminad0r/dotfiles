@@ -4,7 +4,7 @@ endif
 
 execute pathogen#infect()
 
-set nocompatible
+if &compatible | set nocompatible | endif " Avoid side effects if `nocp` already set
 set backspace=indent,eol,start
 set history=50
 set ruler
