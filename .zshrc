@@ -66,6 +66,7 @@ COMPLETION_WAITING_DOTS="true"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
+  colored-manpages
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -83,6 +84,8 @@ if [[ -n $SSH_CONNECTION ]]; then
 else
   export EDITOR='vim'
 fi
+
+export LESS="-R"
 
 #export PAGER='vimpager -u ~/.vim/vimrc'
 #alias less=$PAGER
