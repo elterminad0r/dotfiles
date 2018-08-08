@@ -87,6 +87,8 @@ fi
 
 export LESS="-R"
 
+export COLUMNS LINES
+
 #export PAGER='vimpager -u ~/.vim/vimrc'
 #alias less=$PAGER
 #
