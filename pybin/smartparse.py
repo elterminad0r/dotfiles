@@ -9,12 +9,12 @@ Be careful as this does rely on implementation details.
 """
 
 import argparse
-del argparse.__all__
+#del argparse.__all__
 from argparse import *
 import re
 import textwrap
 
-_ArgumentParser = ArgumentParser
+_ArgumentParser = argparse.ArgumentParser
 
 def ArgumentParser(*args, **kwargs):
     """
