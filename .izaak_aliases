@@ -55,9 +55,11 @@ alias vit="vi ~/Documents/TODO"
 alias viv="vi ~/.vim/vimrc"
 alias vif="vi ~/fun"
 alias vix="vi ~/.Xresources"
+alias vic="vi ~/.config"
 alias vienc="vi ~/Documents/.enc/"
 
 alias wifirestart="sudo systemctl restart NetworkManager.service"
+alias p88="ping 8.8.8.8"
 
 alias gls="git ls-files"
 alias grm="git rm"
