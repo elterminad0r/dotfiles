@@ -59,7 +59,7 @@ alias vic="vi ~/.config"
 alias vienc="vi ~/Documents/.enc/"
 
 alias wifirestart="sudo systemctl restart NetworkManager.service"
-alias p88="ping 8.8.8.8"
+alias p88="ping 8.8.8.8 -c 20 -w 60"
 
 alias gls="git ls-files"
 alias grm="git rm"
