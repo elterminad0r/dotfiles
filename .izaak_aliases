@@ -8,6 +8,8 @@ alias p="pacman"
 alias grep="grep -i --color=auto"
 alias ack="ack -i"
 
+alias ifpc="instantfpc"
+
 # FIXME this doesn't actually work because of hoogle for some reason
 alias hoogle="hoogle --color=true"
 
