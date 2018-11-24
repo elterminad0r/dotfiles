@@ -27,7 +27,7 @@ GIT_PS1_SHOWUNTRACKEDFILES=true
 
 # sets prompt command. the two arguments are the string to appear before the git
 # status, and the string to appear after it, using normal Bash prompt syntax.
-PROMPT_COMMAND='__git_ps1 "\u|$(basename $(dirname "$PWD"))/$(basename "$PWD")" " "'
+PROMPT_COMMAND='__git_ps1 "\u|$(basename "$(dirname "$PWD")")/$(basename "$PWD")" " "'
 
 source $HOME/.izaak_aliases
 
