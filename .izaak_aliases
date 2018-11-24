@@ -3,7 +3,7 @@
 alias pacman="pacman --color=auto"
 alias systree='for i in $(pacman -Qeq); do pactree $i; done'
 
-alias cmatrix="cmatrix -b"
+alias cmatrix="cmatrix -abu 1"
 
 alias p="pacman"
 
