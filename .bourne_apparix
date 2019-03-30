@@ -136,15 +136,15 @@ function portal () {
 function to () {
   local IFS=$'\n'
   if [[ ! -z "$2" ]]; then
-    loc=$(apparix --try-current-last -favour rOl "$1" "$2")
+    loc="$(apparix --try-current-last -favour rOl "$1" "$2")"
   elif [[ ! -z "$1" ]]; then
     if [[ "$1" == '-' ]]; then
       loc="-"
     else
-      loc=$(apparix --try-current-last -favour rOl "$1")
+      loc="$(apparix --try-current-last -favour rOl "$1")"
     fi
   else
-    loc=$HOME
+    loc="$HOME"
   fi
   if [[ $? == 0 ]]; then
     cd "$loc"
