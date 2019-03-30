@@ -17,6 +17,8 @@ alias hoogle="hoogle --color=true"
 
 alias info="info --vi-keys"
 
+alias feh="feh -d"
+
 alias ls="LC_COLLATE=C ls -h --group-directories-first --color=auto"
 alias l="ls -l"
 alias la="ls -la"
@@ -49,7 +51,7 @@ alias present="evince -s"
 
 alias sudo="sudo "
 
-alias rzsh="sudo ZSH_DISABLE_COMPFIX=true ZDOTDIR=/home/izaak HOME=/home/izaak zsh"
+alias rzsh="sudo ZSH_DISABLE_COMPFIX=true ZDOTDIR=$HOME HOME=$HOME zsh"
 alias bzsh="ZDOTDIR=/ zsh"
 
 alias via="vi ~/.izaak_aliases"
@@ -58,6 +60,7 @@ alias viz="vi ~/.zshrc"
 alias vit="vi ~/Documents/TODO"
 alias viv="vi ~/.vim/vimrc"
 alias vif="vi ~/fun"
+alias vid="vi ~/fun/diary"
 alias vix="vi ~/.Xresources"
 alias vic="vi ~/.config"
 alias vienc="vi ~/Documents/.enc/"
