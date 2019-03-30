@@ -3,11 +3,17 @@ import re
 import random
 import time
 
+import string
 from string import *
+import math
 from math import *
+import itertools
 from itertools import *
+import functools
 from functools import *
+import collections
 from collections import *
+import operator
 from operator import *
 ###END
 
