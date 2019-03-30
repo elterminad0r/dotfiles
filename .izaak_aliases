@@ -92,6 +92,11 @@ alias mutt="echo 'use configured mailbox'"
 alias hills_mail='\mutt -F $HOME/.hills_muttrc'
 alias gmail='\mutt -F $HOME/.gmail_muttrc'
 
+screenshots() {
+    \ls -tr --directory $HOME/Pictures/screenshots/* |
+        grep "${2:-}" | tail -"${1:-1}";
+}
+
 wttr() {
     curl -H "Accept-Language: ${LANG%_*}" wttr.in/"${*:-Great_Shelford}"
 }
