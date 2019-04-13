@@ -53,8 +53,14 @@ match ExtraWhitespace /\s\+$/
 set undofile
 set undodir=$HOME/.vim/undo
 
-set undolevels=1000
+" save 10000 levels of undo
+set undolevels=10000
+" cache entire buffers under 10000 lines
 set undoreload=10000
+
+set backup
+set writebackup
+set backupdir=~/.vim/backups
 
 " '100: store marks for 100 previously edited files
 " /100: store 100 previous searches
