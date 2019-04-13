@@ -10,8 +10,6 @@ set history=50
 set ruler
 set showcmd
 set incsearch
-map Q gq
-inoremap <C-U> <C-G>u<C-U>
 if &t_Co > 2 || has("gui_running")
   syntax on
   set hlsearch
@@ -26,19 +24,23 @@ if has('langmap') && exists('+langnoremap')
 endif
 packadd matchit
 
-set ts=4
-set sw=4
-set ic
+set tabstop=4
+set shiftwidth=4
+set ignorecase
 set infercase
-set et
-set hls
-set is
+set expandtab
+set hlsearch
+set incsearch
+" backspace key fix?
 set t_kb=
-set cm=blowfish2
-set tw=80
+set cryptmethod=blowfish2
+set textwidth=80
 set colorcolumn=+1
 set mouse=a
 map <LeftMouse> <nop>
+
+set path+=**
+set wildmenu
 
 set list
 set listchars=tab:>-
@@ -48,8 +50,6 @@ autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
 
 autocmd FileType make setlocal noexpandtab
-
-command! -nargs=* -complete=shellcmd R new | setlocal buftype=nofile bufhidden=hide noswapfile | r !<args>
 
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 command W w !sudo tee > /dev/null %
