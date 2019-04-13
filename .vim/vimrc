@@ -49,6 +49,21 @@ highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
 
+" Persistent undo
+set undofile
+set undodir=$HOME/.vim/undo
+
+set undolevels=1000
+set undoreload=10000
+
+" '100: store marks for 100 previously edited files
+" /100: store 100 previous searches
+" :100: store 100 previous commands issued
+" <1000000: store at most 1000000 lines of each buffer
+" @1000: store 1000 lineso f input-line history
+" s1000: allow items to be 10000 Kbyte in size
+set viminfo=%,'100,/100,:100,<1000000,s10000,@1000,h,n~/.vim/viminfo
+
 autocmd FileType make setlocal noexpandtab
 
 " Allow saving of files as sudo when I forgot to start vim using sudo.
