@@ -13,6 +13,8 @@ set incsearch
 if &t_Co > 2 || has("gui_running")
   syntax on
   set hlsearch
+  noh
+  noh
   syntax enable
   let g:solarized_termtrans = 1
   set background=dark
@@ -29,7 +31,6 @@ set shiftwidth=4
 set ignorecase
 set infercase
 set expandtab
-set hlsearch
 set incsearch
 " backspace key fix?
 set t_kb=
@@ -41,6 +42,9 @@ map <LeftMouse> <nop>
 
 set path+=**
 set wildmenu
+
+" preserves undo history for buffers
+set hidden
 
 set list
 set listchars=tab:>-
@@ -69,6 +73,8 @@ set backupdir=~/.vim/backups
 " @1000: store 1000 lineso f input-line history
 " s1000: allow items to be 10000 Kbyte in size
 set viminfo=%,'100,/100,:100,<1000000,s10000,@1000,h,n~/.vim/viminfo
+
+set directory^=~/.vim/swap
 
 autocmd FileType make setlocal noexpandtab
 
