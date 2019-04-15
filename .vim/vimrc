@@ -1,3 +1,5 @@
+" TODO: snippets, autocompletion
+
 if v:progname =~? "evim"
   finish
 endif
