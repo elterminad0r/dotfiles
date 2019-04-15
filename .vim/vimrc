@@ -1,63 +1,112 @@
-" TODO: snippets, autocompletion
+" TODO: snippets
+" set rl: this is funny
 
+autocmd!
+
+let g:powerline_pycmd="py3"
+let g:Powerline_symbols = 'fancy'
+set laststatus=2
+set showtabline=2 " Always display the tabline, even if there is only one tab
+set noshowmode
+
+" for some reason we should stop
 if v:progname =~? "evim"
-  finish
+    finish
 endif
 
+" use this to manage plugins or something
 execute pathogen#infect()
+" generate help files
+Helptags
+" basically, let vim load plugins for filetypes.
+" This is pretty essential to any vim user's quality of life
 filetype plugin indent on
-autocmd FileType tex setlocal commentstring=%\ %s
+" tell vim-commentary what comments to use in tex files
+augroup TexComments
+    autocmd!
+    autocmd FileType tex setlocal commentstring=%\ %s
+augroup END
+" tell vimtex i'm not a total nutjob
+let g:tex_flavor = 'latex'
 
-if &compatible | set nocompatible | endif " Avoid side effects if `nocp` already set
-set backspace=indent,eol,start
-set history=50
-set ruler
-set showcmd
-set incsearch
-if &t_Co > 2 || has("gui_running")
-  syntax on
-  set hlsearch
-  noh
-  noh
-  syntax enable
-  let g:solarized_termtrans = 1
-  set background=dark
-  colorscheme solarized
+" Avoid side effects if `nocp` already set. THIS IS CRUCIALLY IMPORTANT
+" Basically everything breaks if you don't do this
+if &compatible
+    set nocompatible
 endif
+" Let backspaces in insert mode delete lines, I think
+set backspace=indent,eol,start
+" remember 10000 lines of command-line history
+set history=10000
+" display current cursor position
+set ruler
+" display long normal-mode commands as they're typed
+set showcmd
+" show matches for a search live as you type them
+set incsearch
+
+" colour-related options, wrapped in some conditions just to be on the safe side
+if &t_Co > 2 || has("gui_running")
+    syntax enable
+    set hlsearch
+    noh
+    let g:solarized_termtrans = 1
+    set background=dark
+    colorscheme solarized
+endif
+
+" maybe this fixed something
 set autoindent
 if has('langmap') && exists('+langnoremap')
-  set langnoremap
+    set langnoremap
 endif
+" Makes % more sophisticated
 packadd matchit
 
-set nu
+" line numbers, that are relative to current line
+set number
 set relativenumber
+" whitespace
+" tab = 4 spaces
 set tabstop=4
+set softtabstop=4
 set shiftwidth=4
-set ignorecase
-set infercase
 set expandtab
-set incsearch
-" backspace key fix?
-set t_kb=
-set cryptmethod=blowfish2
-set textwidth=80
-set colorcolumn=+1
-set mouse=a
-map <LeftMouse> <nop>
 
-set path+=**
-set wildmenu
-
-" preserves undo history for buffers
-set hidden
-
+" name and shame any actual tabs
 set list
 set listchars=tab:>-
 
-highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
-autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+" similarly name and shame trailing whitespace
+highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
+
+" text width is 80 and mark it out
+set textwidth=80
+set colorcolumn=+1
+
+" ignore case in search
+set ignorecase
+" completion becomes case insensitive if it can't find anything sensitive
+set infercase
+" backspace key fix?
+set t_kb=
+" set good encryption
+set cryptmethod=blowfish2
+
+" a bit of tough love
+imap <LEFT> <nop>
+imap <RIGHT> <nop>
+imap <UP> <nop>
+imap <DOWN> <nop>
+
+set path=.,**
+set wildmenu
+set wildignorecase
+set complete=.,w,b,u,t,i
+
+" preserves undo history for buffers
+set hidden
 
 " Persistent undo
 set undofile
@@ -68,7 +117,21 @@ set undolevels=10000
 " cache entire buffers under 10000 lines
 set undoreload=10000
 
-au BufWritePost *.py,*.c,*.cpp,*.h,*.tex silent! !eval 'ctags -R -o newtags; mv -f newtags tags' &
+" auto-generate ctags when writing certain files
+if executable("ctags")
+    function MakeTags()
+        if getcwd() =~ "^" . $HOME . "/"
+            redraw | echo "RUNNING CTAGS"
+            silent !ctags -R -o newtags; mv -f newtags tags &
+            redraw | echo "RAN CTAGS"
+        endif
+    endfunction
+    augroup CTagsAutoWrite
+        autocmd!
+        autocmd BufWritePost *.py,*.c,*.cpp,*.h,*.tex call MakeTags()
+    augroup END
+    set tagbsearch
+endif
 
 set backup
 set writebackup
@@ -84,7 +147,19 @@ set viminfo=%,'100,/100,:100,<1000000,s10000,@1000,h,n~/.vim/viminfo
 
 set directory^=~/.vim/swap
 
-autocmd FileType latex,tex set spell spelllang=en_gb,nl
+set thesaurus=~/.vim/thesaurus/thesaurus_pkg/thesaurus.txt
+set spelllang=en_gb,nl spellcapcheck=
+augroup TextFileType
+    autocmd!
+    autocmd BufEnter * if &filetype == "" | setlocal ft=text | endif
+augroup END
+augroup SpellingFiles
+    autocmd!
+    autocmd FileType latex,tex,text,markdown set spell
+augroup END
 
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 command W w !sudo tee > /dev/null %
+
+" reload configuration
+command Vrc source $MYVIMRC

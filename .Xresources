@@ -59,10 +59,9 @@ urxvt*color7:                S_base2
 urxvt*color15: S_base3
 
 
-
 !!! Urxvt setup
 
-urxvt*font: xft:Liberation Mono:style-Regular:size=12, xft:NotoColorEmoji:size=12
+urxvt*font: xft:Liberation Mono for Powerline:style-Regular:size=12, xft:NotoColorEmoji:size=12
 
 urxvt*loginShell: true
 
@@ -101,7 +100,7 @@ URxvt*fading:  10
 
 !!! Xterm setup
 
-xterm*faceName: xft:Liberation Mono:style-Regular:size=12, xft:NotoColorEmoji:size=12
+xterm*faceName: xft:Liberation Mono for Powerline:style-Regular:size=12, xft:NotoColorEmoji:size=12
 
 xterm*loginShell: true
 
