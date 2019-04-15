@@ -1,0 +1,9 @@
+[user]
+	email = izaak.van.dongen@gmail.com
+	name = Izaak van Dongen
+[credential]
+	helper = store
+[merge]
+	tool = vimdiff
+[core]
+	excludesfile = /home/izaak/.gitignore
