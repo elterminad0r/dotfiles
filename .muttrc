@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+# vim: syntax=sh
 
 set spoolfile="=INBOX"
 set record="+sent"

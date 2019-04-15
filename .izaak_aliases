@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+# vim: syntax=sh
 
 alias pacman="pacman --color=auto"
 alias systree='for i in $(pacman -Qeq); do pactree $i; done'

@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+# vim: syntax=sh
 
 set realname = "Izaak van Dongen"
 set from = "iv128358@hillsroad.ac.uk"
