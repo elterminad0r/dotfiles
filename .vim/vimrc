@@ -1,12 +1,16 @@
-" TODO: snippets
-" set rl: this is funny
+" My vimrc file
 
+" note to self ":set rl": this is funny
+
+" delete all previous autocmds. This is probably pure paranoia but the horrors
+" I've endured...
 autocmd!
 
+" Powerline configuration - with Arch's powerline
 let g:powerline_pycmd="py3"
-let g:Powerline_symbols = 'fancy'
 set laststatus=2
-set showtabline=2 " Always display the tabline, even if there is only one tab
+" Always display the tabline, even if there is only one tab
+set showtabline=2
 set noshowmode
 
 " for some reason we should stop
@@ -29,6 +33,11 @@ augroup END
 " tell vimtex i'm not a total nutjob
 let g:tex_flavor = 'latex'
 
+" TODO
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
 " Avoid side effects if `nocp` already set. THIS IS CRUCIALLY IMPORTANT
 " Basically everything breaks if you don't do this
 if &compatible
@@ -45,6 +54,10 @@ set showcmd
 " show matches for a search live as you type them
 set incsearch
 
+" make <Esc> work without delay. This breaks any keybindings with <Esc> in them
+" from insert mode, but who cares
+set noesckeys
+
 " colour-related options, wrapped in some conditions just to be on the safe side
 if &t_Co > 2 || has("gui_running")
     syntax enable
@@ -55,7 +68,7 @@ if &t_Co > 2 || has("gui_running")
     colorscheme solarized
 endif
 
-" maybe this fixed something
+" maybe this fixed something once, a long time ago
 set autoindent
 if has('langmap') && exists('+langnoremap')
     set langnoremap
@@ -64,6 +77,7 @@ endif
 packadd matchit
 
 " line numbers, that are relative to current line
+" allegedly lets you judge repetitions of movement commands, and it looks cool
 set number
 set relativenumber
 " whitespace
@@ -100,15 +114,23 @@ imap <RIGHT> <nop>
 imap <UP> <nop>
 imap <DOWN> <nop>
 
+" Am I crazy?? this makes much more sense. nG is used to go to line, ngg is used
+" to go to character, G is EOF, gg is SOF, and g[oO] are these mad useful
+" bindings
+nnore go o<Esc>
+nnore gO O<Esc>
+nnore gg go<Esc>
+
+" This is when vim does stuff with :find or something
 set path=.,**
 set wildmenu
 set wildignorecase
 set complete=.,w,b,u,t,i
 
-" preserves undo history for buffers
+" preserves undo history for buffers by not properly closing things
 set hidden
 
-" Persistent undo
+" Persistent undo history
 set undofile
 set undodir=$HOME/.vim/undo
 
@@ -120,6 +142,8 @@ set undoreload=10000
 " auto-generate ctags when writing certain files
 if executable("ctags")
     function MakeTags()
+        " basically only try this when I'm inside my home directory a little
+        " way.
         if getcwd() =~ "^" . $HOME . "/"
             redraw | echo "RUNNING CTAGS"
             silent !ctags -R -o newtags; mv -f newtags tags &
@@ -130,13 +154,16 @@ if executable("ctags")
         autocmd!
         autocmd BufWritePost *.py,*.c,*.cpp,*.h,*.tex call MakeTags()
     augroup END
+    " tag binary search
     set tagbsearch
 endif
 
+" Write backup files. Disk is cheap and uou never know
 set backup
 set writebackup
 set backupdir=~/.vim/backups
 
+" Preserve vim state:
 " '100: store marks for 100 previously edited files
 " /100: store 100 previous searches
 " :100: store 100 previous commands issued
@@ -145,14 +172,18 @@ set backupdir=~/.vim/backups
 " s1000: allow items to be 10000 Kbyte in size
 set viminfo=%,'100,/100,:100,<1000000,s10000,@1000,h,n~/.vim/viminfo
 
+" Keep swap files out of the way
 set directory^=~/.vim/swap
 
+" Set up a thesaurus and dictionary
 set thesaurus=~/.vim/thesaurus/thesaurus_pkg/thesaurus.txt
 set spelllang=en_gb,nl spellcapcheck=
+" Make files be "text" by default
 augroup TextFileType
     autocmd!
     autocmd BufEnter * if &filetype == "" | setlocal ft=text | endif
 augroup END
+" Enable spelling for these filetypes
 augroup SpellingFiles
     autocmd!
     autocmd FileType latex,tex,text,markdown set spell
