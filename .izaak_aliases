@@ -31,6 +31,7 @@ alias mv="mv -i"
 alias cp="cp -i"
 
 alias vi=vim
+alias vitx="vim --servername vim"
 alias view="vim -R"
 
 alias lock="light-locker-command -l"
@@ -38,8 +39,6 @@ alias lock="light-locker-command -l"
 alias maths="ipython --profile=maths"
 
 alias tt='elinks -dump -dump-width $COLUMNS ~/Documents/timetable.html'
-
-alias x="xrdb merge ~/.Xresources"
 
 alias c="xclip -selection clipboard"
 alias v="xclip -selection clipboard -o -"
@@ -64,6 +63,10 @@ alias vid="vi ~/fun/diary"
 alias vix="vi ~/.Xresources"
 alias vic="vi ~/.config"
 alias vienc="vi ~/Documents/.enc/"
+alias vitm="vi ~/.tmux.conf"
+
+alias x="xrdb merge ~/.Xresources"
+alias t="tmux source ~/.tmux.conf"
 
 alias wifirestart="sudo systemctl restart NetworkManager.service"
 alias p88="ping 8.8.8.8 -c 20 -w 60"
