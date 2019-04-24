@@ -19,6 +19,8 @@ endif
 " vimtex options
 let g:vimtex_view_method = 'zathura'
 let g:vimtex_latexmk_progname = 'vim'
+" FIXME this is basically still super broken. This is supposed to be a fix for
+" the quickfix thing, but it still just sends you to the "master" file
 let g:vimtex_quickfix_method = 'pplatex'
 
 " for some reason we should stop
@@ -35,8 +37,7 @@ Helptags
 filetype plugin indent on
 " tell vim-commentary what comments to use in tex files
 augroup TexComments
-    autocmd!
-    autocmd FileType tex setlocal commentstring=%\ %s
+    autocmd! FileType tex setlocal commentstring=%\ %s
 augroup END
 " tell vimtex i'm not a total nutjob
 let g:tex_flavor = 'latex'
@@ -46,15 +47,10 @@ let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
-" a bit of tough love
-imap <LEFT> <nop>
-imap <RIGHT> <nop>
-imap <UP> <nop>
-imap <DOWN> <nop>
-map <LEFT> <nop>
-map <RIGHT> <nop>
-map <UP> <nop>
-map <DOWN> <nop>
+" Keep 5 lines and 10 cols of context on the screen
+set scrolloff=5
+set sidescroll=1
+set sidescrolloff=10
 
 " Avoid side effects if `nocp` already set. THIS IS CRUCIALLY IMPORTANT
 " Basically everything breaks if you don't do this
@@ -71,11 +67,13 @@ set ruler
 set showcmd
 " show matches for a search live as you type them
 set incsearch
+" let visual block mode go off the end
+set virtualedit=block
 
 " delay for mappings
 set timeoutlen=1000
 " make <Esc> work without delay.
-set ttimeoutlen=0
+set ttimeoutlen=10
 
 " colour-related options, wrapped in some conditions just to be on the safe side
 if &t_Co > 2 || has("gui_running")
@@ -85,10 +83,11 @@ if &t_Co > 2 || has("gui_running")
     let g:solarized_termtrans = 1
     set background=dark
     colorscheme solarized
+    " makes it so I can see what I'm highlighting
+    highlight Visual cterm=reverse ctermbg=NONE
 endif
 
 " maybe this fixed something once, a long time ago
-set autoindent
 if has('langmap') && exists('+langnoremap')
     set langnoremap
 endif
@@ -101,10 +100,17 @@ set number
 set relativenumber
 " whitespace
 " tab = 4 spaces
+set autoindent
 set tabstop=4
-set softtabstop=4
 set shiftwidth=4
+set softtabstop=-1
+set shiftround
+set nojoinspaces
+set formatoptions+=j
 set expandtab
+
+" when incrementing & decrementing with ^A, ^X
+set nrformats=bin,hex,alpha
 
 " name and shame any actual tabs
 set list
@@ -118,6 +124,8 @@ match ExtraWhitespace /\s\+$/
 set textwidth=80
 set colorcolumn=+1
 
+set showbreak=+++\ 
+
 " ignore case in search
 set ignorecase
 " completion becomes case insensitive if it can't find anything sensitive
@@ -126,18 +134,6 @@ set infercase
 set t_kb=
 " set good encryption
 set cryptmethod=blowfish2
-
-" Am I crazy?? this makes much more sense. nG is used to go to line, ngg is used
-" to go to character, G is EOF, gg is SOF, and g[oO] are these mad useful
-" bindings
-nnoremap go o<Esc>
-nnoremap gO O<Esc>
-nnoremap gg go<Esc>
-
-" remap these to go between buffers. Not like there are any keys to substitute
-" their normal behaviour
-map <C-p> :bp<cr>
-map <C-n> :bn<cr>
 
 " This is when vim does stuff with :find or something
 set path=.,**
@@ -169,8 +165,7 @@ if executable("ctags")
         endif
     endfunction
     augroup CTagsAutoWrite
-        autocmd!
-        autocmd BufWritePost *.py,*.c,*.cpp,*.h,*.tex call MakeTags()
+        autocmd! BufWritePost *.py,*.c,*.cpp,*.h,*.tex call MakeTags()
     augroup END
     " tag binary search
     set tagbsearch
@@ -198,17 +193,122 @@ set thesaurus=~/.vim/thesaurus/thesaurus_pkg/thesaurus.txt
 set spelllang=en_gb,nl spellcapcheck=
 " Make files be "text" by default
 augroup TextFileType
-    autocmd!
-    autocmd BufEnter * if &filetype == "" | setlocal ft=text | endif
+    autocmd! BufEnter * if &filetype == "" | setlocal ft=text | endif
 augroup END
 " Enable spelling for these filetypes
 augroup SpellingFiles
-    autocmd!
-    autocmd FileType latex,tex,text,markdown set spell
+    autocmd! FileType latex,tex,text,markdown set spell
 augroup END
 
-" Allow saving of files as sudo when I forgot to start vim using sudo.
-command W w !sudo tee > /dev/null %
+" Personal mappings and definitions. Some inspiration from
+" https://github.com/anowlcalledjosh/dotfiles/blob/master/.vimrc
+" and
+" https://github.com/tpope/vim-sensible
 
-" reload configuration
+" Allow saving of files as sudo when I forgot to start vim using sudo.
+" It tees the buffer into its name, silently, redirecting stdout to /dev/null,
+" and then reloads the file.
+" It's a function because I don't know how to do an e after a ! in a command
+function W()
+    silent w !sudo tee > /dev/null %
+    e
+endfunction
+command W call W()
+
+" Shortcut to turn highlighting back off, but it also still does a normal
+" carriage return.
+nnoremap <silent> <CR> :noh<CR><CR>
+" Alternative that only turns highlighting off
+nnoremap <silent> g<CR> :noh<CR>
+
+" Repeated indentation in visual mode
+xnoremap > >gv
+xnoremap < <gv
+
+" a bit of tough love
+imap <LEFT> <nop>
+imap <RIGHT> <nop>
+imap <UP> <nop>
+imap <DOWN> <nop>
+map <LEFT> <nop>
+map <RIGHT> <nop>
+map <UP> <nop>
+map <DOWN> <nop>
+
+" make ctrl-c "abort" current insertion. It's consistent with the
+" characterisation of ctrl-c in unix lore, and sometimes you're just angry at
+" what you've written, y'know
+inoremap <C-c> <Esc>u
+
+" Am I crazy?? this makes much more sense. n_G is used to go to line, n_gg is
+" used to go to character, G is EOF, gg is SOF, and g[oO] are these mad useful
+" bindings
+noremap go o<Esc>
+noremap gO O<Esc>
+noremap gg go<Esc>
+
+" remap these to go between buffers. Not like there are any keys to substitute
+" their normal behaviour
+map <C-p> :bp<cr>
+map <C-n> :bn<cr>
+
+" remap these to go between splits
+" <C-[hjk]> were useless anyway, and we store <C-l> in g<C-l>
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+
+noremap g<C-l> <C-l>
+
+" swap the default behaviour of g[jk] and [jk]. This means that j and k traverse
+" the screen, rather than the file (particularly, going up or down on a wrapped
+" line keeps you inside the line
+noremap k gk
+noremap j gj
+noremap gk k
+noremap gj j
+
+" select previously inserted text
+map gV `[v`]
+
+" Make Q repeat the `qq` macro, rather than enter ex mode.
+noremap Q @q
+" Instead use gQ for ex-mode, discarding the weird fake ex-mode
+noremap gQ Q
+
+map <Leader>wq :w<cr>:bd<cr>
+map <Leader>q :bd<cr>
+
+" reload/edit configuration files
 command Vrc source $MYVIMRC
+command Evr e $MYVIMRC
+command Ezr e ~/.zshrc
+command Exr e ~/.Xresources
+command Ear e ~/.izaak_aliases
+command E3r e ~/.config/i3/config
+command Efr e ~/fun
+command Etr e ~/Documents/TODO
+command Eur e ~/.tmux.conf
+map <Leader>vv :Evr<cr>
+map <Leader>vz :Ezr<cr>
+map <Leader>vx :Exr<cr>
+map <Leader>va :Ear<cr>
+map <Leader>v3 :E3r<cr>
+map <Leader>vf :Efr<cr>
+map <Leader>vt :Etr<cr>
+map <Leader>vu :Eur<cr>
+" reload vimrc when written
+augroup ConfigReloadVim
+    " the nested makes things not break - see autocmd-nested
+    autocmd! BufWritePost $MYVIMRC nested source $MYVIMRC | redraw |
+        \ echo "reloaded vimrc"
+augroup END
+augroup ConfigReloadTmux
+    autocmd! BufWritePost ~/.tmux.conf !tmux source-file ~/.tmux.conf
+augroup END
+
+" command to redirect another command into a new buffer
+" https://vi.stackexchange.com/questions/8378/dump-the-output-of-internal-vim-command-into-buffer
+command! -nargs=+ -complete=command Redir let s:reg = @@ | redir @"> |
+    \ silent execute <q-args> | redir END | new | pu | 1,2d_ | let @@ = s:reg
