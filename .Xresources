@@ -1,6 +1,5 @@
 ! Solarized colours
 
-
 #define S_base03        #002b36
 #define S_base02        #073642
 #define S_base01        #586e75
@@ -16,6 +15,7 @@ urxvt*fadeColor:             S_base03
 urxvt*cursorColor:           S_base1
 urxvt*pointerColorBackground:S_base01
 urxvt*pointerColorForeground:S_base1
+urxvt*inputMethod:  xim
 
 #define S_yellow        #b58900
 #define S_orange        #cb4b16
@@ -36,11 +36,11 @@ urxvt*color9:                S_orange
 
 !! green dark/light
 urxvt*color2:                S_green
-*color10:               S_base01
+urxvt*color10:               S_base01
 
 !! yellow dark/light
 urxvt*color3:                S_yellow
-*color11:               S_base00
+urxvt*color11:               S_base00
 
 !! blue dark/light
 urxvt*color4:                S_blue
@@ -60,14 +60,15 @@ urxvt*color15: S_base3
 
 
 !!! Urxvt setup
+! FIXME - emoji fonts don't actually work in urxvt
 
-urxvt*font: xft:Liberation Mono for Powerline:style-Regular:size=12, xft:NotoColorEmoji:size=12
+urxvt*font: xft:Liberation Mono for Powerline:style=Regular:size=12,xft:Noto Emoji:pixelsize=6
 
 urxvt*loginShell: true
 
 urxvt*saveLines: 8192
 
-*intensityStyles:   false
+urxvt*intensityStyles:   false
 
 ! right hand side scrollbar...
 ! urxvt*rightScrollBar: true
@@ -100,7 +101,8 @@ URxvt*fading:  10
 
 !!! Xterm setup
 
-xterm*faceName: xft:Liberation Mono for Powerline:style-Regular:size=12, xft:NotoColorEmoji:size=12
+! Xterm doesn't support fallback fonts
+xterm*faceName: xft:Liberation Mono for Powerline:style=Regular
 
 xterm*loginShell: true
 
@@ -113,25 +115,25 @@ XTerm.VT100.translations: #override \
 Ctrl <Key> minus: smaller-vt-font() \n\
 Ctrl <Key> plus: larger-vt-font() \n\
 
-! DOS-box colours...
-xterm*foreground: rgb:a8/a8/a8
-xterm*background: rgb:00/00/00
-xterm*color0: rgb:00/00/00
-xterm*color1: rgb:a8/00/00
-xterm*color2: rgb:00/a8/00
-xterm*color3: rgb:a8/54/00
-xterm*color4: rgb:00/87/ff
-xterm*color5: rgb:a8/00/a8
-xterm*color6: rgb:00/a8/a8
-xterm*color7: rgb:a8/a8/a8
-xterm*color8: rgb:54/54/54
-xterm*color9: rgb:fc/54/54
-xterm*color10: rgb:54/fc/54
-xterm*color11: rgb:fc/fc/54
-xterm*color12: rgb:54/54/fc
-xterm*color13: rgb:fc/54/fc
-xterm*color14: rgb:54/fc/fc
-xterm*color15: rgb:fc/fc/fc
+/* ! DOS-box colours... */
+/* xterm*foreground: rgb:a8/a8/a8 */
+/* xterm*background: rgb:00/00/00 */
+/* xterm*color0: rgb:00/00/00 */
+/* xterm*color1: rgb:a8/00/00 */
+/* xterm*color2: rgb:00/a8/00 */
+/* xterm*color3: rgb:a8/54/00 */
+/* xterm*color4: rgb:00/87/ff */
+/* xterm*color5: rgb:a8/00/a8 */
+/* xterm*color6: rgb:00/a8/a8 */
+/* xterm*color7: rgb:a8/a8/a8 */
+/* xterm*color8: rgb:54/54/54 */
+/* xterm*color9: rgb:fc/54/54 */
+/* xterm*color10: rgb:54/fc/54 */
+/* xterm*color11: rgb:fc/fc/54 */
+/* xterm*color12: rgb:54/54/fc */
+/* xterm*color13: rgb:fc/54/fc */
+/* xterm*color14: rgb:54/fc/fc */
+/* xterm*color15: rgb:fc/fc/fc */
 
 ! right hand side scrollbar...
 ! xterm*rightScrollBar: true
@@ -139,3 +141,44 @@ xterm*ScrollBar: false
 
 ! stop output to terminal from jumping down to bottom of scroll again
 xterm*scrollTtyOutput: false
+
+
+
+xterm*background:            S_base03
+xterm*foreground:            S_base0
+xterm*fadeColor:             S_base03
+xterm*cursorColor:           S_base1
+xterm*pointerColorBackground:S_base01
+xterm*pointerColorForeground:S_base1
+
+!! black dark/light
+xterm*color0:                S_base02
+xterm*color8:                S_base01
+
+!! red dark/light
+xterm*color1:                S_red
+xterm*color9:                S_orange
+
+!! green dark/light
+xterm*color2:                S_green
+xterm*color10:               S_base01
+
+!! yellow dark/light
+xterm*color3:                S_yellow
+xterm*color11:               S_base00
+
+!! blue dark/light
+xterm*color4:                S_blue
+xterm*color12:               S_base0
+
+!! magenta dark/light
+xterm*color5:                S_magenta
+xterm*color13:               S_violet
+
+!! cyan dark/light
+xterm*color6:                S_cyan
+xterm*color14:               S_base1
+
+!! white dark/light
+xterm*color7:                S_base2
+xterm*color15: S_base3
