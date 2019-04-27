@@ -19,6 +19,8 @@ alias info="info --vi-keys"
 
 alias feh="feh -d"
 
+eval `dircolors $HOME/.dir_colors`
+
 alias ls="LC_COLLATE=C ls -h --group-directories-first --color=auto"
 alias l="ls -l"
 alias la="ls -la"
@@ -31,7 +33,7 @@ alias mv="mv -i"
 alias cp="cp -i"
 
 alias vi=vim
-alias vitx="vim --servername vim"
+alias vitx="vim --servername vim **/*.tex **/*.sty"
 alias view="vim -R"
 
 alias lock="light-locker-command -l"
@@ -62,7 +64,8 @@ alias vif="vi ~/fun"
 alias vid="vi ~/fun/diary"
 alias vix="vi ~/.Xresources"
 alias vic="vi ~/.config"
-alias vienc="vi ~/Documents/.enc/"
+alias visafe="vi -c 'set noswapfile | set nobackup | set nowritebackup | set viminfo='"
+alias vienc="visafe ~/Documents/.enc/"
 alias vitm="vi ~/.tmux.conf"
 
 alias x="xrdb merge ~/.Xresources"

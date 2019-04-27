@@ -60,9 +60,9 @@ urxvt*color15: S_base3
 
 
 !!! Urxvt setup
-! FIXME - emoji fonts don't actually work in urxvt
+!! FIXME - emoji fonts don't actually work in urxvt
 
-urxvt*font: xft:Liberation Mono for Powerline:style=Regular:size=12,xft:Noto Emoji:pixelsize=6
+urxvt*font: xft:Liberation Mono for Powerline:style=Regular:size=12
 
 urxvt*loginShell: true
 
@@ -101,8 +101,8 @@ URxvt*fading:  10
 
 !!! Xterm setup
 
-! Xterm doesn't support fallback fonts
-xterm*faceName: xft:Liberation Mono for Powerline:style=Regular
+!! Xterm doesn't support fallback fonts
+xterm*faceName: xft:Liberation Mono for Powerline:style=Regular:size=12
 
 xterm*loginShell: true
 
@@ -142,6 +142,10 @@ xterm*ScrollBar: false
 ! stop output to terminal from jumping down to bottom of scroll again
 xterm*scrollTtyOutput: false
 
+! FIXME LS colours look wrong in xterm.
+
+xterm*font: fixed
+xterm*boldFont: fixed
 
 
 xterm*background:            S_base03
