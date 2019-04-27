@@ -1,0 +1,7 @@
+set guifont=Monospace\ 12
+
+" make GVim act like a sort of funny little evim, that comes with its own
+" desktop file.
+set insertmode
+inoremap <Esc> <C-l>
+nnoremap <Esc> <Nop>
