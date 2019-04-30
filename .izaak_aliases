@@ -1,4 +1,20 @@
-# vim: syntax=sh
+# vim: syntax=zsh
+
+# function to fully expand its arguments if they're aliases.
+# obviously for personal use only, it uses eval etc and so forth ad nauseum
+enhance()  {
+    local args=$@
+    eval "
+    IZAAK_ENHANCE_F() {
+        $args
+    }"
+    if [[ -n $ZSH_VERSION ]]; then
+        declare -f IZAAK_ENHANCE_F | head -n -1 | tail -n +2
+    # assume everything else acts like bash
+    else
+        declare -f IZAAK_ENHANCE_F | head -n -1 | tail -n +3
+    fi
+}
 
 alias pacman="pacman --color=auto"
 alias systree='for i in $(pacman -Qeq); do pactree $i; done'
@@ -34,7 +50,13 @@ alias cp="cp -i"
 
 alias vi=vim
 alias vitx="vim --servername vim **/*.tex **/*.sty"
+# so I get my own vimrc
 alias view="vim -R"
+
+revim() {
+    local n=${1:-1}
+    vim -S $(find ~/.vim/sessions -type f | head -n $n | tail -n 1)
+}
 
 alias lock="light-locker-command -l"
 
@@ -54,6 +76,8 @@ alias sudo="sudo "
 
 alias rzsh="sudo ZSH_DISABLE_COMPFIX=true ZDOTDIR=$HOME HOME=$HOME zsh"
 alias bzsh="ZDOTDIR=/ zsh"
+
+alias rbash="sudo HOME=$HOME bash"
 
 alias via="vi ~/.izaak_aliases"
 alias vi3="vi ~/.config/i3/config"
@@ -78,7 +102,7 @@ alias gls="git ls-files"
 alias grm="git rm"
 
 # special git for dotfiles
-function cfg {
+cfg() {
     /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME $@
 }
 
