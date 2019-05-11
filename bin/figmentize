@@ -12,6 +12,13 @@
 This is a script I've written to automatically insert figlet ASCII art headers
 into config files. This allows me to easily maintain a unified config file
 header system, and whimsically switch between fonts.
+
+It searches for tags like the one at the top of this file. Note that it will
+replace the entire paragraph that the tag is in, so make sure that the tag has
+an empty line either side of it.
+
+If you have managed to destroy your files with this script, it should have saved
+backups in ~/.figmentize/.
 """
 
 import re
@@ -24,14 +31,26 @@ import os.path
 import argparse
 
 def read_pars(file):
+    """
+    Read paragraphs from file
+    """
     contents = file.read()
     return contents.split("\n\n"), contents
 
 def match_head_par(par):
+    """
+    Check to see if the paragraph has a figlet heading indicator (that looks
+    like the one at the top of this file)
+    """
+    # this is safe as split always return a non-null list
     head, *_ = par.split("\n")
     return re.match("(.*?\\s*?)FIGMENTI[ZS]E:\\s*['\"]?(.*?)['\"]?\\s*$", head)
 
 def make_head(prefix, head, command, indicator):
+    """
+    Create an ASCII header given its text, a prefix, and a constructor shell
+    command
+    """
     figlet = subprocess.run([*command, head],
             check=True, capture_output=True)
     return"\n".join(itertools.chain((indicator,),
@@ -39,6 +58,9 @@ def make_head(prefix, head, command, indicator):
             figlet.stdout.decode().strip().split("\n"))))
 
 def process_file(file, command):
+    """
+    Process some file, replacing all heading indicator tags with ascii headers
+    """
     with file:
         pars, contents = read_pars(file)
     output = []
@@ -59,6 +81,10 @@ def process_file(file, command):
             file.write("\n\n".join(output))
 
 def ensure_backup_dir():
+    """
+    Create the backup directory if it does not exist
+    """
+
     backup_dir = pathlib.Path.home() / pathlib.Path('.figmentize')
     backup_dir.mkdir(parents=True, exist_ok=True)
     return backup_dir
@@ -71,6 +97,9 @@ def escape(filename):
             f"_{time.time()}.backup")
 
 def make_backup(filename, contents):
+    """
+    Make a backup of a file
+    """
     backup_dir = ensure_backup_dir()
     backup_path = (backup_dir / pathlib.Path(escape(filename)))
     print(f"writing backup to {backup_path!s}")
@@ -78,16 +107,25 @@ def make_backup(filename, contents):
         backup_file.write(contents)
 
 def dir_arg(s):
+    """
+    Check if an argparse argument is a valid directory
+    """
     if not os.path.isdir(s):
         raise ValueError(f"Invalid directory: {s!r}")
     return s
 
 def get_figlet_default():
+    """
+    Get figlet's default font directory
+    """
     figlet = subprocess.run(["figlet", "-I", "2"],
             check=True, capture_output=True)
     return figlet.stdout.decode().strip()
 
 def get_args():
+    """
+    Process argv
+    """
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("file", type=argparse.FileType("r"),
             help="File to process")
@@ -103,6 +141,9 @@ def get_args():
     return parser.parse_args()
 
 def make_command(args):
+    """
+    Make a constructor shell command from the given arguments
+    """
     if args.exec:
         return args.exec
     return ["figlet", *args.flags, "-d", args.dir, "-f", args.font]
