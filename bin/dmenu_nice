@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+dmenu -l 30 -fn "Liberation Mono-12" -nb "#222" -nf "#ddd" -sb "#555" -sf "#fff" -i
