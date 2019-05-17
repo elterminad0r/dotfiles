@@ -1,4 +1,51 @@
+# FIGMENTIZE: inputrc
+#  _                       _
+# (_) _ __   _ __   _   _ | |_  _ __  ___
+# | || '_ \ | '_ \ | | | || __|| '__|/ __|
+# | || | | || |_) || |_| || |_ | |  | (__
+# |_||_| |_|| .__/  \__,_| \__||_|   \___|
+#           |_|
+
+# This is a set of global options for readline. Makes it be vi-like. Some
+# options for bash I set in my bashrc, using bind, for reasons.
+
+# these mostly aim to replicate how I've got my zsh to do autocompletion.
+
 set editing-mode vi
 set completion-ignore-case On
 TAB: menu-complete
 set show-all-if-ambiguous on
+
+# in theory, these lines would display a vi mode indicator in any readline-using
+# application, but it seems to break some of my python scripts, so I just have
+# it explicitly enabled for bash, in ~/.bashrc.
+# set show-mode-in-prompt on
+# set vi-ins-mode-string "[1m[38;5;4m(I)[m(B"
+# set vi-cmd-mode-string "[1m[38;5;15m(N)[m(B"
+
+# when doing things like tab completing files, colour in directories etc (a bit
+# like ls)
+# Regrettably this makes subcommands and flags red, because of something to do
+# with $LS_COLORS.
+# set colored-stats on
+
+# do not complete to hidden files, unless the caller has already typed an
+# initial . character. This makes it much more feasible to tab complete on
+# empty strings in big directories without a big prompt about possibilities
+set match-hidden-files off
+
+# make escape go faster
+set keyseq-timeout 50
+
+# make c-l clear screen as expected
+# https://unix.stackexchange.com/questions/104094/is-there-any-way-to-enable-ctrll-to-clear-screen-when-set-o-vi-is-set
+$if mode=vi
+
+set keymap vi-command
+# these are for vi-command mode
+Control-l: clear-screen
+
+set keymap vi-insert
+# these are for vi-insert mode
+Control-l: clear-screen
+$endif
