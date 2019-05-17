@@ -1,3 +1,15 @@
+# vim: ft=zsh
+
+# FIGMENTIZE: izaakrussel.zsh-theme
+#  _                    _                                  _  _
+# (_) ____ __ _   __ _ | | __ _ __  _   _  ___  ___   ___ | || |
+# | ||_  // _` | / _` || |/ /| '__|| | | |/ __|/ __| / _ \| || |
+# | | / /| (_| || (_| ||   < | |   | |_| |\__ \\__ \|  __/| || |
+# |_|/___|\__,_| \__,_||_|\_\|_|    \__,_||___/|___/ \___||_||_|
+
+# my zsh prompt theme, based on Stijn van Dongen's taste in bash prompts
+# together with the robbyrussell OMZ theme.
+
 # original prompt
 #PROMPT='${ret_status} %{$fg[cyan]%}%c%{$reset_color%} $(git_prompt_info)'
 
