@@ -7,7 +7,8 @@
 
 # Zshrc by Izaak van Dongen/oh-my-zsh/probably some other people
 # I no longer use oh-my-zsh as I found it a little too restrictive regarding
-# setting some options and variables (HISTSIZE in particular)
+# setting some options and variables (HISTSIZE in particular), and also it
+# seemed to persistently mess up my locale environment variables like LC_ALL
 
 # this part is a function so it gets grouped by itself
 izaak_tmux() {
@@ -62,7 +63,7 @@ if [[ -n "$DISPLAY" && -z "$IZAAK_NO_POWERLINE" ]]; then
     POWERLEVEL9K_RPROMPT_ON_NEWLINE=true
     POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
 
-    source ~/.oh-my-zsh/custom/themes/powerlevel10k/powerlevel10k.zsh-theme
+    source ~/.zplugins/powerlevel10k/powerlevel10k.zsh-theme
 else
     autoload -Uz vcs_info
     precmd_vcs_info() { vcs_info }
