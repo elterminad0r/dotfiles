@@ -1,0 +1,12 @@
+# vim: ft=conf
+
+# FIGMENTIZE: zathura
+#             _    _
+#  ____ __ _ | |_ | |__   _   _  _ __  __ _
+# |_  // _` || __|| '_ \ | | | || '__|/ _` |
+#  / /| (_| || |_ | | | || |_| || |  | (_| |
+# /___|\__,_| \__||_| |_| \__,_||_|   \__,_|
+
+# behold the glory of my zathurarc. This will presumably e x p a n d in future
+
+set font Liberation\ Mono\ 12
