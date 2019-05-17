@@ -1,136 +1,365 @@
-# vim: syntax=zsh
+# vim: ft=zsh
+
+# FIGMENTIZE: aliases
+#         _  _
+#   __ _ | |(_)  __ _  ___   ___  ___
+#  / _` || || | / _` |/ __| / _ \/ __|
+# | (_| || || || (_| |\__ \|  __/\__ \
+#  \__,_||_||_| \__,_||___/ \___||___/
+
+# this is a centralised repository of all my aliases, in addition to some
+# functions that are really aliases in spirit
+
+# It seems to roughly work with both zsh and bash, but I couldn't possibly tell
+# you about anything else. It uses plenty of posix incompatible [[ ]]
+
+# vim-like: totally silence the given command, with less of the tedium. doesn't
+# affect return status, so can be used inside if statements.
+# black magic: "$@" expands to each argument as a separate word.
+# gotcha: this won't expand any aliases you have. This is probably preferred
+# functionality anyway, though (at least for me)
+silent() {
+    "$@" > /dev/null 2> /dev/null
+}
 
 # function to fully expand its arguments if they're aliases.
 # obviously for personal use only, it uses eval etc and so forth ad nauseum
-enhance()  {
-    local args=$@
+# TODO: fix this - doesn't work properly for eg $ enhance echo "abc def" hij
+enhance() {
+    local args="$@"
     eval "
     IZAAK_ENHANCE_F() {
         $args
     }"
-    if [[ -n $ZSH_VERSION ]]; then
-        declare -f IZAAK_ENHANCE_F | head -n -1 | tail -n +2
-    # assume everything else acts like bash
-    else
-        declare -f IZAAK_ENHANCE_F | head -n -1 | tail -n +3
-    fi
+    declare -f IZAAK_ENHANCE_F |\
+        if [[ -n $ZSH_VERSION ]]; then
+            tail -n +2 | sed "s/^\t//"
+        # assume everything else acts like bash
+        else
+            tail -n +3 | sed "s/^    //"
+        fi | head -n -1
 }
 
-alias pacman="pacman --color=auto"
-alias systree='for i in $(pacman -Qeq); do pactree $i; done'
-
-alias cmatrix="cmatrix -abu 1"
-
-alias p="pacman"
-
+# make grep and friends case insensitive
 alias grep="grep -i --color=auto"
 alias ack="ack -i"
+alias ag="ag -i"
 
+# run pascal files as scripts with instantfpc
 alias ifpc="instantfpc"
 
 # FIXME this doesn't actually work because of hoogle for some reason
 alias hoogle="hoogle --color=true"
 
+# cat with colours
+alias ccat='highlight -O ansi'
+# an alternative with pygmentize is:
+# alias ccat='pygmentize -g -f terminal'
+
+# DIY coloured man pages using an alias so it's faster
+# colours personally engineered to not be utterly disgusting, unlike OMZ's
+# colored-manpages, apparently.
+# mb, md, so, us, me, se, ue correspond to:
+# start blinking - not sure what this is for actually
+# start bold - used for section headers and key words
+# start standout mode - used for statusline and search hits
+# start underline mode - used for important words
+# end all modes
+# end standout
+# end underline
+alias man='LESS_TERMCAP_mb="$(tput bold)$(tput setaf 6)" \
+           LESS_TERMCAP_md="$(tput bold)$(tput setaf 4)" \
+           LESS_TERMCAP_so="$(tput setab 0)$(tput setaf 7)" \
+           LESS_TERMCAP_us="$(tput setaf 2)" \
+           LESS_TERMCAP_me="$(tput sgr0)" \
+           LESS_TERMCAP_se="$(tput sgr0)" \
+           LESS_TERMCAP_ue="$(tput sgr0)" \
+           man'
+
 alias info="info --vi-keys"
 
 alias feh="feh -d"
 
-eval `dircolors $HOME/.dir_colors`
+# use solarized dir_colors
+if [[ -n "$DISPLAY" ]]; then
+    if [[ -f $HOME/.dir_colors_solarized ]]; then
+        eval `dircolors $HOME/.dir_colors_solarized`
+    else
+        echo "not loading dircolors" >&2
+    fi
+fi
 
-alias ls="LC_COLLATE=C ls -h --group-directories-first --color=auto"
-alias l="ls -l"
-alias la="ls -la"
-alias lt="\ls -ltrh --color=auto"
-alias lb="ls -lSr"
-alias ldir="ls -l --directory"
+# ls aliases, based on what the ls in PATH seems to be capable of
+# https://stackoverflow.com/questions/1676426/how-to-check-the-ls-version
+if silent ls --color -d .; then # GNU ls, probably
+    # lc_all=c so that sorting is case sensitive, as it should be.
+    alias ls="LC_ALL=C ls -h --group-directories-first --color=auto"
+    # long listings with and without group of owner
+    alias l="ls -l -G"
+    alias ll="ls -l"
+    alias la="ls -la"
+    alias lt="\ls -ltrh --color=auto"
+    alias lb="ls -lSr"
+    alias ldir="ls -l --directory"
+elif silent gls --color -d .; then # GNU ls is on the system as "gls"
+    alias ls="LC_ALL=C gls -h --group-directories-first --color=auto"
+    alias l="ls -l -G"
+    alias ll="ls -l"
+    alias la="ls -la"
+    alias lt="\gls -ltrh --color=auto"
+    alias lb="ls -lSr"
+    alias ldir="ls -l --directory"
+elif silent ls -G -d .; then # BSD ls, probably (eg as on MacOS)
+    alias ls="LC_ALL=C ls -h -G"
+    alias lt="\ls -ltrh -G"
+    alias l="ls -l -o"
+    alias ll="ls -l"
+    alias la="ls -la"
+    alias ldir="ls -l -d"
+    alias lb="ls -lSr"
+else # some other ls (solaris?)
+    # empty true to make bash happy
+    true
+fi
 
+# safety first
 alias rm="rm -i"
 alias mv="mv -i"
 alias cp="cp -i"
 
+# vim is now 60% faster to type than emacs
+# This is an alias that I've quite badly gotten used to. Beware that you might
+# accidentally open actual vi on systems where vi isn't symlinked to vim
 alias vi=vim
+# TODO: add TODO file
+# VI TeX files, with a servername to enable SyncTeX
 alias vitx="vim --servername vim **/*.tex **/*.sty"
-# so I get my own vimrc
+# so I get my own vimrc when I use view
 alias view="vim -R"
 
+# open the most recently written session in ~/.vim/sessions
 revim() {
     local n=${1:-1}
-    vim -S $(find ~/.vim/sessions -type f | head -n $n | tail -n 1)
+    vim -S $(\ls -t --directory $HOME/.vim/sessions/* | head -n $n | tail -n 1)
 }
 
-alias lock="light-locker-command -l"
+# if light locker exists, alias lock to be alongside poweroff & reboot etc
+if silent command -v light-locker-command; then
+    alias lock="light-locker-command -l"
+else
+    alias lock="echo 'I don't know how to lock'"
+fi
 
+# open ipython with my maths profile
 alias maths="ipython --profile=maths"
 
-alias tt='elinks -dump -dump-width $COLUMNS ~/Documents/timetable.html'
+# display my timetable for school using elinks
+alias tt='elinks -dump -dump-width $COLUMNS $HOME/Documents/timetable.html'
 
-alias c="xclip -selection clipboard"
-alias v="xclip -selection clipboard -o -"
+# new and improved c & v, inspired by & modified from OMZ
+# These provide copy and paste, somewhat sensitive to what cliboard interfaces
+# there are on your system.
+c() {
+    case "$OSTYPE" in
+        darwin*)
+            pbcopy
+            ;;
+        cygwin*)
+            cat > /dev/clipboard
+            ;;
+        *)
+            if silent command -v xclip; then
+                xclip -in -selection clipboard
+            elif silent command -v xsel; then
+                xsel --clipboard --input
+            else
+                echo "I'm not ready for this" >&2
+            fi
+            ;;
+    esac
+}
 
-alias o="mimeopen"
+v() {
+    case "$OSTYPE" in
+        darwin*)
+            pbpaste
+            ;;
+        cygwin*)
+            cat /dev/clipboard
+            ;;
+        *)
+            if silent command -v xclip; then
+                xclip -out -selection clipboard
+            elif silent command -v xsel; then
+                xsel --clipboard --output
+            else
+                echo "I'm not ready for this" >&2
+            fi
+            ;;
+    esac
+}
+
+# define the o alias to be a mimetype aware opener.
+case "$OSTYPE" in
+    darwin*)
+        alias o=open
+        ;;
+    cygwin*)
+        alias o=cygstart
+        ;;
+    *)
+        if silent command -v mimeopen; then
+            alias o=mimeopen
+        elif silent command -v xdg-open; then
+            alias o=xdg-open
+        else
+            alias o='echo "no idea mate" >&2'
+        fi
+        ;;
+esac
 
 alias lmk="latexmk"
 alias present="evince -s"
 
+# the space means that sudo can be followed by an alias (particularly things
+# like sudo p for sudo pacman)
 alias sudo="sudo "
 
+# root zsh
 alias rzsh="sudo ZSH_DISABLE_COMPFIX=true ZDOTDIR=$HOME HOME=$HOME zsh"
+# bare zsh
 alias bzsh="ZDOTDIR=/ zsh"
+# plain zsh
+alias pzsh="IZAAK_NO_POWERLINE=true zsh"
+# reload zsh configuration properly, by replacing the current shell with a fresh
+# zsh
+alias z="exec zsh"
 
+# similar for bash
+alias b="exec bash"
+# root bash
 alias rbash="sudo HOME=$HOME bash"
 
-alias via="vi ~/.izaak_aliases"
-alias vi3="vi ~/.config/i3/config"
-alias viz="vi ~/.zshrc"
-alias vit="vi ~/Documents/TODO"
-alias viv="vi ~/.vim/vimrc"
-alias vif="vi ~/fun"
-alias vid="vi ~/fun/diary"
-alias vix="vi ~/.Xresources"
-alias vic="vi ~/.config"
-alias visafe="vi -c 'set noswapfile | set nobackup | set nowritebackup | set viminfo='"
-alias vienc="visafe ~/Documents/.enc/"
-alias vitm="vi ~/.tmux.conf"
+# open various config files
+alias vi3="vi $HOME/.config/i3/config"
+alias viz="vi $HOME/.zshrc $HOME/.izaak_aliases"
+alias vit="vi $HOME/Documents/TODO"
+alias viv="vi $HOME/.vim/*rc"
+alias vif="vi $HOME/fun"
+alias vid="vi $HOME/fun/diary"
+alias vix="vi $HOME/.Xresources"
+alias vic="vi $HOME/.config"
+alias visafe="vi -c 'set noswapfile nobackup nowritebackup noundofile viminfo='"
+alias vienc="visafe $HOME/Documents/.enc/"
+alias vitm="vi $HOME/.tmux.conf"
 
-alias x="xrdb merge ~/.Xresources"
-alias t="tmux source-file ~/.tmux.conf"
+# reload various types of configuration
+alias x="xrdb merge $HOME/.Xresources"
+alias t="tmux source-file $HOME/.tmux.conf"
 
+# restart or test wifi connection
 alias wifirestart="sudo systemctl restart NetworkManager.service"
 alias p88="ping 8.8.8.8 -c 20 -w 60"
 
-alias gls="git ls-files"
-alias grm="git rm"
+# nice git alias. BASH USERS BEWARE: Bash isn't able to look inside aliases to
+# provide tab completion for their contents. The easy solution is to switch to
+# zsh, or you might consider implementing something like this
+# https://unix.stackexchange.com/questions/4219/how-do-i-get-bash-completion-for-command-aliases
+# in your bashrc.
+alias g=git
 
 # special git for dotfiles
+# it's a function because it can't be trusted to have its completion inferred
+# from the alias, and I define my own completion in ~/.zcomp/_cfg
 cfg() {
-    /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME $@
+    /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME "$@"
 }
 
-# TODO make this automatically generate itself from git plugin
+# legacy gal function from when I used shell aliases for git
+# gal() {
+#     grep alias $HOME/.gitconfig | grep "$*"
+# }
 
-alias cfga='cfg add'
-alias cfgaa='cfg add --update'
-alias cfgc='cfg commit -v'
-alias cfgst='cfg status'
-alias cfgpush='cfg push -u origin master'
-
+# function to display or filter git aliases, looking for some regex. quite
+# useful if you have a complex alias for something but you can't remember
+# the name, but you know roughly the subject it's in. Can also be used to show
+# what aliases do if you want to use them yourself.
 gal() {
-    alias | grep git | grep "$*"
+    # scrape the alias section using an awk command, which sets a flag to true
+    # at [alias], and then unsets it as soon as there is a nonwhite character on
+    # the first line
+    awk '/\[alias\]/{a=1;next}/^[^\t]/{a=0}a' $HOME/.gitconfig |\
+        sed "s/^\t//" | grep -v "^;" | grep "$1"
 }
 
-alias mutt="echo 'use configured mailbox'"
+alias mutt="echo 'use configured mailbox' 2>&1"
 alias hills_mail='\mutt -F $HOME/.hills_muttrc'
 alias gmail='\mutt -F $HOME/.gmail_muttrc'
 
+# get most recent n screenshots (1 by default)
+# useful to copy it to current directory or similar.
+# this assumes that screenshots are stored to ~/Pictures/screenshots
 screenshots() {
-    \ls -tr --directory $HOME/Pictures/screenshots/* |
-        grep "${2:-}" | tail -"${1:-1}";
+    \ls -t --directory $HOME/Pictures/screenshots/* |
+        grep "${2:-}" | head -"${1:-1}";
 }
 
+# Get a weather report, over http
 wttr() {
     curl -H "Accept-Language: ${LANG%_*}" wttr.in/"${*:-Great_Shelford}"
 }
 
+# Copy a full path to its argument. Useful if you need to open something in
+# another application that understands file paths.
 cppath() {
     realpath $1 | c
 }
+
+# Arch linux specific aliases
+alias pacman="pacman --color=auto"
+alias p="pacman"
+alias pacsystree='for i in $(pacman -Qeq); do pactree $i; done'
+
+
+# Frivolous aliases
+
+# make figlet use my extra figlet fonts
+if [[ -d $HOME/builds/figlet-fonts ]]; then
+    alias figlet="figlet -k -t -d $HOME/builds/figlet-fonts/"
+else
+    alias figlet="figlet -k -t"
+fi
+
+# display all figlet fonts
+figfonts() {
+    local exts="$(echo -n '.*\.'\("$(
+        (echo -n flf tlf\  && figlet -I 5) | sed -e 's/  */|/g')"\)\$)"
+    echo "finding all $exts in $(figlet -I 2)"
+    find "$(figlet -I 2)" -type f -regextype egrep -regex "$exts" \
+        -exec echo {} \;\
+        -exec \figlet -ktd "$(figlet -I 2)" -f {} "${1:-Test 123}" \;\
+        -exec echo \;
+}
+
+# force lolcat to colour, so it can be piped. Who on earth pipes data to lolcat
+# in order for lolcat NOT TO CHANGE IT???
+alias lolcat="lolcat -f"
+
+# self explanatory
+# TODO: add The Box
+alias starwars='tput setaf 220 && tput bold && figlet -f starwars -w 80 "STAR WARS"'
+
+# hack to force buffering by line
+partytime() {
+    cat /dev/urandom | base64 --wrap=$COLUMNS | lolcat -F 0.01 -p 1 | while read line;
+    do
+        echo $line
+    done
+}
+# SINGLE QUOTES to stop the command substitution happening at startup
+alias partycow='while true; do fortune | cowsay -f $(cowsay -l | tail +2 | xargs shuf -n1 -e); done | pv -q -l -L 3 | lolcat'
+# go on a 23 day mad one
+alias mathsparty="timestable -l 10000000 | pv -lq -L 5 | lolcat -p 10 -F 0.01"
+
+# look cooler
+alias cmatrix="cmatrix -abu 1"
