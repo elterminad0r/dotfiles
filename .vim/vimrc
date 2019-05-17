@@ -1,314 +1,152 @@
-" My vimrc file
+" FIGMENTIZE: 'vimrc'
+"         _
+" __   __(_) _ __ ___   _ __  ___
+" \ \ / /| || '_ ` _ \ | '__|/ __|
+"  \ V / | || | | | | || |  | (__
+"   \_/  |_||_| |_| |_||_|   \___|
 
-" note to self ":set rl": this is funny
+" note to self ":set rl": this is funny, eg do:
+" :autocmd BufWinEnter * set rl
+" :autocmd CmdWinEnter * set rl
+" similarly,
+"   set columns=12: smash everything into 12 columns
+"                   doesn't work so well on tiling WMs
+"   set revins: you write backwards
+"   silent !
+" a nice combination is :set rl ri<CR>:sil !
+" also, :noremap! a b| noremap! b a
+" .. etc
+
+" TODO: insert-mode mapping to close the innermost unclosed delimiter.
+" TODO: text object for a filename, as in <cfile> maybe
+" TODO: add mnemonic comments to mappings where appropriate
+
+" TODO: why does zsh indent comments by a tab
 
 " delete all previous autocmds. This is probably pure paranoia but the horrors
 " I've endured...
-autocmd!
+" FIXME: clear functions, commands, mappings?
+" this also breaks plugins, I think. Whoops!
+" autocmd!
+" mapclear
 
-" Powerline configuration. Make sure vim stays usable when in a TTY
-if &term != "linux"
-    source ~/.vim/bundle/powerline/powerline/bindings/vim/plugin/powerline.vim
-    " show status lines
-    set laststatus=2
-    " Always display the tabline, even if there is only one tab
-    set showtabline=2
-    set noshowmode
-endif
-
-" vimtex options
-let g:vimtex_view_method = 'zathura'
-let g:vimtex_latexmk_progname = 'vim'
-" FIXME this is basically still super broken. This is supposed to be a fix for
-" the quickfix thing, but it still just sends you to the "master" file
-let g:vimtex_quickfix_method = 'pplatex'
-
-" for some reason we should stop
+" leave the heathens to their folly
 if v:progname =~? "evim"
     finish
 endif
 
-" use this to manage plugins or something
-execute pathogen#infect()
-" generate help files
-Helptags
-" basically, let vim load plugins for filetypes.
-" This is pretty essential to any vim user's quality of life
-filetype plugin indent on
-" tell vim-commentary what comments to use in tex files
-augroup TexComments
-    autocmd! FileType tex setlocal commentstring=%\ %s
-augroup END
-" tell vimtex i'm not a total nutjob
-let g:tex_flavor = 'latex'
+" Use space as the leader key. This key is used by plugins, and by you, to make
+" custom longer mappings. By default it's set to be \ (backslash) which is
+" frankly terrible. Space is much faster to type
+map <Space> <Nop>
+let mapleader = ' '
+" To see what kind of mappings there are with it, issue :map <Leader>
 
-" TODO
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-
-" Keep 5 lines and 10 cols of context on the screen
-set scrolloff=5
-set sidescroll=1
-set sidescrolloff=10
-
-" Avoid side effects if `nocp` already set. THIS IS CRUCIALLY IMPORTANT
-" Basically everything breaks if you don't do this
-if &compatible
-    set nocompatible
-endif
-" Let backspaces in insert mode delete lines, I think
-set backspace=indent,eol,start
-" remember 10000 lines of command-line history
-set history=10000
-" display current cursor position
-set ruler
-" display long normal-mode commands as they're typed
-set showcmd
-" show matches for a search live as you type them
-set incsearch
-" let visual block mode go off the end
-set virtualedit=block
-
-" delay for mappings
-set timeoutlen=1000
-" make <Esc> work without delay.
-set ttimeoutlen=10
+" Source the sub-rc files for various components
+source ~/.vim/pluginrc
+source ~/.vim/optionsrc
+source ~/.vim/mappingsrc
+source ~/.vim/commandrc
 
 " colour-related options, wrapped in some conditions just to be on the safe side
 if &t_Co > 2 || has("gui_running")
     syntax enable
+    " FIXME: after reloading vimrc, all searches get re-highlighted because of
+    " this, I think. (maybe to do with viminfo?)
     set hlsearch
-    noh
-    let g:solarized_termtrans = 1
     set background=dark
-    colorscheme solarized
+    if &term != "linux"
+        let g:solarized_termtrans = 1
+        " TODO guard against solarized not existing
+        "      provide default colorscheme with not too objectionable
+        "      highlighting of cursorcolumn, cursorline, line numbers and bad
+        "      spellings.
+        colorscheme solarized
+    endif
     " makes it so I can see what I'm highlighting
     highlight Visual cterm=reverse ctermbg=NONE
 endif
 
-" maybe this fixed something once, a long time ago
-if has('langmap') && exists('+langnoremap')
-    set langnoremap
-endif
-" Makes % more sophisticated
-packadd matchit
+" make useful directories in ~/.vim where they don't exist
 
-" line numbers, that are relative to current line
-" allegedly lets you judge repetitions of movement commands, and it looks cool
-set number
-set relativenumber
-" whitespace
-" tab = 4 spaces
-set autoindent
-set tabstop=4
-set shiftwidth=4
-set softtabstop=-1
-set shiftround
-set nojoinspaces
-set formatoptions+=j
-set expandtab
+" make directory if it does not exist
+function! MkDirP(dirname)
+    if !isdirectory(a:dirname)
+        echomsg "mkdir" a:dirname
+        call mkdir(a:dirname)
+    endif
+endfunction
 
-" when incrementing & decrementing with ^A, ^X
-set nrformats=bin,hex,alpha
+call MkDirP($HOME . "/.vim")
+for dirname in split("backups bundle sessions swap spell undo view")
+    call MkDirP($HOME . "/.vim/" . dirname)
+endfor
 
-" name and shame any actual tabs
-set list
-set listchars=tab:>-
+" Basically, let vim load plugins for filetypes.
+" This is pretty essential to any vim user's quality of life
+" Technically speaking vim-plug already does this for me. however i don't have
+" the presence of mind to remember to reinstate this should I grow tired of
+" vim-plug, so it stays.
+filetype plugin indent on
 
 " similarly name and shame trailing whitespace
 highlight ExtraWhitespace ctermbg=red guibg=red
-match ExtraWhitespace /\s\+$/
+augroup ExtraWhitespaceMatch
+    autocmd! VimEnter,WinEnter * match ExtraWhitespace /\s\+$/
+augroup END
 
-" text width is 80 and mark it out
-set textwidth=80
-set colorcolumn=+1
-
-set showbreak=+++\ 
-
-" ignore case in search
-set ignorecase
-" completion becomes case insensitive if it can't find anything sensitive
-set infercase
-" backspace key fix?
-set t_kb=
-" set good encryption
-set cryptmethod=blowfish2
-
-" This is when vim does stuff with :find or something
-set path=.,**
-set wildmenu
-set wildignorecase
-set complete=.,w,b,u,t,i
-
-" preserves undo history for buffers by not properly closing things
-set hidden
-
-" Persistent undo history
-set undofile
-set undodir=$HOME/.vim/undo
-
-" save 10000 levels of undo
-set undolevels=10000
-" cache entire buffers under 10000 lines
-set undoreload=10000
-
-" auto-generate ctags when writing certain files
+" generating and using ctags
 if executable("ctags")
-    function MakeTags()
-        " basically only try this when I'm inside my home directory a little
-        " way.
-        if getcwd() =~ "^" . $HOME . "/"
-            redraw | echo "RUNNING CTAGS"
-            silent !ctags -R -o newtags; mv -f newtags tags &
-            redraw | echo "RAN CTAGS"
-        endif
+    function! MakeTags()
+        silent !echo "runnning ctags in $(pwd)"; ctags -R -o newtags; mv -f newtags tags
+        redraw!
     endfunction
-    augroup CTagsAutoWrite
-        autocmd! BufWritePost *.py,*.c,*.cpp,*.h,*.tex call MakeTags()
-    augroup END
-    " tag binary search
-    set tagbsearch
+else
+    function! MakeTags()
+        echoerr "ctags executable not found"
+    endfunction
 endif
 
-" Write backup files. Disk is cheap and uou never know
-set backup
-set writebackup
-set backupdir=~/.vim/backups
+nnoremap <silent> <Leader>c :call MakeTags()<CR>
 
-" Preserve vim state:
-" '100: store marks for 100 previously edited files
-" /100: store 100 previous searches
-" :100: store 100 previous commands issued
-" <1000000: store at most 1000000 lines of each buffer
-" @1000: store 1000 lineso f input-line history
-" s1000: allow items to be 10000 Kbyte in size
-set viminfo=%,'100,/100,:100,<1000000,s10000,@1000,h,n~/.vim/viminfo
-
-" Keep swap files out of the way
-set directory^=~/.vim/swap
-
-" Set up a thesaurus and dictionary
-set thesaurus=~/.vim/thesaurus/thesaurus_pkg/thesaurus.txt
-set spelllang=en_gb,nl spellcapcheck=
-" Make files be "text" by default
-augroup TextFileType
-    autocmd! BufEnter * if &filetype == "" | setlocal ft=text | endif
-augroup END
-" Enable spelling for these filetypes
-augroup SpellingFiles
-    autocmd! FileType latex,tex,text,markdown set spell
-augroup END
-
-" Personal mappings and definitions. Some inspiration from
-" https://github.com/anowlcalledjosh/dotfiles/blob/master/.vimrc
-" and
-" https://github.com/tpope/vim-sensible
-
-" Allow saving of files as sudo when I forgot to start vim using sudo.
-" It tees the buffer into its name, silently, redirecting stdout to /dev/null,
-" and then reloads the file.
-" It's a function because I don't know how to do an e after a ! in a command
-function W()
-    silent w !sudo tee > /dev/null %
-    e
-endfunction
-command W call W()
-
-" Shortcut to turn highlighting back off, but it also still does a normal
-" carriage return.
-nnoremap <silent> <CR> :noh<CR><CR>
-" Alternative that only turns highlighting off
-nnoremap <silent> g<CR> :noh<CR>
-
-" Repeated indentation in visual mode
-xnoremap > >gv
-xnoremap < <gv
-
-" a bit of tough love
-imap <LEFT> <nop>
-imap <RIGHT> <nop>
-imap <UP> <nop>
-imap <DOWN> <nop>
-map <LEFT> <nop>
-map <RIGHT> <nop>
-map <UP> <nop>
-map <DOWN> <nop>
-
-" make ctrl-c "abort" current insertion. It's consistent with the
-" characterisation of ctrl-c in unix lore, and sometimes you're just angry at
-" what you've written, y'know
-inoremap <C-c> <Esc>u
-
-" Am I crazy?? this makes much more sense. n_G is used to go to line, n_gg is
-" used to go to character, G is EOF, gg is SOF, and g[oO] are these mad useful
-" bindings
-noremap go o<Esc>
-noremap gO O<Esc>
-noremap gg go<Esc>
-
-" remap these to go between buffers. Not like there are any keys to substitute
-" their normal behaviour
-map <C-p> :bp<cr>
-map <C-n> :bn<cr>
-
-" remap these to go between splits
-" <C-[hjk]> were useless anyway, and we store <C-l> in g<C-l>
-noremap <C-h> <C-w>h
-noremap <C-j> <C-w>j
-noremap <C-k> <C-w>k
-noremap <C-l> <C-w>l
-
-noremap g<C-l> <C-l>
-
-" swap the default behaviour of g[jk] and [jk]. This means that j and k traverse
-" the screen, rather than the file (particularly, going up or down on a wrapped
-" line keeps you inside the line
-noremap k gk
-noremap j gj
-noremap gk k
-noremap gj j
-
-" select previously inserted text
-map gV `[v`]
-
-" Make Q repeat the `qq` macro, rather than enter ex mode.
-noremap Q @q
-" Instead use gQ for ex-mode, discarding the weird fake ex-mode
-noremap gQ Q
-
-map <Leader>wq :w<cr>:bd<cr>
-map <Leader>q :bd<cr>
-
-" reload/edit configuration files
-command Vrc source $MYVIMRC
-command Evr e $MYVIMRC
-command Ezr e ~/.zshrc
-command Exr e ~/.Xresources
-command Ear e ~/.izaak_aliases
-command E3r e ~/.config/i3/config
-command Efr e ~/fun
-command Etr e ~/Documents/TODO
-command Eur e ~/.tmux.conf
-map <Leader>vv :Evr<cr>
-map <Leader>vz :Ezr<cr>
-map <Leader>vx :Exr<cr>
-map <Leader>va :Ear<cr>
-map <Leader>v3 :E3r<cr>
-map <Leader>vf :Efr<cr>
-map <Leader>vt :Etr<cr>
-map <Leader>vu :Eur<cr>
+" workaround because you can't redefine a running function.
+" This means that if this function is modified, YOU MUST EXIT VIM
+if !exists("*ReloadVimConf")
+    function! ReloadVimConf()
+        source $MYVIMRC
+        if has("gui_running")
+            source $MYGVIMRC
+        endif
+        call plug#load(keys(g:plugs))
+        redraw | echo "reloaded " . $MYVIMRC
+    endfunction
+endif
 " reload vimrc when written
 augroup ConfigReloadVim
     " the nested makes things not break - see autocmd-nested
-    autocmd! BufWritePost $MYVIMRC nested source $MYVIMRC | redraw |
-        \ echo "reloaded vimrc"
-augroup END
-augroup ConfigReloadTmux
-    autocmd! BufWritePost ~/.tmux.conf !tmux source-file ~/.tmux.conf
+    autocmd! BufWritePost ~/.vim/*rc nested call ReloadVimConf()
 augroup END
 
-" command to redirect another command into a new buffer
-" https://vi.stackexchange.com/questions/8378/dump-the-output-of-internal-vim-command-into-buffer
-command! -nargs=+ -complete=command Redir let s:reg = @@ | redir @"> |
-    \ silent execute <q-args> | redir END | new | pu | 1,2d_ | let @@ = s:reg
+function! ReloadTmuxConf()
+    !tmux source-file %
+    redraw | echo "reloaded " . @%
+endfunction
+augroup ConfigReloadTmux
+    autocmd! BufWritePost ~/.tmux.conf call ReloadTmuxConf()
+augroup END
+
+function! ReloadXConf()
+    !xrdb merge %
+    redraw | echo "reloaded ". @%
+endfunction
+augroup ConfigReloadX
+    autocmd! BufWritePost ~/.Xresources,~/.Xdefaults call ReloadXConf()
+augroup END
+
+function! ReloadI3Conf()
+    !i3-msg restart
+    redraw | echo "reloaded " . @%
+endfunction
+augroup ConfigReloadI3
+    autocmd! BufWritePost ~/.config/i3/config,~/.config/i3status/config,~/.conkyrc,~/.config/i3blocks/config call ReloadI3Conf()
+augroup END

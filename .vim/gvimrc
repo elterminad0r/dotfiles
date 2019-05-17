@@ -1,7 +1,70 @@
-set guifont=Monospace\ 12
+" FIGMENTIZE: gvimrc
+"                _
+"   __ _ __   __(_) _ __ ___   _ __  ___
+"  / _` |\ \ / /| || '_ ` _ \ | '__|/ __|
+" | (_| | \ V / | || | | | | || |  | (__
+"  \__, |  \_/  |_||_| |_| |_||_|   \___|
+"  |___/
 
-" make GVim act like a sort of funny little evim, that comes with its own
-" desktop file.
-set insertmode
-inoremap <Esc> <C-l>
-nnoremap <Esc> <Nop>
+" GVimrc that provides a slightly more notepad-like experience.
+
+" Set some generic font for GVim, particularly we care about the font size.
+" Only set it once because for some reason the screen messes itself up if you
+" set it again.
+command ResetFont set guifont=Liberation\ Mono\ 12
+
+if (!exists("g:izaak_set_font")) || !g:izaak_set_font
+    ResetFont
+    let g:izaak_set_font=1
+endif
+
+" set toolbar+=text
+" set toolbariconsize=tiny
+
+" binding to change font size
+nnoremap <Leader>f :set guifont=*<CR>
+
+set guioptions+=c
+set guioptions-=e
+
+" allow the use of select mode, which is more like a Microsoft windows
+" selection.
+set selectmode=mouse,key
+
+" when issuing the :gui command, lightline will break for some reason.
+augroup FixGuiCom
+    autocmd! GUIEnter * call lightline#enable()
+augroup END
+
+" set transparency if possible
+if executable("transset-df")
+    augroup GVimTransset
+        autocmd! GuiEnter * silent exec "!transset-df -a 0.95"
+    augroup END
+    " remap this to work with a proper non-terminal
+    " mnemonic: toggle Transparency
+    map yot :silent exec "!transset-df -a -t 0.95"<CR><C-L>
+endif
+
+function! ToggleAmbiwidth()
+    if &ambiwidth == "single"
+        set ambiwidth=double
+    else
+        set ambiwidth=single
+    endif
+endfunction
+
+" mnemonic: emoji
+map yoe :call ToggleAmbiwidth()<CR>
+
+" basically, because gvim is supposed to be the friendly one
+unmap <Left>
+unmap <Right>
+unmap <Up>
+unmap <Down>
+" because these aren't mapped, but are needed for temporary mappings with
+" ultisnips
+" iunmap <Left>
+" iunmap <Right>
+iunmap <Up>
+iunmap <Down>

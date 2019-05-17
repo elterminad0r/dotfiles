@@ -1,0 +1,288 @@
+" vim: ft=vim
+
+" FIGMENTIZE: pluginrc
+"         _                _
+"  _ __  | | _   _   __ _ (_) _ __   _ __  ___
+" | '_ \ | || | | | / _` || || '_ \ | '__|/ __|
+" | |_) || || |_| || (_| || || | | || |  | (__
+" | .__/ |_| \__,_| \__, ||_||_| |_||_|   \___|
+" |_|               |___/
+
+" My essential plugins shortlist, in decreasing order of favouritism. I have
+" first grouped together the ''passive'' plugins, that mostly mind their own
+" business until they're summoned:
+" vim-plug: the plugin manager behind it all. Can clone plugin repositories in
+"   parallel.
+" vim-commentary: comment toggle with gc[motion]. supports text objects and
+"   really everything else that you could ever want.
+" vim-surround: allows changing the surrounding of a text object. eg
+"   cs({ changes surrounding () to {}, or dst deletes surrounding HTML.
+" easymotion: provides mappings like \\w to jump to a word in a piddling number
+"   of keystrokes.
+" vim-fugitive: provides vim commands to use Git. (eg Gblame shows a blame in a
+"     scrollbound buffer, Gcommit, Gdiff...)
+" vim-indent-object: provides textobjects ii, ai, iI, aI to use with indented
+"   blocks of text. I find it supersedes several other types of text object.
+" vim-textobj-line: provides a line textobject (eg gUil)
+" vim-textobj-entire: provides textobj for entire buffer (eg guag)
+"   I personally have this mapped to ag, as gg and G are the start/end.
+" vim-textobj-fold: provides textobject for a fold.
+" undotree: visualizes the undotree much more accessibly in a cute little side
+"   window
+" vim-vinegar: use netrw as a sort of little nerdtree thing
+" vim-eunuch: vim command interface for UNIX shell commands. mostly just to
+"             provide :Rename and :Move
+" Goyo : provides a distraction-free editing mode through :Goyo. Interfaces well
+"   with lightline.
+" ultisnips (together with vim-snippets): snippet engine and manager. Lets you
+"   do things like type for<C-s> or GPL3<C-s> to expand snippets.
+" vim-Verdin: provides omnicomplete for VimL files (i_^X^O)
+" python-syntax: provides cleverer syntax highlighting for Python (eg that's
+"   aware of format strings, and doesn't highlight "file")
+
+" Active plugins:
+" quick-scope: highlight characters in the current line that can be "scoped"
+"   with [ftFT]
+" lightline with lightline-bufferline: a nicer statusline, and a tabline that
+"   lists buffers.
+" rainbow: coherent highlighting of nested delimiter pairs
+
+" FIXME: decide: Do I like the normie bloat plugins:
+" syntastic, gitgutter, YCM, ale, tagbar
+call plug#begin('~/.vim/bundle')
+    " Completion for unicode type things with ^X^Z
+    " friendlier completion for digraphs with ^X^G
+    Plug 'chrisbra/unicode.vim'
+
+    " enhance netrw to be a bit more nerdtree-like
+    Plug 'tpope/vim-vinegar'
+
+    " Git stuff
+    Plug 'tpope/vim-fugitive'
+
+    " Tmux stuff
+    Plug 'tpope/vim-tbone'
+
+    " ^A^X work with dates and times
+    Plug 'tpope/vim-speeddating'
+
+    " Get unix utils like rm as vim commands. Less of the !rm and !chmod etc
+    Plug 'tpope/vim-eunuch'
+
+    " plugin to remove distractions in order to do some writing
+    Plug 'junegunn/goyo.vim'
+
+    " provide motions like \\w that enable highly shannon efficient jumps throughout
+    " buffers. This is pretty darn cool
+    Plug 'easymotion/vim-easymotion'
+
+    " support for fzf
+    " TODO start using this (:Files, :Buffers, :GFiles)
+    Plug 'junegunn/fzf.vim'
+
+    " this might be useful idk
+    " TODO figure out which bits i need
+    Plug 'godlygeek/tabular'
+
+    " remap + for easyalign. I use ga more often than I might think.
+    nmap + <Plug>(EasyAlign)
+    xmap + <Plug>(EasyAlign)
+    " plugin to do text alignment
+    Plug 'junegunn/vim-easy-align'
+
+    let g:lightline#bufferline#show_number = 1
+    " show buffers in tabline
+    Plug 'mengelbrecht/lightline-bufferline'
+
+    " FIXME: make solarized colorscheme work, configure all of this properly
+    let g:lightline = {
+        \ 'colorscheme': 'powerline',
+        \ }
+
+    let g:lightline.tabline          = {'left': [['buffers']], 'right': [['close']]}
+    let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
+    let g:lightline.component_type   = {'buffers': 'tabsel'}
+
+    " statusline that's fast and minimalistic (because minimalism is a huge concern
+    " of mine)
+    Plug 'itchyny/lightline.vim'
+
+    " visualise the undo tree in a tree, rather than a flat list, using
+    " :UndoTreeToggle
+    Plug 'mbbill/undotree'
+
+    " nice little indent level indicator
+    " don't mess up buffers that don't want to be messed up. god knows why this
+    " isn't a default.
+    " FIXME: I don't like conceallevel being set against my wishes
+    " let g:indentLine_bufTypeExclude = ['help', 'terminal']
+    " Plug 'Yggdroot/indentLine' ", { 'for': ['c', 'python'] }
+
+    " Text objects for indented blocks, with ii, iI, ai, aI
+    Plug 'michaeljsmith/vim-indent-object'
+
+    " " multiple cursors. I'm not totally convinced of its utility.
+    " let g:multi_cursor_use_default_mapping = 0
+    " let g:multi_cursor_start_word_key      = '<C-s>'
+    " let g:multi_cursor_select_all_word_key = '<A-s>'
+    " let g:multi_cursor_start_key           = 'g<C-s>'
+    " let g:multi_cursor_select_all_key      = 'g<A-s>'
+    " " let g:multi_cursor_next_key            = '<C-n>'
+    " " let g:multi_cursor_prev_key            = '<C-p>'
+    " " let g:multi_cursor_skip_key            = '<C-x>'
+    " let g:multi_cursor_quit_key = '<Esc>'
+    " Plug 'terryma/vim-multiple-cursors'
+
+    " redefine word motions to go inside of underscore_cased or CamelCased phrases.
+    " top tip: use the "aw" textobject to operate on vanilla words
+    " W, E, B, gE also remain unaffected.
+    " if you want  to Change Word, use ce.
+    " eh, this causes some kind of weird behaviour, particularly with iw and
+    " jumping over some kinds of punctuation etc.
+    Plug 'bkad/CamelCaseMotion'
+    map <silent> <Leader>w <Plug>CamelCaseMotion_w
+    map <silent> <Leader>b <Plug>CamelCaseMotion_b
+    " map <silent> e <Plug>CamelCaseMotion_e
+    " map <silent> ge <Plug>CamelCaseMotion_ge
+    " " use these so that ciw, diw, cw, dw etc act like normal
+    omap <silent> i<Leader>w <Plug>CamelCaseMotion_ie
+    xmap <silent> i<Leader>w <Plug>CamelCaseMotion_ie
+    " omap <silent> cw c<Plug>CamelCaseMotion_e
+    " xmap <silent> cw c<Plug>CamelCaseMotion_e
+    " don't set these because I value my textobject suffix entropy
+    " omap <silent> ib <Plug>CamelCaseMotion_ib
+    " xmap <silent> ib <Plug>CamelCaseMotion_ib
+    " " these conflict with latex and i'm not sure what they're for anyway.
+    " " omap <silent> ie <Plug>CamelCaseMotion_ie
+    " " xmap <silent> ie <Plug>CamelCaseMotion_ie
+    " omap <silent> iE <Plug>CamelCaseMotion_ie
+    " xmap <silent> iE <Plug>CamelCaseMotion_ie
+
+    " Note-taking in vim
+    " vim-misc is a sort of supplementary standard library for vimscript, by xolox,
+    " for xolox
+    Plug 'xolox/vim-misc'
+    Plug 'xolox/vim-notes'
+
+    " nifty little plugin to show what the targets of f, t, F, T are.
+    Plug 'unblevable/quick-scope'
+
+    " better syntax highlighting for Python (eg f-strings)
+    let g:python_highlight_all = 1
+    Plug 'vim-python/python-syntax', { 'for': 'python' }
+
+    " let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
+    " make all of my parentheses look like clown vomit
+    " see :h cterm-colors
+    let g:rainbow_conf = {
+        \ 'guifgs': ['Grey', 'LightBlue', 'LightGreen', 'LightCyan', 'LightMagenta', 'LightYellow', 'White'],
+        \ 'ctermfgs': ['Grey', 'LightBlue', 'LightGreen', 'LightCyan', 'LightMagenta', 'LightYellow', 'White'],
+        \ }
+    Plug 'luochen1990/rainbow'
+    nnoremap yo( :RainbowToggle<CR>
+    " augroup  EnableRainbow
+    "     autocmd! VimEnter,WinEnter * RainbowToggleOn
+    " augroup END
+
+    " vimgrep-like thing but with ack, but actually with ag
+    if executable('ag')
+        let g:ackprg = 'ag --vimgrep'
+    endif
+    Plug 'mileszs/ack.vim'
+
+    " Integrate window/pane navigation with tmux, using <C-[hjkl]>. These bindings
+    " now either move between windows or tmux panes, depending on when they hit the
+    " edge etc.
+    Plug 'christoomey/vim-tmux-navigator'
+
+    " solarized colorscheme for vim
+    Plug 'altercation/vim-colors-solarized'
+
+    " Plug plug itself in order to generate documentation for it
+    Plug 'junegunn/vim-plug'
+
+    " tell vim-commentary what comments to use in tex files
+    augroup TexComments
+        autocmd! FileType tex setlocal commentstring=%\ %s
+    augroup END
+    " makes gc comment-uncomment lines
+    Plug 'tpope/vim-commentary'
+
+    " allow operations on the surround bits of text objects with the 's' prefix.
+    " eg cs({ changes () to {}
+    " Disable the weird <C-s> mapping to insert surround things in insert mode
+    let g:surround_no_insert_mappings = 1
+    Plug 'tpope/vim-surround'
+    " make . repeat some compatible <Plug> commands,
+    " and provide some infrastructure to do this myself in other places.
+    Plug 'tpope/vim-repeat'
+
+    " mappings for ex commands like :cnext, :cprevious, etc
+    " also the yo* mappings toggle things (eg yox to toggle crosshairs)
+    Plug 'tpope/vim-unimpaired'
+
+    " This is a dependency for some of the other textobject related plugins
+    Plug 'kana/vim-textobj-user'
+
+    " Access lines as text objects with 'l'
+    Plug 'kana/vim-textobj-line'
+
+    " textobjects for folds
+    Plug 'kana/vim-textobj-fold'
+
+    " Text objects for functions in C, Java, Vim
+    " TODO: extend this for Python & bash, particularly
+    " also the vim one doesn't work if you're a good boy and you use `function!`
+    " eh really indent-object already does the job
+    " Plug 'kana/vim-textobj-function', { 'for': ['c', 'java'] }
+
+    " makes modern objfpc .pas files be highlighted properly (eg understand //
+    " commnents and the `result` variable)
+    " FIXME various extensions (.dpr, .lpr) not recognised
+    Plug 'rkennedy/vim-delphi', { 'for': 'pascal' }
+
+    " autocompletion for vim files
+    Plug 'machakann/vim-Verdin', { 'for': 'vim' }
+
+    " I want e to be a LaTeX environment, so will use g instead.
+    let g:textobj_entire_no_default_key_mappings=1
+    Plug 'kana/vim-textobj-entire'
+
+    xmap ag <Plug>(textobj-entire-a)
+    omap ag <Plug>(textobj-entire-a)
+
+    " textobjects for latex, allegedly
+    " this is terrible. It pollutes all the useful key bindings.
+    " Plug 'gibiansky/vim-latex-objects', { 'for': 'tex' }
+    " in any case, by properly indenting everything, this can be replace with
+    " indent textobjects.
+
+    if has("python") || has("python3")
+        " Set of snippets for ultisnips to use
+        Plug 'honza/vim-snippets'
+
+        " Snippet engine for vim
+        let g:UltiSnipsExpandTrigger="<C-s>"
+        let g:UltiSnipsJumpForwardTrigger="<Right>"
+        let g:UltiSnipsJumpBackwardTrigger="<Left>"
+        let g:UltiSnipsEditSplit="vertical"
+        " mnemonic: "help"
+        " this used to be a backspace, but we have a key for that nowadays
+        " this does, however, break xterm
+        let g:UltiSnipsListSnippets="<C-h>"
+        " let g:UltiSnipsSnippetsDir = $HOME.'/vimfiles/bundle/vim-snippets/UltiSnips'
+        " let g:UltiSnipsSnippetDirectories = ['UltiSnips']
+        Plug 'SirVer/ultisnips'
+    endif
+
+    " " vimtex options
+    " let g:vimtex_view_method = 'zathura'
+    " let g:vimtex_latexmk_progname = 'vim'
+    " " FIXME this is basically still super broken. This is supposed to be a fix
+    " " for the quickfix thing, but it still just sends you to the "master" file
+    " let g:vimtex_quickfix_method = 'pplatex'
+    " " tell vimtex i'm not a total nutjob
+    " let g:tex_flavor = 'latex'
+    " Plug 'lervag/vimtex'
+
+call plug#end()
