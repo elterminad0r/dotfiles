@@ -11,6 +11,40 @@
 # setting some options and variables (HISTSIZE in particular), and also it
 # seemed to persistently mess up my locale environment variables like LC_ALL
 
+case $(tty) in /dev/tty[0-9]*)
+    echo "launching tty setup"
+    IZAAK_IS_TTY=true
+    IZ_VC_FONTSIZE=5;
+    ter_fonts=(/usr/share/kbd/consolefonts/ter-1??n.psf.gz);
+    izu() {
+        if [[ $IZ_VC_FONTSIZE -ge 9 ]] then
+            echo "already at max font" >&2
+        else
+            ((IZ_VC_FONTSIZE++));
+            setfont $ter_fonts[$IZ_VC_FONTSIZE];
+            echo $ter_fonts[$IZ_VC_FONTSIZE];
+        fi
+    }
+    izd() {
+        if [[ $IZ_VC_FONTSIZE -le 1 ]] then
+            echo "already at min font" >&2
+        else
+            ((IZ_VC_FONTSIZE--));
+            setfont $ter_fonts[$IZ_VC_FONTSIZE];
+            echo $ter_fonts[$IZ_VC_FONTSIZE];
+        fi
+    }
+    izr() {
+        IZ_VC_FONTSIZE=5;
+        setfont $ter_fonts[$IZ_VC_FONTSIZE];
+        echo $ter_fonts[$IZ_VC_FONTSIZE];
+    }
+    izg() {
+        echo $ter_fonts[$IZ_VC_FONTSIZE];
+    }
+;;
+esac
+
 # this part is a function so it gets grouped by itself
 izaak_tmux() {
     tmux attach-session || tmux
@@ -46,8 +80,7 @@ setopt transient_rprompt
 
 POWERLEVEL_THEME=~/.zplugins/powerlevel10k/powerlevel10k.zsh-theme
 
-# FIXME: MacOS doesn't set $DISPLAY
-if [[ -n "$DISPLAY" && -z "$IZAAK_NO_POWERLINE" && -f "$POWERLEVEL_THEME" ]]; then
+if [[ -z "$IZAAK_IS_TTY" && -z "$IZAAK_NO_POWERLINE" && -f "$POWERLEVEL_THEME" ]]; then
     # customisation options for powerline. The implementation I use is powerlevel10k
     # as it's a lot faster.
     POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(vi_mode context root_indicator dir_writable dir vcs)
@@ -243,39 +276,6 @@ bindkey "^I" expand-or-complete-with-dots
 
 # no thanks
 # source_if_exists $ZSH/oh-my-zsh.sh
-
-case $(tty) in /dev/tty[0-9]*)
-    echo "launching tty setup"
-    IZ_VC_FONTSIZE=5;
-    ter_fonts=(/usr/share/kbd/consolefonts/ter-1??n.psf.gz);
-    izu() {
-        if [[ $IZ_VC_FONTSIZE -ge 9 ]] then
-            echo "already at max font" >&2
-        else
-            ((IZ_VC_FONTSIZE++));
-            setfont $ter_fonts[$IZ_VC_FONTSIZE];
-            echo $ter_fonts[$IZ_VC_FONTSIZE];
-        fi
-    }
-    izd() {
-        if [[ $IZ_VC_FONTSIZE -le 1 ]] then
-            echo "already at min font" >&2
-        else
-            ((IZ_VC_FONTSIZE--));
-            setfont $ter_fonts[$IZ_VC_FONTSIZE];
-            echo $ter_fonts[$IZ_VC_FONTSIZE];
-        fi
-    }
-    izr() {
-        IZ_VC_FONTSIZE=5;
-        setfont $ter_fonts[$IZ_VC_FONTSIZE];
-        echo $ter_fonts[$IZ_VC_FONTSIZE];
-    }
-    izg() {
-        echo $ter_fonts[$IZ_VC_FONTSIZE];
-    }
-;;
-esac
 
 # this is handled by zsh_env
 # source_if_exists $HOME/.izaak_aliases
