@@ -1,3 +1,20 @@
+# vim: noet
+
+# FIGMENTIZE: git
+#         _  _
+#   __ _ (_)| |_
+#  / _` || || __|
+# | (_| || || |_
+#  \__, ||_| \__|
+#  |___/
+
+# This is a file with some global configurations for Git. The usual way to
+# change the options here is to use $ git config, but it's also fine to just
+# edit by hand.
+
+# If this file breaks, git can refuse to run due to "bad config", so be wary of
+# that if you're hacking around in here.
+
 [user]
 	email = izaak.van.dongen@gmail.com
 	name = Izaak van Dongen
@@ -7,3 +24,18 @@
 	tool = vimdiff
 [core]
 	excludesfile = /home/izaak/.gitignore
+[alias]
+	c = commit -v
+	co = checkout
+	st = status
+	ls = ls-files
+	unstage = reset HEAD --
+	unchange = checkout --
+	a = add
+	aa = add --all
+	au = add --update
+	unadd = rm --cached
+	; this is an aliases that expands to a shell command. You can use $1 etc
+	; inside the command and then finish the command with a # to ignore the
+	; supplied arguments.
+	grephistory = "!git rev-list --all | xargs git grep"
