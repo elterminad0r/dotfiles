@@ -2,7 +2,17 @@
 
 #cfg-cvsserver cfg-receive-pack cfg-upload-archive cfg-upload-pack cfg-shell cfgk tig
 
-# Completion file for _cfg created by replacing each instanec of "git" by "cfg".
+
+
+
+
+# Completion file for _cfg created by replacing each instance of "git" by "cfg"
+# in the completion file for git.
+
+
+
+
+
 
 # Some parts of this completion's behaviour are configurable:
 #

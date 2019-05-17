@@ -1,107 +1,244 @@
-if [[ $DISPLAY ]]; then
+# FIGMENTIZE: zshrc
+#            _
+#  ____ ___ | |__   _ __  ___
+# |_  // __|| '_ \ | '__|/ __|
+#  / / \__ \| | | || |  | (__
+# /___||___/|_| |_||_|   \___|
+
+# Zshrc by Izaak van Dongen/oh-my-zsh/probably some other people
+# I no longer use oh-my-zsh as I found it a little too restrictive regarding
+# setting some options and variables (HISTSIZE in particular)
+
+# this part is a function so it gets grouped by itself
+izaak_tmux() {
+    tmux attach-session || tmux
+}
+
+if [[ -n $IZAAK_START_TMUX ]]; then
     # If not running interactively, do not do anything
     [[ $- != *i* ]] && return
-    [[ -z "$TMUX" ]] && exec tmux
+    [[ -z "$TMUX" ]] && exec izaak_tmux
 fi
 
-# Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
+# transparency in xterm
+[[ -n "$XTERM_VERSION" ]] && transset-df --id "$WINDOWID" 0.95 >/dev/null
 
-# Set name of the theme to load. Optionally, if you set this to "random"
-# it'll load a random theme each time that oh-my-zsh is loaded.
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-if [[ $DISPLAY ]]; then
-    ZSH_THEME="powerlevel9k/powerlevel9k"
+# provides things like the $fg_bold array
+autoload -Uz colors && colors
+
+# define this function so that I can source things with impunity, but my zshrc
+# won't break as hard if taken out of context.
+source_if_exists() {
+    if [[ -f "$1" ]]; then
+        source "$1"
+    else
+        echo "could not source $1" >&2
+    fi
+}
+
+# killer feature!
+# make rprompt go away when I move on. This hugely reduces clutter when you
+# resize the screen a lot, as the active rprompt gets redrawn, and means you can
+# easily copy/paste etc etc
+setopt transient_rprompt
+
+if [[ -n "$DISPLAY" && -z "$IZAAK_NO_POWERLINE" ]]; then
+    # customisation options for powerline. The implementation I use is powerlevel10k
+    # as it's a lot faster.
+    POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(vi_mode context root_indicator dir_writable dir vcs)
+    # BLOAT IS NOT WELCOMe HERE
+    # POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status background_jobs history time battery)
+    POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status background_jobs history)
+    POWERLEVEL9K_BATTERY_LOW_FOREGROUND='black'
+    POWERLEVEL9K_BATTERY_CHARGING_FOREGROUND='black'
+    POWERLEVEL9K_BATTERY_CHARGED_FOREGROUND='black'
+    POWERLEVEL9K_BATTERY_DISCONNECTED_FOREGROUND='black'
+    POWERLEVEL9K_BATTERY_LEVEL_BACKGROUND=(red3 darkorange3 darkgoldenrod gold3 yellow3 chartreuse2 mediumspringgreen green3 green3 green4 darkgreen)
+    POWERLEVEL9K_BATTERY_STAGES="▁▂▃▄▅▆▇█"
+    # show current vi mode in prompt
+    POWERLEVEL9K_VI_INSERT_MODE_STRING='I'
+    POWERLEVEL9K_VI_COMMAND_MODE_STRING='N'
+    POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+    POWERLEVEL9K_RPROMPT_ON_NEWLINE=true
+    POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
+
+    source ~/.oh-my-zsh/custom/themes/powerlevel10k/powerlevel10k.zsh-theme
 else
-    ZSH_THEME="izaakrussell"
+    autoload -Uz vcs_info
+    precmd_vcs_info() { vcs_info }
+    precmd_functions+=( precmd_vcs_info )
+    setopt prompt_subst
+    # RPROMPT=\$vcs_info_msg_0_
+    PROMPT=\$vcs_info_msg_0_'%# '
+    # basically ripped from man zshcontrib
+    # yet to customize more
+    # need to use %%b for bold off
+    zstyle ':vcs_info:*' actionformats \
+        '%B%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{3}|%F{1}%a%F{5}]%u%c%f%%b '
+    zstyle ':vcs_info:*' formats       \
+        '%B%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{5}]%u%c%f%%b '
+    zstyle ':vcs_info:*' stagedstr "*"
+    zstyle ':vcs_info:*' unstagedstr "+"
+    zstyle ':vcs_info:(sv[nk]|bzr):*' branchformat '%b%F{1}:%F{3}%r'
+    # don't waste time on VCS that nobody uses
+    zstyle ':vcs_info:*' enable git cvs svn hg
+    zstyle ':vcs_info:*' check-for-changes true
+
+    # precmd() { VIM_PROMPT="%F{blue}(I)%f" }
+    # precmd() { VIM_PROMPT="" }
+    function zle-line-init zle-keymap-select {
+        case "$KEYMAP" in
+            main)
+                VIM_PROMPT="%F{blue}(I)%f"
+                ;;
+            vicmd)
+                VIM_PROMPT="%F{white}(N)%f"
+                ;;
+            *)
+                VIM_PROMPT="%F{white}($KEYMAP)%f"
+                ;;
+        esac
+        #VIM_PROMPT="$KEYMAP"
+        # RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $EPS1"
+        zle reset-prompt
+    }
+    zle -N zle-line-init
+    zle -N zle-keymap-select
+    ret_status="%(?:%F{green}:%F{red})"
+    # if it's not done like this something weird happens to the autocompletion
+    # FIXME: make git work with this
+    PROMPT="%B\$VIM_PROMPT%(!.%F{red}.%F{magenta})%n$ret_status%#%F{yellow}%m$ret_status|%f%F{cyan}%2c%b%F{blue} \$vcs_info_msg_0_%f%b"
 fi
 
-# Set list of themes to load
-# Setting this variable when ZSH_THEME=random
-# cause zsh load theme from this variable instead of
-# looking in ~/.oh-my-zsh/themes/
-# An empty array have no effect
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
-
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
+autoload -Uz compinit
+# leftover from oh-my-zsh
+if [[ $ZSH_DISABLE_COMPFIX == "true" ]]; then
+    compinit -u
+else
+    compinit
+fi
 
 # Uncomment the following line to use hyphen-insensitive completion. Case
 # sensitive completion must be off. _ and - will be interchangeable.
 # HYPHEN_INSENSITIVE="true"
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z-_}={A-Za-z_-}' 'r:|=*' 'l:|=* r:|=*'
 
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
+# use basically unlimited history
+export HISTFILE="$HOME/.zsh_history"
+export HISTSIZE=10000000
+export SAVEHIST=10000000
 
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+# setopts. A number of these are redundant as they are set by default, but
+# centralisation and explicitification
 
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
+# complete with a menu
+setopt menucomplete
+# complete globs
+setopt globcomplete
+# allow completion from inside word
+setopt complete_in_word
+# jump to end of word when completing
+setopt always_to_end
+# ensure the path is hashed before completing
+setopt hash_list_all
+# use different sized columns in completion menu to cut down on space
+setopt list_packed
 
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
+# case insensitive glob
+unsetopt case_glob
+# zsh regex is case insensitive
+unsetopt case_match
+# use extended globs
+setopt extendedglob
+# allow patterns like programmeren/**.py (recursive without symlinks) and
+# programmeren/***.py (recursive with symlinks), as shorthand for **/* and ***/*
+setopt glob_star_short
+# error if glob does not match
+setopt nomatch
 
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+# no ^S and ^Q killjoys. This is also done by stty -ixon in ~/.profile, but ah
+# well
+unsetopt flowcontrol
+# do not allow > redirection to clobber files. Must use >! or >|
+unsetopt clobber
+# allow comments in interactive shell
+setopt interactive_comments
+
+# disowned jobs are automatically continued
+setopt auto_continue
+# check background jobs before exiting
+setopt check_jobs
+setopt check_running_jobs
+
+# keeping track of a directory stack.
+# Killer feature!
+setopt auto_pushd
+setopt pushd_ignore_dups
+setopt pushdminus
+setopt auto_cd
+# ignore duplicate directories, be silent, treat no argument as HOME
+setopt pushd_ignore_dups
+setopt pushd_silent
+setopt pushd_to_home
+
+# record timestamp of command in HISTFILE
+setopt extended_history
+# delete duplicates first when HISTFILE size exceeds HISTSIZE
+setopt hist_expire_dups_first
+# ignore duplicated commands history list
+setopt hist_ignore_dups
+# ignore commands that start with space
+setopt hist_ignore_space
+# show command with history expansion to user before running it
+setopt hist_verify
+# add commands to HISTFILE in order of execution. inc adds them directly at
+# execution rather than when the shell exits.
+setopt inc_append_history
+# share command history data
+setopt share_history
+# expand ! csh style
+setopt bang_hist
+# remove superfluous whites
+setopt hist_reduce_blanks
+# don't immediately execute commands with history expansion
+setopt hist_verify
+
+# vim mode bindings
+bindkey -v
+bindkey  "" backward-delete-char
+bindkey  "" backward-delete-char
+# allow ctrl-p, ctrl-n for navigate history (standard behaviour)
+bindkey '^P' up-history
+bindkey '^N' down-history
+
+autoload -Uz edit-command-line
+zle -N edit-command-line
+
+# V for Vim. This key regrettably does not go into visual block mode in ZLE, so
+# a fortunate side effect is that an advanced user looking for this
+# functionality gets automatically propelled into zsh.
+bindkey -M vicmd '^V' edit-command-line
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-COMPLETION_WAITING_DOTS="true"
+# COMPLETION_WAITING_DOTS="true"
+expand-or-complete-with-dots() {
+    # toggle line-wrapping off and back on again
+    [[ -n "$terminfo[rmam]" && -n "$terminfo[smam]" ]] && echoti rmam
+    print -Pn "%{%F{red}......%f%}"
+    [[ -n "$terminfo[rmam]" && -n "$terminfo[smam]" ]] && echoti smam
 
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
+    zle expand-or-complete
+    zle redisplay
+}
+zle -N expand-or-complete-with-dots
+bindkey "^I" expand-or-complete-with-dots
 
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# HIST_STAMPS="mm/dd/yyyy"
+# use fzf for completion
+# source_if_exists /usr/share/fzf/key-bindings.zsh
+# source_if_exists /usr/share/fzf/completion.zsh
 
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(
-  git
-  colored-manpages
-)
-
-source $ZSH/oh-my-zsh.sh
-
-export LC_CTYPE=en_GB.utf8
-
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-#export PAGER='vimpager -u ~/.vim/vimrc'
-#alias less=$PAGER
-#
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
-export PYTHONSTARTUP=$HOME/.pythonrc
-
-# font size changing in tty
+# no thanks
+# source_if_exists $ZSH/oh-my-zsh.sh
 
 case $(tty) in /dev/tty[0-9]*)
     echo "launching tty setup"
@@ -109,7 +246,7 @@ case $(tty) in /dev/tty[0-9]*)
     ter_fonts=(/usr/share/kbd/consolefonts/ter-1??n.psf.gz);
     izu() {
         if [[ $IZ_VC_FONTSIZE -ge 9 ]] then
-            echo "already at max font";
+            echo "already at max font" >&2
         else
             ((IZ_VC_FONTSIZE++));
             setfont $ter_fonts[$IZ_VC_FONTSIZE];
@@ -118,7 +255,7 @@ case $(tty) in /dev/tty[0-9]*)
     }
     izd() {
         if [[ $IZ_VC_FONTSIZE -le 1 ]] then
-            echo "already at min font";
+            echo "already at min font" >&2
         else
             ((IZ_VC_FONTSIZE--));
             setfont $ter_fonts[$IZ_VC_FONTSIZE];
@@ -136,20 +273,55 @@ case $(tty) in /dev/tty[0-9]*)
 ;;
 esac
 
-bindkey -v
-bindkey  "" backward-delete-char
-bindkey -M vicmd e edit-command-line
+# this is handled by zsh_env
+# source_if_exists $HOME/.izaak_aliases
+# source_if_exists $HOME/.bourne_apparix
 
-alias lx='print -rl -- ${(ko)commands} ${(ko)functions} ${(ko)aliases} | grep -v "^_"'
-alias z="source ~/.zshrc"
+zstyle ':completion:*:*:*:*:*' menu select
+zstyle ':completion:*' special-dirs true
 
-source $HOME/.izaak_aliases
-source $HOME/.bourne_apparix
+zstyle ':completion:*' list-colors ''
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
 
-setopt menucomplete
-unsetopt CASE_GLOB
-setopt globcomplete
-setopt extendedglob
+zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-directories
 
-# zsh syntax highlighting, with config from https://blog.patshead.com/2012/01/using-and-customizing-zsh-syntax-highlighting-with-oh-my-zsh.html
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# Use caching so that commands like apt and dpkg complete are useable
+zstyle ':completion::complete:*' use-cache 1
+zstyle ':completion::complete:*' cache-path $ZSH_CACHE_DIR
+
+# Don't complete uninteresting users
+zstyle ':completion:*:*:*:users' ignored-patterns \
+        adm amanda apache at avahi avahi-autoipd beaglidx bin cacti canna \
+        clamav daemon dbus distcache dnsmasq dovecot fax ftp games gdm \
+        gkrellmd gopher hacluster haldaemon halt hsqldb ident junkbust kdm \
+        ldap lp mail mailman mailnull man messagebus  mldonkey mysql nagios \
+        named netdump news nfsnobody nobody nscd ntp nut nx obsrun openvpn \
+        operator pcap polkitd postfix postgres privoxy pulse pvm quagga radvd \
+        rpc rpcuser rpm rtkit scard shutdown squid sshd statd svn sync tftp \
+        usbmux uucp vcsa wwwrun xfs '_*'
+
+# ... unless we really want to.
+zstyle '*' single-ignored show
+
+zstyle ':completion:*' completer _expand _complete _ignored
+zstyle ':completion:*' completions 1
+zstyle ':completion:*' expand prefix suffix
+zstyle ':completion:*' file-sort name
+zstyle ':completion:*' glob 1
+zstyle ':completion:*' insert-unambiguous false
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' list-suffixes true
+# zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*'
+zstyle ':completion:*' menu select=1
+zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
+zstyle ':completion:*' substitute 1
+zstyle :compinstall filename '/home/izaak/.zshrc'
+
+alias -g ...='../..'
+alias -g ....='../../..'
+alias -g .....='../../../..'
+alias -g ......='../../../../..'
+alias d='dirs -v | head -10'
+
+# zsh syntax highlighting
+source_if_exists /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
