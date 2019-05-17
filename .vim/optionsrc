@@ -29,6 +29,11 @@ endif
 " have an alias visafe in ~/.izaak_aliases which turns all this crap off to the
 " best of its ability.
 
+" enable modelines, for backwards systems like MacOS that disable them by
+" default.
+set modeline
+set modelines=5
+
 " Write backup files. Disk is cheap, write speeds are fast, and you never know.
 set backup
 set writebackup
