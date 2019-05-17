@@ -236,7 +236,7 @@ set list
 if v:version >= 801
     set listchars=tab:<->
 else
-    set listchars=tab:->
+    set listchars=tab:>-
 endif
 
 " show hex characters as codes
