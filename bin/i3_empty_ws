@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+# executable to move to a new empty workspace in i3 (the one after the
+# last workspace)
+
+i3-msg workspace $(($(i3-msg -t get_workspaces | tr , '\n' | grep '"num":' | cut -d : -f 2 | sort -rn | head -1) + 1))
