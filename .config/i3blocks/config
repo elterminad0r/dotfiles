@@ -1,3 +1,91 @@
+# FIGMENTIZE: i3blocks
+#  _  _____  _      _               _
+# (_)|___ / | |__  | |  ___    ___ | | __ ___
+# | |  |_ \ | '_ \ | | / _ \  / __|| |/ // __|
+# | | ___) || |_) || || (_) || (__ |   < \__ \
+# |_||____/ |_.__/ |_| \___/  \___||_|\_\|___/
+
+#command=~/builds/voidrice/.scripts/statusbar/$BLOCK_NAME
+#separator_block_width=15
+#markup=pango
+
+## [record]
+## command=cat /tmp/recordingicon
+## interval=once
+## signal=9
+
+#[music]
+#label=🎼
+#interval=once signal=11
+
+#[news]
+#label=📰
+#interval=once
+#signal=6
+
+##[iplocate]
+##interval=30
+
+## [pacpackages]
+## label=📦
+## interval=once
+## signal=8
+
+## [torrent]
+## interval=20
+## signal=7
+
+#[weather]
+#interval=18000
+#signal=5
+
+#[mailbox]
+#label=📬
+#interval=180
+#signal=12
+
+##[memory]
+##interval=30
+##label=🧠
+
+##[cpu]
+##interval=15
+##label=💻
+
+#[volume]
+#interval=once
+#signal=10
+
+##[disk]
+##interval=60
+##command=disk /
+
+##[disk]
+##interval=60
+##command=disk /home 🏠
+
+#[battery]
+#command=acpi | awk '{print $4}'
+#interval=5
+
+#[clock]
+#label=📅
+#interval=30
+
+#[internet]
+#interval=10
+
+#[help]
+interval=once
+
+
+
+
+
+
+
+
+
 # i3blocks config file
 #
 # Please see man i3blocks for a complete reference!
@@ -31,8 +119,9 @@ separator_block_width=15
 markup=none
 
 [mediaplayer]
+label=♪
 command=$HOME/bin/mediaplayer
-instance=cmus
+instance=mpd
 interval=5
 signal=1
 
@@ -42,6 +131,7 @@ interval=once
 signal=2
 
 [brightness]
+label=☼
 command=printf "%.2g" $(xbacklight -get)
 interval=once
 signal=3
@@ -59,6 +149,7 @@ interval=10
 #
 # The battery instance defaults to 0.
 [battery]
+label=⌁
 #label=BAT
 #label=⚡
 #instance=1
@@ -67,5 +158,6 @@ interval=30
 # Date Time
 #
 [time]
+label=📅
 command=date '+%Y-%m-%d %H:%M:%S'
 interval=1
