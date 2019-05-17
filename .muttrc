@@ -1,4 +1,9 @@
-# vim: syntax=sh
+# FIGMENTIZE: mutt
+#                    _    _
+#  _ __ ___   _   _ | |_ | |_
+# | '_ ` _ \ | | | || __|| __|
+# | | | | | || |_| || |_ | |_
+# |_| |_| |_| \__,_| \__| \__|
 
 set spoolfile="=INBOX"
 set record="+sent"

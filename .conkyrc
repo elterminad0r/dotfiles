@@ -1,4 +1,15 @@
 -- vim: ts=4 sw=4 noet ai cindent syntax=lua
+
+-- FIGMENTIZE: conky
+--                     _
+--   ___  ___   _ __  | | __ _   _
+--  / __|/ _ \ | '_ \ | |/ /| | | |
+-- | (__| (_) || | | ||   < | |_| |
+--  \___|\___/ |_| |_||_|\_\ \__, |
+--                           |___/
+
+-- currently unused conkyrc file
+
 --[[
 Conky, a system monitor, based on torsmo
 

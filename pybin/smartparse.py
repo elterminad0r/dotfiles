@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """
 smartparse: modifications to argparse that allow proper paragraph splitting
 while still wrapping properly, and also including defaults by default. Inspired

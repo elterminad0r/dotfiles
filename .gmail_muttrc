@@ -1,4 +1,11 @@
-# vim: syntax=sh
+# vim: ft=muttrc
+
+# FIGMENTIZE: mutt
+#                    _    _
+#  _ __ ___   _   _ | |_ | |_
+# | '_ ` _ \ | | | || __|| __|
+# | | | | | || |_| || |_ | |_
+# |_| |_| |_| \__,_| \__| \__|
 
 set realname = "Izaak van Dongen"
 set from = "izaak.van.dongen@gmail.com"

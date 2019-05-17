@@ -1,3 +1,13 @@
+# vim: ft=dosini
+
+# FIGMENTIZE: pylint
+#                _  _         _
+#  _ __   _   _ | |(_) _ __  | |_
+# | '_ \ | | | || || || '_ \ | __|
+# | |_) || |_| || || || | | || |_
+# | .__/  \__, ||_||_||_| |_| \__|
+# |_|     |___/
+
 [MASTER]
 
 # A comma-separated list of package or module names from where C extensions may
