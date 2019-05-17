@@ -1,5 +1,15 @@
+! FIGMENTIZE: Xresources
+! __  __
+! \ \/ / _ __  ___  ___   ___   _   _  _ __  ___  ___  ___
+!  \  / | '__|/ _ \/ __| / _ \ | | | || '__|/ __|/ _ \/ __|
+!  /  \ | |  |  __/\__ \| (_) || |_| || |  | (__|  __/\__ \
+! /_/\_\|_|   \___||___/ \___/  \__,_||_|   \___|\___||___/
+
 ! Solarized colours
 
+urxvt*depth: 32
+
+#define transparent_bg  rgba:0000/2b00/3600/eeff
 #define S_base03        #002b36
 #define S_base02        #073642
 #define S_base01        #586e75
@@ -9,12 +19,13 @@
 #define S_base2         #eee8d5
 #define S_base3         #fdf6e3
 
-urxvt*background:            S_base03
-urxvt*foreground:            S_base0
-urxvt*fadeColor:             S_base03
-urxvt*cursorColor:           S_base1
-urxvt*pointerColorBackground:S_base01
-urxvt*pointerColorForeground:S_base1
+urxvt*background:            transparent_bg
+
+*foreground:            S_base0
+*fadeColor:             S_base03
+*cursorColor:           S_base1
+*pointerColorBackground:S_base01
+*pointerColorForeground:S_base1
 urxvt*inputMethod:  xim
 
 #define S_yellow        #b58900
@@ -27,40 +38,40 @@ urxvt*inputMethod:  xim
 #define S_green         #859900
 
 !! black dark/light
-urxvt*color0:                S_base02
-urxvt*color8:                S_base01
+*color0:                S_base02
+*color8:                S_base01
 
 !! red dark/light
-urxvt*color1:                S_red
-urxvt*color9:                S_orange
+*color1:                S_red
+*color9:                S_orange
 
 !! green dark/light
-urxvt*color2:                S_green
-urxvt*color10:               S_base01
+*color2:                S_green
+*color10:               S_base01
 
 !! yellow dark/light
-urxvt*color3:                S_yellow
-urxvt*color11:               S_base00
+*color3:                S_yellow
+*color11:               S_base00
 
 !! blue dark/light
-urxvt*color4:                S_blue
-urxvt*color12:               S_base0
+*color4:                S_blue
+*color12:               S_base0
 
 !! magenta dark/light
-urxvt*color5:                S_magenta
-urxvt*color13:               S_violet
+*color5:                S_magenta
+*color13:               S_violet
 
 !! cyan dark/light
-urxvt*color6:                S_cyan
-urxvt*color14:               S_base1
+*color6:                S_cyan
+*color14:               S_base1
 
 !! white dark/light
-urxvt*color7:                S_base2
-urxvt*color15: S_base3
+*color7:                S_base2
+*color15: S_base3
 
 
 !!! Urxvt setup
-!! FIXME - emoji fonts don't actually work in urxvt
+/* FIXME - emoji fonts don't actually work in urxvt */
 
 urxvt*font: xft:Liberation Mono for Powerline:style=Regular:size=12
 
@@ -101,17 +112,23 @@ URxvt*fading:  10
 
 !!! Xterm setup
 
-!! Xterm doesn't support fallback fonts
+/* Xterm doesn't support fallback fonts */
 xterm*faceName: xft:Liberation Mono for Powerline:style=Regular:size=12
 
 xterm*loginShell: true
 
 xterm*saveLines: 8192
 
+XTerm*selectToClipboard: true
+
 ! double-click to select whole URLs :D
 xterm*charClass: 33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48
 
 XTerm.VT100.translations: #override \
+Ctrl <Key> minus: smaller-vt-font() \n\
+Ctrl <Key> plus: larger-vt-font() \n\
+
+UXTerm.VT100.translations: #override \
 Ctrl <Key> minus: smaller-vt-font() \n\
 Ctrl <Key> plus: larger-vt-font() \n\
 
@@ -142,47 +159,43 @@ xterm*ScrollBar: false
 ! stop output to terminal from jumping down to bottom of scroll again
 xterm*scrollTtyOutput: false
 
-! FIXME LS colours look wrong in xterm.
-
-xterm*font: fixed
-xterm*boldFont: fixed
-
-
 xterm*background:            S_base03
-xterm*foreground:            S_base0
-xterm*fadeColor:             S_base03
-xterm*cursorColor:           S_base1
-xterm*pointerColorBackground:S_base01
-xterm*pointerColorForeground:S_base1
+/* *foreground:            S_base0 */
+/* *fadeColor:             S_base03 */
+/* *cursorColor:           S_base1 */
+/* *pointerColorBackground:S_base01 */
+/* *pointerColorForeground:S_base1 */
 
-!! black dark/light
-xterm*color0:                S_base02
-xterm*color8:                S_base01
+/* !! black dark/light */
+/* *color0:                S_base02 */
+/* *color8:                S_base01 */
 
-!! red dark/light
-xterm*color1:                S_red
-xterm*color9:                S_orange
+/* !! red dark/light */
+/* *color1:                S_red */
+/* *color9:                S_orange */
 
-!! green dark/light
-xterm*color2:                S_green
-xterm*color10:               S_base01
+/* !! green dark/light */
+/* *color2:                S_green */
+/* *color10:               S_base01 */
 
-!! yellow dark/light
-xterm*color3:                S_yellow
-xterm*color11:               S_base00
+/* !! yellow dark/light */
+/* *color3:                S_yellow */
+/* *color11:               S_base00 */
 
-!! blue dark/light
-xterm*color4:                S_blue
-xterm*color12:               S_base0
+/* !! blue dark/light */
+/* *color4:                S_blue */
+/* *color12:               S_base0 */
 
-!! magenta dark/light
-xterm*color5:                S_magenta
-xterm*color13:               S_violet
+/* !! magenta dark/light */
+/* *color5:                S_magenta */
+/* *color13:               S_violet */
 
-!! cyan dark/light
-xterm*color6:                S_cyan
-xterm*color14:               S_base1
+/* !! cyan dark/light */
+/* *color6:                S_cyan */
+/* *color14:               S_base1 */
 
-!! white dark/light
-xterm*color7:                S_base2
-xterm*color15: S_base3
+/* !! white dark/light */
+/* *color7:                S_base2 */
+/* *color15: S_base3 */
+
+xterm*boldColors: false
