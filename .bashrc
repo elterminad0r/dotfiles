@@ -1,9 +1,10 @@
 # FIGMENTIZE: bashrc
-#  _                  _
-# | |__    __ _  ___ | |__   _ __  ___
-# | '_ \  / _` |/ __|| '_ \ | '__|/ __|
-# | |_) || (_| |\__ \| | | || |  | (__
-# |_.__/  \__,_||___/|_| |_||_|   \___|
+# ___.                    .__
+# \_ |__  _____     ______|  |__ _______   ____
+#  | __ \ \__  \   /  ___/|  |  \\_  __ \_/ ___\
+#  | \_\ \ / __ \_ \___ \ |   Y  \|  | \/\  \___
+#  |___  /(____  //____  >|___|  /|__|    \___  >
+#      \/      \/      \/      \/             \/
 
 # Bashrc. I don't actively use bash, so it's not been very well tested, but it's
 # got a couple of the features I consider critical to make bash usable.

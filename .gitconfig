@@ -1,12 +1,11 @@
 # vim: noet
 
 # FIGMENTIZE: git
-#         _  _
-#   __ _ (_)| |_
-#  / _` || || __|
-# | (_| || || |_
-#  \__, ||_| \__|
-#  |___/
+#    ____  .__   __
+#   / ___\ |__|_/  |_
+#  / /_/  >|  |\   __\
+#  \___  / |  | |  |
+# /_____/  |__| |__|
 
 # This is a file with some global configurations for Git. The usual way to
 # change the options here is to use $ git config, but it's also fine to just
@@ -39,3 +38,4 @@
 	; inside the command and then finish the command with a # to ignore the
 	; supplied arguments.
 	grephistory = "!git rev-list --all | xargs git grep"
+	figmentize = "!git ls-files -z | xargs -0 -n1 figmentize #"

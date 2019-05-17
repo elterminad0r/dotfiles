@@ -1,9 +1,10 @@
 # FIGMENTIZE: dunstrc
-#      _                     _
-#   __| | _   _  _ __   ___ | |_  _ __  ___
-#  / _` || | | || '_ \ / __|| __|| '__|/ __|
-# | (_| || |_| || | | |\__ \| |_ | |  | (__
-#  \__,_| \__,_||_| |_||___/ \__||_|   \___|
+#     .___                        __
+#   __| _/__ __   ____    _______/  |_ _______   ____
+#  / __ ||  |  \ /    \  /  ___/\   __\\_  __ \_/ ___\
+# / /_/ ||  |  /|   |  \ \___ \  |  |   |  | \/\  \___
+# \____ ||____/ |___|  //____  > |__|   |__|    \___  >
+#      \/            \/      \/                     \/
 
 # This is my configuration for dunst, which is a notification server. The config
 # makes it look like it's an application from this century (no unsightly fat

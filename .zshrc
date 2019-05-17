@@ -1,9 +1,10 @@
 # FIGMENTIZE: zshrc
-#            _
-#  ____ ___ | |__   _ __  ___
-# |_  // __|| '_ \ | '__|/ __|
-#  / / \__ \| | | || |  | (__
-# /___||___/|_| |_||_|   \___|
+#                 .__
+# ________  ______|  |__ _______   ____
+# \___   / /  ___/|  |  \\_  __ \_/ ___\
+#  /    /  \___ \ |   Y  \|  | \/\  \___
+# /_____ \/____  >|___|  /|__|    \___  >
+#       \/     \/      \/             \/
 
 # Zshrc by Izaak van Dongen/oh-my-zsh/probably some other people
 # I no longer use oh-my-zsh as I found it a little too restrictive regarding

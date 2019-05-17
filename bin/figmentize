@@ -148,6 +148,7 @@ def process_file(file, command, backup, overwrite):
     """
     Process some file, replacing all heading indicator tags with ascii headers
     """
+    print(f"Processing {file.name}")
     with file:
         pars, contents = read_pars(file)
     output = []
