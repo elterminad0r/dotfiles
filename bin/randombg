@@ -1,7 +1,13 @@
 #!/usr/bin/env python3
 
+#  FIGMENTIZE: randombg
+
 """
 Stateful random background setter
+
+This is a python script that uses feh to set the background on a computer
+running X. It keeps track of a "stack" of previous backgrounds, which it can
+traverse, so strictly speaking it's a list.
 """
 
 #TODO add option for a literal path
@@ -30,13 +36,15 @@ class BackgroundStack:
 
     def set_bg(self, choice):
         Notify.Notification.new(
-            "picking {} (stack::{})".format(choice, self.pos)
-            ).show()
-        subprocess.call(["feh", "--bg-scale", os.path.join(
-                                            "/home/izaak/Pictures/wallpapers/",
-                                            choice)])
+                "picking {} (stack::{})".format(choice, self.pos)
+                ).show()
+        subprocess.call(
+                ["feh", "--bg-scale", os.path.join(
+                    "/home/izaak/Pictures/wallpapers/",
+                    choice)])
 
     def random_bg(self):
+        #TODO: prevent repetition
         choice = random.choice(os.listdir("/home/izaak/Pictures/wallpapers/"))
         self.stack.append(choice)
         self.pos = len(self.stack) - 1
@@ -60,13 +68,13 @@ def get_args():
     parser = argparse.ArgumentParser(description=__doc__)
     action = parser.add_mutually_exclusive_group(required=True)
     action.add_argument("--random", action="store_true",
-                help="choose random next background and move to top of stack")
+            help="choose random next background and move to top of stack")
     action.add_argument("--next", action="store_true",
-                help="move to next background in stack")
+            help="move to next background in stack")
     action.add_argument("--prev", action="store_true",
-                help="move to previous background in stack")
+            help="move to previous background in stack")
     action.add_argument("--init", action="store_true",
-                help="initialise the background stack")
+            help="initialise the background stack")
     return parser.parse_args()
 
 if __name__ == "__main__":
