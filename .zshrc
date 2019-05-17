@@ -44,7 +44,10 @@ source_if_exists() {
 # easily copy/paste etc etc
 setopt transient_rprompt
 
-if [[ -n "$DISPLAY" && -z "$IZAAK_NO_POWERLINE" ]]; then
+POWERLEVEL_THEME=~/.zplugins/powerlevel10k/powerlevel10k.zsh-theme
+
+# FIXME: MacOS doesn't set $DISPLAY
+if [[ -n "$DISPLAY" && -z "$IZAAK_NO_POWERLINE" && -f "$POWERLEVEL_THEME" ]]; then
     # customisation options for powerline. The implementation I use is powerlevel10k
     # as it's a lot faster.
     POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(vi_mode context root_indicator dir_writable dir vcs)
@@ -63,8 +66,7 @@ if [[ -n "$DISPLAY" && -z "$IZAAK_NO_POWERLINE" ]]; then
     POWERLEVEL9K_PROMPT_ON_NEWLINE=true
     POWERLEVEL9K_RPROMPT_ON_NEWLINE=true
     POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
-
-    source ~/.zplugins/powerlevel10k/powerlevel10k.zsh-theme
+    source $POWERLEVEL_THEME
 else
     autoload -Uz vcs_info
     precmd_vcs_info() { vcs_info }
