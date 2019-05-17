@@ -25,6 +25,7 @@
 	excludesfile = /home/izaak/.gitignore
 [alias]
 	c = commit -v
+	ca = commit -v --all
 	co = checkout
 	st = status
 	ls = ls-files
