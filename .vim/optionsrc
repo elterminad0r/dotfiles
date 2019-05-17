@@ -43,7 +43,10 @@ set backupdir=~/.vim/backups
 " smaller, and means that options change. I consider options to be a globally
 " evolving thing really, and have no need for old sessions to hang on to the
 " past.
-set sessionoptions=blank,buffers,curdir,folds,help,tabpages,winsize,terminal
+set sessionoptions=blank,buffers,curdir,folds,help,tabpages,winsize
+if has("terminal")
+    set sessionoptions+=terminal
+endif
 
 " Automatically write session files. Uniquely identified with a timestamp.
 " I have a revim alias in ~/.izaak_aliases to reopen the last session. This is

@@ -150,6 +150,13 @@ alias rm="rm -i"
 alias mv="mv -i"
 alias cp="cp -i"
 
+case $OSTYPE in
+    darwin*)
+        # because the OSX system vimrc is shite
+        alias vim="vim -u ~/.vimrc"
+        ;;
+esac
+
 # vim is now 60% faster to type than emacs
 # This is an alias that I've quite badly gotten used to. Beware that you might
 # accidentally open actual vi on systems where vi isn't symlinked to vim
