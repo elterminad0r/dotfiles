@@ -201,7 +201,7 @@ nmap <Leader>q :bd<CR>
 " A quick way to strip trailing whiteSpace. Select an area in visual mode, and
 " hit <Leader>s.
 " TODO: make this a proper operator
-nmap <Leader>s :s/\s\+$//<CR>
+map <Leader>s :s/\s\+$//<CR>
 
 " easier window resizing with ^W+++++ and ------ and <<<<<< and >>>>>
 " https://www.vim.org/scripts/script.php?script_id=2223
