@@ -8,6 +8,10 @@
 " |   __/ |____/|____//_____/  |__||___|  /|__|    \___  >
 " |__|                                  \/             \/
 
+" This sets up all the plugins I use, using vim-plug
+" https://github.com/junegunn/vim-plug
+" To install all plugins, run :PlugInstall
+
 " My essential plugins shortlist, in decreasing order of favouritism. I have
 " first grouped together the ''passive'' plugins, that mostly mind their own
 " business until they're summoned:
