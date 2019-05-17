@@ -1,7 +1,5 @@
 " vim: ft=vim
 
-" TODO: make the fig business work (after a commit & push)
-
 " FIGMENTIZE: 'commandrc'
 "                                                      .___
 "   ____   ____    _____    _____  _____     ____    __| _/_______   ____
