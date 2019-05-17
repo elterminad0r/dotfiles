@@ -1,0 +1,9 @@
+{
+    "flags": [
+        "-k",
+        "-w",
+        "10000"
+    ],
+    "font": "Red Phoenix",
+    "dir": "~/builds/figlet-fonts/"
+}
