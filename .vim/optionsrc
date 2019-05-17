@@ -232,7 +232,12 @@ set nrformats=bin,hex,alpha
 
 " name and shame any actual tabs
 set list
-set listchars=tab:<->
+" I don't know but this certainly doesn't seem to work on vim 800 on MacOS
+if v:version >= 801
+    set listchars=tab:<->
+else
+    set listchars=tab:->
+endif
 
 " show hex characters as codes
 set display+=uhex
