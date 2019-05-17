@@ -41,6 +41,28 @@ enhance() {
         fi | head -n -1
 }
 
+# if you want to really ruin someone's day, run this in a high frequency while
+# loop:
+# while true; do insomniac_twitch; sleep 0.5; done
+insomniac_twitch() {
+    local dis_w=$(xdotool getdisplaygeometry | awk '{print $1}')
+    local dis_h=$(xdotool getdisplaygeometry | awk '{print $2}')
+    local gen_x=$(shuf -i 1-$dis_w -n 1)
+    local gen_y=$(shuf -i 1-$dis_h -n 1)
+    xdotool mousemove $gen_x $gen_y
+    notify-send twitch "$(date +"%H:%M:%S")"
+}
+
+# tap left control, programmatically
+insomniac_press() {
+    xdotool key Control_L
+    notify-send press "$(date +"%H:%M:%S")"
+}
+
+# switch on/switch off networking
+alias airplane="nmcli radio all off"
+alias unairplane="nmcli radio all on"
+
 # make grep and friends case insensitive
 alias grep="grep -i --color=auto"
 alias ack="ack -i"
