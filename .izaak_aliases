@@ -249,8 +249,12 @@ case "$OSTYPE" in
         ;;
 esac
 
+# latex/pdf compilation related aliases
 alias lmk="latexmk"
 alias present="evince -s"
+alias latex="latex -synctex=1  --shell-escape -halt-on-error";
+alias pdflatex="pdflatex -synctex=1 -shell-escape -halt-on-error";
+alias xelatex="xelatex -synctex=1 -shell-escape -halt-on-error";
 
 # the space means that sudo can be followed by an alias (particularly things
 # like sudo p for sudo pacman)
