@@ -90,6 +90,7 @@ set viminfo=%,'100,/100,:100,<1000000,s10000,@1000,h,n~/.vim/viminfo
 set history=10000
 
 " Set up a thesaurus and dictionary
+" TODO: add a dutch one (after locating it)
 set thesaurus=~/.vim/thesaurus/thesaurus_pkg/thesaurus.txt
 " spellcapcheck set to nothing stops vim from whining about capitalisation in
 " the middle of sentences.
