@@ -13,6 +13,9 @@
 
 case $(tty) in /dev/tty[0-9]*)
     echo "launching tty setup"
+    # I don't prepend my name to things out of egotism, or at least that's not
+    # the only reason. It's mostly a fairly safe guarantee that it won't clash
+    # with any other variables.
     IZAAK_IS_TTY=true
     IZ_VC_FONTSIZE=5;
     ter_fonts=(/usr/share/kbd/consolefonts/ter-1??n.psf.gz);
