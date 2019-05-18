@@ -180,7 +180,7 @@ nnoremap g<C-l> <C-l>
 noremap R gR
 noremap r gr
 noremap gR R
-noremap gR r
+noremap gr r
 
 " select previously inserted text
 nmap gV `[v`]
