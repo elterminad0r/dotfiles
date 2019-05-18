@@ -272,14 +272,20 @@ bindsym Shift+XF86MonBrightnessDown exec xbacklight -dec 1 && pkill -RTMIN+3 i3b
 # bindsym $mod+XF86AudioNext exec cmus-remote -n && pkill -RTMIN+1 i3blocks
 # bindsym $mod+XF86AudioPrev exec cmus-remote -r && pkill -RTMIN+1 i3blocks
 
-bindsym XF86AudioPlay exec mpc toggle -q
-bindsym XF86AudioPause exec mpc toggle -q
-bindsym XF86AudioNext exec mpc next -q
-bindsym XF86AudioPrev exec mpc prev -q
+bindsym XF86AudioPlay exec --no-startup-id mpc -q toggle
+bindsym XF86AudioPause exec --no-startup-id mpc -q toggle
 
-bindsym $mod+XF86AudioMute exec --no-startup-id mpc repeat
-bindsym $mod+XF86AudioLowerVolume exec --no-startup-id mpc random
-bindsym $mod+XF86AudioRaiseVolume exec --no-startup-id mpc single
+bindsym XF86AudioNext exec --no-startup-id mpc -q next
+bindsym XF86AudioPrev exec --no-startup-id mpc -q prev
+
+bindsym $mod+XF86AudioMute exec --no-startup-id mpc -q repeat
+bindsym $mod+XF86AudioLowerVolume exec --no-startup-id mpc -q random
+bindsym $mod+XF86AudioRaiseVolume exec --no-startup-id mpc -q single
+
+bindsym $mod+XF86AudioNext exec --no-startup-id mpc -q seekthrough +10
+bindsym $mod+XF86AudioPrev exec --no-startup-id mpc -q seekthrough -10
+bindsym $mod+Shift+XF86AudioNext exec --no-startup-id mpc -q seekthrough +60
+bindsym $mod+Shift+XF86AudioPrev exec --no-startup-id mpc -q seekthrough -60
 
 # bindsym $mod+XF86AudioPlay exec mpc toggle -q
 # bindsym $mod+XF86AudioPause exec mpc toggle -q
