@@ -44,3 +44,5 @@
 	; git is surprisingly clever here - the git ls-files knows to use the bare
 	; repository when it's cfg.
 	figmentize = "!git ls-files -z | xargs -0 -n1 figmentize #"
+	; open all files in vim, reattaching the terminal as input
+	vim = "!git ls-files -z | xargs -0 bash -c '</dev/tty vim \"$@\"' #"
