@@ -13,6 +13,7 @@ export PAGER='less'
 # TODO: think of a better solution for this
 # export PAGER='vimpager'; export VIMPAGERRC="~/.vim/vimpagerrc"
 export TERMINAL='urxvt'
+# TODO: bite the qute bullet
 export BROWSER='firefox'
 export READER='zathura'
 export FILE='ranger'
