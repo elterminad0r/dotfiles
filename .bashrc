@@ -139,11 +139,16 @@ izaak_prompt() {
     local iz_user="\[$(user_prompt)\]"
     local iz_yellow="\[$(tput setaf 3)\]"
     local iz_cyan="\[$(tput setaf 6)\]"
+    local iz_reset="\[$(tput sgr0)\]"
+    # a little logic to make directory behave correctly in / and /*/, and also
+    # handle home directory with a little extra logic
     local iz_dir_base="$(basename "$PWD")"
     local iz_dir_dir="$(basename "$(dirname "$PWD")")"
-    local iz_reset="\[$(tput sgr0)\]"
-    # a little logic to make directory behave correctly in / and /*/.
-    if [[ "$iz_dir_base" = "/" ]]; then
+    if [[ "$PWD" = "$HOME" ]]; then
+        local iz_dir="~"
+    elif [[ "$(dirname "$PWD")" = "$HOME" ]]; then
+        local iz_dir="~/$iz_dir_base"
+    elif [[ "$iz_dir_base" = "/" ]]; then
         local iz_dir="/"
     elif [[ "$iz_dir_dir" = "/" ]]; then
         local iz_dir="/$iz_dir_base"
