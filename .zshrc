@@ -104,6 +104,8 @@ if [[ -z "$IZAAK_IS_TTY" && -z "$IZAAK_NO_POWERLINE" && -f "$POWERLEVEL_THEME" ]
     POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
     source $POWERLEVEL_THEME
 else
+    # alternative prompt without any plugins or fancy fonts. Basically emulates
+    # the important bits of my powerline prompt
     autoload -Uz vcs_info
     precmd_vcs_info() { vcs_info }
     precmd_functions+=( precmd_vcs_info )
@@ -114,9 +116,9 @@ else
     # yet to customize more
     # need to use %%b for bold off
     zstyle ':vcs_info:*' actionformats \
-        '%B%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{3}|%F{1}%a%F{5}]%u%c%f%%b '
+        ' %B%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{3}|%F{1}%a%F{5}]%u%c%f%%b'
     zstyle ':vcs_info:*' formats       \
-        '%B%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{5}]%u%c%f%%b '
+        ' %B%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{5}]%u%c%f%%b'
     zstyle ':vcs_info:*' stagedstr "*"
     zstyle ':vcs_info:*' unstagedstr "+"
     zstyle ':vcs_info:(sv[nk]|bzr):*' branchformat '%b%F{1}:%F{3}%r'
@@ -145,9 +147,9 @@ else
     zle -N zle-line-init
     zle -N zle-keymap-select
     ret_status="%(?:%F{green}:%F{red})"
-    # if it's not done like this something weird happens to the autocompletion
-    # FIXME: make git work with this
-    PROMPT="%B\$VIM_PROMPT%(!.%F{red}.%F{magenta})%n$ret_status%#%F{yellow}%m$ret_status|%f%F{cyan}%2c%b%F{blue} \$vcs_info_msg_0_%f%b"
+    RPROMPT="%B%(?.%F{green}✓.%F{red}%?) %F{white}%h%f%b"
+    # two-line prompt, with a blank line behind it.
+    PROMPT=$'\n'"%B\$VIM_PROMPT%(!.%F{red}.%F{magenta})%n$ret_status%#%F{yellow}%m$ret_status|%f%F{cyan}%~%b%F{blue}\$vcs_info_msg_0_%f%b"$'\n%B%F{white}->%f%b '
 fi
 
 autoload -Uz compinit
