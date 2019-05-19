@@ -98,6 +98,9 @@ call plug#begin('~/.vim/bundle')
     " show buffers in tabline
     Plug 'mengelbrecht/lightline-bufferline'
 
+    " solarized colorscheme for vim
+    Plug 'altercation/vim-colors-solarized'
+
     " FIXME: make solarized colorscheme work, configure all of this properly
     let g:lightline = {
         \ 'colorscheme': 'powerline',
@@ -198,9 +201,6 @@ call plug#begin('~/.vim/bundle')
     " now either move between windows or tmux panes, depending on when they hit the
     " edge etc.
     Plug 'christoomey/vim-tmux-navigator'
-
-    " solarized colorscheme for vim
-    Plug 'altercation/vim-colors-solarized'
 
     " Plug plug itself in order to generate documentation for it
     Plug 'junegunn/vim-plug'
