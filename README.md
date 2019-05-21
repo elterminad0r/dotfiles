@@ -9,6 +9,6 @@ https://developer.atlassian.com/blog/2016/02/best-way-to-store-dotfiles-git-bare
 
     alias config='/usr/bin/git --git-dir="$HOME"/.cfg/ --work-tree=$HOME'
     echo ".cfg" >> .gitignore
-    git clone --recurse-submodules --bare "https://github.com/goedel-gang/dotfiles" "$HOME"/.cfg
+    git clone --recursive --bare "https://github.com/goedel-gang/dotfiles" "$HOME"/.cfg
     alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
     config checkout
