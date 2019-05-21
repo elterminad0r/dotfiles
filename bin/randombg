@@ -34,6 +34,7 @@ Notify.init("backgrounds")
 WALLPAPERS = (pathlib.Path.home() / pathlib.Path("Pictures/wallpapers"))
 STACK = (pathlib.Path.home() /
                   pathlib.Path(".cache/randombg/stack.pickle"))
+MAX_STACK = 100
 
 def ensure_cache():
     if not STACK.exists():
@@ -45,7 +46,7 @@ def ensure_cache():
 
 class BackgroundStack:
     def __init__(self):
-        self.stack = collections.deque(maxlen=100)
+        self.stack = collections.deque(maxlen=MAX_STACK)
         self.random_bg()
 
     def set_bg(self, choice):
