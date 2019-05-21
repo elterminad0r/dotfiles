@@ -24,7 +24,7 @@
 [merge]
 	tool = vimdiff
 [core]
-	excludesfile = /home/izaak/.gitignore
+	excludesfile = ~/.gitignore
 [alias]
 	c = commit -v
 	ca = commit -v --all
