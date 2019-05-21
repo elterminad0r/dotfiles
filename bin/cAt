@@ -1,0 +1,25 @@
+#!/usr/bin/env python3
+
+"""
+Script to sPoNgEbOb CaPiTaLiSe stdin, or files from argv.
+"""
+
+import sys
+
+from cApItAlIsE import CaPiTaLiSeR
+
+if __name__ == "__main__":
+    cApItAlIsEr = CaPiTaLiSeR()
+    files = []
+    # only cApItAlIsE if not interactive (that is, stdin implicitly set to tty)
+    if not sys.stdin.isatty():
+        files.append(sys.stdin)
+    for file in sys.argv[1:]:
+        try:
+            files.append(open(file, "r"))
+        except FileNotFoundError:
+            print(f"Could not open {file!s}", file=sys.stderr)
+    for file in files:
+        with file:
+            for line in file:
+                sys.stdout.write(cApItAlIsEr.process(line))

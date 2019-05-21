@@ -1,0 +1,13 @@
+#!/usr/bin/env python3
+
+"""
+Script to sPoNgEbOb CaPiTaLiSe argv.
+"""
+
+import sys
+
+from cApItAlIsE import CaPiTaLiSeR
+
+if __name__ == "__main__":
+    cApItAlIsEr = CaPiTaLiSeR()
+    print(" ".join(cApItAlIsEr.process(word) for word in sys.argv[1:]))
