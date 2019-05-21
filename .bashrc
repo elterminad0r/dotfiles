@@ -31,25 +31,15 @@ source_if_exists() {
 
 # assert that bash version is at least $1 $2 $3
 version_assert() {
-    if ((BASH_VERSINFO[0] > "$1")); then
-        return 0
-    elif ((BASH_VERSINFO[0] < "$1")); then
-        echo "Your bash is older than $1 $2 $3"
-        return 1
-    else
-        if ((BASH_VERSINFO[1] > "$2")); then
+    for i in {1..3}; do
+        if ((BASH_VERSINFO[$(($i - 1))] > ${!i})); then
             return 0
-        elif ((BASH_VERSINFO[1] < "$2")); then
-            echo "Your bash is older than $1 $2 $3"
+        elif ((BASH_VERSINFO[$(($i - 1))] < ${!i})); then
+            echo "Your bash is older than $1.$2.$3"
             return 1
-        else
-            if ((BASH_VERSINFO[2] < "$3")); then
-                echo "Your bash is older than $1 $2 $3"
-                return 1
-            fi
-            return 0
         fi
-    fi
+    done
+    return 0
 }
 
 source_if_exists "$HOME/.profile"
