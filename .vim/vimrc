@@ -51,12 +51,32 @@ source ~/.vim/optionsrc
 source ~/.vim/mappingsrc
 source ~/.vim/commandrc
 
+" some hacky functionality to toggle search highlighting
+if !exists("g:izaak_highlighted")
+    let g:izaak_highlighted = 1
+endif
+
+" noh doesn't work from inside functions, so I use feedkeys instead. This is
+" probably pretty fragile or dangerous or whatever but who cares
+function! ToggleHighlight()
+    if &hlsearch
+        if g:izaak_highlighted
+            call feedkeys(":nohlsearch\<CR>")
+        else
+            call feedkeys(":set hlsearch\<CR>")
+        endif
+        let g:izaak_highlighted = xor(1, g:izaak_highlighted)
+    endif
+endfunction
+
 " colour-related options, wrapped in some conditions just to be on the safe side
 if &t_Co > 2 || has("gui_running")
     syntax enable
-    " FIXME: after reloading vimrc, all searches get re-highlighted because of
-    " this, I think. (maybe to do with viminfo?)
-    set hlsearch
+    " do not set hlsearch if it is already set, as this will annoyingly
+    " re-highlight searches if you've set :noh
+    if !&hlsearch
+        set hlsearch
+    endif
     set background=dark
     if &term != "linux"
         " if the solarized colorscheme exists, load it

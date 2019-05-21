@@ -147,6 +147,10 @@ set foldenable
 " this normally suffices for me.
 set foldmethod=indent
 " set foldlevel to the deepest fold in the file
+" An alternative autocmd event is BufWinEnter, but this is a little too eager
+" for my tastes. Done this way, it shouldn't mess anything up too badly if you
+" swap between buffers in one window a lot. Also, files with modelines setting
+" foldmethod don't get overridden.
 augroup SetFoldLevel
     autocmd! BufReadPost * normal! zR
 augroup END
@@ -173,8 +177,17 @@ endif
 " allegedly lets you judge repetitions of movement commands, and it looks cool
 " the set number means that the absolute current line number *is* displayed, but
 " the rest are relative.
+
+" Also, they're made absolute again when you go back into insert mode. I think
+" that's kind of cool but I don't know if I'll keep it.
 set number
 set relativenumber
+augroup InsertModeLineNos
+    autocmd!
+    autocmd InsertEnter * set norelativenumber
+    autocmd InsertLeave * set relativenumber
+augroup END
+
 " whitespace
 " tab = 4 spaces, and various associated options
 set autoindent

@@ -51,13 +51,13 @@ xnoremap <C-c> "+y
 nnoremap <Leader>p :set paste!<CR>
 
 " crap, these turn the scrollwheel into a
+" weapon  of mass destruction.
 " " Up and down to move lines around
-" " weapon  of mass destruction.
 " " noremap <Up> ddkP
 " " noremap <Down> ddp
 
-" Shortcut to turn highlighting back off
-nnoremap <silent> <CR> :noh<CR>
+" Shortcut to turn highlighting on or off
+nnoremap <silent> <CR> :call ToggleHighlight()<CR>
 
 " Store the original carriage return for the CR fans
 nnoremap g<CR> <CR>
@@ -146,14 +146,10 @@ nmap <C-n> :bn<CR>
 " remap these to go between splits
 " <C-[hjk]> were useless anyway, and we store <C-l> in g<C-l>
 " I have obtained the use of <C-q> by running stty -ixon
-
-" THESE HAVE BEEN REPLACED BY TMUX NAVIGATOR
-" uncomment these if you want sensible window navigation, but don't care enough
-" about tmux to have installed tmux-navigator
-" noremap <C-h> <C-w>h
-" noremap <C-j> <C-w>j
-" noremap <C-k> <C-w>k
-" noremap <C-l> <C-w>l
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 
 " Easily close a window
 nnoremap <C-q> <C-w>q
@@ -203,9 +199,11 @@ nmap <Leader>q :bd<CR>
 " TODO: make this a proper operator
 map <Leader>s :s/\s\+$//<CR>
 
+" similar mapping to make text titlecase
+map <Leader>t :s/\v<(.)(\w*)/\u\1\L\2/g<CR>
+
 " easier window resizing with ^W+++++ and ------ and <<<<<< and >>>>>
 " https://www.vim.org/scripts/script.php?script_id=2223
-" TODO: implement this for pasta
 " TODO: implement some framework to automate this
 " TODO: figure out how this works and to what extent <script> is necessary
 nmap <C-W>+ <C-W>+<SID>(wresize)

@@ -200,7 +200,8 @@ call plug#begin('~/.vim/bundle')
     " Integrate window/pane navigation with tmux, using <C-[hjkl]>. These bindings
     " now either move between windows or tmux panes, depending on when they hit the
     " edge etc.
-    Plug 'christoomey/vim-tmux-navigator'
+    " Disable for now as I don't really use this
+    " Plug 'christoomey/vim-tmux-navigator'
 
     " Plug plug itself in order to generate documentation for it
     Plug 'junegunn/vim-plug'
