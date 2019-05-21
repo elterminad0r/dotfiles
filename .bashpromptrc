@@ -93,8 +93,8 @@ apparix_prompt() {
 # tell the readline library to show a vi mode indicator.
 # this could go in inputrc, but I have my reasons that make it more
 # straightforward to just do it here, for Bash.
-# also, doing it here allows for command substitutions, which means I can use
-# tput /o/
+# WARNING: this will require a non-archaeological version of Bash
+# (bash 4.3 and readline 6.3 required). Should fail silently otherwise
 bind "set show-mode-in-prompt on"
 # TODO: is there way to make this work nicely with search mode?
 # also TODO: can I put colours in here without breaking my prompt? who knows. it

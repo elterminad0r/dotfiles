@@ -80,6 +80,9 @@ source_if_exists "$HOME/.bashpromptrc"
 # shopts. Some of these are already set by default but I like to keep everything
 # explicit and in one place.
 
+# fail if any component of a piped command fails
+set -o pipefail
+
 # if a command is not recognised, try to treat it as a directory to cd to
 shopt -s autocd
 # zsh-like: prevent exit if there are any attached jobs
