@@ -1,0 +1,4 @@
+#!/bin/bash
+mpc prio 100 "$(mpc playlist -f "%position% %title%" \
+               | dmenu_nice -p "Playlist Song" \
+               | cut -f1 -d\ )"
