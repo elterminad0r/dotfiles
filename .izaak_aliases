@@ -40,7 +40,7 @@ enhance() {
             tail -n +3 | sed "s/^    //"
         # this removes the last line. Can't use head -n -1 as that doesn't work
         # on BSD
-        fi | tac | tail +1 | tac
+        fi | tac | tail +2 | tac
 }
 
 # if you want to really ruin someone's day, run this in a high frequency while
