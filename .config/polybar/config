@@ -199,6 +199,9 @@ type = internal/mpd
 ; icon-pause = 
 ; icon-next = 
 
+; make this the right way round, basically
+label-song = %title% - %artist
+
 label-song-maxlen = 25
 label-song-ellipsis = true
 
