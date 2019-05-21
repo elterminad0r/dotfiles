@@ -387,8 +387,12 @@ partytime() {
         echo $line
     done
 }
+
+# random {cowsay,cowthink}
+alias rcowsay='cowsay -f $(cowsay -l | tail +2 | xargs shuf -n1 -e)'
+alias rcowthink='cowthink -f $(cowsay -l | tail +2 | xargs shuf -n1 -e)'
 # SINGLE QUOTES to stop the command substitution happening at startup
-alias partycow='while true; do fortune | cowsay -f $(cowsay -l | tail +2 | xargs shuf -n1 -e); done | pv -q -l -L 3 | lolcat'
+alias partycow='while true; do fortune | rcowsay; done | pv -q -l -L 3 | lolcat'
 # go on a 23 day mad one
 alias mathsparty='timestable -l 10000000 | pv -lq -L 5 | lolcat -p 10 -F 0.01'
 
