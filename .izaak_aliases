@@ -38,7 +38,9 @@ enhance() {
         # assume everything else acts like bash
         else
             tail -n +3 | sed "s/^    //"
-        fi | head -n -1
+        # this removes the last line. Can't use head -n -1 as that doesn't work
+        # on BSD
+        fi | tac | tail +1 | tac
 }
 
 # if you want to really ruin someone's day, run this in a high frequency while
