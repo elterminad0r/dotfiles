@@ -114,7 +114,7 @@ if version_assert 4 3 0; then
     # this would colour in the matching part of what you're completing on
     # bind "set colored-completion-prefix"
 else
-    echo "Your bash is too old for a pretty Vi mode indicator" >&2
+    echo "(your bash is too old for a pretty Vi mode indicator)" >&2
 fi
 
 # function to build a pretty looking prompt, inspired by Stijn van Dongen's

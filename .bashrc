@@ -76,7 +76,7 @@ set -o vi
 if version_assert 4 1 0; then
     source_if_exists /usr/share/bash-completion/bash_completion "$HOME/.bash_scripts/bash_completion"
 else
-    echo "Not sourcing bash completion"
+    echo "(not sourcing bash completion)" >&2
 fi
 
 # tab completion and some directory thing for readline
@@ -101,7 +101,7 @@ export HISTCONTROL=ignorespace:ignoredups:erasedups
 if version_assert 3 2 57; then
     source_if_exists /usr/share/git/completion/git-completion.bash "$HOME/.bash_scripts/git-completion.bash"
 else
-    echo "Not sourcing git completion" >&2
+    echo "(not sourcing git completion)" >&2
 fi
 
 source_if_exists "$HOME/.bashpromptrc"
@@ -121,7 +121,7 @@ if version_assert 4 0 0; then
     # eg: $ ldir programmeren/**; will do a listing of everything.
     shopt -s globstar
 else
-    echo "Not setting autocd, checkjobs, globstar :(" >&2
+    echo "(not setting autocd, checkjobs, globstar :( )" >&2
 fi
 # update LINES and COLUMNS
 shopt -s checkwinsize
