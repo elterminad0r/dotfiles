@@ -37,9 +37,9 @@ fi
 # TODO: move to something more modern
 export GTK_IM_MODULE=xim
 
-export PYTHONPATH=~/pybin
+export PYTHONPATH="$HOME"/pybin
 
-export PYTHONSTARTUP=$HOME/.pythonrc
+export PYTHONSTARTUP="$HOME"/.pythonrc
 
 export LESS="-R"
 
@@ -48,3 +48,19 @@ export COLUMNS LINES
 
 # stop <C-[sq]> from killing my flow, and in fact expose them for keybinding
 stty -ixon
+
+# add $1 to path if it isn't already in path.
+add_to_path() {
+    local add_dir="$(realpath $1)"
+    case $PATH in
+        *$add_dir:*)
+            ;;
+        *)
+            export PATH=$add_dir:$PATH
+            ;;
+    esac
+}
+
+for bin_dir in "$HOME"/bin "$HOME"/.gem/ruby/2.6.0/bin "$HOME"/.local/bin; do
+    add_to_path "$bin_dir"
+done

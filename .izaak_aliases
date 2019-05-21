@@ -273,7 +273,7 @@ alias rbash='sudo HOME="$HOME" bash'
 
 # open various config files
 alias vi3='vim "$HOME/.config/i3/config"'
-alias viz='vim "$HOME/.zshrc" "$HOME/.izaak_aliases"'
+alias viz='vim "$HOME/.zshrc" "$HOME/.izaak_aliases" "$HOME/.zshenv" "$HOME/.profile" "$HOME/.ttyrc" "$HOME/.tmuxopenrc" "$HOME/.bashrc"'
 alias vit='vim "$HOME/Documents/TODO"'
 alias viv='vim "$HOME"/.vim/*rc'
 alias vif='vim "$HOME/fun"'

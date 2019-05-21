@@ -6,13 +6,14 @@
 # /_____ \/____  >|___|  / \___  >|___|  / \_/
 #       \/     \/      \/      \/      \/
 
-source $HOME/.profile
+source "$HOME/.profile"
 
 # add various directories to path. This is done through zsh typeset mechanism,
 # setting path to be a unique array.
 # Killer feature!
-typeset -U path
-path=(~/bin ~/.gem/ruby/2.6.0/bin ~/.local/bin $path[@])
+# disabling for now, as I set my path in .profile these days.
+# typeset -U path
+# path=(~/bin ~/.gem/ruby/2.6.0/bin ~/.local/bin $path[@])
 
 # similar for function path
 typeset -U fpath
@@ -26,4 +27,4 @@ alias lx='print -rl -- ${(ko)commands} ${(ko)functions} ${(ko)aliases} | grep -v
 export KEYTIMEOUT=5
 
 # so that vim and ipython etc know my aliases.
-source $HOME/.izaak_aliases
+source "$HOME/.izaak_aliases"

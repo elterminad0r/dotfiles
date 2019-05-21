@@ -180,7 +180,6 @@ setopt interactive_comments
 setopt auto_continue
 # check background jobs before exiting
 setopt check_jobs
-setopt check_running_jobs
 
 # keeping track of a directory stack.
 # Killer feature!

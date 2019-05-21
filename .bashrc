@@ -44,22 +44,6 @@ esac
 
 source_if_exists "$HOME/.tmuxopenrc"
 
-# add $1 to path if it isn't already in path.
-add_to_path() {
-    local add_dir="$(realpath $1)"
-    case $PATH in
-        *$add_dir:*)
-            ;;
-        *)
-            export PATH=$add_dir:$PATH
-            ;;
-    esac
-}
-
-add_to_path ~/bin
-add_to_path ~/.gem/ruby/2.6.0/bin
-add_to_path ~/.local/bin
-
 # List Xecutables - print all possible things that could act like a command -
 # that is, Aliases, Builtins, Commands, Keywords
 alias lx="compgen -A function -abck | grep -v '^_'"
