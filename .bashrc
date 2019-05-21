@@ -29,6 +29,29 @@ source_if_exists() {
     echo "Izaak's bashrc: could not source any of $*" >&2
 }
 
+# assert that bash version is at least $1 $2 $3
+version_assert() {
+    if ((BASH_VERSINFO[0] > "$1")); then
+        return 0
+    elif ((BASH_VERSINFO[0] < "$1")); then
+        echo "Your bash is older than $1 $2 $3"
+        return 1
+    else
+        if ((BASH_VERSINFO[1] > "$2")); then
+            return 0
+        elif ((BASH_VERSINFO[1] < "$2")); then
+            echo "Your bash is older than $1 $2 $3"
+            return 1
+        else
+            if ((BASH_VERSINFO[2] < "$3")); then
+                echo "Your bash is older than $1 $2 $3"
+                return 1
+            fi
+            return 0
+        fi
+    fi
+}
+
 source_if_exists "$HOME/.profile"
 
 # all my shell-y aliases
@@ -58,8 +81,13 @@ alias lx="compgen -A function -abck | grep -v '^_'"
 
 set -o vi
 
-# use good bash completion
-source_if_exists /usr/share/bash-completion/bash_completion "$HOME/.bash_scripts/bash_completion"
+# use good bash completion.
+# The script I have bundled probably required a new-ish bash.
+if version_assert 4 1 0; then
+    source_if_exists /usr/share/bash-completion/bash_completion "$HOME/.bash_scripts/bash_completion"
+else
+    echo "Not sourcing bash completion"
+fi
 
 # tab completion and some directory thing for readline
 bind '"\t":menu-complete'
@@ -79,7 +107,12 @@ export HISTFILESIZE=-1
 export HISTCONTROL=ignorespace:ignoredups:erasedups
 
 # tab completion for git
-source_if_exists /usr/share/git/completion/git-completion.bash "$HOME/.bash_scripts/git-completion.bash"
+# The one I have bundled probably required a new-ish bash
+if version_assert 3 2 57; then
+    source_if_exists /usr/share/git/completion/git-completion.bash "$HOME/.bash_scripts/git-completion.bash"
+else
+    echo "Not sourcing git completion" 2>&1
+fi
 
 source_if_exists "$HOME/.bashpromptrc"
 
@@ -89,10 +122,17 @@ source_if_exists "$HOME/.bashpromptrc"
 # fail if any component of a piped command fails
 set -o pipefail
 
-# if a command is not recognised, try to treat it as a directory to cd to
-shopt -s autocd
-# zsh-like: prevent exit if there are any attached jobs
-shopt -s checkjobs
+if version_assert 4 0 0; then
+    # if a command is not recognised, try to treat it as a directory to cd to
+    shopt -s autocd
+    # zsh-like: prevent exit if there are any attached jobs
+    shopt -s checkjobs
+    # allow the ** glob, indicating "any subdirectory", recursively. THIS IS USEFUL.
+    # eg: $ ldir programmeren/**; will do a listing of everything.
+    shopt -s globstar
+else
+    echo "Not setting autocd, checkjobs, globstar :(" 2>&1
+fi
 # update LINES and COLUMNS
 shopt -s checkwinsize
 # save big commands in one go in history file, and preserve newlines where
@@ -105,9 +145,6 @@ shopt -s extglob
 shopt -s extquote
 # empty globs cause errors
 shopt -s failglob
-# allow the ** glob, indicating "any subdirectory", recursively. THIS IS USEFUL.
-# eg: $ ldir programmeren/**; will do a listing of everything.
-shopt -s globstar
 # don't overwrite history, but append instead
 shopt -s histappend
 # # comments work in interactive mode
