@@ -4,5 +4,6 @@ https://developer.atlassian.com/blog/2016/02/best-way-to-store-dotfiles-git-bare
 
     alias cfg='/usr/bin/git --git-dir="$HOME"/.cfg/ --work-tree=$HOME'
     git clone --recursive --bare "https://github.com/goedel-gang/dotfiles" "$HOME"/.cfg
-    alias cfg='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
     cfg checkout
+
+![screenshot](https://github.com/goedel-gang/dotfiles/blob/master/README_PICTURE.png)
