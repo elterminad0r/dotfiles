@@ -37,13 +37,3 @@ case $(tty) in
         }
     ;;
 esac
-
-if [[ "$IZAAK_IS_TTY" != "true" ]]; then
-    if [[ -f $HOME/.dir_colors_solarized ]]; then
-        eval "$(dircolors $HOME/.dir_colors_solarized)"
-    else
-        echo "not loading dircolors" >&2
-    fi
-else
-    echo "no solarized as tty" >&2
-fi
