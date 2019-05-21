@@ -82,7 +82,7 @@ alias ccat='highlight -O ansi'
 # DIY coloured man pages using an alias so it's faster
 # colours personally engineered to not be utterly disgusting, unlike OMZ's
 # colored-manpages, apparently.
-# mb, md, so, us, me, se, ue correspond to:
+# mb, md, so, us, me, se, ue respectively correspond to:
 # start blinking - not sure what this is for actually
 # start bold - used for section headers and key words
 # start standout mode - used for statusline and search hits
@@ -90,14 +90,14 @@ alias ccat='highlight -O ansi'
 # end all modes
 # end standout
 # end underline
-alias man='LESS_TERMCAP_mb="$(tput bold)$(tput setaf 6)" \
-           LESS_TERMCAP_md="$(tput bold)$(tput setaf 4)" \
-           LESS_TERMCAP_so="$(tput setab 0)$(tput setaf 7)" \
-           LESS_TERMCAP_us="$(tput setaf 2)" \
-           LESS_TERMCAP_me="$(tput sgr0)" \
-           LESS_TERMCAP_se="$(tput sgr0)" \
-           LESS_TERMCAP_ue="$(tput sgr0)" \
-           man'
+alias man="$(echo 'LESS_TERMCAP_mb="$(tput bold)$(tput setaf 6)"'\
+                  'LESS_TERMCAP_md="$(tput bold)$(tput setaf 4)"'\
+                  'LESS_TERMCAP_so="$(tput setab 0)$(tput setaf 7)"'\
+                  'LESS_TERMCAP_us="$(tput setaf 2)"'\
+                  'LESS_TERMCAP_me="$(tput sgr0)"'\
+                  'LESS_TERMCAP_se="$(tput sgr0)"'\
+                  'LESS_TERMCAP_ue="$(tput sgr0)"'\
+                  'man')"
 
 alias info='info --vi-keys'
 
