@@ -34,7 +34,7 @@ enhance() {
     }"
     declare -f IZAAK_ENHANCE_F |\
         if [[ -n $ZSH_VERSION ]]; then
-            tail -n +2 | sed "s/^\t//"
+            tail -n +2 | sed "s/^	//"
         # assume everything else acts like bash
         else
             tail -n +3 | sed "s/^    //"
@@ -321,8 +321,8 @@ gal() {
     # scrape the alias section using an awk command, which sets a flag to true
     # at [alias], and then unsets it as soon as there is a nonwhite character on
     # the first line
-    awk '/\[alias\]/{a=1;next}/^[^\t]/{a=0}a' "$HOME/.gitconfig" |\
-        sed "s/^\t//" | grep -v "^;" | grep "$1"
+    awk '/\[alias\]/{a=1;next}/^[^	]/{a=0}a' "$HOME/.gitconfig" |\
+        sed "s/^	//" | grep -v "^;" | grep "$1"
 }
 
 alias mutt='echo "use configured mailbox" 2>&1'
