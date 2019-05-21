@@ -16,24 +16,32 @@ running X. It keeps track of a "stack" of previous backgrounds, which it can
 traverse, so strictly speaking it's a list.
 """
 
-#TODO add option for a literal path
+# TODO add option for a literal path
+# TODO fail gracefully if feh not present
 
-import sys
-import os
-import os.path
 import pickle
 import collections
 import random
 import argparse
 import subprocess
+import pathlib
 
 import gi
 gi.require_version('Notify', '0.7')
 from gi.repository import Notify
 Notify.init("backgrounds")
 
+WALLPAPERS = (pathlib.Path.home() / pathlib.Path("Pictures/wallpapers"))
+STACK = (pathlib.Path.home() /
+                  pathlib.Path(".cache/randombg/stack.pickle"))
 
-STACK_LOCATION = "/home/izaak/.cache/randombg/stack.pickle"
+def ensure_cache():
+    if not STACK.exists():
+        Notify.Notification.new(
+                "randombg",
+                f"Creating {STACK!s}")
+    STACK.parent.mkdir(parents=True, exist_ok=True)
+    return STACK
 
 class BackgroundStack:
     def __init__(self):
@@ -41,17 +49,21 @@ class BackgroundStack:
         self.random_bg()
 
     def set_bg(self, choice):
-        Notify.Notification.new(
-                "picking {} (stack::{})".format(choice, self.pos)
-                ).show()
-        subprocess.call(
-                ["feh", "--bg-scale", os.path.join(
-                    "/home/izaak/Pictures/wallpapers/",
-                    choice)])
+        if not isinstance(choice, pathlib.Path):
+            notif = Notify.Notification.new(
+                    "Your cache is out of date - not using pathlib")
+            notif.set_urgency(Notify.Urgency.CRITICAL)
+            notif.show()
+        else:
+            Notify.Notification.new(
+                    "randombg",
+                    f"{choice} (s:{self.pos})").show()
+            subprocess.call(
+                    ["feh", "--bg-scale", str(choice)])
 
     def random_bg(self):
-        #TODO: prevent repetition
-        choice = random.choice(os.listdir("/home/izaak/Pictures/wallpapers/"))
+        # TODO: prevent repetition
+        choice = random.choice(list(WALLPAPERS.iterdir()))
         self.stack.append(choice)
         self.pos = len(self.stack) - 1
         self.set_bg(choice)
@@ -61,14 +73,14 @@ class BackgroundStack:
             self.pos -= 1
             self.set_bg(self.stack[self.pos])
         else:
-            Notify.Notification.new("already at bottom of stack").show()
+            Notify.Notification.new("randombg", "stack underflow").show()
 
     def next_bg(self):
         if self.pos < len(self.stack) - 1:
             self.pos += 1
             self.set_bg(self.stack[self.pos])
         else:
-            Notify.Notification.new("already at top of stack").show()
+            Notify.Notification.new("randombg", "stack overflow").show()
 
 def get_args():
     parser = argparse.ArgumentParser(description=__doc__)
@@ -87,11 +99,11 @@ if __name__ == "__main__":
     args = get_args()
     if args.init:
         stack = BackgroundStack()
-        with open(STACK_LOCATION, "wb") as stackfile:
+        with ensure_cache().open("wb") as stackfile:
             pickle.dump(stack, stackfile)
     else:
         try:
-            with open(STACK_LOCATION, "rb") as stackfile:
+            with ensure_cache().open("rb") as stackfile:
                 stack = pickle.load(stackfile)
         except Exception:
             print("ERROR: you may need to initialise with --init\n\n")
@@ -105,5 +117,5 @@ if __name__ == "__main__":
         else:
             print("unimplemented option")
 
-        with open(STACK_LOCATION, "wb") as stackfile:
+        with ensure_cache().open("wb") as stackfile:
             pickle.dump(stack, stackfile)

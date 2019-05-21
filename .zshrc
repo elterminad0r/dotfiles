@@ -284,7 +284,7 @@ zstyle ':completion:*' list-suffixes true
 zstyle ':completion:*' menu select=1
 zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
 zstyle ':completion:*' substitute 1
-zstyle :compinstall filename '/home/izaak/.zshrc'
+zstyle :compinstall filename "$HOME/.zshrc"
 
 alias -g ...='../..'
 alias -g ....='../../..'

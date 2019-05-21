@@ -316,9 +316,9 @@ bindsym $mod+g exec dm-tool switch-to-greeter
 bindsym --release $mod+Escape exec light-locker-command -l
 
 # screenshotting
-bindsym --release Print exec scrot '/home/izaak/Pictures/screenshots/full_screenshot_%Y%m%d_%H%M%S.png'
-bindsym --release Shift+Print exec scrot -u '/home/izaak/Pictures/screenshots/win_screenshot_%Y%m%d_%H%M%S.png'
-bindsym --release $mod+Shift+Print exec scrot -s '/home/izaak/Pictures/screenshots/sel_screenshot_%Y%m%d_%H%M%S.png'
+bindsym --release Print exec scrot "$HOME/Pictures/screenshots/full_screenshot_%Y%m%d_%H%M%S.png"
+bindsym --release Shift+Print exec scrot -u "$HOME/Pictures/screenshots/win_screenshot_%Y%m%d_%H%M%S.png"
+bindsym --release $mod+Shift+Print exec scrot -s "$HOME/Pictures/screenshots/sel_screenshot_%Y%m%d_%H%M%S.png"
 
 bindsym $mod+period exec --no-startup-id ~/bin/randombg --random
 bindsym $mod+Shift+comma exec --no-startup-id ~/bin/randombg --prev
