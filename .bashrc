@@ -29,13 +29,13 @@ source_if_exists() {
     echo "Izaak's bashrc: could not source any of $*" >&2
 }
 
-# assert that bash version is at least $1 $2 $3
+# assert that bash version is at least $1.$2.$3
 version_assert() {
     for i in {1..3}; do
         if ((BASH_VERSINFO[$(($i - 1))] > ${!i})); then
             return 0
         elif ((BASH_VERSINFO[$(($i - 1))] < ${!i})); then
-            echo "Your bash is older than $1.$2.$3"
+            echo "Your bash is older than $1.$2.$3" >&2
             return 1
         fi
     done
@@ -101,7 +101,7 @@ export HISTCONTROL=ignorespace:ignoredups:erasedups
 if version_assert 3 2 57; then
     source_if_exists /usr/share/git/completion/git-completion.bash "$HOME/.bash_scripts/git-completion.bash"
 else
-    echo "Not sourcing git completion" 2>&1
+    echo "Not sourcing git completion" >&2
 fi
 
 source_if_exists "$HOME/.bashpromptrc"
@@ -121,7 +121,7 @@ if version_assert 4 0 0; then
     # eg: $ ldir programmeren/**; will do a listing of everything.
     shopt -s globstar
 else
-    echo "Not setting autocd, checkjobs, globstar :(" 2>&1
+    echo "Not setting autocd, checkjobs, globstar :(" >&2
 fi
 # update LINES and COLUMNS
 shopt -s checkwinsize

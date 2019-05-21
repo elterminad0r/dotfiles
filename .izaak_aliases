@@ -325,7 +325,7 @@ gal() {
         sed "s/^	//" | grep -v "^;" | grep "$1"
 }
 
-alias mutt='echo "use configured mailbox" 2>&1'
+alias mutt='echo "use configured mailbox" >&2'
 alias hills_mail='\mutt -F "$HOME/.hills_muttrc"'
 alias gmail='\mutt -F "$HOME/.gmail_muttrc"'
 
