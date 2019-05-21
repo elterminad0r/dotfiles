@@ -23,19 +23,7 @@ source_if_exists() {
 
 source_if_exists "$HOME/.ttyrc"
 
-if [[ "$IZAAK_IS_TTY" != "true" ]]; then
-    if [[ -f $HOME/.dir_colors_solarized ]]; then
-        if silent command -v dircolors; then
-            eval "$(dircolors $HOME/.dir_colors_solarized)"
-        else
-            echo "dircolors executable not found" 2>&1
-        fi
-    else
-        echo "dircolors file not found" >&2
-    fi
-else
-    echo "no solarized as tty" >&2
-fi
+source_if_exists "$HOME/.dircolorsrc"
 
 source_if_exists "$HOME/.tmuxopenrc"
 

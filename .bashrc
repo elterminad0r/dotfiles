@@ -32,15 +32,14 @@ source_if_exists "$HOME/.izaak_aliases"
 # source_if_exists "$HOME/.ttyrc"
 case $(tty) in
     /dev/tty[0-9]*)
+        IZAAK_IS_TTY=true
         ;;
     *)
-        if [[ -f "$HOME/.dir_colors_solarized" ]]; then
-            eval "$(dircolors "$HOME/.dir_colors_solarized")"
-        else
-            echo "not loading dircolors" >&2
-        fi
+        IZAAK_IS_TTY=false
         ;;
 esac
+
+source_if_exists "$HOME/.dircolorsrc"
 
 source_if_exists "$HOME/.tmuxopenrc"
 
