@@ -148,3 +148,16 @@ izaak_prompt() {
 }
 
 PROMPT_COMMAND='izaak_prompt'
+
+# small function to do a very simple profile of the different prompt components
+prompt_profile() {
+    for component in izaak_prompt user_prompt exitstatus_prompt host_prompt\
+        shlvl_prompt dir_prompt apparix_prompt; do
+        echo
+        echo -n "$component"
+        time for i in {0..200}; do
+            # mock some arguments for the component that want them
+            silent "$component" 1 1
+        done
+    done
+}
