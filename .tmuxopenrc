@@ -1,5 +1,13 @@
 # vim: ft=sh
 
+# FIGMENTIZE: tmux
+#   __
+# _/  |_  _____   __ __ ___  ___
+# \   __\/     \ |  |  \\  \/  /
+#  |  | |  Y Y  \|  |  / >    <
+#  |__| |__|_|  /|____/ /__/\_ \
+#             \/              \/
+
 # this part is a function so it gets grouped by itself
 izaak_tmux() {
     tmux attach-session || tmux

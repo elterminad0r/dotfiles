@@ -1,5 +1,13 @@
 # vim: ft=bash
 
+# FIGMENTIZE: prompt
+#                                          __
+# ______ _______   ____    _____  ______ _/  |_
+# \____ \\_  __ \ /  _ \  /     \ \____ \\   __\
+# |  |_> >|  | \/(  <_> )|  Y Y  \|  |_> >|  |
+# |   __/ |__|    \____/ |__|_|  /|   __/ |__|
+# |__|                         \/ |__|
+
 # file that sets up my flashy bashy prompt
 
 # this is where it is on my system. Find a copy at
