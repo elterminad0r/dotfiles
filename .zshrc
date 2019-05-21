@@ -21,7 +21,7 @@ source_if_exists() {
             source "$sfile"
             return 0
         fi
-    end
+    done
     echo "Izaak's zshrc: could not source any of $*" >&2
 }
 

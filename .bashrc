@@ -24,8 +24,8 @@ source_if_exists() {
         if [[ -f "$sfile" ]]; then
             source "$sfile"
             return 0
-        fi
-    end
+        fi;
+    done
     echo "Izaak's bashrc: could not source any of $*" >&2
 }
 
