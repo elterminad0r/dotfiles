@@ -35,5 +35,8 @@ case $(tty) in
         izg() {
             echo $ter_fonts[$IZ_VC_FONTSIZE]
         }
-    ;;
+        ;;
+    *)
+        IZAAK_IS_TTY=
+        ;;
 esac

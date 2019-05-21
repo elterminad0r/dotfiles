@@ -50,8 +50,9 @@ export COLUMNS LINES
 stty -ixon
 
 # add $1 to path if it isn't already in path.
+# Be sure that you pass a proper full path to this, rather than a relative one.
 add_to_path() {
-    local add_dir="$(realpath $1)"
+    local add_dir="$1"
     case $PATH in
         *$add_dir:*)
             ;;
