@@ -67,7 +67,7 @@ nnoremap g<CR> <CR>
 augroup CmdWinCRRestore
     autocmd!
     autocmd CmdwinEnter * nunmap <CR>
-    autocmd CmdwinLeave * nnoremap <CR> :noh<CR>
+    autocmd CmdwinLeave * nnoremap <CR> :call ToggleHighlight()<CR>
 augroup END
 
 " Search for selected text. This makes * and # work for visual selections, so
