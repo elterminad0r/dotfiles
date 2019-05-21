@@ -23,7 +23,26 @@ source_if_exists() {
     fi
 }
 
-source_if_exists $HOME/.profile
+source_if_exists "$HOME/.profile"
+
+# all my shell-y aliases
+source_if_exists "$HOME/.izaak_aliases"
+
+# this relies on too much zsh stuff for now. I've extracted the important bits
+# source_if_exists "$HOME/.ttyrc"
+case $(tty) in
+    /dev/tty[0-9]*)
+        ;;
+    *)
+        if [[ -f "$HOME/.dir_colors_solarized" ]]; then
+            eval "$(dircolors "$HOME/.dir_colors_solarized")"
+        else
+            echo "not loading dircolors" >&2
+        fi
+        ;;
+esac
+
+source_if_exists "$HOME/.tmuxopenrc"
 
 # add $1 to path if it isn't already in path.
 add_to_path() {
@@ -40,9 +59,6 @@ add_to_path() {
 add_to_path ~/bin
 add_to_path ~/.gem/ruby/2.6.0/bin
 add_to_path ~/.local/bin
-
-# all my shell-y aliases
-source_if_exists $HOME/.izaak_aliases
 
 # List Xecutables - print all possible things that could act like a command -
 # that is, Aliases, Builtins, Commands, Keywords

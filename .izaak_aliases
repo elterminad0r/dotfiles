@@ -1,4 +1,4 @@
-# vim: ft=zsh
+# vim: ft=sh
 
 # FIGMENTIZE: aliases
 #         .__   .__
@@ -60,19 +60,19 @@ insomniac_press() {
 }
 
 # switch on/switch off networking
-alias airplane="nmcli radio all off"
-alias unairplane="nmcli radio all on"
+alias airplane='nmcli radio all off'
+alias unairplane='nmcli radio all on'
 
 # make grep and friends case insensitive
-alias grep="grep -i --color=auto"
-alias ack="ack -i"
-alias ag="ag -i"
+alias grep='grep -i --color=auto'
+alias ack='ack -i'
+alias ag='ag -i'
 
 # run pascal files as scripts with instantfpc
-alias ifpc="instantfpc"
+alias ifpc='instantfpc'
 
 # FIXME this doesn't actually work because of hoogle for some reason
-alias hoogle="hoogle --color=true"
+alias hoogle='hoogle --color=true'
 
 # cat with colours
 alias ccat='highlight -O ansi'
@@ -99,62 +99,53 @@ alias man='LESS_TERMCAP_mb="$(tput bold)$(tput setaf 6)" \
            LESS_TERMCAP_ue="$(tput sgr0)" \
            man'
 
-alias info="info --vi-keys"
+alias info='info --vi-keys'
 
-alias feh="feh -d"
-
-# use solarized dir_colors
-if [[ -n "$DISPLAY" ]]; then
-    if [[ -f $HOME/.dir_colors_solarized ]]; then
-        eval `dircolors $HOME/.dir_colors_solarized`
-    else
-        echo "not loading dircolors" >&2
-    fi
-fi
+alias feh='feh -d'
 
 # ls aliases, based on what the ls in PATH seems to be capable of
 # https://stackoverflow.com/questions/1676426/how-to-check-the-ls-version
 if silent ls --color -d .; then # GNU ls, probably
     # lc_all=c so that sorting is case sensitive, as it should be.
-    alias ls="LC_ALL=C ls -h --group-directories-first --color=auto"
+    alias ls='LC_ALL=C ls -h --group-directories-first --color=auto'
     # long listings with and without group of owner
-    alias l="ls -l -G"
-    alias ll="ls -l"
-    alias la="ls -la"
-    alias lt="\ls -ltrh --color=auto"
-    alias lb="ls -lSr"
-    alias ldir="ls -l --directory"
+    alias l='ls -l -G'
+    alias ll='ls -l'
+    alias la='ls -la'
+    alias lt='\ls -ltrh --color=auto'
+    alias lb='ls -lSr'
+    alias ldir='ls -l --directory'
 elif silent gls --color -d .; then # GNU ls is on the system as "gls"
-    alias ls="LC_ALL=C gls -h --group-directories-first --color=auto"
-    alias l="ls -l -G"
-    alias ll="ls -l"
-    alias la="ls -la"
-    alias lt="\gls -ltrh --color=auto"
-    alias lb="ls -lSr"
-    alias ldir="ls -l --directory"
+    alias ls='LC_ALL=C gls -h --group-directories-first --color=auto'
+    alias l='ls -l -G'
+    alias ll='ls -l'
+    alias la='ls -la'
+    alias lt='\gls -ltrh --color=auto'
+    alias lb='ls -lSr'
+    alias ldir='ls -l --directory'
 elif silent ls -G -d .; then # BSD ls, probably (eg as on MacOS)
-    alias ls="LC_ALL=C ls -h -G"
-    alias lt="\ls -ltrh -G"
-    alias l="ls -l -o"
-    alias ll="ls -l"
-    alias la="ls -la"
-    alias ldir="ls -l -d"
-    alias lb="ls -lSr"
+    alias ls='LC_ALL=C ls -h -G'
+    alias lt='\ls -ltrh -G'
+    alias l='ls -l -o'
+    alias ll='ls -l'
+    alias la='ls -la'
+    alias ldir='ls -l -d'
+    alias lb='ls -lSr'
 else # some other ls (solaris?)
     # empty true to make bash happy
     true
 fi
 
 # safety first
-alias rm="rm -i"
-alias mv="mv -i"
-alias cp="cp -i"
+alias rm='rm -i'
+alias mv='mv -i'
+alias cp='cp -i'
 
 # never mind about that, it seems to break everything
 # case $OSTYPE in
 #     darwin*)
 #         # because the OSX system vimrc is shite
-#         alias vim="vim -u ~/.vimrc"
+#         alias vim='vim -u ~/.vimrc'
 #         ;;
 # esac
 
@@ -164,28 +155,30 @@ alias cp="cp -i"
 alias vi=vim
 # TODO: add TODO file
 # VI TeX files, with a servername to enable SyncTeX
-alias vitx="vim --servername vim **/*.tex **/*.sty"
+alias vitx='vim --servername vim **/*.tex **/*.sty'
 # so I get my own vimrc when I use view
-alias view="vim -R"
+alias view='vim -R'
 
 # open the most recently written session in ~/.vim/sessions
 revim() {
     local n=${1:-1}
-    vim -S $(\ls -t --directory $HOME/.vim/sessions/* | head -n $n | tail -n 1)
+    vim -S $(\ls -t --directory "$HOME"/.vim/sessions/* | head -n $n | tail -n 1)
 }
 
 # if light locker exists, alias lock to be alongside poweroff & reboot etc
 if silent command -v light-locker-command; then
-    alias lock="light-locker-command -l"
+    alias lock='light-locker-command -l'
 else
-    alias lock="echo 'I don't know how to lock'"
+    # mess around with quotes for ships and giggs
+    # I basically just prefer to have a consistent outer quoting style here.
+    alias lock='echo "I don'"'"'t know how to lock"'
 fi
 
 # open ipython with my maths profile
-alias maths="ipython --profile=maths"
+alias maths='ipython --profile=maths'
 
 # display my timetable for school using elinks
-alias tt='elinks -dump -dump-width $COLUMNS $HOME/Documents/timetable.html'
+alias tt='elinks -dump -dump-width $COLUMNS "$HOME/Documents/timetable.html"'
 
 # new and improved c & v, inspired by & modified from OMZ
 # These provide copy and paste, somewhat sensitive to what cliboard interfaces
@@ -250,51 +243,54 @@ case "$OSTYPE" in
 esac
 
 # latex/pdf compilation related aliases
-alias lmk="latexmk"
-alias present="evince -s"
+alias lmk='latexmk'
+alias present='evince -s'
 alias latex="latex -synctex=1  --shell-escape -halt-on-error";
 alias pdflatex="pdflatex -synctex=1 -shell-escape -halt-on-error";
 alias xelatex="xelatex -synctex=1 -shell-escape -halt-on-error";
 
+# use GNU sed to explicitly print escape sequences
+alias clarify='sed -n l'
+
 # the space means that sudo can be followed by an alias (particularly things
 # like sudo p for sudo pacman)
-alias sudo="sudo "
+alias sudo='sudo '
 
 # root zsh
-alias rzsh="sudo ZSH_DISABLE_COMPFIX=true ZDOTDIR=$HOME HOME=$HOME zsh"
+alias rzsh='sudo ZSH_DISABLE_COMPFIX=true ZDOTDIR="$HOME" HOME="$HOME" zsh'
 # bare zsh
-alias bzsh="ZDOTDIR=/ zsh"
+alias bzsh='ZDOTDIR=/ zsh'
 # plain zsh
-alias pzsh="IZAAK_NO_POWERLINE=true zsh"
+alias pzsh='IZAAK_NO_POWERLINE=true zsh'
 # reload zsh configuration properly, by replacing the current shell with a fresh
 # zsh
-alias z="exec zsh"
+alias z='exec zsh'
 
 # similar for bash
-alias b="exec bash"
+alias b='exec bash'
 # root bash
-alias rbash="sudo HOME=$HOME bash"
+alias rbash='sudo HOME="$HOME" bash'
 
 # open various config files
-alias vi3="vi $HOME/.config/i3/config"
-alias viz="vi $HOME/.zshrc $HOME/.izaak_aliases"
-alias vit="vi $HOME/Documents/TODO"
-alias viv="vi $HOME/.vim/*rc"
-alias vif="vi $HOME/fun"
-alias vid="vi $HOME/fun/diary"
-alias vix="vi $HOME/.Xresources"
-alias vic="vi $HOME/.config"
-alias visafe="vi -c 'set noswapfile nobackup nowritebackup noundofile viminfo='"
-alias vienc="visafe $HOME/Documents/.enc/"
-alias vitm="vi $HOME/.tmux.conf"
+alias vi3='vim "$HOME/.config/i3/config"'
+alias viz='vim "$HOME/.zshrc" "$HOME/.izaak_aliases"'
+alias vit='vim "$HOME/Documents/TODO"'
+alias viv='vim "$HOME/.vim/*rc"'
+alias vif='vim "$HOME/fun"'
+alias vid='vim "$HOME/fun/diary"'
+alias vix='vim "$HOME/.Xresources"'
+alias vic='vim "$HOME/.config"'
+alias visafe='vim -c "set noswapfile nobackup nowritebackup noundofile viminfo="'
+alias vienc='visafe "$HOME/Documents/.enc/"'
+alias vitm='vim "$HOME/.tmux.conf"'
 
 # reload various types of configuration
-alias x="xrdb merge $HOME/.Xresources"
-alias t="tmux source-file $HOME/.tmux.conf"
+alias x='xrdb merge "$HOME/.Xresources"'
+alias t='tmux source-file "$HOME/.tmux.conf"'
 
 # restart or test wifi connection
-alias wifirestart="sudo systemctl restart NetworkManager.service"
-alias p88="ping 8.8.8.8 -c 20 -w 60"
+alias wifirestart='sudo systemctl restart NetworkManager.service'
+alias p88='ping 8.8.8.8 -c 20 -w 60'
 
 # nice git alias. BASH USERS BEWARE: Bash isn't able to look inside aliases to
 # provide tab completion for their contents. The easy solution is to switch to
@@ -307,12 +303,12 @@ alias g=git
 # it's a function because it can't be trusted to have its completion inferred
 # from the alias, and I define my own completion in ~/.zcomp/_cfg
 cfg() {
-    /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME "$@"
+    /usr/bin/git --git-dir="$HOME/.cfg/" --work-tree="$HOME" "$@"
 }
 
 # legacy gal function from when I used shell aliases for git
 # gal() {
-#     grep alias $HOME/.gitconfig | grep "$*"
+#     grep alias "$HOME/.gitconfig" | grep "$*"
 # }
 
 # function to display or filter git aliases, looking for some regex. quite
@@ -323,19 +319,19 @@ gal() {
     # scrape the alias section using an awk command, which sets a flag to true
     # at [alias], and then unsets it as soon as there is a nonwhite character on
     # the first line
-    awk '/\[alias\]/{a=1;next}/^[^\t]/{a=0}a' $HOME/.gitconfig |\
+    awk '/\[alias\]/{a=1;next}/^[^\t]/{a=0}a' "$HOME/.gitconfig" |\
         sed "s/^\t//" | grep -v "^;" | grep "$1"
 }
 
-alias mutt="echo 'use configured mailbox' 2>&1"
-alias hills_mail='\mutt -F $HOME/.hills_muttrc'
-alias gmail='\mutt -F $HOME/.gmail_muttrc'
+alias mutt='echo "use configured mailbox" 2>&1'
+alias hills_mail='\mutt -F "$HOME/.hills_muttrc"'
+alias gmail='\mutt -F "$HOME/.gmail_muttrc"'
 
 # get most recent n screenshots (1 by default)
 # useful to copy it to current directory or similar.
 # this assumes that screenshots are stored to ~/Pictures/screenshots
 screenshots() {
-    \ls -t --directory $HOME/Pictures/screenshots/* |
+    \ls -t --directory "$HOME"/Pictures/screenshots/* |
         grep "${2:-}" | head -"${1:-1}";
 }
 
@@ -351,18 +347,18 @@ cppath() {
 }
 
 # Arch linux specific aliases
-alias pacman="pacman --color=auto"
-alias p="pacman"
+alias pacman='pacman --color=auto'
+alias p='pacman'
 alias pacsystree='for i in $(pacman -Qeq); do pactree $i; done'
 
 
 # Frivolous aliases
 
 # make figlet use my extra figlet fonts
-if [[ -d $HOME/builds/figlet-fonts ]]; then
-    alias figlet="figlet -k -t -d $HOME/builds/figlet-fonts/"
+if [[ -d "$HOME/builds/figlet-fonts" ]]; then
+    alias figlet='figlet -k -t -d "$HOME/builds/figlet-fonts/"'
 else
-    alias figlet="figlet -k -t"
+    alias figlet='figlet -k -t'
 fi
 
 # display all figlet fonts
@@ -378,7 +374,7 @@ figfonts() {
 
 # force lolcat to colour, so it can be piped. Who on earth pipes data to lolcat
 # in order for lolcat NOT TO CHANGE IT???
-alias lolcat="lolcat -f"
+alias lolcat='lolcat -f'
 
 # self explanatory
 # TODO: add The Box
@@ -394,7 +390,7 @@ partytime() {
 # SINGLE QUOTES to stop the command substitution happening at startup
 alias partycow='while true; do fortune | cowsay -f $(cowsay -l | tail +2 | xargs shuf -n1 -e); done | pv -q -l -L 3 | lolcat'
 # go on a 23 day mad one
-alias mathsparty="timestable -l 10000000 | pv -lq -L 5 | lolcat -p 10 -F 0.01"
+alias mathsparty='timestable -l 10000000 | pv -lq -L 5 | lolcat -p 10 -F 0.01'
 
 # look cooler
-alias cmatrix="cmatrix -abu 1"
+alias cmatrix='cmatrix -abu 1'

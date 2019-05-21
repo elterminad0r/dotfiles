@@ -11,69 +11,24 @@
 # setting some options and variables (HISTSIZE in particular), and also it
 # seemed to persistently mess up my locale environment variables like LC_ALL
 
-case $(tty) in /dev/tty[0-9]*)
-    echo "launching tty setup"
-    # I don't prepend my name to things out of egotism, or at least that's not
-    # the only reason. It's mostly a fairly safe guarantee that it won't clash
-    # with any other variables.
-    IZAAK_IS_TTY=true
-    IZ_VC_FONTSIZE=5;
-    ter_fonts=(/usr/share/kbd/consolefonts/ter-1??n.psf.gz);
-    izu() {
-        if [[ $IZ_VC_FONTSIZE -ge 9 ]] then
-            echo "already at max font" >&2
-        else
-            ((IZ_VC_FONTSIZE++));
-            setfont $ter_fonts[$IZ_VC_FONTSIZE];
-            echo $ter_fonts[$IZ_VC_FONTSIZE];
-        fi
-    }
-    izd() {
-        if [[ $IZ_VC_FONTSIZE -le 1 ]] then
-            echo "already at min font" >&2
-        else
-            ((IZ_VC_FONTSIZE--));
-            setfont $ter_fonts[$IZ_VC_FONTSIZE];
-            echo $ter_fonts[$IZ_VC_FONTSIZE];
-        fi
-    }
-    izr() {
-        IZ_VC_FONTSIZE=5;
-        setfont $ter_fonts[$IZ_VC_FONTSIZE];
-        echo $ter_fonts[$IZ_VC_FONTSIZE];
-    }
-    izg() {
-        echo $ter_fonts[$IZ_VC_FONTSIZE];
-    }
-;;
-esac
-
-# this part is a function so it gets grouped by itself
-izaak_tmux() {
-    tmux attach-session || tmux
-}
-
-if [[ -n $IZAAK_START_TMUX ]]; then
-    # If not running interactively, do not do anything
-    [[ $- != *i* ]] && return
-    [[ -z "$TMUX" ]] && exec izaak_tmux
-fi
-
-# transparency in xterm
-[[ -n "$XTERM_VERSION" ]] && transset-df --id "$WINDOWID" 0.95 >/dev/null
-
-# provides things like the $fg_bold array
-autoload -Uz colors && colors
-
 # define this function so that I can source things with impunity, but my zshrc
 # won't break as hard if taken out of context.
 source_if_exists() {
     if [[ -f "$1" ]]; then
         source "$1"
     else
-        echo "could not source $1" >&2
+        echo "Izaak's zshrc: could not source $1" >&2
     fi
 }
+
+source_if_exists "$HOME/.ttyrc"
+source_if_exists "$HOME/.tmuxopenrc"
+
+# transparency in xterm
+[[ -n "$XTERM_VERSION" ]] && transset-df --id "$WINDOWID" 0.95 >/dev/null
+
+# provides things like the $fg_bold array
+autoload -Uz colors && colors
 
 # killer feature!
 # make rprompt go away when I move on. This hugely reduces clutter when you
@@ -111,7 +66,7 @@ else
     precmd_functions+=( precmd_vcs_info )
     setopt prompt_subst
     # RPROMPT=\$vcs_info_msg_0_
-    PROMPT=\$vcs_info_msg_0_'%# '
+    # PROMPT=\$vcs_info_msg_0_'%# '
     # basically ripped from man zshcontrib
     # yet to customize more
     # need to use %%b for bold off
@@ -147,7 +102,7 @@ else
     zle -N zle-line-init
     zle -N zle-keymap-select
     ret_status="%(?:%F{green}:%F{red})"
-    RPROMPT="%B%(?.%F{green}✓.%F{red}%?) %F{white}%h%f%b"
+    RPROMPT="%B%(?.%F{green}OK .%F{red}%? )%(2L.%F{yellow}%L .)%F{white}%h%f%b"
     # two-line prompt, with a blank line behind it.
     PROMPT=$'\n'"%B\$VIM_PROMPT%(!.%F{red}.%F{magenta})%n$ret_status%#%F{yellow}%m$ret_status|%f%F{cyan}%~%b%F{blue}\$vcs_info_msg_0_%f%b"$'\n%B%F{white}->%f%b '
 fi
@@ -283,8 +238,8 @@ bindkey "^I" expand-or-complete-with-dots
 # source_if_exists $ZSH/oh-my-zsh.sh
 
 # this is handled by zsh_env
-# source_if_exists $HOME/.izaak_aliases
-# source_if_exists $HOME/.bourne_apparix
+# source_if_exists "$HOME/.izaak_aliases"
+# source_if_exists "$HOME/.bourne_apparix"
 
 zstyle ':completion:*:*:*:*:*' menu select
 zstyle ':completion:*' special-dirs true

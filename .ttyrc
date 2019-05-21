@@ -1,0 +1,49 @@
+# vim: ft=sh
+
+case $(tty) in
+    /dev/tty[0-9]*)
+        echo "launching tty setup"
+        # I don't prepend my name to things out of egotism, or at least that's
+        # not the only reason. It's mostly a fairly safe guarantee that it won't
+        # clash with any other variables.
+        IZAAK_IS_TTY=true
+        IZ_VC_FONTSIZE=5
+        ter_fonts=(/usr/share/kbd/consolefonts/ter-1??n.psf.gz)
+            izu() {
+                if [[ $IZ_VC_FONTSIZE -ge 9 ]]; then
+                    echo "already at max font" >&2
+                else
+                    ((IZ_VC_FONTSIZE++))
+                    setfont $ter_fonts[$IZ_VC_FONTSIZE]
+                    echo $ter_fonts[$IZ_VC_FONTSIZE]
+                fi
+            }
+        izd() {
+            if [[ $IZ_VC_FONTSIZE -le 1 ]]; then
+                echo "already at min font" >&2
+            else
+                ((IZ_VC_FONTSIZE--))
+                setfont $ter_fonts[$IZ_VC_FONTSIZE]
+                echo $ter_fonts[$IZ_VC_FONTSIZE]
+            fi
+        }
+        izr() {
+            IZ_VC_FONTSIZE=5
+            setfont $ter_fonts[$IZ_VC_FONTSIZE]
+            echo $ter_fonts[$IZ_VC_FONTSIZE]
+        }
+        izg() {
+            echo $ter_fonts[$IZ_VC_FONTSIZE]
+        }
+    ;;
+esac
+
+if [[ "$IZAAK_IS_TTY" != "true" ]]; then
+    if [[ -f $HOME/.dir_colors_solarized ]]; then
+        eval "$(dircolors $HOME/.dir_colors_solarized)"
+    else
+        echo "not loading dircolors" >&2
+    fi
+else
+    echo "no solarized as tty" >&2
+fi
