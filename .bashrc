@@ -52,22 +52,6 @@ alias lx="compgen -A function -abck | grep -v '^_'"
 
 set -o vi
 
-# tell the readline library to show a vi mode indicator.
-# this could go in inputrc, but I have my reasons that make it more
-# straightforward to just do it here, for Bash.
-# also, doing it here allows for command substitutions, which means I can use
-# tput /o/
-bind "set show-mode-in-prompt on"
-# TODO: is there way to make this work nicely with search mode?
-# also TODO: can I put colours in here without breaking my prompt? who knows. it
-# doesn't seem to understand \[ and \]. Ideally I would have it act the way my
-# "pzsh" prompt looks, but I don't think it will be feasibly. Therefore, I have
-# it go between a character and no character for maximum visibility
-bind "set vi-ins-mode-string \"< >\""
-bind "set vi-cmd-mode-string \"<N>\""
-# this would colour in the matching part of what you're completing on
-# bind "set colored-completion-prefix"
-
 # use good bash completion
 source_if_exists /usr/share/bash-completion/bash_completion
 
@@ -88,82 +72,10 @@ export HISTFILESIZE=-1
 # when a line is added, all previous matches to that line are removed
 export HISTCONTROL=ignorespace:ignoredups:erasedups
 
+# tab completion for git
 source_if_exists /usr/share/git/completion/git-completion.bash
 
-# this is where it is on my system. Find a copy at
-# https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh
-source_if_exists /usr/share/git/git-prompt.sh
-
-# show if there are staged/unstaged changes
-GIT_PS1_SHOWDIRTYSTATE=true
-# pretty colours
-GIT_PS1_SHOWCOLORHINTS=true
-# show if there are untracked files
-GIT_PS1_SHOWUNTRACKEDFILES=true
-# show if you have stashed changes
-GIT_PS1_SHOWSTASHSTATE=true
-# show relationship with upstream repository
-GIT_PS1_SHOWUPSTREAM=auto
-
-# function which returns a code to make text green if exit status was
-# successful, and red otherwise
-exitstatus_prompt() {
-    if [[ $? == 0 ]]; then
-        tput setaf 2
-    else
-        tput setaf 1
-    fi
-}
-
-# function which returns red if the user has root privileges, and pink otherwise
-user_prompt() {
-    if [[ $EUID -ne 0 ]]; then
-        tput setaf 5
-    else
-        tput setaf 1
-    fi
-}
-
-# function to build a pretty looking prompt, inspired by Stijn van Dongen's
-# taste in prompts, but with more colours.
-izaak_prompt() {
-    # sub-components of the prompt, mostly using tput to generate ANSI escape
-    # sequences. This is really just to avoid the prompt becoming a ghastly 500
-    # byte one-liner
-    # always wrap nonprinting characters in \[ and \] in bash prompts, so that
-    # bash knows how to draw the prompt properly when redrawing (eg if cycling
-    # through history or tab completing)
-    local iz_exit="\[$(exitstatus_prompt)\]"
-    local iz_bold="\[$(tput bold)\]"
-    local iz_user="\[$(user_prompt)\]"
-    local iz_yellow="\[$(tput setaf 3)\]"
-    local iz_cyan="\[$(tput setaf 6)\]"
-    local iz_reset="\[$(tput sgr0)\]"
-    # a little logic to make directory behave correctly in / and /*/, and also
-    # handle home directory with a little extra logic
-    local iz_dir_base="$(basename "$PWD")"
-    local iz_dir_dir="$(basename "$(dirname "$PWD")")"
-    if [[ "$PWD" = "$HOME" ]]; then
-        local iz_dir="~"
-    elif [[ "$(dirname "$PWD")" = "$HOME" ]]; then
-        local iz_dir="~/$iz_dir_base"
-    elif [[ "$iz_dir_base" = "/" ]]; then
-        local iz_dir="/"
-    elif [[ "$iz_dir_dir" = "/" ]]; then
-        local iz_dir="/$iz_dir_base"
-    else
-        local iz_dir="$iz_dir_dir/$iz_dir_base"
-    fi
-    # This last part uses __git_ps1 to inject some information about dirty
-    # states and branches when in a git repository. This can be made much
-    # prettier using just vanilla zsh, with the vcs_info autoload function.
-    __git_ps1 "$iz_bold$iz_user\u$iz_exit@$iz_yellow\h$iz_exit|$iz_cyan$iz_dir$iz_reset" " "
-}
-
-# sets prompt command. the two arguments are the string to appear before the git
-# status, and the string to appear after it, using normal Bash prompt syntax.
-# also make some pretty colours with tput.
-PROMPT_COMMAND='resize &>/dev/null; izaak_prompt'
+source_if_exists "$HOME/.bashpromptrc"
 
 # shopts. Some of these are already set by default but I like to keep everything
 # explicit and in one place.
@@ -202,4 +114,5 @@ shopt -s nocasematch
 # the prompt string undergoes variable expansion/command substitution/etc
 shopt -s promptvars
 
-# source $HOME/.bourne_apparix
+# source "$HOME/.bourne_apparix"
+source_if_exists "$HOME/.bourne-apparish"

@@ -1,0 +1,124 @@
+# vim: ft=bash
+
+# file that sets up my flashy bashy prompt
+
+# this is where it is on my system. Find a copy at
+# https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh.
+source_if_exists /usr/share/git/git-prompt.sh
+
+# show if there are staged/unstaged changes
+GIT_PS1_SHOWDIRTYSTATE=true
+# pretty colours
+GIT_PS1_SHOWCOLORHINTS=true
+# show if there are untracked files
+GIT_PS1_SHOWUNTRACKEDFILES=true
+# show if you have stashed changes
+GIT_PS1_SHOWSTASHSTATE=true
+# show relationship with upstream repository
+GIT_PS1_SHOWUPSTREAM=auto
+
+# function which returns a code to make text green if exit status was
+# successful, and red otherwise. Indicates the value of a non-zero return
+# status. TAKES AN ARGUMENT
+exitstatus_prompt() {
+    if [[ "$1" == 0 ]]; then
+        echo -n "\[$(tput setaf 2)\]@"
+    else
+        echo -n "\[$(tput setaf 1)\]($1)"
+    fi
+}
+
+# function to format a nice SHLVL indicating prompt component, to warn about
+# nested shells.
+shlvl_prompt() {
+    if [[ "$SHLVL" = 1 ]]; then
+        echo -n "\[$(tput setaf 7)\]|"
+    else
+        echo -n "\[$(tput setaf 7)\][$SHLVL]"
+    fi
+}
+
+# function which returns red if the user has root privileges, and pink otherwise
+user_prompt() {
+    if [[ $EUID -ne 0 ]]; then
+        echo -n "\[$(tput setaf 5)\]\u"
+    else
+        echo -n "\[$(tput setaf 1)\]\1"
+    fi
+}
+
+# function to return the last two components of PWD, with some extra formatting
+dir_prompt() {
+    # a little logic to make directory behave correctly in / and /*/, and also
+    # handle home directory with a little extra logic
+    local iz_dir_base="$(basename "$PWD")"
+    local iz_dir_dir="$(basename "$(dirname "$PWD")")"
+    if [[ "$PWD" = "$HOME" ]]; then
+        local iz_dir="~"
+    elif [[ "$(dirname "$PWD")" = "$HOME" ]]; then
+        local iz_dir="~/$iz_dir_base"
+    elif [[ "$iz_dir_base" = "/" ]]; then
+        local iz_dir="/"
+    elif [[ "$iz_dir_dir" = "/" ]]; then
+        local iz_dir="/$iz_dir_base"
+    else
+        local iz_dir="$iz_dir_dir/$iz_dir_base"
+    fi
+    echo -n "\[$(tput setaf 6)\]$iz_dir"
+}
+
+host_prompt() {
+    echo -n "\[$(tput setaf 3)\]\h"
+}
+
+# IMPORTANT: we can only use grep's return status in apparix_prompt if pipefail
+# is set
+set -o pipefail
+
+# function to display an apparix bookmark if you're in one
+apparix_prompt() {
+    if silent amibm; then
+        echo -n " \[$(tput setaf 4)\]($(echo -n "$(amibm)"))"
+    fi
+}
+
+# tell the readline library to show a vi mode indicator.
+# this could go in inputrc, but I have my reasons that make it more
+# straightforward to just do it here, for Bash.
+# also, doing it here allows for command substitutions, which means I can use
+# tput /o/
+bind "set show-mode-in-prompt on"
+# TODO: is there way to make this work nicely with search mode?
+# also TODO: can I put colours in here without breaking my prompt? who knows. it
+# doesn't seem to understand \[ and \]. Ideally I would have it act the way my
+# "pzsh" prompt looks, but I don't think it will be feasibly. Therefore, I have
+# it go between a character and no character for maximum visibility
+bind "set vi-ins-mode-string \"< >\""
+bind "set vi-cmd-mode-string \"<N>\""
+# this would colour in the matching part of what you're completing on
+# bind "set colored-completion-prefix"
+
+# function to build a pretty looking prompt, inspired by Stijn van Dongen's
+# taste in prompts, but with more colours.
+izaak_prompt() {
+    # it's important that this goes first, in order to get the exit status
+    # before it runs out
+    local IZAAK_EXIT_STATUS="$?"
+    local iz_bold="\[$(tput bold)\]"
+    local iz_reset="\[$(tput sgr0)\]"
+    local iz_prompt="$iz_bold$(user_prompt)$(exitstatus_prompt "$IZAAK_EXIT_STATUS")$(host_prompt)$(shlvl_prompt)$(dir_prompt)$(apparix_prompt)$iz_reset"
+    # only works if you sourced git-prompt.sh earlier
+    if silent command -v __git_ps1; then
+        # This last part uses __git_ps1 to inject some information about dirty
+        # states and branches when in a git repository. This can be made much
+        # prettier using just vanilla zsh, with the vcs_info autoload function.
+
+        # The two arguments that __git_ps1 takes are a prefix to the git part of
+        # the prompt, and a suffix. I leave the suffic as just a space.
+        __git_ps1 "$iz_prompt" " "
+    else
+        PS1="$iz_prompt "
+    fi
+}
+
+PROMPT_COMMAND='izaak_prompt'
