@@ -64,7 +64,10 @@ user_prompt() {
     fi
 }
 
-# function to return the last two components of PWD, with some extra formatting
+# function to return the last two components of PWD, stijn style, with some
+# extra formatting.
+# UNUSED: I personally just whack my full PWD into my prompt, with
+# full_dir_prompt
 dir_prompt() {
     # a little logic to make directory behave correctly in / and /*/, and also
     # handle home directory with a little extra logic
@@ -84,18 +87,32 @@ dir_prompt() {
     echo -n "\[$(tput setaf 6)\]$iz_dir"
 }
 
+# display PWD in full.
+# I prefer this version because
+# 1) I have space to kill as I use a two-line prompt
+# 2) It's much faster - dir_prompt is a performance bottleneck, as profiled
+#    later on
+full_dir_prompt() {
+    # uses dirs +0 to display ~ in place of eg /home/izaak
+    echo -n "\[$(tput setaf 6)\]$(dirs +0)"
+}
+
 # function to display the host name
 host_prompt() {
     echo -n "\[$(tput setaf 3)\]\h"
 }
 
-# function to display an apparix bookmark if you're in one
-# IMPORTANT: we can only use grep's return status in apparix_prompt if pipefail
-# is set
-set -o pipefail
+# function to display an apparix bookmark if you're in one.
+# This is a little bit of a performance bottleneck, as indicated by
+# prompt_profile. As far as I can see there aren't any really trivial
+# optimisations left, and as it stands it's about 2-3 times slower than any
+# other component (ignoring dir_prompt)
 apparix_prompt() {
-    if silent amibm; then
-        echo -n " \[$(tput setaf 4)\]($(echo -n "$(amibm)"))"
+    # assume that amibm has empty output if it's unsuccessful, to avoid having
+    # to re-run it
+    local izaak_bm=$(amibm)
+    if [[ -n "$izaak_bm" ]]; then
+        echo -n " \[$(tput setaf 4)\]($izaak_bm)"
     fi
 }
 
@@ -127,7 +144,7 @@ izaak_prompt() {
     local iz_bold="\[$(tput bold)\]"
     local iz_reset="\[$(tput sgr0)\]"
     # construct the prompt from all the earlier components
-    local iz_prompt="$iz_bold$(user_prompt)$(exitstatus_prompt "$IZAAK_EXIT_STATUS")$(host_prompt)$(shlvl_prompt)$(dir_prompt)$(apparix_prompt)$iz_reset"
+    local iz_prompt="$iz_bold$(user_prompt)$(exitstatus_prompt "$IZAAK_EXIT_STATUS")$(host_prompt)$(shlvl_prompt)$(full_dir_prompt)$(apparix_prompt)$iz_reset"
 
     # Inside here, I put the prompt to use. I've personally got it on two lines,
     # and padded by a line in front, as that's what I've gotten used to from my
@@ -154,9 +171,9 @@ prompt_profile() {
     LOOPS=200
     echo "Profiling each component with $LOOPS loops"
     for component in izaak_prompt user_prompt exitstatus_prompt host_prompt\
-        shlvl_prompt dir_prompt apparix_prompt; do
+        shlvl_prompt full_dir_prompt dir_prompt apparix_prompt; do
         echo
-        echo -n "$component"
+        echo -n "$component..."
         time for i in $(seq 1 1 $LOOPS); do
             # mock some arguments for the component that want them
             silent "$component" 1 1
