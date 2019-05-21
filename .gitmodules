@@ -112,3 +112,75 @@
 [submodule ".vim/bundle/vim-vinegar"]
 	path = .vim/bundle/vim-vinegar
 	url = https://github.com/tpope/vim-vinegar.git
+[submodule "ack.vim"]
+	branch = master
+[submodule "CamelCaseMotion"]
+	branch = master
+[submodule "fzf.vim"]
+	branch = master
+[submodule "goyo.vim"]
+	branch = master
+[submodule "lightline-bufferline"]
+	branch = master
+[submodule "lightline.vim"]
+	branch = master
+[submodule "python-syntax"]
+	branch = master
+[submodule "quick-scope"]
+	branch = master
+[submodule "rainbow"]
+	branch = master
+[submodule "tabular"]
+	branch = master
+[submodule "ultisnips"]
+	branch = master
+[submodule "undotree"]
+	branch = master
+[submodule "unicode.vim"]
+	branch = master
+[submodule "vim-colors-solarized"]
+	branch = master
+[submodule "vim-commentary"]
+	branch = master
+[submodule "vim-delphi"]
+	branch = master
+[submodule "vim-easy-align"]
+	branch = master
+[submodule "vim-easymotion"]
+	branch = master
+[submodule "vim-eunuch"]
+	branch = master
+[submodule "vim-fugitive"]
+	branch = master
+[submodule "vim-indent-object"]
+	branch = master
+[submodule "vim-misc"]
+	branch = master
+[submodule "vim-notes"]
+	branch = master
+[submodule "vim-plug"]
+	branch = master
+[submodule "vim-repeat"]
+	branch = master
+[submodule "vim-snippets"]
+	branch = master
+[submodule "vim-speeddating"]
+	branch = master
+[submodule "vim-surround"]
+	branch = master
+[submodule "vim-tbone"]
+	branch = master
+[submodule "vim-textobj-entire"]
+	branch = master
+[submodule "vim-textobj-fold"]
+	branch = master
+[submodule "vim-textobj-line"]
+	branch = master
+[submodule "vim-textobj-user"]
+	branch = master
+[submodule "vim-unimpaired"]
+	branch = master
+[submodule "vim-Verdin"]
+	branch = master
+[submodule "vim-vinegar"]
+	branch = master
