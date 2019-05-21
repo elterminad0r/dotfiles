@@ -324,6 +324,10 @@ bindsym $mod+period exec --no-startup-id ~/bin/randombg --random
 bindsym $mod+Shift+comma exec --no-startup-id ~/bin/randombg --prev
 bindsym $mod+comma exec --no-startup-id ~/bin/randombg --next
 
+# turn polybar on or off
+bindsym $mod+t exec --no-startup-id polybar-msg cmd toggle
+
+# turn borders/titles on or off
 bindsym $mod+Tab border toggle
 
 for_window [class=".*"] border none #pixel 0
@@ -336,6 +340,10 @@ for_window [class=".*"] border none #pixel 0
 gaps inner 20
 gaps outer 5
 # smart_gaps on
+
+# turn gaps on or off
+bindsym $mod+y gaps inner all set 20, gaps outer all set 5
+bindsym $mod+u gaps inner all set 0, gaps outer all set 0
 
 exec --no-startup-id /usr/bin/dunst
 
