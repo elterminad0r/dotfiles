@@ -39,7 +39,7 @@ autoload -Uz colors && colors
 # easily copy/paste etc etc
 setopt transient_rprompt
 
-POWERLEVEL_THEME=~/.zplugins/powerlevel10k/powerlevel10k.zsh-theme
+POWERLEVEL_THEME="$HOME/.zplugins/powerlevel10k/powerlevel10k.zsh-theme"
 
 if [[ -z "$IZAAK_IS_TTY" && -z "$IZAAK_NO_POWERLINE" && -f "$POWERLEVEL_THEME" ]]; then
     # customisation options for powerline. The implementation I use is powerlevel10k
@@ -243,6 +243,9 @@ bindkey "^I" expand-or-complete-with-dots
 # source_if_exists "$HOME/.izaak_aliases"
 # source_if_exists "$HOME/.bourne_apparix"
 
+# the configuration for zsh completion. This is all a little mysterious to me
+# really.
+
 zstyle ':completion:*:*:*:*:*' menu select
 zstyle ':completion:*' special-dirs true
 
@@ -290,4 +293,4 @@ alias -g ......='../../../../..'
 alias d='dirs -v | head -10'
 
 # zsh syntax highlighting
-source_if_exists /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source_if_exists "$HOME/.zplugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
