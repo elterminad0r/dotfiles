@@ -15,12 +15,18 @@
 
 # define this function so that I can source things with impunity, but my bashrc
 # won't break as hard if taken out of context.
+# it goes through all of its arguments, stopping as soon as it can source any
+# one of them.
+# I only use this a handful of times so that I can source backup versions of
+# files I have duplicated in my dotfiles that are also located on my system.
 source_if_exists() {
-    if [[ -f "$1" ]]; then
-        source "$1"
-    else
-        echo "Izaak's bashrc: could not source $1" >&2
-    fi
+    for sfile in "$@"; do
+        if [[ -f "$sfile" ]]; then
+            source "$sfile"
+            return 0
+        fi
+    end
+    echo "Izaak's bashrc: could not source any of $*" >&2
 }
 
 source_if_exists "$HOME/.profile"
@@ -53,7 +59,7 @@ alias lx="compgen -A function -abck | grep -v '^_'"
 set -o vi
 
 # use good bash completion
-source_if_exists /usr/share/bash-completion/bash_completion
+source_if_exists /usr/share/bash-completion/bash_completion "$HOME/.bash_scripts/bash_completion"
 
 # tab completion and some directory thing for readline
 bind '"\t":menu-complete'
@@ -73,7 +79,7 @@ export HISTFILESIZE=-1
 export HISTCONTROL=ignorespace:ignoredups:erasedups
 
 # tab completion for git
-source_if_exists /usr/share/git/completion/git-completion.bash
+source_if_exists /usr/share/git/completion/git-completion.bash "$HOME/.bash_scripts/git-completion.bash"
 
 source_if_exists "$HOME/.bashpromptrc"
 

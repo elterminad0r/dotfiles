@@ -13,12 +13,16 @@
 
 # define this function so that I can source things with impunity, but my zshrc
 # won't break as hard if taken out of context.
+# it goes through all of its arguments, stopping as soon as it can source any
+# one of them.
 source_if_exists() {
-    if [[ -f "$1" ]]; then
-        source "$1"
-    else
-        echo "Izaak's zshrc: could not source $1" >&2
-    fi
+    for sfile in "$@"; do
+        if [[ -f "$sfile" ]]; then
+            source "$sfile"
+            return 0
+        fi
+    end
+    echo "Izaak's zshrc: could not source any of $*" >&2
 }
 
 source_if_exists "$HOME/.ttyrc"

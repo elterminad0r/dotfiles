@@ -1,4 +1,4 @@
-# vim: ft=bash
+# vim: ft=sh
 
 # FIGMENTIZE: prompt
 #                                          __
@@ -10,9 +10,14 @@
 
 # file that sets up my flashy bashy prompt
 
+# this part configures the git bit of my prompt. I highly recommend finding this
+# script somewhere. It should in theory just come standard with git.
+
 # this is where it is on my system. Find a copy at
 # https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh.
-source_if_exists /usr/share/git/git-prompt.sh
+# I also have a backuip copy in my .bash_scripts, but that's not under any kind
+# of version control or package management.
+source_if_exists /usr/share/git/git-prompt.sh "$HOME/.bash_scripts/git-prompt.sh"
 
 # show if there are staged/unstaged changes
 GIT_PS1_SHOWDIRTYSTATE=true
@@ -24,6 +29,10 @@ GIT_PS1_SHOWUNTRACKEDFILES=true
 GIT_PS1_SHOWSTASHSTATE=true
 # show relationship with upstream repository
 GIT_PS1_SHOWUPSTREAM=auto
+
+# here follow a set of functions I have defined to compartmentalise my prompt a
+# little. They make heavy use of tput and \[ \], which are used to output ANSI
+# terminal codes, and indicate to Bash that they are non-printing, respectively.
 
 # function which returns a code to make text green if exit status was
 # successful, and red otherwise. Indicates the value of a non-zero return
@@ -75,15 +84,15 @@ dir_prompt() {
     echo -n "\[$(tput setaf 6)\]$iz_dir"
 }
 
+# function to display the host name
 host_prompt() {
     echo -n "\[$(tput setaf 3)\]\h"
 }
 
+# function to display an apparix bookmark if you're in one
 # IMPORTANT: we can only use grep's return status in apparix_prompt if pipefail
 # is set
 set -o pipefail
-
-# function to display an apparix bookmark if you're in one
 apparix_prompt() {
     if silent amibm; then
         echo -n " \[$(tput setaf 4)\]($(echo -n "$(amibm)"))"
@@ -112,10 +121,17 @@ izaak_prompt() {
     # it's important that this goes first, in order to get the exit status
     # before it runs out
     local IZAAK_EXIT_STATUS="$?"
+    # some prompt-escaped terminal codes for ease of reference
     local iz_bold="\[$(tput bold)\]"
     local iz_reset="\[$(tput sgr0)\]"
+    # construct the prompt from all the earlier components
     local iz_prompt="$iz_bold$(user_prompt)$(exitstatus_prompt "$IZAAK_EXIT_STATUS")$(host_prompt)$(shlvl_prompt)$(dir_prompt)$(apparix_prompt)$iz_reset"
-    # only works if you sourced git-prompt.sh earlier
+
+    # Inside here, I put the prompt to use. I've personally got it on two lines,
+    # and padded by a line in front, as that's what I've gotten used to from my
+    # zsh P10K prompt, but this is optional.
+
+    # the first branch only works if you sourced git-prompt.sh earlier.
     if silent command -v __git_ps1; then
         # This last part uses __git_ps1 to inject some information about dirty
         # states and branches when in a git repository. This can be made much
@@ -123,9 +139,9 @@ izaak_prompt() {
 
         # The two arguments that __git_ps1 takes are a prefix to the git part of
         # the prompt, and a suffix. I leave the suffic as just a space.
-        __git_ps1 "$iz_prompt" " "
+        __git_ps1 $'\n'"$iz_prompt" $'\n'" $iz_bold\[$(tput setaf 7)\]->$iz_reset "
     else
-        PS1="$iz_prompt "
+        PS1=$'\n'"$iz_prompt"$'\n'" $iz_bold\[$(tput setaf 7)\]->$iz_reset "
     fi
 }
 
