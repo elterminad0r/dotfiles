@@ -32,9 +32,9 @@ source_if_exists() {
 # assert that bash version is at least $1.$2.$3
 version_assert() {
     for i in {1..3}; do
-        if ((BASH_VERSINFO[$(($i - 1))] > ${!i})); then
+        if ((BASH_VERSINFO[$((i - 1))] > ${!i})); then
             return 0
-        elif ((BASH_VERSINFO[$(($i - 1))] < ${!i})); then
+        elif ((BASH_VERSINFO[$((i - 1))] < ${!i})); then
             echo "Your bash is older than $1.$2.$3" >&2
             return 1
         fi
@@ -51,10 +51,10 @@ source_if_exists "$HOME/.izaak_aliases"
 # source_if_exists "$HOME/.ttyrc"
 case $(tty) in
     /dev/tty[0-9]*)
-        IZAAK_IS_TTY=true
+        export IZAAK_IS_TTY=true
         ;;
     *)
-        IZAAK_IS_TTY=false
+        export IZAAK_IS_TTY=false
         ;;
 esac
 

@@ -27,13 +27,12 @@ silent() {
 # obviously for personal use only, it uses eval etc and so forth ad nauseum
 # TODO: fix this - doesn't work properly for eg $ enhance echo "abc def" hij
 enhance() {
-    local args="$@"
     eval "
     IZAAK_ENHANCE_F() {
-        $args
+        $*
     }"
     declare -f IZAAK_ENHANCE_F |\
-        if [[ -n $ZSH_VERSION ]]; then
+        if [ -n "$ZSH_VERSION" ]; then
             tail -n +2 | sed "s/^	//"
         # assume everything else acts like bash
         else
@@ -49,9 +48,9 @@ enhance() {
 insomniac_twitch() {
     local dis_w=$(xdotool getdisplaygeometry | awk '{print $1}')
     local dis_h=$(xdotool getdisplaygeometry | awk '{print $2}')
-    local gen_x=$(shuf -i 1-$dis_w -n 1)
-    local gen_y=$(shuf -i 1-$dis_h -n 1)
-    xdotool mousemove $gen_x $gen_y
+    local gen_x=$(shuf -i 1-"$dis_w" -n 1)
+    local gen_y=$(shuf -i 1-"$dis_h" -n 1)
+    xdotool mousemove "$gen_x" "$gen_y"
     notify-send twitch "$(date +"%H:%M:%S")"
 }
 
@@ -60,6 +59,11 @@ insomniac_press() {
     xdotool key Control_L
     notify-send press "$(date +"%H:%M:%S")"
 }
+
+# function to cd to a lot of directories, for experimenting with DIRSTACK type
+# options
+# Also serves as a handy example of how to properly loop over find output.
+alias populate_dirstack='find "$HOME" -maxdepth 2 -type d -print0 | while IFS= read -r -d "" d; do cd "$d"; done'
 
 # switch on/switch off networking
 alias airplane='nmcli radio all off'
@@ -92,14 +96,17 @@ alias ccat='highlight -O ansi'
 # end all modes
 # end standout
 # end underline
-alias man="$(echo 'LESS_TERMCAP_mb="$(tput bold)$(tput setaf 6)"'\
-                  'LESS_TERMCAP_md="$(tput bold)$(tput setaf 4)"'\
-                  'LESS_TERMCAP_so="$(tput setab 0)$(tput setaf 7)"'\
-                  'LESS_TERMCAP_us="$(tput setaf 2)"'\
-                  'LESS_TERMCAP_me="$(tput sgr0)"'\
-                  'LESS_TERMCAP_se="$(tput sgr0)"'\
-                  'LESS_TERMCAP_ue="$(tput sgr0)"'\
-                  'man')"
+
+# also, a bit of trickery to make the alias be on one line, but formatted over
+# several, as some systems get themselves confused about \ns.
+alias man="$(echo "LESS_TERMCAP_mb='$(tput bold)$(tput setaf 6)'"\
+                  "LESS_TERMCAP_md='$(tput bold)$(tput setaf 4)'"\
+                  "LESS_TERMCAP_so='$(tput setab 0)$(tput setaf 7)'"\
+                  "LESS_TERMCAP_us='$(tput setaf 2)'"\
+                  "LESS_TERMCAP_me='$(tput sgr0)'"\
+                  "LESS_TERMCAP_se='$(tput sgr0)'"\
+                  "LESS_TERMCAP_ue='$(tput sgr0)'"\
+                  "man")"
 
 alias info='info --vi-keys'
 
@@ -164,7 +171,10 @@ alias view='vim -R'
 # open the most recently written session in ~/.vim/sessions
 revim() {
     local n=${1:-1}
-    vim -S $(\ls -t --directory "$HOME"/.vim/sessions/* | head -n $n | tail -n 1)
+    # TODO
+    # assumes that you've not got any newlines in your session names, because
+    # chronological order is a PAIN with find.
+    vim -S "$(\ls -t --directory "$HOME"/.vim/sessions/* | head -n $n | tail -n 1)"
 }
 
 # if light locker exists, alias lock to be alongside poweroff & reboot etc
@@ -186,11 +196,11 @@ alias tt='elinks -dump -dump-width $COLUMNS "$HOME/Documents/timetable.html"'
 # These provide copy and paste, somewhat sensitive to what cliboard interfaces
 # there are on your system.
 c() {
-    case "$OSTYPE" in
-        darwin*)
+    case "$(uname -s)" in
+        Darwin)
             pbcopy
             ;;
-        cygwin*)
+        Cygwin)
             cat > /dev/clipboard
             ;;
         *)
@@ -206,11 +216,11 @@ c() {
 }
 
 v() {
-    case "$OSTYPE" in
-        darwin*)
+    case "$(uname -s)" in
+        Darwin)
             pbpaste
             ;;
-        cygwin*)
+        Cygwin)
             cat /dev/clipboard
             ;;
         *)
@@ -226,11 +236,11 @@ v() {
 }
 
 # define the o alias to be a mimetype aware opener.
-case "$OSTYPE" in
-    darwin*)
+case "$(uname -s)" in
+    Darwin)
         alias o=open
         ;;
-    cygwin*)
+    Cygwin)
         alias o=cygstart
         ;;
     *)
@@ -332,6 +342,8 @@ alias gmail='\mutt -F "$HOME/.gmail_muttrc"'
 # get most recent n screenshots (1 by default)
 # useful to copy it to current directory or similar.
 # this assumes that screenshots are stored to ~/Pictures/screenshots
+# TODO:
+# uses ls instead of find for chronological ordering
 screenshots() {
     \ls -t --directory "$HOME"/Pictures/screenshots/* |
         grep "${2:-}" | head -"${1:-1}";
@@ -345,7 +357,7 @@ wttr() {
 # Copy a full path to its argument. Useful if you need to open something in
 # another application that understands file paths.
 cppath() {
-    realpath $1 | c
+    realpath "$1" | c
 }
 
 # Arch linux specific aliases
@@ -357,7 +369,7 @@ alias pacsystree='for i in $(pacman -Qeq); do pactree $i; done'
 # Frivolous aliases
 
 # make figlet use my extra figlet fonts
-if [[ -d "$HOME/builds/figlet-fonts" ]]; then
+if [ -d "$HOME/builds/figlet-fonts" ]; then
     alias figlet='figlet -k -t -d "$HOME/builds/figlet-fonts/"'
 else
     alias figlet='figlet -k -t'
@@ -365,12 +377,12 @@ fi
 
 # display all figlet fonts
 figfonts() {
-    local exts="$(echo -n '.*\.'\("$(
-        (echo -n flf tlf\  && figlet -I 5) | sed -e 's/  */|/g')"\)\$)"
+    local exts="$(end='' printf "%s" '.*\.\('"$(
+        (end='' printf "flf tlf "  && figlet -I 5) | sed -e 's/  */\\|/g')"'\)$')"
     echo "finding all $exts in $(figlet -I 2)"
-    find "$(figlet -I 2)" -type f -regextype egrep -regex "$exts" \
+    find "$(figlet -I 2)" -type f -regex "$exts" \
         -exec echo {} \;\
-        -exec \figlet -ktd "$(figlet -I 2)" -f {} "${1:-Test 123}" \;\
+        -exec figlet -ktd "$(figlet -I 2)" -f {} "${1:-Test 123}" \;\
         -exec echo \;
 }
 
@@ -384,9 +396,9 @@ alias starwars='tput setaf 220 && tput bold && figlet -f starwars -w 80 "STAR WA
 
 # hack to force buffering by line
 partytime() {
-    cat /dev/urandom | base64 --wrap=$COLUMNS | lolcat -F 0.01 -p 1 | while read line;
+    base64 --wrap=$COLUMNS /dev/urandom | lolcat -F 0.01 -p 1 | while read -r line;
     do
-        echo $line
+        echo "$line"
     done
 }
 

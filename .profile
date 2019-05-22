@@ -8,7 +8,12 @@
 # |   __/ |__|    \____/ |__|   |__||____/ \___  >
 # |__|                                         \/
 
+if [ -n "$IZAAK_VERBOSE" ]; then
+    echo "sourcing profile"
+fi
+
 export EDITOR='vim'
+export VISUAL='vim'
 export PAGER='less'
 # TODO: think of a better solution for this
 # export PAGER='vimpager'; export VIMPAGERRC="~/.vim/vimpagerrc"
@@ -17,6 +22,9 @@ export TERMINAL='urxvt'
 export BROWSER='firefox'
 export READER='zathura'
 export FILE='ranger'
+
+# make BSD utilities be coloured in
+export CLICOLOR=1
 
 export XDG_CONFIG_HOME="$HOME/.config"
 
@@ -28,7 +36,7 @@ export LC_CTYPE=en_GB.utf8
 export LC_ALL=en_GB.utf8
 export LANG=en_GB.utf8
 
-if [[ $TERM = xterm ]]; then
+if [ "$TERM" = xterm ]; then
     export TERM=xterm-256color
 fi
 
@@ -52,12 +60,11 @@ stty -ixon
 # add $1 to path if it isn't already in path.
 # Be sure that you pass a proper full path to this, rather than a relative one.
 add_to_path() {
-    local add_dir="$1"
     case $PATH in
-        *$add_dir:*)
+        *"$1":*)
             ;;
         *)
-            export PATH=$add_dir:$PATH
+            export PATH="$1:$PATH"
             ;;
     esac
 }

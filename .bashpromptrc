@@ -20,15 +20,15 @@
 source_if_exists /usr/share/git/git-prompt.sh "$HOME/.bash_scripts/git-prompt.sh"
 
 # show if there are staged/unstaged changes
-GIT_PS1_SHOWDIRTYSTATE=true
+export GIT_PS1_SHOWDIRTYSTATE=true
 # pretty colours
-GIT_PS1_SHOWCOLORHINTS=true
+export GIT_PS1_SHOWCOLORHINTS=true
 # show if there are untracked files
-GIT_PS1_SHOWUNTRACKEDFILES=true
+export GIT_PS1_SHOWUNTRACKEDFILES=true
 # show if you have stashed changes
-GIT_PS1_SHOWSTASHSTATE=true
+export GIT_PS1_SHOWSTASHSTATE=true
 # show relationship with upstream repository
-GIT_PS1_SHOWUPSTREAM=auto
+export GIT_PS1_SHOWUPSTREAM=auto
 
 # here follow a set of functions I have defined to compartmentalise my prompt a
 # little. They make heavy use of ANSI terminal codes and \[ \], which are used
@@ -37,8 +37,11 @@ GIT_PS1_SHOWUPSTREAM=auto
 # I have hardcoded all the ANSI escape codes for performance reasons - it seems
 # to offer a speedup of over 50%, which is worthwile. The tput command used to
 # obtain the sequence is also provided as a comment.
-# Vim tput hardcoding macro:
-# @q = /tput"ayi(da(Xi=ss€kbystem("a")€ýa
+# Vim tput hardcoding macro (acts on next match of $(tput[^)]*)
+# let @q = "/\\$(tput[^)]*)\<CR>ft\"ayi(cgn\<C-r>\<C-r>=system(\"\<C-r>a\")\<CR>\<Esc>"
+# initialise using 0fly$:<C-r><C-r>"<CR>
+# fix escape sequences with :%s/<C-v>x1b/\\e/g (you have to type the proper
+# sequences yourself)
 
 # The two remaining targets for optimisation are probably reducing function
 # overhead (that is, making the whole thing one disgusting, illegible,
@@ -130,7 +133,7 @@ host_prompt() {
 apparix_prompt() {
     # assume that amibm has empty output if it's unsuccessful, to avoid having
     # to re-run it
-    local izaak_bm=$(amibm)
+    local izaak_bm="$(amibm)"
     if [[ -n "$izaak_bm" ]]; then
         # echo -n " \[$(tput setaf 4)\]($izaak_bm)"
         echo -n " \[\e[38;5;4m\]($izaak_bm)"
@@ -194,10 +197,10 @@ prompt_profile() {
     LOOPS=200
     echo "Profiling each component with $LOOPS loops"
     for component in izaak_prompt user_prompt exitstatus_prompt host_prompt\
-        shlvl_prompt full_dir_prompt dir_prompt apparix_prompt; do
+        shlvl_prompt full_dir_prompt dir_prompt apparix_prompt __git_ps1; do
         echo
         echo -n "$component..."
-        time for i in $(seq 1 1 $LOOPS); do
+        time for ((i=0; i<LOOPS; i++)); do
             # mock some arguments for the component that want them
             silent "$component" 1 1
         done

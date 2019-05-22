@@ -13,9 +13,9 @@ izaak_tmux() {
     tmux attach-session || tmux
 }
 
-if [[ -n $IZAAK_START_TMUX ]]; then
+if [ -n "$IZAAK_START_TMUX" ]; then
     # If not running interactively, do not do anything
     [[ $- != *i* ]] && return
-    [[ -z "$TMUX" ]] && exec izaak_tmux
+    [ -z "$TMUX" ] && exec izaak_tmux
 fi
 
