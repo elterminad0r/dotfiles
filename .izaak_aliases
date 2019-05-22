@@ -23,6 +23,13 @@ silent() {
     "$@" > /dev/null 2> /dev/null
 }
 
+# if tac command doesn't exist, use tail -r instead, and hope for the best
+if ! silent command -v tac; then
+    tac() {
+        tail -r -- "$@"
+    }
+fi
+
 # function to fully expand its arguments if they're aliases.
 # obviously for personal use only, it uses eval etc and so forth ad nauseum
 # TODO: fix this - doesn't work properly for eg $ enhance echo "abc def" hij
