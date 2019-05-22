@@ -251,7 +251,10 @@ bindkey "^I" expand-or-complete-with-dots
 
 # this is handled by zsh_env
 # source_if_exists "$HOME/.izaak_aliases"
-# source_if_exists "$HOME/.bourne_apparix"
+
+if [[ "$IZAAK_APPARIX" == "true" ]]; then
+    source_if_exists "$HOME/.bourne-apparish"
+fi
 
 # the configuration for zsh completion. This is all a little mysterious to me
 # really.

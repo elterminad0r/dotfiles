@@ -46,7 +46,7 @@ enhance() {
             tail -n +3 | sed "s/^    //"
         # this removes the last line. Can't use head -n -1 as that doesn't work
         # on BSD
-        fi | tac | tail +2 | tac
+        fi | tac | tail -n +2 | tac
 }
 
 # if you want to really ruin someone's day, run this in a high frequency while
@@ -75,6 +75,11 @@ alias populate_dirstack='find "$HOME" -maxdepth 2 -type d -print0 | while IFS= r
 # switch on/switch off networking
 alias airplane='nmcli radio all off'
 alias unairplane='nmcli radio all on'
+
+# sanitise $1 so that it becomes suitable for use with your basic grep
+function grepsanitise() {
+    sed 's/[].*^$]\|\[/\\&/g' <<< "$1"
+}
 
 # make grep and friends case insensitive
 alias grep='grep -i --color=auto'
