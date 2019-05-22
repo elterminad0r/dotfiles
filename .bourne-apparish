@@ -32,7 +32,7 @@
 #  Apparish is a pure shell implementation of an older system, apparix, written
 #  partly in C.  For both systems the bookmarking commands are implemented as
 #  shell functions.  The names of these functions are the same between the two
-#  implementations and the are very similar.  The apparix
+#  implementations and the function definitions are very similar.  The apparix
 #  shell functions invoke a C executable. Apparish uses another shell funtion
 #  to mimic this C program and apparish provides two additional funcctions,
 #  apparix-init and apparix-list. The pivotal commands however are 'bm'
@@ -89,7 +89,7 @@
 #  compatible with apparix resource files. You can either use old apparix
 #  (compiling and installing the application apparix) in conjunction with
 #  sourcing .bourne-apparix, or you can simply source this file without needing
-#  to install apparix.  This files implements nearly all apparix functionality
+#  to install apparix.  This file implements nearly all apparix functionality
 #  in shell code. It uses a apparish in place of apparix.
 #
 #                       BASH and ZSH functions
