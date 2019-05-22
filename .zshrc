@@ -329,4 +329,6 @@ alias -g ......='../../../../..'
 alias d='dirs -v | head -10'
 
 # zsh syntax highlighting
+# IMPORTANT: This needs to go at the ned of the file because it hooks into other
+# ZLE widgets
 source_if_exists "$HOME/.zplugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
