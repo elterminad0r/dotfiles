@@ -13,6 +13,15 @@
 # cutting edge readline features with gay abandon, so you'll probably need at
 # least bash 4.something, idk ask someone who uses bash.
 
+# vim-like: totally silence the given command, with less of the tedium. doesn't
+# affect return status, so can be used inside if statements.
+# black magic: "$@" expands to each argument as a separate word.
+# gotcha: this won't expand any aliases you have. This is probably preferred
+# functionality anyway, though (at least for me)
+silent() {
+    "$@" > /dev/null 2> /dev/null
+}
+
 # define this function so that I can source things with impunity, but my bashrc
 # won't break as hard if taken out of context.
 # it goes through all of its arguments, stopping as soon as it can source any
@@ -41,6 +50,25 @@ version_assert() {
     done
     return 0
 }
+
+# read lines of file "$1" into izaak_array
+if silent version_assert 4 0 0; then
+    read_array() {
+        mapfile -t izaak_array < "$1"
+    }
+elif silent version_assert 3 0 0; then
+    read_array() {
+        izaak_array=()
+        while IFS='' read -r line; do
+            izaak_array+=("$line");
+        done < "$1"
+    }
+else
+    read_array() {
+        >&2 echo "warning: bad implementation"
+        izaak_array=( $(cat $1) )
+    }
+fi
 
 source_if_exists "$HOME/.profile"
 

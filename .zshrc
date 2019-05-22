@@ -25,6 +25,14 @@ source_if_exists() {
     echo "Izaak's zshrc: could not source any of $*" >&2
 }
 
+# read lines of $1 into izaak_array
+function read_array() {
+    izaak_array=()
+    while IFS='' read -r line; do
+        izaak_array+=("$line");
+    done < "$1"
+}
+
 source_if_exists "$HOME/.ttyrc"
 
 source_if_exists "$HOME/.dircolorsrc"
@@ -112,17 +120,32 @@ else
         # RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $EPS1"
         zle reset-prompt
     }
+
     zle -N zle-line-init
     zle -N zle-keymap-select
     ret_status="%(?:%F{green}:%F{red})"
+    # right prompt with some information
     RPROMPT="%B%(?.%F{green}OK .%F{red}%? )%(2L.%F{yellow}%L .)%F{white}%h%f%b"
+
     # two-line prompt, with a blank line behind it.
-    PROMPT=$'\n'"%B\$VIM_PROMPT%(!.%F{red}.%F{magenta})%n$ret_status%#%F{yellow}%m$ret_status|%f%F{cyan}%~%b%F{blue}\$vcs_info_msg_0_%f%b"$'\n%B%F{white}->%f%b '
+    # If zsh is in apparix mode, also indicate the current bookmark
+    if [[ "$IZAAK_APPARIX" == "true" ]]; then
+        function apparix_prompt {
+            iz_bm="$(amibm)"
+            if [[ -n "$iz_bm" ]]; then
+                echo " ($iz_bm)"
+            fi
+        }
+        apparix_indicator="%F{blue}\$(apparix_prompt)"
+    else
+        apparix_indicator=""
+    fi
+    PROMPT=$'\n'"%B\$VIM_PROMPT%(!.%F{red}.%F{magenta})%n$ret_status%#%F{yellow}%m$ret_status|%f%F{cyan}%~$apparix_indicator\$vcs_info_msg_0_%f%b"$'\n%B%F{white}->%f%b '
 fi
 
 autoload -Uz compinit
 # leftover from oh-my-zsh
-if [[ $ZSH_DISABLE_COMPFIX == "true" ]]; then
+if [[ "$ZSH_DISABLE_COMPFIX" == "true" ]]; then
     compinit -u
 else
     compinit
