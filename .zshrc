@@ -71,6 +71,7 @@ if [[ -z "$IZAAK_IS_TTY" && -z "$IZAAK_NO_POWERLINE" && -f "$POWERLEVEL_THEME" ]
     POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
     source "$POWERLEVEL_THEME"
 else
+    export IZAAK_NO_POWERLINE=true
     # alternative prompt without any plugins or fancy fonts. Basically emulates
     # the important bits of my powerline prompt
     autoload -Uz vcs_info

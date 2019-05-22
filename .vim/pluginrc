@@ -47,7 +47,7 @@
 " Active plugins:
 " quick-scope: highlight characters in the current line that can be "scoped"
 "   with [ftFT]
-" lightline with lightline-bufferline: a nicer statusline, and a tabline that
+" airline with airline-themse: a nicer statusline, and a tabline that
 "   lists buffers.
 " rainbow: coherent highlighting of nested delimiter pairs
 
@@ -94,51 +94,92 @@ call plug#begin('~/.vim/bundle')
     " plugin to do text alignment
     Plug 'junegunn/vim-easy-align'
 
-    let g:lightline#bufferline#show_number = 1
-    " show buffers in tabline
-    Plug 'mengelbrecht/lightline-bufferline'
-
     " solarized colorscheme for vim
     Plug 'altercation/vim-colors-solarized'
 
-    " FIXME: make solarized colorscheme work, configure all of this properly
-    let g:lightline = {
-        \ 'colorscheme': 'powerline',
+    let g:airline_detect_modified=1
+
+    " enable paste detection >
+    let g:airline_detect_paste=1
+    " enable crypt detection >
+    let g:airline_detect_crypt=1
+
+    " enable spell detection >
+    let g:airline_detect_spell=1
+
+    " display spelling language when spell detection is enabled
+    " (if enough space is available) >
+    let g:airline_detect_spelllang=1
+    " enable iminsert detection >
+    let g:airline_detect_iminsert=1
+    " determine whether inactive windows should have the left section collapsed to
+    " only the filename of that buffer.  >
+    " let g:airline_inactive_collapse=0
+    " Use alternative separators for the statusline of inactive windows >
+    " let g:airline_inactive_alt_sep=1
+    " themes are automatically selected based on the matching colorscheme. this
+    " can be overridden by defining a value. >
+    let g:airline_theme='papercolor'
+
+    if !exists('g:airline_symbols')
+        let g:airline_symbols = {}
+    endif
+    if $IZAAK_NO_POWERLINE != "true"
+        let g:airline_symbols_powerline = 1
+        let g:airline_powerline_fonts = 1
+    else
+        let g:airline_symbols.maxlinenr = 'L'
+        let g:airline_symbols.dirty = '!'
+        let g:airline_symbols.branch = '|/'
+        let g:airline_symbols.readonly = 'RO'
+        let g:airline_symbols.notexists = 'NE'
+    endif
+
+    let g:airline_symbols.linenr = 'ln'
+    let g:airline_symbols.crypt = 'CRYPT'
+    let g:airline_symbols.whitespace = 'WS'
+
+    " define the set of text to display for each mode.  >
+    " let g:airline_mode_map = {} " see source for the defaults
+
+    let g:airline_filetype_overrides = {
+        \ 'help':  [ 'Help', '%f' ],
+        \ 'vim-plug': [ 'Plugins', '' ],
         \ }
 
-    let g:lightline.tabline          = {'left': [['buffers']], 'right': [['close']]}
-    let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
-    let g:lightline.component_type   = {'buffers': 'tabsel'}
+    " * Do not draw separators for empty sections (only for the active window) >
+    let g:airline_skip_empty_sections = 1
+    " <
+    " This variable can be overriden by setting a window-local variable with
+    " the same name (in the correct window): >
+    " let w:airline_skip_empty_sections = 0
+    " <
+    " * Caches the changes to the highlighting groups, should therefore be faster.
+    " Set this to one, if you experience a sluggish Vim: >
+    let g:airline_highlighting_cache = 1
+    " <
+    " * disable airline on FocusLost autocommand (e.g. when Vim loses focus): >
+    " let g:airline_focuslost_inactive = 1
+    " <
+    " * configure the fileformat output
+    " By default, it will display something like 'utf-8[unix]', however, you can
+    " skip displaying it, if the output matches a configured string. To do so, set >
+    let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
+    " <
+    " * Display the statusline in the tabline (first top line): >
+    " let g:airline_statusline_ontop = 1
 
-    " statusline that's fast and minimalistic (because minimalism is a huge concern
-    " of mine)
-    Plug 'itchyny/lightline.vim'
+    let g:airline#extensions#tabline#enabled = 1
+    Plug 'vim-airline/vim-airline-themes'
+    Plug 'vim-airline/vim-airline'
+    " Plug 'bling/vim-bufferline'
 
     " visualise the undo tree in a tree, rather than a flat list, using
     " :UndoTreeToggle
     Plug 'mbbill/undotree'
 
-    " nice little indent level indicator
-    " don't mess up buffers that don't want to be messed up. god knows why this
-    " isn't a default.
-    " FIXME: I don't like conceallevel being set against my wishes
-    " let g:indentLine_bufTypeExclude = ['help', 'terminal']
-    " Plug 'Yggdroot/indentLine' ", { 'for': ['c', 'python'] }
-
     " Text objects for indented blocks, with ii, iI, ai, aI
     Plug 'michaeljsmith/vim-indent-object'
-
-    " " multiple cursors. I'm not totally convinced of its utility.
-    " let g:multi_cursor_use_default_mapping = 0
-    " let g:multi_cursor_start_word_key      = '<C-s>'
-    " let g:multi_cursor_select_all_word_key = '<A-s>'
-    " let g:multi_cursor_start_key           = 'g<C-s>'
-    " let g:multi_cursor_select_all_key      = 'g<A-s>'
-    " " let g:multi_cursor_next_key            = '<C-n>'
-    " " let g:multi_cursor_prev_key            = '<C-p>'
-    " " let g:multi_cursor_skip_key            = '<C-x>'
-    " let g:multi_cursor_quit_key = '<Esc>'
-    " Plug 'terryma/vim-multiple-cursors'
 
     " redefine word motions to go inside of underscore_cased or CamelCased phrases.
     " top tip: use the "aw" textobject to operate on vanilla words
@@ -197,12 +238,6 @@ call plug#begin('~/.vim/bundle')
     endif
     Plug 'mileszs/ack.vim'
 
-    " Integrate window/pane navigation with tmux, using <C-[hjkl]>. These bindings
-    " now either move between windows or tmux panes, depending on when they hit the
-    " edge etc.
-    " Disable for now as I don't really use this
-    " Plug 'christoomey/vim-tmux-navigator'
-
     " Plug plug itself in order to generate documentation for it
     Plug 'junegunn/vim-plug'
 
@@ -235,12 +270,6 @@ call plug#begin('~/.vim/bundle')
     " textobjects for folds
     Plug 'kana/vim-textobj-fold'
 
-    " Text objects for functions in C, Java, Vim
-    " TODO: extend this for Python & bash, particularly
-    " also the vim one doesn't work if you're a good boy and you use `function!`
-    " eh really indent-object already does the job
-    " Plug 'kana/vim-textobj-function', { 'for': ['c', 'java'] }
-
     " makes modern objfpc .pas files be highlighted properly (eg understand //
     " commnents and the `result` variable)
     " FIXME various extensions (.dpr, .lpr) not recognised
@@ -255,12 +284,6 @@ call plug#begin('~/.vim/bundle')
 
     xmap ag <Plug>(textobj-entire-a)
     omap ag <Plug>(textobj-entire-a)
-
-    " textobjects for latex, allegedly
-    " this is terrible. It pollutes all the useful key bindings.
-    " Plug 'gibiansky/vim-latex-objects', { 'for': 'tex' }
-    " in any case, by properly indenting everything, this can be replace with
-    " indent textobjects.
 
     if has("python") || has("python3")
         " Set of snippets for ultisnips to use

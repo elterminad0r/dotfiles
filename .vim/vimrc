@@ -45,6 +45,22 @@ map <Space> <Nop>
 let mapleader = ' '
 " To see what kind of mappings there are with it, issue :map <Leader>
 
+" colour-related options, wrapped in some conditions just to be on the safe side
+if &t_Co > 2 || has("gui_running")
+    syntax enable
+    " do not set hlsearch if it is already set, as this will annoyingly
+    " re-highlight searches if you've set :noh
+    if !&hlsearch
+        set hlsearch
+    endif
+    " when I open a hacked together light terminal, use a light colorscheme.
+    if $IZAAK_COLORSCHEME == "light"
+        set background=light
+    else
+        set background=dark
+    endif
+endif
+
 " Source the sub-rc files for various components
 source ~/.vim/pluginrc
 source ~/.vim/optionsrc
@@ -69,15 +85,8 @@ function! ToggleHighlight()
     endif
 endfunction
 
-" colour-related options, wrapped in some conditions just to be on the safe side
+" colour related options that have to happen after sourcing plugins
 if &t_Co > 2 || has("gui_running")
-    syntax enable
-    " do not set hlsearch if it is already set, as this will annoyingly
-    " re-highlight searches if you've set :noh
-    if !&hlsearch
-        set hlsearch
-    endif
-    set background=dark
     if &term != "linux"
         " if the solarized colorscheme exists, load it
         try

@@ -32,9 +32,9 @@ set guioptions-=e
 set selectmode=mouse,key
 
 " when issuing the :gui command, lightline will break for some reason.
-augroup FixGuiCom
-    autocmd! GUIEnter * call lightline#enable()
-augroup END
+" augroup FixGuiCom
+"     autocmd! GUIEnter * call lightline#enable()
+" augroup END
 
 " set transparency if possible
 if executable("transset-df")
