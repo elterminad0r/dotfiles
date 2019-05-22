@@ -16,12 +16,6 @@
 [submodule ".vim/bundle/goyo.vim"]
 	path = .vim/bundle/goyo.vim
 	url = https://github.com/junegunn/goyo.vim.git
-[submodule ".vim/bundle/lightline-bufferline"]
-	path = .vim/bundle/lightline-bufferline
-	url = https://github.com/mengelbrecht/lightline-bufferline.git
-[submodule ".vim/bundle/lightline.vim"]
-	path = .vim/bundle/lightline.vim
-	url = https://github.com/itchyny/lightline.vim.git
 [submodule ".vim/bundle/python-syntax"]
 	path = .vim/bundle/python-syntax
 	url = https://github.com/vim-python/python-syntax.git
@@ -120,10 +114,6 @@
 	branch = master
 [submodule "goyo.vim"]
 	branch = master
-[submodule "lightline-bufferline"]
-	branch = master
-[submodule "lightline.vim"]
-	branch = master
 [submodule "python-syntax"]
 	branch = master
 [submodule "quick-scope"]
@@ -183,4 +173,12 @@
 [submodule "vim-Verdin"]
 	branch = master
 [submodule "vim-vinegar"]
+	branch = master
+[submodule ".vim/bundle/vim-airline"]
+	path = .vim/bundle/vim-airline
+	url = https://github.com/vim-airline/vim-airline.git
+	branch = master
+[submodule ".vim/bundle/vim-airline-themes"]
+	path = .vim/bundle/vim-airline-themes
+	url = https://github.com/vim-airline/vim-airline-themes.git
 	branch = master
