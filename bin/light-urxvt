@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+ xrdb -merge .Xresources
+ xrdb -merge .X-urxvt-light
+ IZAAK_COLORSCHEME=light urxvt

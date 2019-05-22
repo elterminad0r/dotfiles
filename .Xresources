@@ -8,9 +8,8 @@
 
 ! Solarized colours
 
-urxvt*depth: 32
+URxvt*depth: 32
 
-#define transparent_bg  rgba:0000/2b00/3600/eeff
 #define S_base03        #002b36
 #define S_base02        #073642
 #define S_base01        #586e75
@@ -19,15 +18,6 @@ urxvt*depth: 32
 #define S_base1         #93a1a1
 #define S_base2         #eee8d5
 #define S_base3         #fdf6e3
-
-urxvt*background:            transparent_bg
-
-*foreground:            S_base0
-*fadeColor:             S_base03
-*cursorColor:           S_base1
-*pointerColorBackground:S_base01
-*pointerColorForeground:S_base1
-urxvt*inputMethod:  xim
 
 #define S_yellow        #b58900
 #define S_orange        #cb4b16
@@ -38,53 +28,79 @@ urxvt*inputMethod:  xim
 #define S_cyan          #2aa198
 #define S_green         #859900
 
-!! black dark/light
-*color0:                S_base02
-*color8:                S_base01
+#define transparent_S_base03 rgba:0000/2b00/3600/eeff
 
-!! red dark/light
-*color1:                S_red
-*color9:                S_orange
+URxvt*background:            transparent_S_base03
 
-!! green dark/light
-*color2:                S_green
-*color10:               S_base01
+URxvt*foreground:            S_base0
+URxvt*fadeColor:             S_base03
+URxvt*cursorColor:           S_base1
+URxvt*pointerColorBackground:S_base01
+URxvt*pointerColorForeground:S_base1
 
-!! yellow dark/light
-*color3:                S_yellow
-*color11:               S_base00
-
-!! blue dark/light
-*color4:                S_blue
-*color12:               S_base0
-
-!! magenta dark/light
-*color5:                S_magenta
-*color13:               S_violet
-
-!! cyan dark/light
-*color6:                S_cyan
-*color14:               S_base1
-
-!! white dark/light
-*color7:                S_base2
-*color15: S_base3
+URxvt*color0:                S_base02
+URxvt*color8:                S_base01
+URxvt*color1:                S_red
+URxvt*color9:                S_orange
+URxvt*color2:                S_green
+URxvt*color10:               S_base01
+URxvt*color3:                S_yellow
+URxvt*color11:               S_base00
+URxvt*color4:                S_blue
+URxvt*color12:               S_base0
+URxvt*color5:                S_magenta
+URxvt*color13:               S_violet
+URxvt*color6:                S_cyan
+URxvt*color14:               S_base1
+URxvt*color7:                S_base2
+URxvt*color15: S_base3
 
 
-!!! Urxvt setup
-/* FIXME - emoji fonts don't actually work in urxvt */
+xterm*background:            S_base03
 
-urxvt*font: xft:Liberation Mono for Powerline:style=Regular:size=12
+xterm*foreground:            S_base0
+xterm*fadeColor:             S_base03
+xterm*cursorColor:           S_base1
+xterm*pointerColorBackground:S_base01
+xterm*pointerColorForeground:S_base1
 
-urxvt*loginShell: true
+xterm*color0:                S_base02
+xterm*color8:                S_base01
+xterm*color1:                S_red
+xterm*color9:                S_orange
+xterm*color2:                S_green
+xterm*color10:               S_base01
+xterm*color3:                S_yellow
+xterm*color11:               S_base00
+xterm*color4:                S_blue
+xterm*color12:               S_base0
+xterm*color5:                S_magenta
+xterm*color13:               S_violet
+xterm*color6:                S_cyan
+xterm*color14:               S_base1
+xterm*color7:                S_base2
+xterm*color15: S_base3
 
-urxvt*saveLines: 8192
 
-urxvt*intensityStyles:   false
+!!! URxvt setup
+/* FIXME - emoji fonts don't actually work in URxvt */
+
+URxvt*font: xft:Liberation Mono for Powerline:style=Regular:size=12
+URxvt*boldFont: xft:Liberation Mono for Powerline:style=Bold:size=12
+URxvt*italicFont: xft:Liberation Mono for Powerline:style=Italic:size=12
+URxvt*boldItalicfont: xft:Liberation Mono for Powerline:style=Bold Italic:size=12
+
+URxvt*inputMethod:  xim
+
+URxvt*loginShell: true
+
+URxvt*saveLines: 8192
+
+URxvt*intensityStyles:   false
 
 ! right hand side scrollbar...
-! urxvt*rightScrollBar: true
-urxvt*scrollBar: false
+! URxvt*rightScrollBar: true
+URxvt*scrollBar: false
 
 URxvt*iso14755: false
 URxvt*iso14755_52: false
@@ -100,8 +116,8 @@ URxvt*scrollWithBuffer: true
 ! scroll back to the bottom on keypress
 URxvt*scrollTtyKeypress: true
 
-urxvt*secondaryScreen: 1
-urxvt*secondaryScroll: 0
+URxvt*secondaryScreen: 1
+URxvt*secondaryScroll: 0
 
 ! URxvt.transparent:   true
 ! URxvt.shading:       90
@@ -133,70 +149,11 @@ UXTerm.VT100.translations: #override \
 Ctrl <Key> minus: smaller-vt-font() \n\
 Ctrl <Key> plus: larger-vt-font() \n\
 
-/* ! DOS-box colours... */
-/* xterm*foreground: rgb:a8/a8/a8 */
-/* xterm*background: rgb:00/00/00 */
-/* xterm*color0: rgb:00/00/00 */
-/* xterm*color1: rgb:a8/00/00 */
-/* xterm*color2: rgb:00/a8/00 */
-/* xterm*color3: rgb:a8/54/00 */
-/* xterm*color4: rgb:00/87/ff */
-/* xterm*color5: rgb:a8/00/a8 */
-/* xterm*color6: rgb:00/a8/a8 */
-/* xterm*color7: rgb:a8/a8/a8 */
-/* xterm*color8: rgb:54/54/54 */
-/* xterm*color9: rgb:fc/54/54 */
-/* xterm*color10: rgb:54/fc/54 */
-/* xterm*color11: rgb:fc/fc/54 */
-/* xterm*color12: rgb:54/54/fc */
-/* xterm*color13: rgb:fc/54/fc */
-/* xterm*color14: rgb:54/fc/fc */
-/* xterm*color15: rgb:fc/fc/fc */
-
-! right hand side scrollbar...
-! xterm*rightScrollBar: true
 xterm*ScrollBar: false
 
 ! stop output to terminal from jumping down to bottom of scroll again
 xterm*scrollTtyOutput: false
 
 xterm*background:            S_base03
-/* *foreground:            S_base0 */
-/* *fadeColor:             S_base03 */
-/* *cursorColor:           S_base1 */
-/* *pointerColorBackground:S_base01 */
-/* *pointerColorForeground:S_base1 */
-
-/* !! black dark/light */
-/* *color0:                S_base02 */
-/* *color8:                S_base01 */
-
-/* !! red dark/light */
-/* *color1:                S_red */
-/* *color9:                S_orange */
-
-/* !! green dark/light */
-/* *color2:                S_green */
-/* *color10:               S_base01 */
-
-/* !! yellow dark/light */
-/* *color3:                S_yellow */
-/* *color11:               S_base00 */
-
-/* !! blue dark/light */
-/* *color4:                S_blue */
-/* *color12:               S_base0 */
-
-/* !! magenta dark/light */
-/* *color5:                S_magenta */
-/* *color13:               S_violet */
-
-/* !! cyan dark/light */
-/* *color6:                S_cyan */
-/* *color14:               S_base1 */
-
-/* !! white dark/light */
-/* *color7:                S_base2 */
-/* *color15: S_base3 */
 
 xterm*boldColors: false

@@ -46,6 +46,11 @@ setopt transient_rprompt
 POWERLEVEL_THEME="$HOME/.zplugins/powerlevel10k/powerlevel10k.zsh-theme"
 
 if [[ -z "$IZAAK_IS_TTY" && -z "$IZAAK_NO_POWERLINE" && -f "$POWERLEVEL_THEME" ]]; then
+    if [[ "$IZAAK_COLORSCHEME" == light ]]; then
+        POWERLEVEL9K_COLOR_SCHEME='light'
+    else
+        POWERLEVEL9K_COLOR_SCHEME='dark'
+    fi
     # customisation options for powerline. The implementation I use is powerlevel10k
     # as it's a lot faster.
     POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(vi_mode context root_indicator dir_writable dir vcs)
