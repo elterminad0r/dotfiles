@@ -108,8 +108,8 @@ else
 fi
 
 # tab completion and some directory thing for readline
-bind '"\t":menu-complete'
-bind 'set mark-directories on'
+# bind '"\t":menu-complete'
+# bind 'set mark-directories on'
 
 # there are also several other readline related options in ~/.inputrc.
 
