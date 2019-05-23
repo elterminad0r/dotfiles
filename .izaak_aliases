@@ -286,6 +286,8 @@ alias rzsh='sudo ZSH_DISABLE_COMPFIX=true ZDOTDIR="$HOME" HOME="$HOME" zsh'
 alias bzsh='ZDOTDIR=/ zsh'
 # plain zsh
 alias pzsh='IZAAK_NO_POWERLINE=true zsh'
+# plain zsh with apparix loaded
+alias azsh='IZAAK_NO_POWERLINE=true IZAAK_APPARIX=true zsh'
 # reload zsh configuration properly, by replacing the current shell with a fresh
 # zsh
 alias z='exec zsh'
