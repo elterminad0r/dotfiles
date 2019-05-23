@@ -107,10 +107,6 @@ else
     echo "(not sourcing bash completion)" >&2
 fi
 
-# tab completion and some directory thing for readline
-# bind '"\t":menu-complete'
-# bind 'set mark-directories on'
-
 # there are also several other readline related options in ~/.inputrc.
 
 # to stop bash being confused by zsh
@@ -164,6 +160,8 @@ shopt -s extglob
 shopt -s extquote
 # empty globs cause errors
 shopt -s failglob
+# don't glob hidden files without explicit . prefix
+shopt -u dotglob
 # don't overwrite history, but append instead
 shopt -s histappend
 # # comments work in interactive mode
