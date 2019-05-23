@@ -242,7 +242,7 @@ function portal() {
 }
 
 function portal-expand() {
-    local parentdir subdir
+    local parentdir
     rm -f "$APPARIXEXPAND"
     true > "$APPARIXEXPAND"
     grep '^e,' "$APPARIXRC" | cut -f 2 -d , | \
