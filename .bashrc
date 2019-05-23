@@ -116,8 +116,9 @@ fi
 # to stop bash being confused by zsh
 export HISTFILE="$HOME/.bash_history"
 # do not limit history
-export HISTSIZE=-1
-export HISTFILESIZE=-1
+# not using -1 as that doesn't work on ancient MacOS bash
+export HISTSIZE=1000000000
+export HISTFILESIZE=-1000000000
 # configuration for how history is saved:
 # lines starting with a space are not saved
 # a line that is the same as the previous one is not saved
