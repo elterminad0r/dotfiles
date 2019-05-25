@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+for file; do
+    cp "$file" ./etc/"${file//\//%}"
+done

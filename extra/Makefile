@@ -12,9 +12,10 @@ package_list:
 # this is a very simplistic way to track files in /etc among my dotfiles
 etc: $(ETC_FILES)
 	mkdir -p etc
-	cp $(ETC_FILES) etc
+	./etc_store $(ETC_FILES)
 	$(CFG) add etc
 
 pip_freeze:
-	pip freeze > pip_freeze
-	$(CFG) add pip_freeze
+	python3 -m pip freeze > pip_freeze3
+	python2 -m pip freeze > pip_freeze2
+	$(CFG) add pip_freeze3 pip_freeze2
