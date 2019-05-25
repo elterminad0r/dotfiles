@@ -21,6 +21,7 @@ bdf-unifont
 bind-tools
 binutils
 bison
+bluez-utils
 boost
 bsd-games
 bzip2
@@ -35,7 +36,6 @@ compton
 conky
 coq
 coq-doc
-coqide
 coreutils
 cowsay
 cpulimit
@@ -47,6 +47,8 @@ cuneiform
 cups
 cups-pdf
 cython
+dash
+dconf-editor
 desmume
 device-mapper
 dhcpcd
@@ -96,6 +98,7 @@ gimp
 git
 glibc
 gnome-power-manager
+gnome-terminal
 gnuplot
 go
 gobject-introspection
@@ -141,7 +144,6 @@ jp2a
 jython
 kid3
 latex2rtf
-lazarus-gtk2
 less
 libao
 libappindicator-gtk3
@@ -207,7 +209,9 @@ pandoc
 parted
 pass
 patch
+pavucontrol
 pciutils
+pdfjs
 pdfsam
 perl
 perl-anyevent-i3
@@ -220,6 +224,7 @@ processing
 procps-ng
 psmisc
 pulseaudio
+pulseaudio-bluetooth
 pv
 pygmentize
 pypy
@@ -276,6 +281,7 @@ qt5-webglplugin
 qt5-webkit
 qt5-websockets
 qt5-webview
+qutebrowser
 r
 ranger
 redshift
@@ -287,10 +293,10 @@ rxvt-unicode
 s-nail
 sane
 sc
-scratch
 scrot
 sed
 shadow
+shellcheck
 simplescreenrecorder
 sox
 strace
@@ -303,6 +309,7 @@ systemd-sysvcompat
 tabbed
 tar
 tcl
+terminator
 terminus-font
 termite
 tesseract
@@ -431,5 +438,3 @@ zathura-ps
 zip
 zsh
 zsh-completions
-zsh-syntax-highlighting
-zsh-theme-powerlevel9k

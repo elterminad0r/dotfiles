@@ -1,8 +1,13 @@
-.PHONY: package_list etc pip_freeze
+.PHONY: package_list etc pip_freeze default all
 
 CFG = git --git-dir ~/.cfg --work-tree ~
 
 ETC_FILES = /etc/locale.gen /etc/locale.conf /etc/profile.d/libreoffice-still.sh /etc/lightdm/lightdm-gtk-greeter.conf /etc/mysql/my.cnf /etc/pacman.conf /etc/pacman.d/mirrorlist /etc/systemd/logind.conf /etc/texmf/web2c/fmtutil.cnf /etc/pam.d/su /etc/pam.d/su-l
+
+default:
+	# select an explicit target or all
+
+all: package_list etc pip_freeze
 
 # this is a simplistic way to keep track of which packages I have
 package_list:
@@ -13,9 +18,8 @@ package_list:
 etc: $(ETC_FILES)
 	mkdir -p etc
 	./etc_store $(ETC_FILES)
-	$(CFG) add etc
+	$(CFG) add $@
 
-pip_freeze:
-	python3 -m pip freeze > pip_freeze3
-	python2 -m pip freeze > pip_freeze2
-	$(CFG) add pip_freeze3 pip_freeze2
+pip_freeze3:
+	python3 -m pip freeze --user > $@
+	$(CFG) add $@
