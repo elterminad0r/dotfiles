@@ -1,4 +1,4 @@
-.PHONY: package_list etc pip_freeze default all
+.PHONY: default all _all
 
 CFG = git --git-dir ~/.cfg --work-tree ~
 
@@ -7,12 +7,20 @@ ETC_FILES = /etc/locale.gen /etc/locale.conf /etc/profile.d/libreoffice-still.sh
 default:
 	# select an explicit target or all
 
-all: package_list etc pip_freeze
+all: _all
+	make -B $<
+
+_all: package_list etc pip_freeze3 crontab
+
+# store user crontab
+crontab:
+	crontab -l > $@
+	$(CFG) add $@
 
 # this is a simplistic way to keep track of which packages I have
 package_list:
-	pacman -Qqe > package_list
-	$(CFG) add package_list
+	pacman -Qqe > $@
+	$(CFG) add $@
 
 # this is a very simplistic way to track files in /etc among my dotfiles
 etc: $(ETC_FILES)

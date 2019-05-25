@@ -248,6 +248,7 @@ python-sympy
 python-virtualenv
 python-virtualenvwrapper
 python-xdg
+python-xlib
 python2
 python2-gobject
 python2-libappindicator
