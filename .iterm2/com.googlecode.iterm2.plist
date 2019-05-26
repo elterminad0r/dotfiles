@@ -18,6 +18,8 @@
 	<true/>
 	<key>LoadPrefsFromCustomFolder</key>
 	<true/>
+	<key>NSFontPanelAttributes</key>
+	<string>1, 0</string>
 	<key>NSNavLastRootDirectory</key>
 	<string>~/extra/etc</string>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
@@ -53,6 +55,8 @@
 	</data>
 	<key>NSTableView Supports v2 KeyBingingTable</key>
 	<true/>
+	<key>NSWindow Frame NSFontPanel</key>
+	<string>302 325 978 223 0 0 2048 1129 </string>
 	<key>NSWindow Frame SharedPreferences</key>
 	<string>679 472 796 486 0 0 2048 1129 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
@@ -1314,7 +1318,7 @@
 			<key>Use Bold Font</key>
 			<true/>
 			<key>Use Bright Bold</key>
-			<true/>
+			<false/>
 			<key>Use Italic Font</key>
 			<true/>
 			<key>Use Non-ASCII Font</key>
