@@ -1,6 +1,8 @@
 #!/usr/bin/env sh
 
- xrdb -merge "$HOME/".Xresources
- xrdb -merge "$HOME"/.X-urxvt-light
- IZAAK_COLORSCHEME=light urxvt &
- xrdb -merge "$HOME"/.Xresources
+# Launch urxvt, but read X resources from a file to make it solarized-light.
+
+xrdb -merge "$HOME"/.Xresources
+xrdb -merge "$HOME"/.X-urxvt-light
+GOEDEL_COLORSCHEME=light urxvt &
+xrdb -merge "$HOME"/.Xresources
