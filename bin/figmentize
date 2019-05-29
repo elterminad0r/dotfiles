@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 
-# FIGMENTIZE: "Figmentize"
 # ___________.__    ____                           __   .__
 # \_   _____/|__|  / ___\  _____    ____    ____ _/  |_ |__|________  ____
 #  |    __)  |  | / /_/  >/     \ _/ __ \  /    \\   __\|  |\___   /_/ __ \
 #  |     \   |  | \___  /|  Y Y  \\  ___/ |   |  \|  |  |  | /    / \  ___/
 #  \___  /   |__|/_____/ |__|_|  / \___  >|___|  /|__|  |__|/_____ \ \___  >
 #      \/                      \/      \/      \/                 \/     \/
+# FIGMENTIZE: "Figmentize"
 
 """
 This is a script I've written to automatically insert figlet ASCII art headers
@@ -148,7 +148,7 @@ def make_head(prefix, head, command, indicator):
     figlet = subprocess.run(run, check=True, capture_output=True)
     return "\n".join(itertools.chain(
         ("{}{}".format(prefix, line).rstrip() for line in
-            figlet.stdout.decode().rstrip().split("\n"))
+            figlet.stdout.decode().rstrip().split("\n")),
         (indicator,)))
 
 def process_file(file, command, backup, overwrite):
