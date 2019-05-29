@@ -1,5 +1,3 @@
-" vim: ft=vim
-
 " FIGMENTIZE: mappingsrc
 "                                  .__            ____
 "   _____  _____   ______  ______  |__|  ____    / ___\  _____________   ____
@@ -58,6 +56,7 @@ nnoremap <Leader>p :set paste!<CR>
 
 " Shortcut to turn highlighting on or off
 nnoremap <silent> <CR> :call ToggleHighlight()<CR>
+inoremap <silent> <F3> <C-o>:call IToggleHighlight()<CR>
 
 " Store the original carriage return for the CR fans
 nnoremap g<CR> <CR>
@@ -233,25 +232,25 @@ nmap <SID>(horscroll) <Nop>
 " I think this is probably pretty kludgey, but it seems to work
 " FIXME: v10<Right><Esc>. doesn't work to repeat the motion.
 function! IndentOne(type, ...)
-    let l:izaak_shiftwidth_store = &shiftwidth
+    let l:goedel_shiftwidth_store = &shiftwidth
     set shiftwidth=1
     if a:0
         exec "normal! gv" . v:count1 . ">"
     else
         exec "normal! '[" . v:count1 . ">']"
     endif
-    exec "set shiftwidth=" . l:izaak_shiftwidth_store
+    exec "set shiftwidth=" . l:goedel_shiftwidth_store
 endfunction
 
 function! DedentOne(type, ...)
-    let l:izaak_shiftwidth_store = &shiftwidth
+    let l:goedel_shiftwidth_store = &shiftwidth
     set shiftwidth=1
     if a:0
         exec "normal! gv" . v:count1 . "<"
     else
         exec "normal! '[" . v:count1 . "<']"
     endif
-    exec "set shiftwidth=" . l:izaak_shiftwidth_store
+    exec "set shiftwidth=" . l:goedel_shiftwidth_store
 endfunction
 
 nnoremap <silent> <expr> <Right> ":<C-U>set operatorfunc=IndentOne<CR>" . v:count1 . "g@"

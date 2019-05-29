@@ -1,4 +1,4 @@
-" FIGMENTIZE: 'vimrc'
+" FIGMENTIZE: vimrc
 "        .__
 " ___  __|__|  _____ _______   ____
 " \  \/ /|  | /     \\_  __ \_/ ___\
@@ -17,6 +17,7 @@
 " a nice combination is :set rl ri<CR>:sil !
 " also, :noremap! a b| noremap! b a
 " .. etc
+" 10000gs
 
 " TODO: insert-mode mapping to close the innermost unclosed delimiter.
 " TODO: text object for a filename, as in <cfile> maybe
@@ -54,7 +55,7 @@ if &t_Co > 2 || has("gui_running")
         set hlsearch
     endif
     " when I open a hacked together light terminal, use a light colorscheme.
-    if $IZAAK_COLORSCHEME == "light"
+    if $GOEDEL_COLORSCHEME == "light"
         set background=light
     else
         set background=dark
@@ -62,27 +63,34 @@ if &t_Co > 2 || has("gui_running")
 endif
 
 " Source the sub-rc files for various components
-source ~/.vim/pluginrc
-source ~/.vim/optionsrc
-source ~/.vim/mappingsrc
-source ~/.vim/commandrc
+source ~/.vim/plugin.vim
+source ~/.vim/options.vim
+source ~/.vim/mappings.vim
+source ~/.vim/command.vim
 
 " some hacky functionality to toggle search highlighting
-if !exists("g:izaak_highlighted")
-    let g:izaak_highlighted = 1
+if !exists("g:goedel_highlighted")
+    let g:goedel_highlighted = 1
 endif
 
 " noh doesn't work from inside functions, so I use feedkeys instead. This is
 " probably pretty fragile or dangerous or whatever but who cares
+" TODO: make this cleverer about buffers & rehighlighting when you search
 function! ToggleHighlight()
     if &hlsearch
-        if g:izaak_highlighted
+        if g:goedel_highlighted
             call feedkeys(":nohlsearch\<CR>")
         else
             call feedkeys(":set hlsearch\<CR>")
         endif
-        let g:izaak_highlighted = xor(1, g:izaak_highlighted)
+        let g:goedel_highlighted = xor(1, g:goedel_highlighted)
     endif
+endfunction
+
+" Insert mode version
+function! IToggleHighlight()
+    call feedkeys("\<C-o>")
+    call ToggleHighlight()
 endfunction
 
 " colour related options that have to happen after sourcing plugins
@@ -90,17 +98,20 @@ if &t_Co > 2 || has("gui_running")
     if &term != "linux"
         " if the solarized colorscheme exists, load it
         try
-            let g:solarized_termtrans = 1
             " provide default colorscheme with not too objectionable
             " highlighting of cursorcolumn, cursorline, line numbers and bad
             " spellings.
-            colorscheme solarized
+            " set termguicolors
+            colorscheme gruvbox
+            highlight Normal ctermbg=None
+            " make special keycodes like ^S legible
+            highlight! link SpecialKey Special
+            " makes it so I can see what I'm highlighting
+            highlight Visual cterm=reverse ctermbg=NONE
         catch /^Vim\%((\a\+)\)\=:E185/
             colorscheme default
         endtry
     endif
-    " makes it so I can see what I'm highlighting
-    highlight Visual cterm=reverse ctermbg=NONE
 endif
 
 " make useful directories in ~/.vim where they don't exist
@@ -186,3 +197,14 @@ endfunction
 augroup ConfigReloadI3
     autocmd! BufWritePost ~/.config/i3/config,~/.config/i3status/config,~/.conkyrc,~/.config/i3blocks/config call ReloadI3Conf()
 augroup END
+
+" function! ToggleAmbiwidth()
+"     if &ambiwidth == "single"
+"         set ambiwidth=double
+"     else
+"         set ambiwidth=single
+"     endif
+" endfunction
+
+" mnemonic: emoji
+" nnoremap yoe :call ToggleAmbiwidth()<CR>

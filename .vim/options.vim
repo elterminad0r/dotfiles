@@ -1,5 +1,3 @@
-" vim: ft=vim
-
 " FIGMENTIZE: optionsrc
 "                  __   .__
 "   ____  ______ _/  |_ |__|  ____    ____    _____________   ____
@@ -26,7 +24,7 @@ endif
 " my vimrc, with the MkDirP function.
 " This obviously isn't always desired - if you're editing files with sensitive
 " content, you'll want to disable all of this. Currently I have it set up so I
-" have an alias visafe in ~/.izaak_aliases which turns all this crap off to the
+" have an alias visafe in ~/.goedel_aliases which turns all this crap off to the
 " best of its ability.
 
 " enable modelines, for backwards systems like MacOS that disable them by
@@ -49,13 +47,13 @@ if has("terminal")
 endif
 
 " Automatically write session files. Uniquely identified with a timestamp.
-" I have a revim alias in ~/.izaak_aliases to reopen the last session. This is
+" I have a revim alias in ~/.goedel_aliases to reopen the last session. This is
 " more powerful than what you'd get using viminfo, as it can sort of restore
 " tabs and window splits.
 function! TimeStampSession()
-    let l:izaak_session_name = "~/.vim/sessions/" . strftime("%s") . ".vim"
-    execute "mksession " . l:izaak_session_name
-    echo "wrote " . l:izaak_session_name
+    let l:goedel_session_name = "~/.vim/sessions/" . strftime("%s") . ".vim"
+    execute "mksession " . l:goedel_session_name
+    echo "wrote " . l:goedel_session_name
 endfunction
 
 augroup AutoSession
@@ -78,13 +76,20 @@ set undodir=~/.vim/undo
 set viewdir=~/.vim/view
 
 " Preserve vim state:
+" (lack of %): don't store bufferlist. This means that vim with no arguments
+"              opens cleanly, which is nicer generally because sometimes you get
+"              weird tempfiles from git commits or command line editing. I
+"              automatically write session files to ~/.vim/sessions as well,
+"              which provide the functionality of un-closing a vim with a
+"              precious bufferlist (among other things). See
+"              $ZDOTDIR/goedel_aliases.sh
 " '100: store marks for 100 previously edited files
 " /100: store 100 previous searches
 " :100: store 100 previous commands issued
 " <1000000: store at most 1000000 lines of each buffer
 " @1000: store 1000 lines of input-line history
 " s10000: allow items to be 10000 Kbyte in size
-set viminfo=%,'100,/100,:100,<1000000,s10000,@1000,h,n~/.vim/viminfo
+set viminfo='100,/100,:100,<1000000,s10000,@1000,h,n~/.vim/viminfo
 
 " remember 10000 lines of command-line history in memory
 set history=10000
@@ -242,7 +247,7 @@ set nrformats=bin,hex,alpha
 " Use <Leader>p to toggle paste mode
 " actually I'd rather just map this myself, as I don't want it to work in insert
 " mode
-" set pastetoggle=<Leader>p
+set pastetoggle=<F2>
 
 " name and shame any actual tabs
 set list

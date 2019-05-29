@@ -11,11 +11,11 @@
 " Set some generic font for GVim, particularly we care about the font size.
 " Only set it once because for some reason the screen messes itself up if you
 " set it again.
-command ResetFont set guifont=Liberation\ Mono\ 12
+command ResetFont set guifont=Liberation\ Mono\ for\ Powerline\ 12
 
-if (!exists("g:izaak_set_font")) || !g:izaak_set_font
+if (!exists("g:goedel_set_font")) || !g:goedel_set_font
     ResetFont
-    let g:izaak_set_font=1
+    let g:goedel_set_font=1
 endif
 
 " set toolbar+=text
@@ -39,23 +39,12 @@ set selectmode=mouse,key
 " set transparency if possible
 if executable("transset-df")
     augroup GVimTransset
-        autocmd! GuiEnter * silent exec "!transset-df -a 0.95"
+        autocmd! GuiEnter * silent exec "!transset-df -a 0.97"
     augroup END
     " remap this to work with a proper non-terminal
     " mnemonic: toggle Transparency
     map yot :silent exec "!transset-df -a -t 0.95"<CR><C-L>
 endif
-
-function! ToggleAmbiwidth()
-    if &ambiwidth == "single"
-        set ambiwidth=double
-    else
-        set ambiwidth=single
-    endif
-endfunction
-
-" mnemonic: emoji
-map yoe :call ToggleAmbiwidth()<CR>
 
 " basically, because gvim is supposed to be the friendly one
 unmap <Left>

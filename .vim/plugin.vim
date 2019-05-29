@@ -1,5 +1,3 @@
-" vim: ft=vim
-
 " FIGMENTIZE: pluginrc
 "         .__            ____  .__
 " ______  |  |   __ __  / ___\ |__|  ____ _______   ____
@@ -47,7 +45,7 @@
 " Active plugins:
 " quick-scope: highlight characters in the current line that can be "scoped"
 "   with [ftFT]
-" airline with airline-themse: a nicer statusline, and a tabline that
+" airline with airline-themes: a nicer statusline, and a tabline that
 "   lists buffers.
 " rainbow: coherent highlighting of nested delimiter pairs
 
@@ -56,9 +54,12 @@
 call plug#begin('~/.vim/bundle')
     " Completion for unicode type things with ^X^Z
     " friendlier completion for digraphs with ^X^G
-    Plug 'chrisbra/unicode.vim'
+    " Plug 'chrisbra/unicode.vim'
 
-    " enhance netrw to be a bit more nerdtree-like
+    " Plug plug itself in order to generate documentation for it
+    Plug 'junegunn/vim-plug'
+
+    " enhance netrw to be a bit prettier
     Plug 'tpope/vim-vinegar'
 
     " Git stuff
@@ -94,8 +95,12 @@ call plug#begin('~/.vim/bundle')
     " plugin to do text alignment
     Plug 'junegunn/vim-easy-align'
 
-    " solarized colorscheme for vim
-    Plug 'altercation/vim-colors-solarized'
+    " " solarized colorscheme for vim
+    " let g:solarized_termtrans = 1
+    " " let g:solarized_termcolors = 16
+    " " let g:solarized_contrast="high"
+    " Plug 'altercation/vim-colors-solarized'
+    Plug 'morhetz/gruvbox'
 
     let g:airline_detect_modified=1
 
@@ -119,25 +124,94 @@ call plug#begin('~/.vim/bundle')
     " let g:airline_inactive_alt_sep=1
     " themes are automatically selected based on the matching colorscheme. this
     " can be overridden by defining a value. >
-    let g:airline_theme='papercolor'
+    " let g:airline_theme='cool'
+    " let g:airline_theme='gruvbox'
+
+    " let g:airline_theme_patch_func = 'AirlineThemePatch'
+    " function! AirlineThemePatch(palette)
+    "     if g:airline_theme == 'badwolf'
+    "         for colors in values(a:palette.inactive)
+    "             let colors[3] = 245
+    "         endfor
+    "     endif
+    " endfunction
+
+    let g:airline_mode_map = {
+        \ '__' : '------',
+        \ 'c'  : 'C',
+        \ 'i'  : 'I',
+        \ 'ic' : 'I C',
+        \ 'ix' : 'I C',
+        \ 'n'  : 'N',
+        \ 'ni' : '(I)',
+        \ 'no' : 'O',
+        \ 'R'  : 'R',
+        \ 'Rv' : 'V R',
+        \ 's'  : 'S',
+        \ 'S'  : 'S-L',
+        \ '' : 'S-B',
+        \ 't'  : 'T',
+        \ 'v'  : 'V',
+        \ 'V'  : 'V-L',
+        \ '' : 'V-B',
+        \ }
+
+    function! AirlineViewThemes()
+        for theme in airline#util#themes("")
+            execute "AirlineTheme " . theme
+            redraw!
+            echomsg theme
+            call getchar()
+        endfor
+    endfunction
+
+    " show buffer numbers in bufferline in tabline
+    let g:airline#extensions#tabline#buffer_nr_show = 1
+    let g:airline#extensions#tabline#buffer_nr_format = '%s '
 
     if !exists('g:airline_symbols')
         let g:airline_symbols = {}
     endif
-    if $IZAAK_NO_POWERLINE != "true"
+    if $GOEDEL_NO_POWERLINE != "true"
         let g:airline_symbols_powerline = 1
         let g:airline_powerline_fonts = 1
+        " copy dirty symbol from p9k
+        let g:airline_symbols.dirty = ' ●'
     else
-        let g:airline_symbols.maxlinenr = 'L'
-        let g:airline_symbols.dirty = '!'
+    "     let g:airline_symbols.maxlinenr = 'L'
+    "     let g:airline_symbols.dirty = '!'
+        let g:airline_symbols_ascii = 1
         let g:airline_symbols.branch = '|/'
         let g:airline_symbols.readonly = 'RO'
-        let g:airline_symbols.notexists = 'NE'
+        let g:airline_symbols.notexists = '[?]'
+        let g:airline_symbols.linenr = ''
+        let g:airline_symbols.maxlinenr = 'L'
+        let g:airline_symbols.whitespace = 'W'
+        let g:airline_symbols.crypt = '[X]'
     endif
 
-    let g:airline_symbols.linenr = 'ln'
-    let g:airline_symbols.crypt = 'CRYPT'
-    let g:airline_symbols.whitespace = 'WS'
+    " unicode symbols
+    " let g:airline_left_sep = '»'
+    " let g:airline_left_sep = '▶'
+    " let g:airline_right_sep = '«'
+    " let g:airline_right_sep = '◀'
+    " let g:airline_symbols.crypt = '🔒'
+    " let g:airline_symbols.linenr = '☰'
+    " let g:airline_symbols.linenr = '␊'
+    " let g:airline_symbols.linenr = '␤'
+    " let g:airline_symbols.linenr = '¶'
+    " let g:airline_symbols.maxlinenr = ''
+    " let g:airline_symbols.maxlinenr = '㏑'
+    " let g:airline_symbols.branch = '⎇'
+    " let g:airline_symbols.paste = 'ρ'
+    let g:airline_symbols.paste = 'P'
+    " let g:airline_symbols.paste = '∥'
+    let g:airline_symbols.spell = 'S'
+    " let g:airline_symbols.notexists = 'Ɇ'
+    " let g:airline_symbols.whitespace = 'Ξ'
+    " let g:airline_symbols.linenr = 'ln'
+    " let g:airline_symbols.crypt = 'CRYPT'
+    " let g:airline_symbols.whitespace = 'WS'
 
     " define the set of text to display for each mode.  >
     " let g:airline_mode_map = {} " see source for the defaults
@@ -237,9 +311,6 @@ call plug#begin('~/.vim/bundle')
         let g:ackprg = 'ag --vimgrep'
     endif
     Plug 'mileszs/ack.vim'
-
-    " Plug plug itself in order to generate documentation for it
-    Plug 'junegunn/vim-plug'
 
     " tell vim-commentary what comments to use in tex files
     augroup TexComments

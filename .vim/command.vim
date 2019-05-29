@@ -1,6 +1,4 @@
-" vim: ft=vim
-
-" FIGMENTIZE: 'commandrc'
+" FIGMENTIZE: commandrc
 "                                                      .___
 "   ____   ____    _____    _____  _____     ____    __| _/_______   ____
 " _/ ___\ /  _ \  /     \  /     \ \__  \   /    \  / __ | \_  __ \_/ ___\
@@ -73,7 +71,7 @@ command! Evr e $MYVIMRC " ~/.vim/*rc FIXME - to edit all vimrc files
 command! Egr e $MYGVIMRC
 command! Ezr e ~/.zshrc
 command! Exr e ~/.Xresources
-command! Ear e ~/.izaak_aliases
+command! Ear e ~/.goedel_aliases
 command! E3r e ~/.config/i3/config
 command! Efr e ~/fun
 command! Etr e ~/Documents/TODO
