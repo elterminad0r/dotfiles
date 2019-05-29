@@ -1,5 +1,3 @@
-# vim: ft=sh
-
 # FIGMENTIZE: aliases
 #         .__   .__
 # _____   |  |  |__|_____     ______  ____    ______
@@ -32,13 +30,15 @@ fi
 
 # function to fully expand its arguments if they're aliases.
 # obviously for personal use only, it uses eval etc and so forth ad nauseum
+# In zsh, you can interactively expand the current word as an alias using <C-x>a
+# by default (the ZLE _expand_alias function)
 # TODO: fix this - doesn't work properly for eg $ enhance echo "abc def" hij
 enhance() {
     eval "
-    IZAAK_ENHANCE_F() {
+    GOEDEL_ENHANCE_F() {
         $*
     }"
-    declare -f IZAAK_ENHANCE_F |\
+    declare -f GOEDEL_ENHANCE_F |\
         if [ -n "$ZSH_VERSION" ]; then
             tail -n +2 | sed "s/^	//"
         # assume everything else acts like bash
@@ -204,48 +204,12 @@ alias maths='ipython --profile=maths'
 # display my timetable for school using elinks
 alias tt='elinks -dump -dump-width $COLUMNS "$HOME/Documents/timetable.html"'
 
-# new and improved c & v, inspired by & modified from OMZ
+# new and improved c & v, inspired by & modified from OMZ. Aliases pointing to
+# executables in my ~/bin
 # These provide copy and paste, somewhat sensitive to what cliboard interfaces
 # there are on your system.
-c() {
-    case "$(uname -s)" in
-        Darwin)
-            pbcopy
-            ;;
-        Cygwin)
-            cat > /dev/clipboard
-            ;;
-        *)
-            if silent command -v xclip; then
-                xclip -in -selection clipboard
-            elif silent command -v xsel; then
-                xsel --clipboard --input
-            else
-                echo "I'm not ready for this" >&2
-            fi
-            ;;
-    esac
-}
-
-v() {
-    case "$(uname -s)" in
-        Darwin)
-            pbpaste
-            ;;
-        Cygwin)
-            cat /dev/clipboard
-            ;;
-        *)
-            if silent command -v xclip; then
-                xclip -out -selection clipboard
-            elif silent command -v xsel; then
-                xsel --clipboard --output
-            else
-                echo "I'm not ready for this" >&2
-            fi
-            ;;
-    esac
-}
+alias c='goedel_copy'
+alias v='goedel_paste'
 
 # define the o alias to be a mimetype aware opener.
 case "$(uname -s)" in
@@ -281,13 +245,16 @@ alias clarify='sed -n l'
 alias sudo='sudo '
 
 # root zsh
-alias rzsh='sudo ZSH_DISABLE_COMPFIX=true ZDOTDIR="$HOME" HOME="$HOME" zsh'
+alias rzsh='sudo ZSH_DISABLE_COMPFIX=true ZDOTDIR="$ZDOTDIR" HOME="$HOME" zsh'
 # bare zsh
 alias bzsh='ZDOTDIR=/ zsh'
-# plain zsh
-alias pzsh='IZAAK_NO_POWERLINE=true zsh'
-# plain zsh with apparix loaded
-alias azsh='IZAAK_NO_POWERLINE=true IZAAK_APPARIX=true zsh'
+# plain (root)? zsh
+alias pzsh='GOEDEL_NO_POWERLINE=true zsh'
+alias przsh='sudo GOEDEL_NO_POWERLINE=true ZSH_DISABLE_COMPFIX=true ZDOTDIR="$ZDOTDIR" HOME="$HOME" zsh'
+# (plain)? zsh with apparix loaded
+# alias azsh='GOEDEL_APPARIX=true zsh'
+# alias pazsh='GOEDEL_NO_POWERLINE=true GOEDEL_APPARIX=true zsh'
+# The intersection of root and apparix is intentionally unexplored.
 # reload zsh configuration properly, by replacing the current shell with a fresh
 # zsh
 alias z='exec zsh'
@@ -298,21 +265,22 @@ alias b='exec bash'
 alias rbash='sudo HOME="$HOME" bash'
 
 # open various config files
-alias vi3='vim "$HOME/.config/i3/config"'
-alias viz='vim "$HOME/.zshrc" "$HOME/.izaak_aliases" "$HOME/.zshenv" "$HOME/.profile" "$HOME/.ttyrc" "$HOME/.tmuxopenrc" "$HOME/.dircolorsrc" "$HOME/.bashrc" "$HOME/.bashpromptrc"'
-alias vit='vim "$HOME/Documents/TODO"'
-alias viv='vim "$HOME"/.vim/*rc'
-alias vif='vim "$HOME/fun"'
-alias vid='vim "$HOME/fun/diary"'
-alias vix='vim "$HOME/.Xresources"'
-alias vic='vim "$HOME/.config"'
+alias vi3='vim ~/.config/i3/config'
+alias viz='vim "$ZDOTDIR"/{zshrc,*.zsh,*.sh,zshenv,zprofile,prompts/*} "$BASHDOTDIR"/* ~/.profile'
+alias vig='vim ~/.gitconfig'
+alias vit='vim ~/Documents/TODO'
+alias viv='vim ~/.vim/{*vimrc,*.vim}'
+alias vif='vim ~/fun'
+alias vid='vim ~/fun/diary'
+alias vix='vim ~/.Xresources'
+alias vic='vim ~/.config'
 alias visafe='vim -c "set noswapfile nobackup nowritebackup noundofile viminfo="'
-alias vienc='visafe "$HOME/Documents/.enc/"'
-alias vitm='vim "$HOME/.tmux.conf"'
+alias vienc='visafe ~/Documents/.enc/'
+alias vitm='vim ~/.tmux.conf'
 
 # reload various types of configuration
-alias x='xrdb merge "$HOME/.Xresources"'
-alias t='tmux source-file "$HOME/.tmux.conf"'
+alias x='xrdb merge ~/.Xresources'
+alias t='tmux source-file ~/.tmux.conf'
 
 # restart or test wifi connection
 alias wifirestart='sudo systemctl restart NetworkManager.service'
@@ -345,13 +313,14 @@ gal() {
     # scrape the alias section using an awk command, which sets a flag to true
     # at [alias], and then unsets it as soon as there is a nonwhite character on
     # the first line
-    awk '/\[alias\]/{a=1;next}/^[^	]/{a=0}a' "$HOME/.gitconfig" |\
-        sed "s/^	//" | grep -v "^;" | grep "$1"
+    # awk '/\[alias\]/{a=1;next}/^[^	]/{a=0}a' "$HOME/.gitconfig" |\
+    #   sed "s/^	//" | grep -v "^;" | grep "$1"
+    git config --list | grep '^alias' | sed 's/^alias\.//' | grep "$1"
 }
 
 alias mutt='echo "use configured mailbox" >&2'
-alias hills_mail='\mutt -F "$HOME/.hills_muttrc"'
-alias gmail='\mutt -F "$HOME/.gmail_muttrc"'
+alias hills_mail='\mutt -F ~/.mutt/hills_muttrc'
+alias gmail='\mutt -F ~/.mutt/gmail_muttrc'
 
 # get most recent n screenshots (1 by default)
 # useful to copy it to current directory or similar.
@@ -371,7 +340,8 @@ wttr() {
 # Copy a full path to its argument. Useful if you need to open something in
 # another application that understands file paths.
 cppath() {
-    realpath "$1" | c
+    # hack to cleanly get rid of the trailing newline
+    realpath "$1" -z | xargs -0 echo -n | goedel_copy
 }
 
 # Arch linux specific aliases
@@ -384,7 +354,7 @@ alias pacsystree='for i in $(pacman -Qeq); do pactree $i; done'
 
 # make figlet use my extra figlet fonts
 if [ -d "$HOME/builds/figlet-fonts" ]; then
-    alias figlet='figlet -k -t -d "$HOME/builds/figlet-fonts/"'
+    alias figlet='figlet -k -t -d ~/builds/figlet-fonts/'
 else
     alias figlet='figlet -k -t'
 fi

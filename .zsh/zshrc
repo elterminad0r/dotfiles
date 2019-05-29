@@ -1,0 +1,191 @@
+#  FIGMENTIZE: zshrc
+#                 .__
+# ________  ______|  |__ _______   ____
+# \___   / /  ___/|  |  \\_  __ \_/ ___\
+#  /    /  \___ \ |   Y  \|  | \/\  \___
+# /_____ \/____  >|___|  /|__|    \___  >
+#       \/     \/      \/             \/
+
+# Zshrc by Izaak van Dongen/oh-my-zsh/probably some other people
+# I no longer use oh-my-zsh as I found it a little too restrictive regarding
+# setting some options and variables (HISTSIZE in particular), and also it
+# seemed to persistently mess up my locale environment variables like LC_ALL
+
+# define this function so that I can source things with impunity, but my zshrc
+# won't break as hard if taken out of context.
+# it goes through all of its arguments, stopping as soon as it can source any
+# one of them.
+source_if_exists() {
+    for sfile; do
+        if [[ -f "$sfile" ]]; then
+            source "$sfile"
+            return 0
+        fi
+    done
+    echo "Izaak's zshrc: could not source any of $*" >&2
+}
+
+# read lines of $1 into goedel_array
+function read_array() {
+    goedel_array=()
+    while IFS='' read -r line; do
+        goedel_array+=("$line");
+    done < "$1"
+}
+
+source_if_exists "$ZDOTDIR/tmuxopen.sh"
+
+source_if_exists "$ZDOTDIR/ttysetup.sh"
+
+source_if_exists "$ZDOTDIR/dircolors.sh"
+
+# transparency in xterm
+[[ -n "$XTERM_VERSION" ]] && transset-df --id "$WINDOWID" 0.97 >/dev/null
+
+# provides things like the $fg_bold array
+autoload -Uz colors && colors
+
+# killer feature!
+# make rprompt go away when I move on. This hugely reduces clutter when you
+# resize the screen a lot, as the active rprompt gets redrawn, and means you can
+# easily copy/paste etc etc
+setopt transient_rprompt
+
+POWERLEVEL_THEME="$HOME/.zplugins/powerlevel10k/powerlevel10k.zsh-theme"
+
+if [[ -n "$GOEDEL_IS_TTY" ]]; then
+    source "$ZDOTDIR"/prompts/tty.zsh
+elif [[ -z "$GOEDEL_NO_POWERLINE" && -f "$POWERLEVEL_THEME" ]]; then
+    source "$ZDOTDIR"/prompts/powerline.zsh
+else
+    export GOEDEL_NO_POWERLINE=true
+    source "$ZDOTDIR"/prompts/vanilla.zsh
+fi
+
+autoload -Uz compinit
+# leftover from oh-my-zsh
+# Sometimes I manually disable security checks, for example to run a zsh as
+# root.
+if [[ "$ZSH_DISABLE_COMPFIX" == "true" ]]; then
+    compinit -u
+else
+    compinit
+fi
+
+# set up completions for kitty. Bit of a dubious way to package completion code,
+# but hey. Also for some incomprehensible reason they seem to have custom
+# completion code for files
+if silent command -v kitty; then
+    source <(kitty +complete setup zsh)
+fi
+
+# Uncomment the following line to use hyphen-insensitive completion. Case
+# sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z-_}={A-Za-z_-}' 'r:|=*' 'l:|=* r:|=*'
+
+# use basically unlimited history
+export HISTFILE="$ZDOTDIR/.zsh_history"
+export HISTSIZE=10000000
+export SAVEHIST=10000000
+
+source "$ZDOTDIR/options.zsh"
+
+# vim mode bindings
+bindkey -v
+bindkey  "" backward-delete-char
+bindkey  "" backward-delete-char
+# allow ctrl-p, ctrl-n for navigate history (standard behaviour)
+bindkey '^P' up-history
+bindkey '^N' down-history
+
+autoload -Uz edit-command-line
+zle -N edit-command-line
+
+# V for Vim. This key regrettably does not go into visual block mode in ZLE, so
+# a fortunate side effect is that an advanced user looking for this
+# functionality gets automatically propelled into zsh.
+bindkey -M vicmd '^V' edit-command-line
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+# COMPLETION_WAITING_DOTS="true"
+expand-or-complete-with-dots() {
+    # toggle line-wrapping off and back on again
+    [[ -n "$terminfo[rmam]" && -n "$terminfo[smam]" ]] && echoti rmam
+    print -Pn "%{%F{red}......%f%}"
+    [[ -n "$terminfo[rmam]" && -n "$terminfo[smam]" ]] && echoti smam
+
+    zle expand-or-complete
+    zle redisplay
+}
+zle -N expand-or-complete-with-dots
+bindkey "^I" expand-or-complete-with-dots
+
+# use fzf for completion
+# TODO: make this less intrusive
+source_if_exists /usr/share/fzf/key-bindings.zsh
+source_if_exists /usr/share/fzf/completion.zsh
+
+# no thanks
+# source_if_exists $ZSH/oh-my-zsh.sh
+
+# this is handled by zsh_env
+# source_if_exists "$ZDOTDIR/.goedel_aliases.sh"
+
+if [[ "$GOEDEL_APPARIX" == "true" ]]; then
+    source_if_exists "$BASHDOTDIR/.bourne-apparish"
+fi
+
+# the configuration for zsh completion. This is all a little mysterious to me
+# really.
+
+zstyle ':completion:*:*:*:*:*' menu select
+zstyle ':completion:*' special-dirs true
+
+zstyle ':completion:*' list-colors ''
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
+
+zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-directories
+
+# Use caching so that commands like apt and dpkg complete are useable
+zstyle ':completion::complete:*' use-cache 1
+zstyle ':completion::complete:*' cache-path $ZSH_CACHE_DIR
+
+# Don't complete uninteresting users
+zstyle ':completion:*:*:*:users' ignored-patterns \
+        adm amanda apache at avahi avahi-autoipd beaglidx bin cacti canna \
+        clamav daemon dbus distcache dnsmasq dovecot fax ftp games gdm \
+        gkrellmd gopher hacluster haldaemon halt hsqldb ident junkbust kdm \
+        ldap lp mail mailman mailnull man messagebus  mldonkey mysql nagios \
+        named netdump news nfsnobody nobody nscd ntp nut nx obsrun openvpn \
+        operator pcap polkitd postfix postgres privoxy pulse pvm quagga radvd \
+        rpc rpcuser rpm rtkit scard shutdown squid sshd statd svn sync tftp \
+        usbmux uucp vcsa wwwrun xfs '_*'
+
+# ... unless we really want to.
+zstyle '*' single-ignored show
+
+zstyle ':completion:*' completer _expand _complete _ignored
+zstyle ':completion:*' completions 1
+zstyle ':completion:*' expand prefix suffix
+zstyle ':completion:*' file-sort name
+zstyle ':completion:*' glob 1
+zstyle ':completion:*' insert-unambiguous false
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' list-suffixes true
+# zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*'
+zstyle ':completion:*' menu select=1
+zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
+zstyle ':completion:*' substitute 1
+zstyle :compinstall filename "$ZDOTDIR/.zshrc"
+
+alias -g ...='../..'
+alias -g ....='../../..'
+alias -g .....='../../../..'
+alias -g ......='../../../../..'
+alias d='dirs -v | head -10'
+
+# zsh syntax highlighting
+# IMPORTANT: This needs to go at the end of the file because it hooks into other
+# ZLE widgets
+source_if_exists "$HOME/.zplugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
