@@ -299,10 +299,11 @@ bindsym $mod+Shift+XF86MonBrightnessDown exec xbacklight -dec 25 # decrease scre
 # bindsym $mod+XF86AudioNext exec cmus-remote -n && pkill -RTMIN+1 i3blocks
 # bindsym $mod+XF86AudioPrev exec cmus-remote -r && pkill -RTMIN+1 i3blocks
 
-bindsym XF86AudioPlay exec --no-startup-id mpc -q toggle && notify-send playing
-# this binding probably isn't ever used, but I duplicate it anyway for safety's
-# sake
-bindsym XF86AudioPause exec --no-startup-id mpc -q toggle && notify-send pausing
+# play-pause mpd. the commented-out bits were to test which button the
+# "pause/play" one counts as. Turns out it's XF86AudioPlay, so the binding for
+# pause probably isn't ever used, but I duplicate it anyway for safety's sake
+bindsym XF86AudioPlay exec --no-startup-id mpc -q toggle # && notify-send playing
+bindsym XF86AudioPause exec --no-startup-id mpc -q toggle # && notify-send pausing
 
 # state-toggling commands
 bindsym $mod+XF86AudioMute exec --no-startup-id mpc -q repeat
