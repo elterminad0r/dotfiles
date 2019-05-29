@@ -10,78 +10,69 @@
 
 URxvt*depth: 32
 
-#define S_base03        #002b36
-#define S_base02        #073642
-#define S_base01        #586e75
-#define S_base00        #657b83
-#define S_base0         #839496
-#define S_base1         #93a1a1
-#define S_base2         #eee8d5
-#define S_base3         #fdf6e3
 
-#define S_yellow        #b58900
-#define S_orange        #cb4b16
-#define S_red           #dc322f
-#define S_magenta       #d33682
-#define S_violet        #6c71c4
-#define S_blue          #268bd2
-#define S_cyan          #2aa198
-#define S_green         #859900
-
-#define transparent_S_base03 rgba:0000/2b00/3600/eeff
-
-URxvt*background:            transparent_S_base03
-
-URxvt*foreground:            S_base0
-URxvt*fadeColor:             S_base03
-URxvt*cursorColor:           S_base1
-URxvt*pointerColorBackground:S_base01
-URxvt*pointerColorForeground:S_base1
-
-URxvt*color0:                S_base02
-URxvt*color8:                S_base01
-URxvt*color1:                S_red
-URxvt*color9:                S_orange
-URxvt*color2:                S_green
-URxvt*color10:               S_base01
-URxvt*color3:                S_yellow
-URxvt*color11:               S_base00
-URxvt*color4:                S_blue
-URxvt*color12:               S_base0
-URxvt*color5:                S_magenta
-URxvt*color13:               S_violet
-URxvt*color6:                S_cyan
-URxvt*color14:               S_base1
-URxvt*color7:                S_base2
-URxvt*color15: S_base3
+! hard contrast: URxvt*background: #1d2021
+/* URxvt*background: #282828 */
+URxvt*background: rgba:2800/2800/2800/eeff
+! soft contrast: URxvt*background: #32302f
+URxvt*foreground: #ebdbb2
+! Black + DarkGrey
+URxvt*color0:  #282828
+URxvt*color8:  #928374
+! DarkRed + Red
+URxvt*color1:  #cc241d
+URxvt*color9:  #fb4934
+! DarkGreen + Green
+URxvt*color2:  #98971a
+URxvt*color10: #b8bb26
+! DarkYellow + Yellow
+URxvt*color3:  #d79921
+URxvt*color11: #fabd2f
+! DarkBlue + Blue
+URxvt*color4:  #458588
+URxvt*color12: #83a598
+! DarkMagenta + Magenta
+URxvt*color5:  #b16286
+URxvt*color13: #d3869b
+! DarkCyan + Cyan
+URxvt*color6:  #689d6a
+URxvt*color14: #8ec07c
+! LightGrey + White
+URxvt*color7:  #a89984
+URxvt*color15: #ebdbb2
 
 /* I don't configure xterm as a sort of visual reminder to prefer uxterm to */
 /* xterm, in this day and age */
 
-UXTerm*background:            S_base03
 
-UXTerm*foreground:            S_base0
-UXTerm*fadeColor:             S_base03
-UXTerm*cursorColor:           S_base1
-UXTerm*pointerColorBackground:S_base01
-UXTerm*pointerColorForeground:S_base1
-
-UXTerm*color0:                S_base02
-UXTerm*color8:                S_base01
-UXTerm*color1:                S_red
-UXTerm*color9:                S_orange
-UXTerm*color2:                S_green
-UXTerm*color10:               S_base01
-UXTerm*color3:                S_yellow
-UXTerm*color11:               S_base00
-UXTerm*color4:                S_blue
-UXTerm*color12:               S_base0
-UXTerm*color5:                S_magenta
-UXTerm*color13:               S_violet
-UXTerm*color6:                S_cyan
-UXTerm*color14:               S_base1
-UXTerm*color7:                S_base2
-UXTerm*color15: S_base3
+! hard contrast: UXTerm*background: #1d2021
+UXTerm*background: #282828
+! soft contrast: UXTerm*background: #32302f
+UXTerm*foreground: #ebdbb2
+! Black + DarkGrey
+UXTerm*color0:  #282828
+UXTerm*color8:  #928374
+! DarkRed + Red
+UXTerm*color1:  #cc241d
+UXTerm*color9:  #fb4934
+! DarkGreen + Green
+UXTerm*color2:  #98971a
+UXTerm*color10: #b8bb26
+! DarkYellow + Yellow
+UXTerm*color3:  #d79921
+UXTerm*color11: #fabd2f
+! DarkBlue + Blue
+UXTerm*color4:  #458588
+UXTerm*color12: #83a598
+! DarkMagenta + Magenta
+UXTerm*color5:  #b16286
+UXTerm*color13: #d3869b
+! DarkCyan + Cyan
+UXTerm*color6:  #689d6a
+UXTerm*color14: #8ec07c
+! LightGrey + White
+UXTerm*color7:  #a89984
+UXTerm*color15: #ebdbb2
 
 
 !!! URxvt setup
@@ -107,7 +98,7 @@ URxvt*scrollBar: false
 URxvt*iso14755: false
 URxvt*iso14755_52: false
 
-URxvt.perl-ext-common: default,font-size,vtwheel
+URxvt*perl-ext-common: default,font-size,vtwheel
 
 ! do not scroll with output
 URxvt*scrollTtyOutput: false
@@ -121,8 +112,8 @@ URxvt*scrollTtyKeypress: true
 URxvt*secondaryScreen: 1
 URxvt*secondaryScroll: 0
 
-! URxvt.transparent:   true
-! URxvt.shading:       90
+! URxvt*transparent:   true
+! URxvt*shading:       90
 
 ! lost focus
 URxvt*fading:  10
@@ -143,7 +134,7 @@ UXTerm*selectToClipboard: true
 ! double-click to select whole URLs :D
 UXTerm*charClass: 33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48
 
-UXTerm.VT100.translations: #override \
+UXTerm*VT100.translations: #override \
 Ctrl <Key> minus: smaller-vt-font() \n\
 Ctrl <Key> plus: larger-vt-font() \n\
 
