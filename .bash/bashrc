@@ -76,6 +76,9 @@ source_if_exists "$HOME/.profile"
 # all my shell-y aliases
 source_if_exists "$ZDOTDIR/goedel_aliases.sh"
 
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
 # this relies on too much zsh stuff for now. I've extracted the important bits
 # source_if_exists "$ZDOTDIR/.ttyrc"
 case $(tty) in
@@ -94,9 +97,6 @@ source_if_exists "$ZDOTDIR/tmuxopen.sh"
 # List Xecutables - print all possible things that could act like a command -
 # that is, Aliases, Builtins, Commands, Keywords
 alias lx="compgen -A function -abck | grep -v '^_' | uniq"
-
-# If not running interactively, don't do anything
-[[ $- != *i* ]] && return
 
 set -o vi
 
