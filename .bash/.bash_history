@@ -1981,3 +1981,15 @@ vi ~/.apparix/.apparixrc
 bm "mad spaces n shit"
 cd
 to 'mad spaces n shit'
+to 'mad spaces n shit'
+cd programmeren/
+cd
+to 'mad spaces n shit'
+cd programmeren/
+to h
+to pr
+to 'a bookmark'
+to h tmp/special_tests/redi\<\>\|\*\(\)\[\]#\;\:~\"
+l
+cd
+to h tmp/special_tests/redi\<\>\|\*\(\)\[\]#\;\:~\"/subdi/

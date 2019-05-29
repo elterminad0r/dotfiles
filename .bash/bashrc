@@ -111,6 +111,9 @@ if version_assert 4 1 0; then
     # fix colon filename completion: http://tiswww.case.edu/php/chet/bash/FAQ.
     # COMP_WORDBREAKS="${COMP_WORDBREAKS//:}"
     APPARIXHOME="$HOME/.apparix"
+    APPARIXRC="$APPARIXHOME/apparixrc"
+    APPARIXEXPAND="$APPARIXHOME/apparixexpand"
+    APPARIXLOG="$APPARIXHOME/apparixlog"
     source_if_exists "$APPARIXHOME/appari.sh"
 else
     echo "(not sourcing bash completion or apparix)" >&2
