@@ -217,8 +217,8 @@
     local ok="%F{$(_pp_c 002 076)}${p}%f"
     local err="%F{$(_pp_c 001 196)}${p}%f"
 
-    # I removed the ruler section as I like my prompt to resize dynamically, and
-    # it all seemed a little too cutting edge
+    # I removed the ruler section as I like my prompt to resize dynamically a
+    # lot (mostly with tiling WMs), and it all seemed a little too cutting edge
     typeset -g POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
 
     typeset -g POWERLEVEL9K_PROMPT_ON_NEWLINE=true
