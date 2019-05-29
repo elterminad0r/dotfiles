@@ -37,16 +37,30 @@
 # directory hashes, so if you were using it for something else, either do this
 # through zapparix or think of another solution.
 
+# I know that many of these double quotes are probably redundant, but I've been
+# writing a lot of Bash and don't have the mental capacity to keep two things
+# separate. I might change it sometime, or if whoever is reading this really
+# desparately cares, go wild!
+
 ZAPPARIXHOME="${ZAPPARIXHOME:=$HOME/.config/zapparix}"
 mkdir -p "$ZAPPARIXHOME"
 ZAPPARIXRC="${ZAPPARIXRC:=$ZAPPARIXHOME/zapparixrc}"
 touch "$ZAPPARIXRC"
 
+typeset -a DIFF_CMD
+
+# check if diff has colours
+if command diff --color=always <(echo abc) <(echo abc); then
+    DIFF_CMD=( diff --color=always )
+else
+    DIFF_CMD=( diff )
+fi
+
 alias via='"${EDITOR:-vim}" "$ZAPPARIXRC"'
 
 # indicate differences between $ZAPPARIXRC" and "$ZAPPARIXRC.new"
 zapparix_change() {
-    { ! command diff --color=always "$ZAPPARIXRC" "$ZAPPARIXRC.new" } || \
+    { ! "${DIFF_CMD[@]}" "$ZAPPARIXRC" "$ZAPPARIXRC.new" } || \
         { >&2 echo "no change"; return 1 }
 }
 
