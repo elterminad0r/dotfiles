@@ -53,13 +53,22 @@ setopt transient_rprompt
 
 POWERLEVEL_THEME="$HOME/.zplugins/powerlevel10k/powerlevel10k.zsh-theme"
 
+# set up my prompt and general look of zsh.
 if [[ -n "$GOEDEL_IS_TTY" ]]; then
-    source "$ZDOTDIR"/prompts/tty.zsh
+    source "$ZDOTDIR/prompts/tty.zsh"
 elif [[ -z "$GOEDEL_NO_POWERLINE" && -f "$POWERLEVEL_THEME" ]]; then
-    source "$ZDOTDIR"/prompts/powerline.zsh
+    if [[ -z "$GOEDEL_NOPUREPOWER" ]]; then
+        # default pathway, when nothing is disabled
+        source "$ZDOTDIR/prompts/purepower.zsh"
+    else
+        # disable purepower but still use powerline
+        # this currently isn't aliased to anything.
+        source "$ZDOTDIR/prompts/powerline.zsh"
+    fi
 else
+    # disable powerline, no fancy business
     export GOEDEL_NO_POWERLINE=true
-    source "$ZDOTDIR"/prompts/vanilla.zsh
+    source "$ZDOTDIR/prompts/vanilla.zsh"
 fi
 
 autoload -Uz compinit
@@ -77,17 +86,14 @@ fi
 # completion code for files
 if silent command -v kitty; then
     source <(kitty +complete setup zsh)
+else
+    >&2 echo "zshrc: you should probably install kitty or get rid of this bit"
 fi
 
 # Uncomment the following line to use hyphen-insensitive completion. Case
 # sensitive completion must be off. _ and - will be interchangeable.
 # HYPHEN_INSENSITIVE="true"
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z-_}={A-Za-z_-}' 'r:|=*' 'l:|=* r:|=*'
-
-# use basically unlimited history
-export HISTFILE="$ZDOTDIR/.zsh_history"
-export HISTSIZE=10000000
-export SAVEHIST=10000000
 
 source "$ZDOTDIR/options.zsh"
 

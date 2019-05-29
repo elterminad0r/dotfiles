@@ -11,9 +11,9 @@ setopt prompt_subst
 # need to use %%b for bold off
 # TODO: customise this for dirty state
 zstyle ':vcs_info:*' actionformats \
-    '%K{green}%F{black} (%s)-[%b|%a]%u%c %f%k'
+    '%K{002}%F{000} (%s)-[%b|%a]%u%c %f%k'
 zstyle ':vcs_info:*' formats       \
-    '%K{green}%F{black} (%s)-[%b]%u%c %f%k'
+    '%K{002}%F{000} (%s)-[%b]%u%c %f%k'
 zstyle ':vcs_info:*' stagedstr "*"
 zstyle ':vcs_info:*' unstagedstr "+"
 zstyle ':vcs_info:(sv[nk]|bzr):*' branchformat '%b:%r'
@@ -22,22 +22,22 @@ zstyle ':vcs_info:*' enable git cvs svn hg
 zstyle ':vcs_info:*' check-for-changes true
 
 # right prompt with some information
-status_prompt="%F{black}%(?.%F{green}OK .%K{red}%B%F{yellow} %? %b)"
-shlvl_prompt="%(2L.%F{black}%K{yellow} %L .)"
-hist_prompt="%K{blue}%F{black} %h %k%f"
+status_prompt="%F{000}%(?.%F{002}OK .%K{001}%B%F{003} %? %b)"
+shlvl_prompt="%(2L.%F{000}%K{003} %L .)"
+hist_prompt="%K{004}%F{000} %h %k%f"
 RPROMPT="$status_prompt$shlvl_prompt$hist_prompt"
 
 function zle-line-init zle-keymap-select {
     # notify-send "$(date +%M:%S) zle $KEYMAP"
     case "$KEYMAP" in
         main|viins)
-            vi_colour=cyan
+            vi_colour=006
             ;;
         vicmd)
-            vi_colour=magenta
+            vi_colour=005
             ;;
         *)
-            vi_colour=white
+            vi_colour=015
             ;;
     esac
     zle reset-prompt
@@ -56,12 +56,12 @@ if [[ "$GOEDEL_APPARIX" == "true" ]]; then
             echo " $iz_bm "
         fi
     }
-    apparix_indicator="%K{cyan}%F{black}\$(apparix_prompt)"
+    apparix_indicator="%K{005}%F{000}\$(apparix_prompt)"
 else
     apparix_indicator=""
 fi
-host_prompt="%(!.%F{yellow}%K{red}.%F{black}%K{yellow}) %n@%m "
-dir_prompt="%F{black}%K{blue} %~ "
+host_prompt="%(!.%F{003}%K{001}.%F{000}%K{003}) %n@%m "
+dir_prompt="%F{000}%K{004} %~ "
 PROMPT=$'\n'"%F{\$vi_colour}┌─$host_prompt$dir_prompt$apparix_indicator%k\$vcs_info_msg_0_"$'\n%F{\$vi_colour}└─%f '
 PROMPT2=".. "
 RPROMPT2="%_"

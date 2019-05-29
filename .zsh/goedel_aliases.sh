@@ -243,7 +243,6 @@ alias clarify='sed -n l'
 # the space means that sudo can be followed by an alias (particularly things
 # like sudo p for sudo pacman)
 alias sudo='sudo '
-
 # root zsh
 alias rzsh='sudo ZSH_DISABLE_COMPFIX=true ZDOTDIR="$ZDOTDIR" HOME="$HOME" zsh'
 # bare zsh
@@ -251,10 +250,6 @@ alias bzsh='ZDOTDIR=/ zsh'
 # plain (root)? zsh
 alias pzsh='GOEDEL_NO_POWERLINE=true zsh'
 alias przsh='sudo GOEDEL_NO_POWERLINE=true ZSH_DISABLE_COMPFIX=true ZDOTDIR="$ZDOTDIR" HOME="$HOME" zsh'
-# (plain)? zsh with apparix loaded
-# alias azsh='GOEDEL_APPARIX=true zsh'
-# alias pazsh='GOEDEL_NO_POWERLINE=true GOEDEL_APPARIX=true zsh'
-# The intersection of root and apparix is intentionally unexplored.
 # reload zsh configuration properly, by replacing the current shell with a fresh
 # zsh
 alias z='exec zsh'
