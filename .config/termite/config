@@ -1,75 +1,167 @@
-# vim: ft=dosini
-
-# config for termite. Unmaintained, really.
+# vim: ft=dosini cms=#\ %s
+# FIGMENTIZE: termite
+#   __                           .__   __
+# _/  |_   ____ _______   _____  |__|_/  |_   ____
+# \   __\_/ __ \\_  __ \ /     \ |  |\   __\_/ __ \
+#  |  |  \  ___/ |  | \/|  Y Y  \|  | |  |  \  ___/
+#  |__|   \___  >|__|   |__|_|  /|__| |__|   \___  >
+#             \/              \/                 \/
 
 [options]
-    resize_grip = false
-    scroll_on_output = false
-    scroll_on_keystroke = true
-    audible_bell = false
-    visible_bell = false
-    mouse_autohide = true
-    allow_bold = true
-    dynamic_title = true
-    urgent_on_bell = true
-    clickable_url = true
-    font = Liberation Mono 12
-    scrollback_lines = 1000
-    search_wrap = true
-    #icon_name = terminal
-    #geometry = 640x480
+resize_grip = false
+scroll_on_output = false
+scroll_on_keystroke = true
+audible_bell = false
+visible_bell = false
+mouse_autohide = true
+allow_bold = true
+dynamic_title = false
+urgent_on_bell = true
+clickable_url = true
+font = Liberation Mono for Powerline 12
+scrollback_lines = 10000
+search_wrap = true
+icon_name = terminal
+# geometry = 640x480
 
-    # "system", "on" or "off"
-    cursor_blink = system
+# "system", "on" or "off"
+cursor_blink = off
 
-    # "block", "underline" or "ibeam"
-    cursor_shape = block
+# "block", "underline" or "ibeam"
+cursor_shape = block
 
-    # $BROWSER is used by default
-    browser = chromium
+# $BROWSER is used by default
+# browser = chromium
 
-    # word characters used for word selection
-    # (default if unset: all graphic non-punctuation/space characters)
-    #word_chars = -A-Za-z0-9,./?%&#:_=+@~
-    font = Liberation Mono 12
+# word characters used for word selection
+# (default if unset: all graphic non-punctuation/space characters)
+# word_chars = -A-Za-z0-9,./?%&#:_=+@~
+# font = Liberation Mono for Powerline 12
 
+# TODO: what is this for?
 [hints]
-    foreground = #55FFFF
+# foreground = #55FFFF
 
-    font = Liberation Mono for Powerline 12
-    #foreground = #dcdccc
-    #background = #3f3f3f
-    #padding = 2
-    #border = #3f3f3f
-    #border_width = 0.5
-    #roundness = 2.0
+# font = Liberation Mono for Powerline 12
+# foreground      = #93a1a1
+# background      = #002b36
+# padding = 2
+# border = #3f3f3f
+# border_width = 0.5
+# roundness = 2.0
 
-# Solarized dark color scheme
+# TODO: set up some kind of profiles system
 
 [colors]
-    foreground = #839496
-    foreground_bold = #eee8d5
-    #foreground_dim = #888888
-    background = rgba(0, 43, 54, 0.98)
-    cursor = #93a1a1
+# hard contrast
+# background = #1d2021
+# normal
+# background = #282828
+# soft contrast
+# background = #32302f
+background = rgba(40, 40, 40, 0.97)
+foreground = #ebdbb2
+foreground_bold = #ebdbb2
 
-    # if unset, will reverse foreground and background
-    #highlight = #839496
+# dark0 + gray
+color0 = #282828
+color8 = #928374
 
-    # colors from color0 to color254 can be set
-    color0 = #073642
-    color1 = #dc322f
-    color2 = #859900
-    color3 = #b58900
-    color4 = #268bd2
-    color5 = #d33682
-    color6 = #2aa198
-    color7 = #eee8d5
-    color8 = #002b36
-    color9 = #cb4b16
-    color10 = #586e75
-    color11 = #657b83
-    color12 = #839496
-    color13 = #6c71c4
-    color14 = #93a1a1
-    color15 = #fdf6e3
+# neutral_red + bright_red
+color1 = #cc241d
+color9 = #fb4934
+
+# neutral_green + bright_green
+color2 = #98971a
+color10 = #b8bb26
+
+# neutral_yellow + bright_yellow
+color3 = #d79921
+color11 = #fabd2f
+
+# neutral_blue + bright_blue
+color4 = #458588
+color12 = #83a598
+
+# neutral_purple + bright_purple
+color5 = #b16286
+color13 = #d3869b
+
+# neutral_aqua + faded_aqua
+color6 = #689d6a
+color14 = #8ec07c
+
+# light4 + light1
+color7 = #a89984
+color15 = #ebdbb2
+
+
+#[colors]
+
+## special
+#foreground      = #93a1a1
+#foreground_bold = #93a1a1
+#cursor          = #93a1a1
+## background      = #002b36
+#background      = rgba(0, 43, 54, 0.95)
+
+## black
+#color0  = #002b36
+#color8  = #657b83
+
+## red
+#color1  = #dc322f
+#color9  = #dc322f
+
+## green
+#color2  = #859900
+#color10 = #859900
+
+## yellow
+#color3  = #b58900
+#color11 = #b58900
+
+## blue
+#color4  = #268bd2
+#color12 = #268bd2
+
+## magenta
+#color5  = #6c71c4
+#color13 = #6c71c4
+
+## cyan
+#color6  = #2aa198
+#color14 = #2aa198
+
+## white
+#color7  = #93a1a1
+#color15 = #fdf6e3
+
+
+## [colors]
+## foreground = #839496
+## foreground_bold = #eee8d5
+## #foreground_dim = #888888
+## background = rgba(0, 43, 54, 0.95)
+## cursor = #93a1a1
+##
+## # if unset, will reverse foreground and background
+## highlight = #839496
+##
+## # colors from color0 to color254 can be set
+## color0 = #073642
+## color1 = #dc322f
+## color2 = #859900
+## color3 = #b58900
+## color4 = #268bd2
+## color5 = #d33682
+## color6 = #2aa198
+## color7 = #eee8d5
+## color8 = #002b36
+## color9 = #cb4b16
+## color10 = #586e75
+## color11 = #657b83
+## color12 = #839496
+## color13 = #6c71c4
+## color14 = #93a1a1
+## color15 = #fdf6e3

@@ -314,7 +314,7 @@ command Vrc source $MYVIMRC
 command Evr e $MYVIMRC
 command Ezr e ~/.zshrc
 command Exr e ~/.Xresources
-command Ear e ~/.izaak_aliases
+command Ear e ~/.goedel_aliases
 command E3r e ~/.config/i3/config
 command Efr e ~/fun
 command Etr e ~/Documents/TODO

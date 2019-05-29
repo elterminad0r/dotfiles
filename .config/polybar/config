@@ -79,7 +79,7 @@ font-3 = "Font Awesome 5 Brands:pixelsize=10;1"
 
 modules-left = i3
 modules-center = mpd
-modules-right = filesystem xbacklight pulseaudio memory cpu battery temperature date wlan
+modules-right = xbacklight pulseaudio battery filesystem memory cpu temperature date wlan
 
 tray-position = right
 tray-padding = 2
@@ -128,6 +128,7 @@ mount-0 = /
 label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
 label-unmounted = %mountpoint% not mounted
 label-unmounted-foreground = ${colors.foreground-alt}
+label-mounted-underline = #ff77ff
 
 [module/bspwm]
 type = internal/bspwm
@@ -302,7 +303,7 @@ ramp-coreload-7 = █
 format-prefix = " "
 ; format-prefix-foreground = ${colors.foreground-alt}
 ; ; format-underline = #f90000
-format-underline = #009900
+format-underline = #77ff77
 ; label = %percentage:2%%
 
 [module/memory]
@@ -439,7 +440,7 @@ adapter = AC
 full-at = 98
 
 format-charging = <animation-charging> <label-charging>
-format-charging-underline = #00ff00
+format-charging-underline = #77ff77
 
 format-discharging = <ramp-capacity> <label-discharging>
 format-discharging-underline = #ffb52a
@@ -470,11 +471,12 @@ animation-charging-foreground = #00ff00
 # animation-charging-foreground = ${colors.foreground-alt}
 animation-charging-framerate = 750
 
-animation-discharging-0 = 
-animation-discharging-1 = 
-animation-discharging-2 = 
-animation-discharging-foreground = ${colors.foreground-alt}
-animation-discharging-framerate = 750
+; unused
+; animation-discharging-0 = 
+; animation-discharging-1 = 
+; animation-discharging-2 = 
+; animation-discharging-foreground = ${colors.foreground-alt}
+; animation-discharging-framerate = 750
 
 [module/temperature]
 type = internal/temperature
@@ -482,7 +484,7 @@ thermal-zone = 0
 warn-temperature = 60
 
 format = <ramp> <label>
-format-underline = #f50a4d
+format-underline = #ff4444
 format-warn = <ramp> <label-warn>
 format-warn-underline = ${self.format-underline}
 
