@@ -1,5 +1,16 @@
 # shellcheck disable=SC2155,SC2181,SC2016 shell=bash
-# vim: ft=sh ts=4 sw=0 sts=-1 et
+# vim: ts=4 sw=0 sts=-1 et
+
+#   ___  __  __  ____    ___   ____  _____   _     _   _  _____  _
+#  |_ _||  \/  ||  _ \  / _ \ |  _ \|_   _| / \   | \ | ||_   _|| |
+#   | | | |\/| || |_) || | | || |_) | | |  / _ \  |  \| |  | |  | |
+#   | | | |  | ||  __/ | |_| ||  _ <  | | / ___ \ | |\  |  | |  |_|
+#  |___||_|  |_||_|     \___/ |_| \_\ |_|/_/   \_\|_| \_|  |_|  (_)
+#
+# This fork of apparix is not compatible with older Bashes, as it relies on you
+# having sourced bash-completion (https://github.com/scop/bash-completion),
+# which needs Bash 4.1.
+
 
 # ignore errors about:
 # - testing $?, because that's useful when you have branches
@@ -108,13 +119,19 @@
  #
 
 # TODO: allow commas and newlines in directory names
+# particular corollary is that amibm and probably some other break quite badly
+# in a PWD with a newline, because grep doesn't expect newlines
 # TODO: maybe write these as scripts with shebangs, and keep shell functions to
 # very hollow wrapper, to prevent the constant checks for bash/zsh and make it
 # easier to extend to other shells.
 
 # TODO: replace echo with printf
 
+# TODO: better error messages if not apparix-init, or better yet, apparix-init
+# automatically
+
 APPARIXHOME="${APPARIXHOME:=$HOME}"
+mkdir -p "$APPARIXHOME"
 APPARIXRC="${APPARIXRC:=$APPARIXHOME/.apparixrc}"
 APPARIXEXPAND="${APPARIXEXPAND:=$APPARIXHOME/.apparixexpand}"
 APPARIXLOG="${APPARIXLOG:=$APPARIXHOME/.apparixlog}"
@@ -444,27 +461,6 @@ if [[ -n "$BASH_VERSION" ]]; then
         }
     fi
 
-    # complete sensibly on filenames and directories
-    # https://stackoverflow.com/questions/12933362/getting-compgen-to-include...
-    # -slashes-on-directories-when-looking-for-files
-    function _all_files_compgen() {
-        local cur="$1"
-
-        # The outcommented code splits directories and files but then treats
-        # them the same. Previously, it used to add a slash for directories, but
-        # this makes completing actually harder; Manually adding a slash is a
-        # good way of instigating the next level of completion. Anyway, I've
-        # kept this around in case people want to change this behaviour. I use
-        # comm because old greps have an issue where -v does not treat an empty
-        # file with -f correctly.
-        # $ comm -3 <(compgen -f -- "$cur" | sort) \
-        #           <(compgen -d -- "$cur" | sort) # | sed -e 's/$/ /'
-        # Directories (add -S / for slash separator):
-        # $ compgen -d -- "$cur"
-
-        compgen -f -- "$cur"
-    }
-
     # https://stackoverflow.com/questions/3685970/check-if-a-bash-array-...
     # contains-a-value
     function elemOf() {
@@ -475,76 +471,21 @@ if [[ -n "$BASH_VERSION" ]]; then
     }
 
     # a file, used by _apparix_comp
+    # uses _filedir, so archeological bash is unsupported
     function _apparix_comp_file() {
         local caller="$1"
-        local cur_file="$2"
+        # this is used by _filedir
+        # shellcheck disable=SC2034
+        local cur="$2"
         if elemOf "$caller" "${APPARIX_DIR_FUNCTIONS[@]}"; then
-            # # Directories (add -S / for slash separator):
-            # compgen -d -- "$cur_file"
-            goedel_compfile "$cur_file" d
+            _filedir -d
         elif elemOf "$caller" "${APPARIX_FILE_FUNCTIONS[@]}"; then
-            # complete on filenames. this is a little harder to do nicely.
-            goedel_compfile "$cur_file" f
+            _filedir
         else
             >&2 echo "Unknown caller: Izaak has probably messed something up"
             return 1
         fi
 
-    }
-
-    # the existence of this function is a counterexample to Gödel's little known
-    # incompletion theorem: there's no such thing as good completion on files in
-    # Bash
-    function goedel_compfile() {
-        local part_esc="$1"
-        case "$2" in
-            f)
-                local find_files=true;;
-            d) ;;
-            *) >&2 echo "Specify file type"; return 1;;
-        esac
-        local part_unesc="$(bash -c "printf '%s' $part_esc")"
-        local part_dir="$(dirname "$part_unesc")"
-        COMPREPLY=()
-        # can't pipe to while because that's a subshell and we need to modify
-        # COMREPLY.
-        while IFS='' read -r -d '' result; do
-            # this is a bit of a weird hack because printf "%q\n" with no
-            # arguments prints ''. It should be robust, because any actual
-            # single quotes will have been escaped by printf.
-            if [[ "$result" != "''" ]]; then
-                COMPREPLY+=("$result")
-            fi
-        # use an explicit bash subshell to set some glob flags.
-        done < <(part_dir="$part_dir" part_unesc="$part_unesc" \
-                 find_files="$find_files" bash <<EOF
-            shopt -s nullglob
-            shopt -s extglob
-            shopt -u dotglob
-            shopt -u failglob
-            GLOBIGNORE="./:../"
-            if [[ "\$part_dir" == "." ]]; then
-                find_name_prefix="./"
-            fi
-            # here we delay the %q escaping because I want to strip trailing /s
-            if [[ -d "\$part_unesc" ]]; then
-                if [[ "\$part_unesc" != +(/) ]]; then
-                    part_unesc="\${part_unesc%%+(/)}"
-                fi
-                if [[ "\$find_files" == true ]]; then
-                    printf "%q\\0" "\$part_unesc"/* "\$part_unesc"/*/
-                else
-                    printf "%q\\0" "\$part_unesc"/*/
-                fi
-            else
-                if [[ "\$find_files" == true ]]; then
-                    printf "%q\\0" "\$part_unesc"*/ "\$part_unesc"*
-                else
-                    printf "%q\\0" "\$part_unesc"*/
-                fi
-            fi
-EOF
-        )
     }
 
     # generate completions for a bookmark
@@ -604,20 +545,21 @@ elif [[ -n "$ZSH_VERSION" ]]; then
     compinit
 
     function _apparix_file() {
+        IFS=$'\n'
         _arguments \
-          '1:mark:_values "\n" $(cut -d, -f2 "$APPARIXRC" "$APPARIXEXPAND")' \
-          '2:file:_path_files -W "$(apparish "$words[2]" 2>/dev/null)"'
+            '1:mark:($(cut -d, -f2 "$APPARIXRC" "$APPARIXEXPAND"))' \
+            '2:file:_path_files -W "$(apparish "$words[2]" 2>/dev/null)"'
     }
 
     function _apparix_directory() {
+        IFS=$'\n'
         _arguments \
-          '1:mark:_values "\n" $(cut -d, -f2 "$APPARIXRC" "$APPARIXEXPAND")' \
-          '2:file:_path_files -/W "$(apparish "$words[2]" 2>/dev/null)"'
+            '1:mark:($(cut -d, -f2 "$APPARIXRC" "$APPARIXEXPAND"))' \
+            '2:file:_path_files -/W "$(apparish "$words[2]" 2>/dev/null)"'
     }
 
     compdef _apparix_file "${APPARIX_FILE_FUNCTIONS[@]}"
     compdef _apparix_directory "${APPARIX_DIR_FUNCTIONS[@]}"
-
 else
     >&2 echo "Apparish: I don't know how to generate completions"
 fi
