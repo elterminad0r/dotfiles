@@ -86,8 +86,9 @@ bm() {
             return 1
         fi
     else
-        hash -dL | sed -e "s/^hash -d\( --\)\?//" -e "s/=/\t/" | \
-            column -t -s $'\t' -N mark,target -R 1
+        {printf 'mark\ttarget\n';
+         hash -dL | sed -E -e 's/^hash -d( --)?//' -e 's/=/'$'\t''/'} | \
+            column -t -s $'\t'
     fi
 }
 
