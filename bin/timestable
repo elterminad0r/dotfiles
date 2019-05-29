@@ -10,7 +10,7 @@ the terminal screen, as this isn't a straightforward function to invert.
 TODO: use Grover's algorithm instead.
 """
 
-import argparse
+import smartparse as argparse
 import shutil
 
 VERT = "│"
