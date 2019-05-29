@@ -11,7 +11,8 @@
 " Set some generic font for GVim, particularly we care about the font size.
 " Only set it once because for some reason the screen messes itself up if you
 " set it again.
-command ResetFont set guifont=Liberation\ Mono\ for\ Powerline\ 12
+" I use let rather than set so as not to faff around with backslashes.
+command ResetFont let &guifont = "Liberation Mono for Powerline 12"
 
 if (!exists("g:goedel_set_font")) || !g:goedel_set_font
     ResetFont
