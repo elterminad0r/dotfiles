@@ -1,0 +1,8 @@
+#!/usr/bin/env python3
+
+"""
+Script that approximates texdoc, but with my custom directory of documentation,
+that I've not put in my proper root directory and all that.
+"""
+
+# TODO
