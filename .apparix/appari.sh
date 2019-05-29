@@ -125,14 +125,14 @@
 # very hollow wrapper, to prevent the constant checks for bash/zsh and make it
 # easier to extend to other shells.
 
-# TODO: better error messages if not apparix-init, or better yet, apparix-init
-# automatically
-
 APPARIXHOME="${APPARIXHOME:=$HOME}"
 mkdir -p "$APPARIXHOME"
 APPARIXRC="${APPARIXRC:=$APPARIXHOME/.apparixrc}"
 APPARIXEXPAND="${APPARIXEXPAND:=$APPARIXHOME/.apparixexpand}"
 APPARIXLOG="${APPARIXLOG:=$APPARIXHOME/.apparixlog}"
+
+touch "$APPARIXRC"
+touch "$APPARIXEXPAND"
 
 APPARIX_FILE_FUNCTIONS=( a ae av aget toot apparish ) # Huffman (remove a)
 APPARIX_DIR_FUNCTIONS=( to als ald amd todo rme )
@@ -167,16 +167,6 @@ if ! silent command -v via; then
 else
     >&2 echo "Apparish: not aliasing via"
 fi
-
-function apparix-init() {
-    already=""
-    if [[ -e "$APPARIXRC" && -e "$APPARIXEXPAND" ]]; then
-        already=" already"
-    fi
-    true >> "$APPARIXRC"
-    true >> "$APPARIXEXPAND"
-    echo "Apparish is up and running$already"
-}
 
 function apparish() {
     if [[ 0 == "$#" ]]; then
@@ -477,7 +467,6 @@ if [[ -n "$BASH_VERSION" ]]; then
             >&2 echo "Unknown caller: Izaak has probably messed something up"
             return 1
         fi
-
     }
 
     # generate completions for a bookmark
