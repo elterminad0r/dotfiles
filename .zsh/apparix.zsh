@@ -47,20 +47,20 @@ mkdir -p "$ZAPPARIXHOME"
 ZAPPARIXRC="${ZAPPARIXRC:=$ZAPPARIXHOME/zapparixrc}"
 touch "$ZAPPARIXRC"
 
-typeset -a DIFF_CMD
+typeset -ga ZAPP_DIFF_CMD
 
 # check if diff has colours
-if command diff --color=always <(echo abc) <(echo abc); then
-    DIFF_CMD=( diff --color=always )
+if command diff --color=always <(echo abc) <(echo abc) 2>/dev/null; then
+    ZAPP_DIFF_CMD=( diff --color=always )
 else
-    DIFF_CMD=( diff )
+    ZAPP_DIFF_CMD=( diff )
 fi
 
 alias via='"${EDITOR:-vim}" "$ZAPPARIXRC"'
 
 # indicate differences between $ZAPPARIXRC" and "$ZAPPARIXRC.new"
 zapparix_change() {
-    { ! "${DIFF_CMD[@]}" "$ZAPPARIXRC" "$ZAPPARIXRC.new" } || \
+    { ! "${ZAPP_DIFF_CMD[@]}" "$ZAPPARIXRC" "$ZAPPARIXRC.new" } || \
         { >&2 echo "no change"; return 1 }
 }
 
@@ -117,7 +117,7 @@ unbm() {
         # probably this should be done with awk or perl or something
         quot_pwd="$(hash -dL | \
             command grep '^hash -d\( --\)\? _GOEDEL_TEST=' | \
-            command sed 's/^hash -d\( --\)\? _GOEDEL_TEST=//')"
+            command sed -E 's/^hash -d( --)? _GOEDEL_TEST=//')"
         command sed 's#$#//#g' "$ZAPPARIXRC" | \
                 command grep -v -F "=$quot_pwd//" | \
                 command sed 's#//$##g' \
