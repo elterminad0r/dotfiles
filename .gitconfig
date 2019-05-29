@@ -20,6 +20,8 @@
 	email = izaak.van.dongen@gmail.com
 	name = Izaak van Dongen
 [credential]
+	# Store credentials for github etc in plain text. This is probably quite
+	# bad, but it's easy, so hey, who cares
 	helper = store
 [merge]
 	tool = vimdiff
@@ -29,7 +31,8 @@
 	c = commit -v
 	ca = commit -v --all
 	co = checkout
-	st = status
+	st = status --show-stash
+	# consistent with the existence of `git rm`, `git mv`, etc
 	ls = ls-files
 	unstage = reset HEAD --
 	unchange = checkout --
@@ -43,6 +46,13 @@
 	grephistory = "!git rev-list --all | xargs git grep"
 	; git is surprisingly clever here - the git ls-files knows to use the bare
 	; repository when it's cfg.
-	figmentize = "!git ls-files -z | xargs -0 -n1 figmentize #"
+	figmentize = "!git ls-files -z | xargs -0 -n1 figmentize"
 	; open all files in vim, reattaching the terminal as input
 	vim = "!git ls-files -z | xargs -0 bash -c '</dev/tty vim \"$@\"' #"
+	; edit files in vim and add them afterwards, because typing two commands is
+	; for nerds
+	vi = "!cd -- \"${GIT_PREFIX:-.}\"; vim \"$@\"; git add \"$@\" #"
+	grepvim = "!git grep -liz \"$1\" | xargs -0 bash -c '</dev/tty vim \"$@\"' #"
+	sm-add-existing = "!cd -- \"${GIT_PREFIX:-.}\"; git submodule add -b master \"$(cd -- \"$1\"; git remote get-url origin)\" #"
+	sm-reattach = "submodule foreach 'git checkout master' #"
+	sm-status = "submodule foreach 'git status' #"
