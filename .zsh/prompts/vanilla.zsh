@@ -47,21 +47,8 @@ function zle-line-init zle-keymap-select {
 zle -N zle-line-init
 zle -N zle-keymap-select
 
-# two-line prompt, with a blank line behind it.
-# If zsh is in apparix mode, also indicate the current bookmark
-if [[ "$GOEDEL_APPARIX" == "true" ]]; then
-    function apparix_prompt {
-        iz_bm="$(amibm)"
-        if [[ -n "$iz_bm" ]]; then
-            echo " $iz_bm "
-        fi
-    }
-    apparix_indicator="%K{005}%F{000}\$(apparix_prompt)"
-else
-    apparix_indicator=""
-fi
 host_prompt="%(!.%F{003}%K{001}.%F{000}%K{003}) %n@%m "
 dir_prompt="%F{000}%K{004} %~ "
-PROMPT=$'\n'"%F{\$vi_colour}┌─$host_prompt$dir_prompt$apparix_indicator%k\$vcs_info_msg_0_"$'\n%F{\$vi_colour}└─%f '
+PROMPT=$'\n'"%F{\$vi_colour}┌─$host_prompt$dir_prompt%k\$vcs_info_msg_0_"$'\n%F{\$vi_colour}└─%f '
 PROMPT2=".. "
 RPROMPT2="%_"

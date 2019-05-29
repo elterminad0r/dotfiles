@@ -132,18 +132,8 @@ bindkey "^I" expand-or-complete-with-dots
 source_if_exists /usr/share/fzf/key-bindings.zsh
 source_if_exists /usr/share/fzf/completion.zsh
 
-# no thanks
-# source_if_exists $ZSH/oh-my-zsh.sh
-
-# this is handled by zsh_env
-# source_if_exists "$ZDOTDIR/.goedel_aliases.sh"
-
-if [[ "$GOEDEL_APPARIX" == "true" ]]; then
-    source_if_exists "$BASHDOTDIR/.bourne-apparish"
-fi
-
-# the configuration for zsh completion. This is all a little mysterious to me
-# really.
+ZAPPARIXHOME="$ZDOTDIR/apparix"
+source_if_exists "$ZDOTDIR/apparix.zsh"
 
 zstyle ':completion:*:*:*:*:*' menu select
 zstyle ':completion:*' special-dirs true
