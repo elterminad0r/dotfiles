@@ -171,7 +171,7 @@ endif
 " reload vimrc when written
 augroup ConfigReloadVim
     " the nested makes things not break - see autocmd-nested
-    autocmd! BufWritePost ~/.vim/*rc nested call ReloadVimConf()
+    autocmd! BufWritePost ~/.vim/*rc,~/.vim/*vim nested call ReloadVimConf()
 augroup END
 
 function! ReloadTmuxConf()
@@ -183,11 +183,11 @@ augroup ConfigReloadTmux
 augroup END
 
 function! ReloadXConf()
-    !xrdb merge %
+    !xrdb -merge %
     redraw | echo "reloaded ". @%
 endfunction
 augroup ConfigReloadX
-    autocmd! BufWritePost ~/.Xresources,~/.Xdefaults call ReloadXConf()
+    autocmd! BufWritePost ~/.Xresources,~/.Xdefaults,~/.X/* call ReloadXConf()
 augroup END
 
 function! ReloadI3Conf()

@@ -86,6 +86,8 @@ export ZDOTDIR="$HOME/.zsh"
 
 export BASHDOTDIR="$HOME/.bash"
 
+export XDOTDIR="$HOME/.X"
+
 # stop <C-[sq]> from killing my flow, and in fact expose them for keybinding
 stty -ixon
 

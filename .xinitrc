@@ -10,7 +10,7 @@
 
 [[ -f /etc/xprofile ]] && . /etc/xprofile
 [[ -f ~/.xprofile ]] && . ~/.xprofile
-[[ -f ~/.Xresources ]] && xrdb -merge -I$HOME ~/.Xresources
+[[ -f ~/.Xresources ]] && xrdb -merge -I"$XDOTDIR" ~/.Xresources
 [[ -f ~/.Xmodmap ]] && xmodmap ~/.Xmodmap
 
 exec i3

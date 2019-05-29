@@ -274,7 +274,7 @@ alias vienc='visafe ~/Documents/.enc/'
 alias vitm='vim ~/.tmux.conf'
 
 # reload various types of configuration
-alias x='xrdb merge ~/.Xresources'
+alias x='xrdb -merge -I"$XDOTDIR" ~/.Xresources'
 alias t='tmux source-file ~/.tmux.conf'
 
 # restart or test wifi connection
