@@ -1,11 +1,10 @@
-# vim: ft=dosini cms=#\ %s
-# FIGMENTIZE: termite
 #   __                           .__   __
 # _/  |_   ____ _______   _____  |__|_/  |_   ____
 # \   __\_/ __ \\_  __ \ /     \ |  |\   __\_/ __ \
 #  |  |  \  ___/ |  | \/|  Y Y  \|  | |  |  \  ___/
 #  |__|   \___  >|__|   |__|_|  /|__| |__|   \___  >
 #             \/              \/                 \/
+# FIGMENTIZE: termite
 
 [options]
 resize_grip = false

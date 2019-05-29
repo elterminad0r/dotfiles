@@ -1,10 +1,10 @@
-# FIGMENTIZE: purepower
 #
 # ______   __ __ _______   ____  ______    ____ __  _  __  ____ _______
 # \____ \ |  |  \\_  __ \_/ __ \ \____ \  /  _ \\ \/ \/ /_/ __ \\_  __ \
 # |  |_> >|  |  / |  | \/\  ___/ |  |_> >(  <_> )\     / \  ___/ |  | \/
 # |   __/ |____/  |__|    \___  >|   __/  \____/  \/\_/   \___  >|__|
 # |__|                        \/ |__|                         \/
+# FIGMENTIZE: purepower
 
 # Original location: https://github.com/romkatv/dotfiles-public/blob/master/.purepower.
 # If you copy this file, keep the link to the original and this sentence intact;

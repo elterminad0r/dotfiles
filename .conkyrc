@@ -1,12 +1,12 @@
 -- vim: ts=4 sw=4 noet ai cindent syntax=lua
 
--- FIGMENTIZE: conky
 --                         __
 --   ____   ____    ____  |  | __ ___.__.
 -- _/ ___\ /  _ \  /    \ |  |/ /<   |  |
 -- \  \___(  <_> )|   |  \|    <  \___  |
 --  \___  >\____/ |___|  /|__|_ \ / ____|
 --      \/             \/      \/ \/
+-- FIGMENTIZE: conky
 
 -- currently unused conkyrc file
 

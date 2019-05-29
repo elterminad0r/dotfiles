@@ -1,10 +1,10 @@
-# FIGMENTIZE: mailcap
 #                  .__ .__
 #   _____  _____   |__||  |    ____  _____   ______
 #  /     \ \__  \  |  ||  |  _/ ___\ \__  \  \____ \
 # |  Y Y  \ / __ \_|  ||  |__\  \___  / __ \_|  |_> >
 # |__|_|  /(____  /|__||____/ \___  >(____  /|   __/
 #       \/      \/                \/      \/ |__|
+# FIGMENTIZE: mailcap
 
 text/html;  firefox --new-window %s >/dev/null 2>&1; needsterminal
 text/html; elinks -dump %s; nametemplate=%s.html; copiousoutput

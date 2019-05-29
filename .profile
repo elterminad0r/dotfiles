@@ -1,12 +1,12 @@
 # .profile, mostly to be sourced by other profiles
 
-# FIGMENTIZE: profile
 #                         _____ .__ .__
 # ______ _______   ____ _/ ____\|__||  |    ____
 # \____ \\_  __ \ /  _ \\   __\ |  ||  |  _/ __ \
 # |  |_> >|  | \/(  <_> )|  |   |  ||  |__\  ___/
 # |   __/ |__|    \____/ |__|   |__||____/ \___  >
 # |__|                                         \/
+# FIGMENTIZE: profile
 
 if [ -n "$GOEDEL_VERBOSE" ]; then
     echo "sourcing profile"

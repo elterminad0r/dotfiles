@@ -1,10 +1,10 @@
-" FIGMENTIZE: vimrc
 "        .__
 " ___  __|__|  _____ _______   ____
 " \  \/ /|  | /     \\_  __ \_/ ___\
 "  \   / |  ||  Y Y  \|  | \/\  \___
 "   \_/  |__||__|_|  /|__|    \___  >
 "                  \/             \/
+" FIGMENTIZE: vimrc
 
 " note to self ":set rl": this is funny, eg do:
 " :autocmd BufWinEnter * set rl

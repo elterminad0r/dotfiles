@@ -1,10 +1,10 @@
-" FIGMENTIZE: nvimrc
 "               .__
 "   ____ ___  __|__|  _____ _______   ____
 "  /    \\  \/ /|  | /     \\_  __ \_/ ___\
 " |   |  \\   / |  ||  Y Y  \|  | \/\  \___
 " |___|  / \_/  |__||__|_|  /|__|    \___  >
 "      \/                 \/             \/
+" FIGMENTIZE: nvimrc
 
 " This is my rc file for nvim. It was copied over from an old version of my
 " vimrc file and is not properly maintained.

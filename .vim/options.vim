@@ -1,10 +1,10 @@
-" FIGMENTIZE: optionsrc
 "                  __   .__
 "   ____  ______ _/  |_ |__|  ____    ____    _____________   ____
 "  /  _ \ \____ \\   __\|  | /  _ \  /    \  /  ___/\_  __ \_/ ___\
 " (  <_> )|  |_> >|  |  |  |(  <_> )|   |  \ \___ \  |  | \/\  \___
 "  \____/ |   __/ |__|  |__| \____/ |___|  //____  > |__|    \___  >
 "         |__|                           \/      \/              \/
+" FIGMENTIZE: optionsrc
 
 " sub RC file with all the options I set. Similarly to mappingsrc, they are
 " ordered roughly by how much I like them.

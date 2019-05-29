@@ -1,10 +1,10 @@
-" FIGMENTIZE: pluginrc
 "         .__            ____  .__
 " ______  |  |   __ __  / ___\ |__|  ____ _______   ____
 " \____ \ |  |  |  |  \/ /_/  >|  | /    \\_  __ \_/ ___\
 " |  |_> >|  |__|  |  /\___  / |  ||   |  \|  | \/\  \___
 " |   __/ |____/|____//_____/  |__||___|  /|__|    \___  >
 " |__|                                  \/             \/
+" FIGMENTIZE: pluginrc
 
 " This sets up all the plugins I use, using vim-plug
 " https://github.com/junegunn/vim-plug

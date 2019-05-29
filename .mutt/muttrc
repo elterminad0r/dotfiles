@@ -1,10 +1,10 @@
-# FIGMENTIZE: mutt
 #                   __     __
 #   _____   __ __ _/  |_ _/  |_
 #  /     \ |  |  \\   __\\   __\
 # |  Y Y  \|  |  / |  |   |  |
 # |__|_|  /|____/  |__|   |__|
 #       \/
+# FIGMENTIZE: mutt
 
 set spoolfile="=INBOX"
 set record="+sent"

@@ -1,10 +1,10 @@
-# FIGMENTIZE: aliases
 #         .__   .__
 # _____   |  |  |__|_____     ______  ____    ______
 # \__  \  |  |  |  |\__  \   /  ___/_/ __ \  /  ___/
 #  / __ \_|  |__|  | / __ \_ \___ \ \  ___/  \___ \
 # (____  /|____/|__|(____  //____  > \___  >/____  >
 #      \/                \/      \/      \/      \/
+# FIGMENTIZE: aliases
 
 # this is a centralised repository of all my aliases, in addition to some
 # functions that are really aliases in spirit

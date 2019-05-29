@@ -1,10 +1,10 @@
-# FIGMENTIZE: ttyrc
 #   __     __
 # _/  |_ _/  |_  ___.__._______   ____
 # \   __\\   __\<   |  |\_  __ \_/ ___\
 #  |  |   |  |   \___  | |  | \/\  \___
 #  |__|   |__|   / ____| |__|    \___  >
 #                \/                  \/
+# FIGMENTIZE: ttyrc
 
 # this file does some set up on a tty to easy fontsize changing
 

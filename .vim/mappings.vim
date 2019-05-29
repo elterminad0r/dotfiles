@@ -1,10 +1,10 @@
-" FIGMENTIZE: mappingsrc
 "                                  .__            ____
 "   _____  _____   ______  ______  |__|  ____    / ___\  _____________   ____
 "  /     \ \__  \  \____ \ \____ \ |  | /    \  / /_/  >/  ___/\_  __ \_/ ___\
 " |  Y Y  \ / __ \_|  |_> >|  |_> >|  ||   |  \ \___  / \___ \  |  | \/\  \___
 " |__|_|  /(____  /|   __/ |   __/ |__||___|  //_____/ /____  > |__|    \___  >
 "       \/      \/ |__|    |__|             \/              \/              \/
+" FIGMENTIZE: mappingsrc
 
 " This is a file of all my vim mappings. They might be in decreasing order of
 " favouritism (ie, if I can be bothered, I will put my more useful mappings

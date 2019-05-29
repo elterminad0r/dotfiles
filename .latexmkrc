@@ -1,12 +1,12 @@
 # vim: ft=perl
 
-# FIGMENTIZE: latexmk
 # .__            __                             __
 # |  |  _____  _/  |_   ____  ___  ___  _____  |  | __
 # |  |  \__  \ \   __\_/ __ \ \  \/  / /     \ |  |/ /
 # |  |__ / __ \_|  |  \  ___/  >    < |  Y Y  \|    <
 # |____/(____  /|__|   \___  >/__/\_ \|__|_|  /|__|_ \
 #            \/            \/       \/      \/      \/
+# FIGMENTIZE: latexmk
 
 $latex = "latex -synctex=1  --shell-escape -halt-on-error %O %S";
 $pdflatex = "pdflatex -synctex=1 -shell-escape -halt-on-error %O %S";

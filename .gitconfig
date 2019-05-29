@@ -1,11 +1,11 @@
 # vim: noet
 
-# FIGMENTIZE: git
 #    ____  .__   __
 #   / ___\ |__|_/  |_
 #  / /_/  >|  |\   __\
 #  \___  / |  | |  |
 # /_____/  |__| |__|
+# FIGMENTIZE: git
 
 # This is a file with some global configurations for Git. The usual way to
 # change the options here is to use $ git config, but it's also fine to just

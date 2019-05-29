@@ -1,12 +1,12 @@
 # vim: ft=muttrc
 
-# FIGMENTIZE: mutt
 #                   __     __
 #   _____   __ __ _/  |_ _/  |_
 #  /     \ |  |  \\   __\\   __\
 # |  Y Y  \|  |  / |  |   |  |
 # |__|_|  /|____/  |__|   |__|
 #       \/
+# FIGMENTIZE: mutt
 
 set realname = "Izaak van Dongen"
 set from = "izaak.van.dongen@gmail.com"
