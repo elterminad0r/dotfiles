@@ -35,7 +35,6 @@
 #  Quick Guide:
 #  -  save this file in $HOME/.bourne-apparish
 #  -  issue 'source $HOME/.bourne-apparish'
-#  -  issue 'apparix-init'
 #  -  go to a directory and issue 'bm foo'
 #  -  you can now go to that directory by issuing 'to foo'
 #  -  try tab completion and command substitution, see the examples below.
@@ -44,13 +43,12 @@
 #  partly in C.  For both systems the bookmarking commands are implemented as
 #  shell functions.  The names of these functions are the same between the two
 #  implementations and the function definitions are very similar.  The apparix
-#  shell functions invoke a C executable. Apparish uses another shell funtion
-#  to mimic this C program and apparish provides two additional funcctions,
-#  apparix-init and apparix-list. The pivotal commands however are 'bm'
-#  (bookmark) and 'to' (go to mark). You can change from apparix to apparish
-#  and vice versa, as they use the same resource files.
+#  shell functions invoke a C executable. Apparish uses another shell funtion to
+#  mimic this C program and apparish provides two additional functions, and
+#  apparix-list. The pivotal commands however are 'bm' (bookmark) and 'to' (go
+#  to mark). You can change from apparix to apparish and vice versa, as they use
+#  the same resource files.
 #
-#     apparix-init            initialise apparix (needed only once)
 #  ---
 #     bm <tag>                create bookmark <tag> for current directory
 #  ---
@@ -400,7 +398,6 @@ function apparish_ls() {
                           mark names)
   portal-expand           Re-expand all portals
   apparix-list MARK       List all targets for bookmark mark
-  apparix-init            Use one time after installing apparix
 EOH
 }
 
