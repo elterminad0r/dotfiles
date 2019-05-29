@@ -6,4 +6,4 @@ https://developer.atlassian.com/blog/2016/02/best-way-to-store-dotfiles-git-bare
     git clone --recursive --bare "https://github.com/goedel-gang/dotfiles" "$HOME"/.cfg
     cfg checkout
 
-![screenshot](https://github.com/goedel-gang/dotfiles/blob/master/README_PICTURE.png)
+![screenshot](https://github.com/goedel-gang/dotfiles/blob/master/README_SOLARIZED.png)
