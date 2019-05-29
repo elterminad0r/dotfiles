@@ -25,6 +25,7 @@ import re
 import subprocess
 import shlex
 import itertools
+import functools
 
 import sys
 import time
@@ -127,10 +128,15 @@ def match_head_par(par):
     """
     Check to see if the paragraph has a figlet heading indicator (that looks
     like the one at the top of this file)
+
+    Use this reduce rather than just any() because I want to get back the truthy
+    value itself (which is a match object) rather than the truthy value coerced
+    to a boolean.
     """
-    # this is safe as split with an argument always returns a non-null list
-    head, *_ = par.split("\n")
-    return re.match("(.*?)FIGMENTI[ZS]E:\\s*['\"]?(.*?)['\"]?\\s*$", head)
+    return functools.reduce(lambda a, b: a or b,
+            (re.match("(.*?)FIGMENTI[ZS]E:\\s*['\"]?(.*?)['\"]?\\s*$", line)
+                for line in par.split("\n")),
+            False)
 
 def make_head(prefix, head, command, indicator):
     """
@@ -140,9 +146,10 @@ def make_head(prefix, head, command, indicator):
     run = [*command, head]
     print(f"running $ {' '.join(map(shlex.quote, run))}", file=sys.stderr)
     figlet = subprocess.run(run, check=True, capture_output=True)
-    return "\n".join(itertools.chain((indicator,),
+    return "\n".join(itertools.chain(
         ("{}{}".format(prefix, line).rstrip() for line in
-            figlet.stdout.decode().rstrip().split("\n"))))
+            figlet.stdout.decode().rstrip().split("\n"))
+        (indicator,)))
 
 def process_file(file, command, backup, overwrite):
     """
