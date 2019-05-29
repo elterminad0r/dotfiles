@@ -1,5 +1,3 @@
-# vim: ft=sh
-
 # FIGMENTIZE: prompt
 #                                          __
 # ______ _______   ____    _____  ______ _/  |_
@@ -19,7 +17,7 @@
 # https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh.
 # I also have a backuip copy in my .bash_scripts, but that's not under any kind
 # of version control or package management.
-source_if_exists /usr/share/git/git-prompt.sh "$HOME/.bash_scripts/git-prompt.sh"
+source_if_exists /usr/share/git/git-prompt.sh "$HOME/$BASHDOTDIR/scripts/git-prompt.sh"
 
 # show if there are staged/unstaged changes
 export GIT_PS1_SHOWDIRTYSTATE=true
@@ -75,14 +73,15 @@ shlvl_prompt() {
     fi
 }
 
-# function which returns red if the user has root privileges, and pink otherwise
+# function which returns magenta if the user has root privileges, and yellow
+# otherwise
 user_prompt() {
     if [[ $EUID -ne 0 ]]; then
         # echo -n "\[$(tput setaf 5)\]\u"
         echo -n "\[\e[38;5;5m\]\u"
     else
         # echo -n "\[$(tput setaf 1)\]\1"
-        echo -n "\[\e[38;5;1m\]\1"
+        echo -n "\[\e[38;5;1m\]\u"
     fi
 }
 
