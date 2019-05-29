@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+# start terminal with pwd
+exec termite -d "$1"

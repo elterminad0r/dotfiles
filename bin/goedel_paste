@@ -1,0 +1,23 @@
+#!/usr/bin/env sh
+
+silent() {
+    "$@" > /dev/null 2> /dev/null
+}
+
+case "$(uname -s)" in
+    Darwin)
+        pbpaste
+        ;;
+    Cygwin)
+        cat /dev/clipboard
+        ;;
+    *)
+        if silent command -v xclip; then
+            xclip -out -selection clipboard
+        elif silent command -v xsel; then
+            xsel --clipboard --output
+        else
+            echo "I'm not ready for this" >&2
+        fi
+        ;;
+esac
