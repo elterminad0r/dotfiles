@@ -186,7 +186,7 @@ revim() {
     # TODO
     # assumes that you've not got any newlines in your session names, because
     # chronological order is a PAIN with find.
-    vim -S "$(\ls -t --directory "$HOME"/.vim/sessions/* | head -n $n | tail -n 1)"
+    vim -S "$(\ls -t --directory "$HOME/.vim/sessions"/* | head -n $n | tail -n 1)"
 }
 
 # if light locker exists, alias lock to be alongside poweroff & reboot etc
@@ -323,7 +323,7 @@ alias gmail='\mutt -F ~/.mutt/gmail_muttrc'
 # TODO:
 # uses ls instead of find for chronological ordering
 screenshots() {
-    \ls -t --directory "$HOME"/Pictures/screenshots/* |
+    \ls -t --directory "$HOME/Pictures/screenshots"/* |
         grep "${2:-}" | head -"${1:-1}";
 }
 

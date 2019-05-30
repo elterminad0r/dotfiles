@@ -71,9 +71,9 @@ fi
 # TODO: move to something more modern
 export GTK_IM_MODULE=xim
 
-export PYTHONPATH="$HOME"/pybin
+export PYTHONPATH="$HOME/pybin"
 
-export PYTHONSTARTUP="$HOME"/.pythonrc
+export PYTHONSTARTUP="$HOME/.pythonrc"
 
 # something with escape sequences, plus case insensitive search
 export LESS="-Ri"
@@ -103,6 +103,6 @@ add_to_path() {
     esac
 }
 
-for bin_dir in "$HOME"/bin "$HOME"/.gem/ruby/2.6.0/bin "$HOME"/.local/bin; do
+for bin_dir in "$HOME/bin" "$HOME/.gem/ruby/2.6.0/bin" "$HOME/.local/bin"; do
     add_to_path "$bin_dir"
 done
