@@ -114,13 +114,6 @@
 #  suggesting the name apparish.
  #
 
-# TODO: allow commas and newlines in directory names
-# particular corollary is that amibm and probably some other break quite badly
-# in a PWD with a newline, because grep doesn't expect newlines
-# TODO: maybe write these as scripts with shebangs, and keep shell functions to
-# very hollow wrapper, to prevent the constant checks for bash/zsh and make it
-# easier to extend to other shells.
-
 APPARIXHOME="${APPARIXHOME:=$HOME}"
 mkdir -p "$APPARIXHOME"
 APPARIXRC="${APPARIXRC:=$APPARIXHOME/.apparixrc}"
