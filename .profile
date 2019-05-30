@@ -58,9 +58,9 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export CACA_DRIVER=ncurses
 
 # these need to be continuously set, particularly if oh-my-zsh is around
-export LC_CTYPE=en_GB.utf8
-export LC_ALL=en_GB.utf8
-export LANG=en_GB.utf8
+export LC_CTYPE=en_GB.UTF-8
+export LC_ALL=en_GB.UTF-8
+export LANG=en_GB.UTF-8
 
 if [ "$TERM" = xterm ]; then
     export TERM=xterm-256color
