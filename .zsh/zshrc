@@ -22,7 +22,8 @@ source_if_exists() {
             return 0
         fi
     done
-    echo "Izaak's zshrc: could not source any of $*" >&2
+    >&2 echo "Izaak's zshrc: could not source any of $*"
+    return 1
 }
 
 # read lines of $1 into goedel_array
@@ -129,7 +130,10 @@ bindkey "^I" expand-or-complete-with-dots
 
 # use fzf for completion
 # TODO: make this less intrusive
-source_if_exists /usr/share/fzf/key-bindings.zsh
+if ! source_if_exists /usr/share/fzf/key-bindings.zsh; then
+    >&2 echo "defining history-incremental-pattern-search-backward instead"
+    bindkey '^R' history-incremental-pattern-search-backward
+fi
 source_if_exists /usr/share/fzf/completion.zsh
 
 ZAPPARIXHOME="$ZDOTDIR/apparix"
