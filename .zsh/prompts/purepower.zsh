@@ -187,8 +187,8 @@
         function _pp_s() { print -nr -- $2 }
     else
         if [[ $PURE_POWER_MODE != portable ]]; then
-            echo -En "purepower: invalid mode: ${(qq)PURE_POWER_MODE}; " >&2
-            echo -E  "valid options are 'fancy' and 'portable'; falling back to 'portable'" >&2
+            >&2 echo -En "purepower: invalid mode: ${(qq)PURE_POWER_MODE}; "
+            >&2 echo -E  "valid options are 'fancy' and 'portable'; falling back to 'portable'"
         fi
         function _pp_s() { print -nr -- $1 }
     fi
@@ -299,3 +299,6 @@
 }
 
 source "$POWERLEVEL_THEME"
+# TODO: doesn't work
+PROMPT2=".. "
+RPROMPT2="%_"

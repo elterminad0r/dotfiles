@@ -75,5 +75,6 @@ local vi_c='${${${KEYMAP:-0}:#vicmd}:+${${vi_ins}}}${${$((!${#${KEYMAP:-0}:#vicm
 POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="$vi_c╔═%f"
  POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="$vi_c╚═%f "
 source "$POWERLEVEL_THEME"
+# TODO: doesn't work
 PROMPT2=".. "
-RPROMPT2="%_"
+RPROMPT2="%K{cyan} %_ %k"

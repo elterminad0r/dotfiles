@@ -50,5 +50,6 @@ zle -N zle-keymap-select
 host_prompt="%(!.%F{003}%K{001}.%F{000}%K{003}) %n@%m "
 dir_prompt="%F{000}%K{004} %~ "
 PROMPT=$'\n'"%F{\$vi_colour}┌─$host_prompt$dir_prompt%k\$vcs_info_msg_0_"$'\n%F{\$vi_colour}└─%f '
+# TODO: doesn't work
 PROMPT2=".. "
-RPROMPT2="%_"
+RPROMPT2="%K{cyan} %_ %k"
