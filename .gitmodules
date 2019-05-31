@@ -189,3 +189,7 @@
 	path = .themes/base16-rofi
 	url = https://github.com/goedel-gang/dotfiles.git
 	branch = master
+[submodule ".themes/base16-fzf"]
+	path = .themes/base16-fzf
+	url = https://github.com/nicodebo/base16-fzf
+	branch = master
