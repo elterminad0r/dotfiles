@@ -1,3 +1,9 @@
 #!/usr/bin/env sh
 # start terminal with pwd
-exec termite -d "$1"
+# defined fallback so that you're not left unable to open a terminal
+
+if [ -d "$1" ]; then
+    exec termite -d "$1"
+else
+    exec termite -e "sh -c \"echo 'not a directory: $1'; exec zsh\""
+fi

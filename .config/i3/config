@@ -426,7 +426,7 @@ exec --no-startup-id nm-applet
 exec --no-startup-id light-locker
 exec --no-startup-id ~/bin/randombg --random
 
-exec --no-startup-id "$TERMINAL" #-e sh -c "GOEDEL_START_TMUX=true zsh"
+exec --no-startup-id "$TERMINAL"
 exec i3-msg "workspace $ws2; exec firefox"
 # exec i3-msg "workspace $ws10; exec i3-sensible-terminal -e cmus"
 exec i3-msg "workspace $ws1"
