@@ -49,7 +49,7 @@
 	figmentize = "!git ls-files -z | xargs -0 -n1 figmentize"
 	# edit files and add them afterwards, because typing two commands is for
 	# nerds
-	vim = "!cd -- \"${GIT_PREFIX:-.}\"# \"$EDITOR\" \"$@\"# git add \"$@\" #"
+	vim = "!cd -- \"${GIT_PREFIX:-.}\"; \"$EDITOR\" \"$@\"; git add \"$@\" #"
 	# open all files that have names matching some regex. Can be used to open
 	# all files, if given no argument. Intricacy where you have to reattach
 	# /dev/tty to vim if using it through xargs. Its arguments are just grep
@@ -58,6 +58,6 @@
 	# open all files that have content matching some regex. Same protocal as
 	# vimgrep.
 	vimgrep = "!git grep -liz \"$@\" | xargs -0 bash -c '</dev/tty \"$EDITOR\" \"$@\"' #"
-	sm-add-existing = "!cd -- \"${GIT_PREFIX:-.}\"# git submodule add -b master \"$(cd -- \"$1\"# git remote get-url origin)\" #"
+	sm-add-existing = "!cd -- \"${GIT_PREFIX:-.}\"; git submodule add -b master \"$(cd -- \"$1\"; git remote get-url origin)\" \"$1\" #"
 	sm-reattach = "submodule foreach 'git checkout master'"
 	sm-status = "submodule foreach 'git status'"
