@@ -24,8 +24,6 @@
 " TODO: text object for a filename, as in <cfile> maybe
 " TODO: add mnemonic comments to mappings where appropriate
 
-" TODO: why does zsh indent comments by a tab
-
 set encoding=utf-8
 
 " leave the heathens to their folly
