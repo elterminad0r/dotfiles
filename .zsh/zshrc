@@ -136,7 +136,8 @@ else
     >&2 echo "defining history-incremental-pattern-search-backward instead"
     bindkey '^R' history-incremental-pattern-search-backward
 fi
-source_if_exists /usr/share/fzf/completion.zsh
+# TODO: does this do anything?
+# source_if_exists /usr/share/fzf/completion.zsh
 
 ZAPPARIXHOME="$ZDOTDIR/apparix"
 source_if_exists "$ZDOTDIR/apparix.zsh"
