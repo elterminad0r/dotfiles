@@ -1,4 +1,3 @@
 " TODO: insert my favourite bits and pieces
 
-let vimpager_passthrough = 0
-
+let g:vimpager_passthrough = 0

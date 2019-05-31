@@ -11,8 +11,7 @@
 " Set some generic font for GVim, particularly we care about the font size.
 " Only set it once because for some reason the screen messes itself up if you
 " set it again.
-" I use let rather than set so as not to faff around with backslashes.
-command ResetFont let &guifont = "Liberation Mono for Powerline 12"
+command ResetFont set guifont=Liberation\ Mono\ for\ Powerline\ 12
 
 if (!exists("g:goedel_set_font")) || !g:goedel_set_font
     ResetFont
@@ -31,11 +30,6 @@ set guioptions-=e
 " allow the use of select mode, which is more like a Microsoft windows
 " selection.
 set selectmode=mouse,key
-
-" when issuing the :gui command, lightline will break for some reason.
-" augroup FixGuiCom
-"     autocmd! GUIEnter * call lightline#enable()
-" augroup END
 
 " set transparency if possible
 if executable("transset-df")

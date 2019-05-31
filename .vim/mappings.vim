@@ -231,24 +231,25 @@ nmap <SID>(horscroll) <Nop>
 " FIXME: v10<Right><Esc>. doesn't work to repeat the motion.
 function! IndentOne(type, ...)
     let l:goedel_shiftwidth_store = &shiftwidth
-    set shiftwidth=1
+    " set local to minimise destructive potential
+    setlocal shiftwidth=1
     if a:0
         exec "normal! gv" . v:count1 . ">"
     else
         exec "normal! '[" . v:count1 . ">']"
     endif
-    exec "set shiftwidth=" . l:goedel_shiftwidth_store
+    exec "setlocal shiftwidth=" . l:goedel_shiftwidth_store
 endfunction
 
 function! DedentOne(type, ...)
     let l:goedel_shiftwidth_store = &shiftwidth
-    set shiftwidth=1
+    setlocal shiftwidth=1
     if a:0
         exec "normal! gv" . v:count1 . "<"
     else
         exec "normal! '[" . v:count1 . "<']"
     endif
-    exec "set shiftwidth=" . l:goedel_shiftwidth_store
+    exec "setlocal shiftwidth=" . l:goedel_shiftwidth_store
 endfunction
 
 nnoremap <silent> <expr> <Right> ":<C-U>set operatorfunc=IndentOne<CR>" . v:count1 . "g@"
