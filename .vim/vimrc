@@ -55,6 +55,7 @@ if &t_Co > 2 || has("gui_running")
         set hlsearch
     endif
     " when I open a hacked together light terminal, use a light colorscheme.
+    " I have this back here already so that background is expose to plugins
     if $GOEDEL_COLORSCHEME == "light"
         set background=light
     else
@@ -103,8 +104,16 @@ if &t_Co > 2 || has("gui_running")
             " spellings.
             " set termguicolors
             colorscheme gruvbox
-            " TODO: what was this for?
-            " highlight Normal ctermbg=None
+            " This is to make the terminal background transparent.
+            " Unfortunately, there's some weird thing that makes this break
+            " airline. By trial and error I found that setting background again
+            " fixes it. (???)
+            highlight Normal ctermbg=None
+            if $GOEDEL_COLORSCHEME == "light"
+                set background=light
+            else
+                set background=dark
+            endif
             " make special keycodes like ^S legible
             highlight! link SpecialKey Special
             " makes it so I can see what I'm highlighting
@@ -188,6 +197,7 @@ function! ReloadXConf()
     redraw | echo "reloaded ". @%
 endfunction
 augroup ConfigReloadX
+    " TODO: match ~/.X/* not recursively (see :h autocmd-patterns)
     autocmd! BufWritePost ~/.Xresources,~/.Xdefaults,~/.X/* call ReloadXConf()
 augroup END
 
