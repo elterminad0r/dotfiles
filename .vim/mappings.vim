@@ -64,9 +64,7 @@ nnoremap g<CR> <CR>
 " However, in the command-line window I do want CR to be a normal CR, so I
 " automatically unset and reset this mapping.
 augroup CmdWinCRRestore
-    autocmd!
-    autocmd CmdwinEnter * nunmap <CR>
-    autocmd CmdwinLeave * nnoremap <CR> :call ToggleHighlight()<CR>
+    autocmd! CmdWinEnter * nnoremap <buffer> <CR> <CR>
 augroup END
 
 " Search for selected text. This makes * and # work for visual selections, so

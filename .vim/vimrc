@@ -25,13 +25,6 @@
 
 " TODO: why does zsh indent comments by a tab
 
-" delete all previous autocmds. This is probably pure paranoia but the horrors
-" I've endured...
-" FIXME: clear functions, commands, mappings?
-" this also breaks plugins, I think. Whoops!
-" autocmd!
-" mapclear
-
 set encoding=utf-8
 
 " leave the heathens to their folly
@@ -102,18 +95,14 @@ if &t_Co > 2 || has("gui_running")
             " provide default colorscheme with not too objectionable
             " highlighting of cursorcolumn, cursorline, line numbers and bad
             " spellings.
-            " set termguicolors
             colorscheme gruvbox
-            " This is to make the terminal background transparent.
-            " Unfortunately, there's some weird thing that makes this break
-            " airline. By trial and error I found that setting background again
-            " fixes it. (???)
-            highlight Normal ctermbg=None
-            if $GOEDEL_COLORSCHEME == "light"
-                set background=light
-            else
-                set background=dark
-            endif
+            " You need to do this highlight to make the terminal keep its
+            " transparency. However this seems to break the text in the airline
+            " statusline (particularly the highlight group airline_a) if not
+            " done like this in an autocmd
+            augroup SetNormalTransparent
+                autocmd! WinEnter,VimEnter * highlight Normal ctermbg=None
+            augroup END
             " make special keycodes like ^S legible
             highlight! link SpecialKey Special
             " makes it so I can see what I'm highlighting
@@ -176,6 +165,7 @@ if !exists("*ReloadVimConf")
         endif
         call plug#load(keys(g:plugs))
         redraw | echo "reloaded " . $MYVIMRC
+        doautocmd VimEnter
     endfunction
 endif
 " reload vimrc when written
