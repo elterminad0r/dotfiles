@@ -1,0 +1,67 @@
+! vim: ft=xdefaults
+
+!           __
+! ___  ____/  |_   ____ _______   _____
+! \  \/  /\   __\_/ __ \\_  __ \ /     \
+!  >    <  |  |  \  ___/ |  | \/|  Y Y  \
+! /__/\_ \ |__|   \___  >|__|   |__|_|  /
+!       \/            \/              \/
+! FIGMENTIZE: xterm
+
+/* I don't configure xterm as a sort of visual reminder to prefer uxterm to */
+/* xterm, in this day and age */
+
+
+! hard contrast: UXTerm*background: #1d2021
+UXTerm*background: #282828
+! soft contrast: UXTerm*background: #32302f
+UXTerm*foreground: #ebdbb2
+! Black + DarkGrey
+UXTerm*color0:  #282828
+UXTerm*color8:  #928374
+! DarkRed + Red
+UXTerm*color1:  #cc241d
+UXTerm*color9:  #fb4934
+! DarkGreen + Green
+UXTerm*color2:  #98971a
+UXTerm*color10: #b8bb26
+! DarkYellow + Yellow
+UXTerm*color3:  #d79921
+UXTerm*color11: #fabd2f
+! DarkBlue + Blue
+UXTerm*color4:  #458588
+UXTerm*color12: #83a598
+! DarkMagenta + Magenta
+UXTerm*color5:  #b16286
+UXTerm*color13: #d3869b
+! DarkCyan + Cyan
+UXTerm*color6:  #689d6a
+UXTerm*color14: #8ec07c
+! LightGrey + White
+UXTerm*color7:  #a89984
+UXTerm*color15: #ebdbb2
+
+!!! UXTerm setup
+
+/* UXTerm doesn't support fallback fonts */
+UXTerm*faceName: xft:Liberation Mono for Powerline:style=Regular:size=12
+
+UXTerm*loginShell: true
+
+UXTerm*saveLines: 8192
+
+UXTerm*selectToClipboard: true
+
+! double-click to select whole URLs :D
+UXTerm*charClass: 33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48
+
+UXTerm*VT100.translations: #override \
+Ctrl <Key> minus: smaller-vt-font() \n\
+Ctrl <Key> plus: larger-vt-font() \n\
+
+UXTerm*ScrollBar: false
+
+! stop output to terminal from jumping down to bottom of scroll again
+UXTerm*scrollTtyOutput: false
+
+UXTerm*boldColors: false

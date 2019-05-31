@@ -180,4 +180,12 @@
 [submodule ".vim/bundle/gruvbox"]
 	path = .vim/bundle/gruvbox
 	url = https://github.com/goedel-gang/dotfiles.git
-    branch = master
+	branch = master
+[submodule ".themes/dotfiles"]
+	path = .themes/dotfiles
+	url = https://github.com/goedel-gang/dotfiles.git
+	branch = master
+[submodule ".themes/base16-rofi"]
+	path = .themes/base16-rofi
+	url = https://github.com/goedel-gang/dotfiles.git
+	branch = master

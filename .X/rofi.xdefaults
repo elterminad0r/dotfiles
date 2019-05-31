@@ -1,0 +1,14 @@
+! vim: ft=xdefaults
+
+!                  _____ .__
+! _______   ____ _/ ____\|__|
+! \_  __ \ /  _ \\   __\ |  |
+!  |  | \/(  <_> )|  |   |  |
+!  |__|    \____/ |__|   |__|
+! FIGMENTIZE: rofi
+
+
+rofi.combi-modi:    window,drun,ssh
+rofi.theme:         base16-gruvbox-dark-medium
+rofi.font:          Liberation Mono for Powerline 12
+rofi.modi:          combi,run,drun
