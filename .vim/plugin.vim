@@ -97,9 +97,12 @@ call plug#begin('~/.vim/bundle')
 
     " " solarized colorscheme for vim
     " let g:solarized_termtrans = 1
-    " " let g:solarized_termcolors = 16
-    " " let g:solarized_contrast="high"
+    "  let g:solarized_termcolors = 16
+    "  let g:solarized_contrast="high"
     " Plug 'altercation/vim-colors-solarized'
+    " let g:gruvbox_termcolors=300
+    " let g:gruvbox_undercurl = 1
+    let g:gruvbox_italic = 1
     Plug 'morhetz/gruvbox'
 
     let g:airline_detect_modified=1
@@ -377,8 +380,8 @@ call plug#begin('~/.vim/bundle')
     " " vimtex options
     " let g:vimtex_view_method = 'zathura'
     " let g:vimtex_latexmk_progname = 'vim'
-    " " FIXME this is basically still super broken. This is supposed to be a fix
-    " " for the quickfix thing, but it still just sends you to the "master" file
+    "  FIXME this is basically still super broken. This is supposed to be a fix
+    "  for the quickfix thing, but it still just sends you to the "master" file
     " let g:vimtex_quickfix_method = 'pplatex'
     " " tell vimtex i'm not a total nutjob
     " let g:tex_flavor = 'latex'

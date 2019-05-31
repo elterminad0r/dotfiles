@@ -18,6 +18,7 @@
 " also, :noremap! a b| noremap! b a
 " .. etc
 " 10000gs
+" ggg?G
 
 " TODO: insert-mode mapping to close the innermost unclosed delimiter.
 " TODO: text object for a filename, as in <cfile> maybe
@@ -95,18 +96,16 @@ if &t_Co > 2 || has("gui_running")
             " provide default colorscheme with not too objectionable
             " highlighting of cursorcolumn, cursorline, line numbers and bad
             " spellings.
+            set termguicolors
             colorscheme gruvbox
-            " You need to do this highlight to make the terminal keep its
-            " transparency. However this seems to break the text in the airline
-            " statusline (particularly the highlight group airline_a) if not
-            " done like this in an autocmd
-            augroup SetNormalTransparent
-                autocmd! WinEnter,VimEnter * highlight Normal ctermbg=None
-            augroup END
+            " TODO: is there any way to make the background transparent? this
+            " way breaks airline:
+            " highlight Normal ctermbg=None
             " make special keycodes like ^S legible
             highlight! link SpecialKey Special
-            " makes it so I can see what I'm highlighting
-            highlight Visual cterm=reverse ctermbg=NONE
+            " makes it so I can see what I'm highlighting TODO this gets broken
+            " by termguicolors
+            " highlight Visual cterm=reverse ctermbg=None
         catch /^Vim\%((\a\+)\)\=:E185/
             colorscheme default
         endtry
