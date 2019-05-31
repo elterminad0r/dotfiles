@@ -9,7 +9,7 @@
 # This is a set of global options for readline. Makes it be vi-like. Some
 # options for bash I set in my bashrc, using bind, for reasons.
 
-# these mostly aim to replicate how I've got my zsh to do autocompletion.
+# these mostly aim to replicate how I've got my zsh to do tab completion.
 
 set editing-mode vi
 set completion-ignore-case On
