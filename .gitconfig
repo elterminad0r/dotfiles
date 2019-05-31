@@ -1,4 +1,4 @@
-# vim: noet
+# vim: noet cms=#%s
 
 #    ____  .__   __
 #   / ___\ |__|_/  |_
@@ -40,20 +40,24 @@
 	aa = add --all
 	au = add --update
 	unadd = rm --cached
-	; this is an aliases that expands to a shell command. You can use $1 etc
-	; inside the command and then finish the command with a # to ignore the
-	; supplied arguments.
+	# this is an aliases that expands to a shell command. You can use $1 etc
+	# inside the command and then finish the command with a # to ignore the
+	# supplied arguments.
 	grephistory = "!git rev-list --all | xargs git grep"
-	; git is surprisingly clever here - the git ls-files knows to use the bare
-	; repository when it's cfg.
+	# git is surprisingly clever here - the git ls-files knows to use the bare
+	# repository when it's cfg.
 	figmentize = "!git ls-files -z | xargs -0 -n1 figmentize"
-	; open all files in vim, reattaching the terminal as input
-	vim = "!git ls-files -z | xargs -0 bash -c '</dev/tty vim \"$@\"' #"
-	; edit files in vim and add them afterwards, because typing two commands is
-	; for nerds
-	vi = "!cd -- \"${GIT_PREFIX:-.}\"; vim \"$@\"; git add \"$@\" #"
-	grepvim = "!git ls-files -z | grep -Zzi \"$1\" | xargs -0 bash -c '</dev/tty vim \"$@\"' #"
-	vimgrep = "!git grep -liz \"$1\" | xargs -0 bash -c '</dev/tty vim \"$@\"' #"
-	sm-add-existing = "!cd -- \"${GIT_PREFIX:-.}\"; git submodule add -b master \"$(cd -- \"$1\"; git remote get-url origin)\" #"
+	# edit files and add them afterwards, because typing two commands is for
+	# nerds
+	vim = "!cd -- \"${GIT_PREFIX:-.}\"# \"$EDITOR\" \"$@\"# git add \"$@\" #"
+	# open all files that have names matching some regex. Can be used to open
+	# all files, if given no argument. Intricacy where you have to reattach
+	# /dev/tty to vim if using it through xargs. Its arguments are just grep
+	# arguments, so you can pass flags and expressions.
+	grepvim = "!git ls-files -z | grep -Zzi \"$@\" | xargs -0 bash -c '</dev/tty \"$EDITOR\"\"$@\"' #"
+	# open all files that have content matching some regex. Same protocal as
+	# vimgrep.
+	vimgrep = "!git grep -liz \"$@\" | xargs -0 bash -c '</dev/tty \"$EDITOR\" \"$@\"' #"
+	sm-add-existing = "!cd -- \"${GIT_PREFIX:-.}\"# git submodule add -b master \"$(cd -- \"$1\"# git remote get-url origin)\" #"
 	sm-reattach = "submodule foreach 'git checkout master'"
 	sm-status = "submodule foreach 'git status'"
