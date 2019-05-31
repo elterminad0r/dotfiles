@@ -54,7 +54,7 @@
 	# all files, if given no argument. Intricacy where you have to reattach
 	# /dev/tty to vim if using it through xargs. Its arguments are just grep
 	# arguments, so you can pass flags and expressions.
-	grepvim = "!git ls-files -z | grep -Zzi \"$@\" | xargs -0 bash -c '</dev/tty \"$EDITOR\"\"$@\"' #"
+	grepvim = "!git ls-files -z | grep -Zzi \"$@\" | xargs -0 bash -c '</dev/tty \"$EDITOR\" \"$@\"' #"
 	# open all files that have content matching some regex. Same protocal as
 	# vimgrep.
 	vimgrep = "!git grep -liz \"$@\" | xargs -0 bash -c '</dev/tty \"$EDITOR\" \"$@\"' #"
