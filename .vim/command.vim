@@ -85,6 +85,6 @@ command! MakeScratch setlocal buftype=nofile bufhidden=hide noswapfile nobuflist
 
 " command to redirect another command into a new buffer
 " Opens in a scratch buffer so you can close it without being harassed
-command! -nargs=+ -complete=command Redir new |
+command! -nargs=+ -complete=command Redir new
             \ | call append(line("."), split(execute(<q-args>), "\n"))
             \ | MakeScratch
