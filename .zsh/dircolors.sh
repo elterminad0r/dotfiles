@@ -15,13 +15,13 @@ if silent command -v dircolors; then
         if [ -f "$HOME/.dir_colors_solarized" ]; then
             eval "$(dircolors "$HOME/.dir_colors_solarized")"
         else
-            echo "using default dircolors" >&2
+            >&2 echo "using default dircolors"
             eval "$(dircolors)"
         fi
     else
-        echo "using default dircolors as in tty" >&2
+        >&2 echo "using default dircolors as in tty"
         eval "$(dircolors)"
     fi
 else
-    echo "dircolors executable not found" >&2
+    >&2 echo "dircolors executable not found"
 fi

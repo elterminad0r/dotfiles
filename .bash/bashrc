@@ -35,7 +35,7 @@ source_if_exists() {
             return 0
         fi;
     done
-    echo "Izaak's bashrc: could not source any of $*" >&2
+    >&2 echo "Izaak's bashrc: could not source any of $*"
 }
 
 # assert that bash version is at least $1.$2.$3
@@ -44,7 +44,7 @@ version_assert() {
         if ((BASH_VERSINFO[$((i - 1))] > ${!i})); then
             return 0
         elif ((BASH_VERSINFO[$((i - 1))] < ${!i})); then
-            echo "Your bash is older than $1.$2.$3" >&2
+            >&2 echo "Your bash is older than $1.$2.$3"
             return 1
         fi
     done
@@ -116,7 +116,7 @@ if version_assert 4 1 0; then
     APPARIXLOG="$APPARIXHOME/apparixlog"
     source_if_exists "$APPARIXHOME/appari.sh"
 else
-    echo "(not sourcing bash completion or apparix)" >&2
+    >&2 echo "(not sourcing bash completion or apparix)"
 fi
 
 # tab completion for git
@@ -124,7 +124,7 @@ fi
 if version_assert 3 2 57; then
     source_if_exists /usr/share/git/completion/git-completion.bash "$HOME/$BASHDOTDIR/scripts/git-completion.bash"
 else
-    echo "(not sourcing git completion)" >&2
+    >&2 echo "(not sourcing git completion)"
 fi
 
 source_if_exists "$BASHDOTDIR/prompt.bash"
@@ -144,7 +144,7 @@ if version_assert 4 0 0; then
     # eg: $ ldir programmeren/**; will do a listing of everything.
     shopt -s globstar
 else
-    echo "(not setting autocd, checkjobs, globstar :( )" >&2
+    >&2 echo "(not setting autocd, checkjobs, globstar :( )"
 fi
 # update LINES and COLUMNS
 shopt -s checkwinsize

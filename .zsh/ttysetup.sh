@@ -18,7 +18,7 @@ case $(tty) in
         ter_fonts=(/usr/share/kbd/consolefonts/ter-1??n.psf.gz)
             izu() {
                 if [[ $IZ_VC_FONTSIZE -ge 9 ]]; then
-                    echo "already at max font" >&2
+                    >&2 echo "already at max font"
                 else
                     ((IZ_VC_FONTSIZE++))
                     setfont $ter_fonts[$IZ_VC_FONTSIZE]
@@ -27,7 +27,7 @@ case $(tty) in
             }
         izd() {
             if [[ $IZ_VC_FONTSIZE -le 1 ]]; then
-                echo "already at min font" >&2
+                >&2 echo "already at min font"
             else
                 ((IZ_VC_FONTSIZE--))
                 setfont $ter_fonts[$IZ_VC_FONTSIZE]

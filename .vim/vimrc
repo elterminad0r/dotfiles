@@ -102,6 +102,7 @@ if &t_Co > 2 || has("gui_running")
             " highlighting of cursorcolumn, cursorline, line numbers and bad
             " spellings.
             " set termguicolors
+            " TODO: doesn't work with airline unless you do it again?
             colorscheme gruvbox
             highlight Normal ctermbg=None
             " make special keycodes like ^S legible

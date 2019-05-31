@@ -17,7 +17,7 @@ case "$(uname -s)" in
         elif silent command -v xsel; then
             xsel --clipboard --input
         else
-            echo "I'm not ready for this" >&2
+            >&2 echo "I'm not ready for this"
         fi
         ;;
 esac
