@@ -2,12 +2,16 @@
 # start terminal with pwd
 # defined fallback so that you're not left unable to open a terminal
 
-if command -v "$1" && target_dir="$("$@")"; then
-    if [ -d "$target_dir" ]; then
-        exec termite -d "$target_dir"
+if command -v "$1"; then
+    if target_dir="$("$@")"; then
+        if [ -d "$target_dir" ]; then
+            exec termite -d "$target_dir"
+        else
+            exec termite -e "sh -c \"echo 'bad directory: $target_dir'; exec zsh\""
+        fi
     else
-        exec termite -e "sh -c \"echo 'bad directory: $target_dir'; exec zsh\""
+        exec termite -e "sh -c \"echo 'bad command $*'; exec zsh\""
     fi
 else
-    exec termite -e "sh -c \"echo 'bad command: $*'; exec zsh\""
+    exec termite -e "sh -c \"echo 'bad executable: $1'; exec zsh\""
 fi
