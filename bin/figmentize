@@ -123,7 +123,7 @@ def read_pars(file):
     contents = file.read()
     return contents.split("\n\n"), contents
 
-#TODO: add support for flag/command overrides in a figmentize indicator
+# TODO: add support for flag/command overrides in a figmentize indicator
 def match_head_par(par):
     """
     Check to see if the paragraph has a figlet heading indicator (that looks
