@@ -6,7 +6,7 @@
 "                           \/             \/
 " FIGMENTIZE: gvimrc
 
-" GVimrc that provides a slightly more notepad-like experience.
+" GVimrc that tries to make gvim look at much like my terminal as possible.
 
 " Set some generic font for GVim, particularly we care about the font size.
 " Only set it once because for some reason the screen messes itself up if you
@@ -24,8 +24,11 @@ endif
 " binding to change font size
 nnoremap <Leader>f :set guifont=*<CR>
 
-set guioptions+=c
-set guioptions-=e
+" TODO: maybe add some yo- toggles
+" same as default guioptions, but without tabs, scrollbars, menus or toolbars.
+set guioptions=agiLtc
+" same as default options but turn off blinking
+set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,ve:ver35-Cursor-blinkon0,o:hor50-Cursor-blinkon0,i-ci:ver25-Cursor/lCursor-blinkon0,r-cr:hor20-Cursor/lCursor-blinkon0,sm:block-Cursor-blinkon0
 
 " allow the use of select mode, which is more like a Microsoft windows
 " selection.
@@ -38,7 +41,7 @@ if executable("transset-df")
     augroup END
     " remap this to work with a proper non-terminal
     " mnemonic: toggle Transparency
-    map yot :silent exec "!transset-df -a -t 0.95"<CR><C-L>
+    nnoremap yot :silent exec "!transset-df -a -t 0.97"<CR><C-L>
 endif
 
 " basically, because gvim is supposed to be the friendly one

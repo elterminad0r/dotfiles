@@ -9,8 +9,8 @@
 " File to store custom vim commands
 
 " Run the file through figmentize
-if executable("figmentize")
-    function! Figmentize()
+function! Figmentize()
+    if executable("figmentize")
         if &modified
             echoerr "This buffer is modified"
         elseif &readonly
@@ -20,12 +20,10 @@ if executable("figmentize")
             edit
             redraw!
         endif
-    endfunction
-else
-    function! Figmentize()
+    else
         echoerr "Figmentize executable not found"
-    endfunction
-endif
+    endif
+endfunction
 
 command! Figmentize call Figmentize()
 

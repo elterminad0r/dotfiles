@@ -60,6 +60,7 @@ call plug#begin('~/.vim/bundle')
     Plug 'junegunn/vim-plug'
 
     " enhance netrw to be a bit prettier
+    " TODO: probably phase this out into just personal config
     Plug 'tpope/vim-vinegar'
 
     " Git stuff
