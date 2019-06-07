@@ -6,19 +6,37 @@ Script to sPoNgEbOb CaPiTaLiSe stdin, or files from argv.
 
 import sys
 
-from cApItAlIsE import CaPiTaLiSeR
+import smartparse as argparse
+
+from cApItAlIsE import CaPiTaLiSeR, RAnDOMCApItALiseR, HumANdomcaPITalisEr
+
+def get_args():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("files", nargs="*", type=argparse.FileType("r"),
+            help="files to cAt", default=[])
+    mode_group = parser.add_mutually_exclusive_group()
+    mode_group.add_argument("-r", "--random", action="store_true",
+            help="Use a random capitaliser instead")
+    mode_group.add_argument("-t", "--truerandom", action="store_true",
+            help="Use a true random capitaliser instead")
+    mode_group.add_argument("-c", "--capital", action="store_true",
+            help="Start on a capital letter")
+    return parser.parse_args()
 
 if __name__ == "__main__":
-    cApItAlIsEr = CaPiTaLiSeR()
-    files = []
+    args = get_args()
+    files = args.files
+    if args.random:
+        cApItAlIsEr = HumANdomcaPITalisEr()
+    elif args.truerandom:
+        cApItAlIsEr = RAnDOMCApItALiseR()
+    elif args.capital:
+        cApItAlIsEr = CaPiTaLiSeR(True)
+    else:
+        cApItAlIsEr = CaPiTaLiSeR()
     # only cApItAlIsE if not interactive (that is, stdin implicitly set to tty)
     if not sys.stdin.isatty():
         files.append(sys.stdin)
-    for file in sys.argv[1:]:
-        try:
-            files.append(open(file, "r"))
-        except FileNotFoundError:
-            print(f"Could not open {file!s}", file=sys.stderr)
     for file in files:
         with file:
             for line in file:

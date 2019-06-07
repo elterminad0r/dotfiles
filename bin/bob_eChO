@@ -4,10 +4,31 @@
 Script to sPoNgEbOb CaPiTaLiSe argv.
 """
 
-import sys
+import smartparse as argparse
 
-from cApItAlIsE import CaPiTaLiSeR
+from cApItAlIsE import CaPiTaLiSeR, RAnDOMCApItALiseR, HumANdomcaPITalisEr
+
+def get_args():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("words", nargs="*",
+            help="words to eChO")
+    mode_group = parser.add_mutually_exclusive_group()
+    mode_group.add_argument("-r", "--random", action="store_true",
+            help="Use a random capitaliser instead")
+    mode_group.add_argument("-t", "--truerandom", action="store_true",
+            help="Use a true random capitaliser instead")
+    mode_group.add_argument("-c", "--capital", action="store_true",
+            help="Start on a capital letter")
+    return parser.parse_args()
 
 if __name__ == "__main__":
-    cApItAlIsEr = CaPiTaLiSeR()
-    print(" ".join(cApItAlIsEr.process(word) for word in sys.argv[1:]))
+    args = get_args()
+    if args.random:
+        cApItAlIsEr = HumANdomcaPITalisEr()
+    elif args.truerandom:
+        cApItAlIsEr = RAnDOMCApItALiseR()
+    elif args.capital:
+        cApItAlIsEr = CaPiTaLiSeR(True)
+    else:
+        cApItAlIsEr = CaPiTaLiSeR()
+    print(" ".join(cApItAlIsEr.process(word) for word in args.words))

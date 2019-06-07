@@ -1,15 +1,32 @@
-#!/usr/bin/env python3
-
 """
 CaPiTaLiSaTiOn framework
+
+Not packages with any __main__ code. This is implemented elsewhere, in bob_eChO
+and bob_cAt in my ~/bin.
 """
 
-class CaPiTaLiSeR:
+from random import random
+
+from humandom import heads_tails
+
+class BaSeCaPiTaLiSeR:
+    """
+    Base class to provide capitalisation.
+    """
+
+    def process(self, s):
+        """
+        Process a string into a string
+        """
+        return "".join(self._process(s))
+
+class CaPiTaLiSeR(BaSeCaPiTaLiSeR):
     """
     Object that tracks case state. One should not that it is still possible to
     distinguish between the class CaPiTaLiSeR and a cApItAlIsEr instance, using
     case conventions.
     """
+
     def __init__(self, make_upcase=False):
         """
         Pass in True to start on an uppercase letter
@@ -30,8 +47,38 @@ class CaPiTaLiSeR:
             else:
                 yield c
 
-    def process(self, s):
+class RAnDOMCApItALiseR(BaSeCaPiTaLiSeR):
+    """
+    Similar object that instead provides random capitalisation.
+    """
+
+    def _process(self, s):
         """
-        Process a string into a string
+        Process an iterable, returning a generator of characters
         """
-        return "".join(self._process(s))
+        for c in s:
+            if c.isalpha():
+                if random() < 0.5:
+                    yield c.upper()
+                else:
+                    yield c.lower()
+            else:
+                yield c
+
+class HumANdomcaPITalisEr(BaSeCaPiTaLiSeR):
+    """
+    Use humandom get get more aesthetically random capitalisation
+    """
+
+    def __init__(self):
+        self.bitstream = heads_tails()
+
+    def _process(self, s):
+        for c in s:
+            if c.isalpha():
+                if next(self.bitstream):
+                    yield c.upper()
+                else:
+                    yield c.lower()
+            else:
+                yield c
