@@ -100,6 +100,10 @@ bindsym $mod+numbersign exec --no-startup-id "$HOME/bin/HOUSE_OF_GOEDEL"
     # open the pdf with path selected in clipboard
 bindsym $mod+apostrophe exec --no-startup-id $READER "$($HOME/bin/goedel_paste)"
 
+# opens an empty container. (blabla this is not an official feature blabla
+# implementation detail)
+bindsym $mod+BackSpace open
+
 # kill focused window
 bindsym $mod+Shift+q kill
 
