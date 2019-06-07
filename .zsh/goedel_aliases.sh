@@ -351,7 +351,7 @@ alias pacsystree='for i in $(pacman -Qeq); do pactree $i; done'
 if [ -d "$HOME/builds/figlet-fonts" ]; then
     alias figlet='figlet -k -t -d ~/builds/figlet-fonts/'
 else
-    alias figlet='figlet -k -t'
+    alias figlet='figlet -kt'
 fi
 
 # display all figlet fonts
@@ -385,9 +385,9 @@ partytime() {
 alias rcowsay='cowsay -f $(cowsay -l | tail +2 | xargs shuf -n1 -e)'
 alias rcowthink='cowthink -f $(cowsay -l | tail +2 | xargs shuf -n1 -e)'
 # SINGLE QUOTES to stop the command substitution happening at startup
-alias partycow='while true; do fortune | rcowsay; done | pv -q -l -L 3 | lolcat'
+alias partycow='while true; do fortune | rcowsay; done | pv -qlL 3 | lolcat'
 # go on a 23 day mad one
-alias mathsparty='timestable -l 10000000 | pv -lq -L 5 | lolcat -p 10 -F 0.01'
+alias mathsparty='timestable -l 10000000 | pv -qlL 5 | lolcat -p 10 -F 0.01'
 
 # look cooler
 alias cmatrix='cmatrix -abu 1'
