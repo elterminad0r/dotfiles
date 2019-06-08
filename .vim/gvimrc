@@ -36,9 +36,10 @@ set selectmode=mouse,key
 
 " set transparency if possible
 if executable("transset-df")
-    augroup GVimTransset
-        autocmd! GuiEnter * silent exec "!transset-df -a 0.97"
-    augroup END
+    " this would automatically set transparency. Disable for now
+    " augroup GVimTransset
+    "     autocmd! GuiEnter * silent exec "!transset-df -a 0.97"
+    " augroup END
     " remap this to work with a proper non-terminal
     " mnemonic: toggle Transparency
     nnoremap yot :silent exec "!transset-df -a -t 0.97"<CR><C-L>

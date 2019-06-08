@@ -2,6 +2,8 @@
 " indentation after comments that have Zsh keywords like "if", "then", "case"
 " They're hardly uncommon parlance after all
 
+" TODO: make this unnecessary
+
 function! GetShIndent()
   let curline = getline(v:lnum)
   let lnum = prevnonblank(v:lnum - 1)
