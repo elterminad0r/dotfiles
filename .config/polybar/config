@@ -29,11 +29,11 @@ primary = #ffb52a
 secondary = #e60053
 alert = #bd2c40
 
-[bar/example]
+[bar/goedel]
 ;monitor = ${env:MONITOR:HDMI-1}
 monitor = eDP-1
 width = 100%
-height = 27
+height = 33
 ;offset-x = 1%
 ;offset-y = 1%
 ; no rounded corners
@@ -245,7 +245,9 @@ label-time-foreground = #55
 type = internal/xbacklight
 
 format = <label> <bar>
-label =  %percentage%%
+format-prefix = " "
+format-prefix-foreground = #ff77ff
+label = %percentage%%
 
 bar-width = 10
 bar-indicator = |
@@ -253,7 +255,7 @@ bar-indicator-foreground = #fff
 bar-indicator-font = 2
 bar-fill = ─
 bar-fill-font = 2
-bar-fill-foreground = #9f78e1
+bar-fill-foreground = #ff77ff
 bar-empty = ─
 bar-empty-font = 2
 bar-empty-foreground = ${colors.foreground-alt}
@@ -300,7 +302,7 @@ interval = 2
 ;   <bar-load>
 ;   <ramp-load>
 ;   <ramp-coreload>
-format = <label> <ramp-coreload>
+;format = <label>; <ramp-coreload>
 
 ; Available tokens:
 ;   %percentage% (default) - total cpu load averaged over all cores
@@ -429,9 +431,14 @@ bar-volume-empty = ─
 bar-volume-empty-font = 2
 bar-volume-empty-foreground = ${colors.foreground-alt}
 
-ramp-volume-0 = 
-ramp-volume-1 = 
-ramp-volume-2 = 
+; TODO: this all its friends are disgusting
+ramp-volume-0 = %{F#55aa55}%{F-}
+ramp-volume-1 = %{F#55aa55}%{F-}
+ramp-volume-2 = %{F#55aa55}%{F-}
+ramp-volume-3 = %{F#55aa55}%{F-}
+ramp-volume-4 = %{F#55aa55}%{F-}
+ramp-volume-5 = %{F#f5a70a}%{F-}
+ramp-volume-6 = %{F#ff5555}%{F-}
 
 [module/alsa]
 type = internal/alsa
