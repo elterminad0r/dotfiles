@@ -18,6 +18,8 @@ traverse, so strictly speaking it's a list.
 
 # TODO add option for a literal path
 # TODO fail gracefully if feh not present
+# TODO add command line options for wallpaper directory, stack location, max
+#      stack size
 
 import pickle
 import collections
