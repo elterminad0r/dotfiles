@@ -1,13 +1,15 @@
-# FIGMENTIZE: options
 #                  __   .__
 #   ____  ______ _/  |_ |__|  ____    ____    ______
 #  /  _ \ \____ \\   __\|  | /  _ \  /    \  /  ___/
 # (  <_> )|  |_> >|  |  |  |(  <_> )|   |  \ \___ \
 #  \____/ |   __/ |__|  |__| \____/ |___|  //____  >
 #         |__|                           \/      \/
+# FIGMENTIZE: options
 
 # My zsh setopts. A number of these are redundant as they are set by default,
 # but centralisation and explicitification
+
+# Apparently vim is *really* bad at highlighting zsh setopts.
 
 # complete with a menu
 setopt menucomplete
