@@ -301,4 +301,4 @@
 source "$POWERLEVEL_THEME"
 # TODO: doesn't work
 PROMPT2=".. "
-RPROMPT2="%_"
+RPROMPT2="%^"

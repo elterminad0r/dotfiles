@@ -77,4 +77,4 @@ POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="$vi_c╔═%f"
 source "$POWERLEVEL_THEME"
 # TODO: doesn't work
 PROMPT2=".. "
-RPROMPT2="%K{cyan} %_ %k"
+RPROMPT2="%K{cyan} %^ %k"
