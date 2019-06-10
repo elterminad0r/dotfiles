@@ -217,3 +217,7 @@
 	path = .tmux/plugins/tmux-yank
 	url = https://github.com/goedel-gang/dotfiles.git
 	branch = master
+[submodule ".vim/bundle/vim-colors-solarized"]
+	path = .vim/bundle/vim-colors-solarized
+	url = https://github.com/goedel-gang/dotfiles.git
+	branch = master

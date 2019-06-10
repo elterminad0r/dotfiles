@@ -97,10 +97,10 @@ call plug#begin('~/.vim/bundle')
     Plug 'junegunn/vim-easy-align'
 
     " " solarized colorscheme for vim
-    " let g:solarized_termtrans = 1
+    let g:solarized_termtrans = 0
     "  let g:solarized_termcolors = 16
     "  let g:solarized_contrast="high"
-    " Plug 'altercation/vim-colors-solarized'
+    Plug 'altercation/vim-colors-solarized'
     " let g:gruvbox_termcolors=300
     " let g:gruvbox_undercurl = 1
     let g:gruvbox_italic = 1
