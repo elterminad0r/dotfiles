@@ -288,11 +288,19 @@ alias p88='ping 8.8.8.8 -c 20 -w 60'
 # in your bashrc.
 alias g=git
 
+# tig but for cfg
+alias gfc='GIT_DIR="$HOME/.cfg" GIT_WORK_TREE="$HOME" tig'
+
+# neither of these can sustain Zsh's completion
+# so I wrote cfg as a function and scrape _git (see ~.zcomp/Makefile)
+# alias cfg='GIT_DIR="$HOME/.cfg" GIT_WORK_TREE="$HOME" git'
+# alias cfg=git --git-dir="$HOME/.cfg/" --work-tree="$HOME"
+
 # special git for dotfiles
 # it's a function because it can't be trusted to have its completion inferred
 # from the alias, and I define my own completion in ~/.zcomp/_cfg
 cfg() {
-    /usr/bin/git --git-dir="$HOME/.cfg/" --work-tree="$HOME" "$@"
+    git --git-dir="$HOME/.cfg/" --work-tree="$HOME" "$@"
 }
 
 # legacy gal function from when I used shell aliases for git
