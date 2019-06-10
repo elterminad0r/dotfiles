@@ -338,6 +338,10 @@ bindsym Shift+XF86MonBrightnessDown exec xbacklight -dec 1 # decrease screen bri
 bindsym $mod+Shift+XF86MonBrightnessUp exec xbacklight -inc 25 # increase screen brightness
 bindsym $mod+Shift+XF86MonBrightnessDown exec xbacklight -dec 25 # decrease screen brightness
 
+# direct with mod
+bindsym $mod+XF86MonBrightnessDown exec --no-startup-id xbacklight -set 0.2
+bindsym $mod+XF86MonBrightnessUp exec --no-startup-id xbacklight -set 50
+
 # bindsym $mod+Shift+XF86MonBrightnessUp exec xbacklight -inc 1 # increase screen brightness
 # bindsym $mod+Shift+XF86MonBrightnessDown exec xbacklight -dec 1 # decrease screen brightness
 
