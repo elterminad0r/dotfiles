@@ -9,6 +9,6 @@
 
 
 rofi.combi-modi:    window,drun,ssh
-rofi.theme:         base16-gruvbox-dark-medium
+rofi.theme:         base16-gruvbox-dark-medium-transparent
 rofi.font:          Liberation Mono for Powerline 12
 rofi.modi:          combi,run,drun
