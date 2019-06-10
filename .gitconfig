@@ -58,6 +58,10 @@
 	# open all files that have content matching some regex. Same protocol as
 	# vimgrep.
 	vimgrep = "!git grep -liz \"$@\" | xargs -0 bash -c '</dev/tty \"$EDITOR\" \"$@\"' #"
+	# for losers on systems with terrible greps that don't know -z
+	# (ie me sometimes)
+	losergrepvim = "!git ls-files | grep -i \"$@\" | xargs bash -c '</dev/tty \"$EDITOR\" \"$@\"' #"
+	loservimgrep = "!git grep -liz \"$@\" | xargs bash -c '</dev/tty \"$EDITOR\" \"$@\"' #"
 	sm-add-existing = "!cd -- \"${GIT_PREFIX:-.}\"; git submodule add -b master \"$(cd -- \"$1\"; git remote get-url origin)\" \"$1\" #"
 	sm-reattach = "submodule foreach 'git checkout master'"
 	sm-status = "submodule foreach 'git status'"
