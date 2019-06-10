@@ -11,6 +11,7 @@ arc-icon-theme
 arch-wiki-docs
 arch-wiki-lite
 archlinux-wallpaper
+asciinema
 autoconf
 automake
 awesome-terminal-fonts
@@ -67,6 +68,7 @@ evince
 exfat-utils
 exo
 expac
+expect
 faad2
 fakeroot
 fbida
@@ -137,12 +139,15 @@ iproute2
 iputils
 ipython
 ipython2
+irssi
 iw
 jdk8-openjdk
 jfsutils
 jp2a
 jython
 kid3
+kitty
+kmag
 latex2rtf
 less
 libao
@@ -177,6 +182,7 @@ mariadb
 mdadm
 mediainfo
 mlocate
+moreutils
 mpc
 mpd
 mplayer
@@ -241,6 +247,7 @@ python-pipenv
 python-praw
 python-pylint
 python-pyqt5
+python-pywal
 python-requestsexceptions
 python-scipy
 python-sphinx
@@ -287,6 +294,8 @@ r
 ranger
 redshift
 reiserfsprogs
+ripgrep
+rofi
 rsync
 ruby
 rust
@@ -299,6 +308,7 @@ sed
 shadow
 shellcheck
 simplescreenrecorder
+smartmontools
 sox
 strace
 sudo
@@ -332,6 +342,7 @@ the_silver_searcher
 thunar
 thunar-volman
 tidy
+tig
 tk
 tmux
 transset-df
@@ -417,6 +428,7 @@ xorg-xkbutils
 xorg-xkill
 xorg-xlsatoms
 xorg-xlsclients
+xorg-xmag
 xorg-xmodmap
 xorg-xpr
 xorg-xprop

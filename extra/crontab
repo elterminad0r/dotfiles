@@ -1,2 +1,5 @@
 # change background to a new random one every 30 mins, using my randombg script
+# if your name is Izaak and you're an idiot,
+# MAKE SURE YOU'RE EDITING THIS WITH
+# CRONTAB -E
 */30 * * * * DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus DISPLAY=:0 PYTHONPATH="$HOME/pybin:$PYTHONPATH" "$HOME/bin/randombg" --random
