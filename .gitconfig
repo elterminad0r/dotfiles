@@ -54,14 +54,15 @@
 	# all files, if given no argument. Intricacy where you have to reattach
 	# /dev/tty to vim if using it through xargs. Its arguments are just grep
 	# arguments, so you can pass flags and expressions.
-	grepvim = "!git ls-files -z | grep -Zzi \"$@\" | xargs -0 bash -c '</dev/tty \"$EDITOR\" \"$@\"' #"
+	# We need to pass the DUMMY argument to take up $0
+	grepvim = "!git ls-files -z | grep -Zzi \"$@\" | xargs -0 bash -c '</dev/tty \"$EDITOR\" \"$@\"' DUMMY #"
 	# open all files that have content matching some regex. Same protocol as
 	# vimgrep.
-	vimgrep = "!git grep -liz \"$@\" | xargs -0 bash -c '</dev/tty \"$EDITOR\" \"$@\"' #"
+	vimgrep = "!git grep -liz \"$@\" | xargs -0 bash -c '</dev/tty \"$EDITOR\" \"$@\"' DUMMY #"
 	# for losers on systems with terrible greps that don't know -z
 	# (ie me sometimes)
-	losergrepvim = "!git ls-files | grep -i \"$@\" | xargs bash -c '</dev/tty \"$EDITOR\" \"$@\"' #"
-	loservimgrep = "!git grep -liz \"$@\" | xargs bash -c '</dev/tty \"$EDITOR\" \"$@\"' #"
+	losergrepvim = "!git ls-files | grep -i \"$@\" | xargs bash -c '</dev/tty \"$EDITOR\" \"$@\"' DUMMY #"
+	loservimgrep = "!git grep -liz \"$@\" | xargs bash -c '</dev/tty \"$EDITOR\" \"$@\"' DUMMY #"
 	sm-add-existing = "!cd -- \"${GIT_PREFIX:-.}\"; git submodule add -b master \"$(cd -- \"$1\"; git remote get-url origin)\" \"$1\" #"
 	sm-reattach = "submodule foreach 'git checkout master'"
 	sm-status = "submodule foreach 'git status'"
