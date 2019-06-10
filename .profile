@@ -24,6 +24,7 @@ export PAGER='less'
     # export PAGER='vimpager'; export VIMPAGERRC="~/.vim/vimpager.vim"
 # default terminal.
 # I'm currently kind of stuck between termite and kitty.
+# (Also I like terminator, konsole)
 # Both have just a solid, modern concept of fonts and encodings libcairo with
 # SVG emoji and so on, and an up to date colour palette system. Both have a good
 # handle on what should be straightforward things like URLs.

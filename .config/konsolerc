@@ -1,0 +1,15 @@
+[Desktop Entry]
+DefaultProfile=solarized.profile
+
+[Favorite Profiles]
+Favorites=solarized.profile,vanilla.profile
+
+[KonsoleWindow]
+ShowMenuBarByDefault=false
+
+[MainWindow]
+Height 1080=997
+MenuBar=Disabled
+State=AAAA/wAAAAD9AAAAAAAAB04AAAHpAAAABAAAAAQAAAAIAAAACPwAAAAA
+ToolBarsMovable=Disabled
+Width 1920=925
