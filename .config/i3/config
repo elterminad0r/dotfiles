@@ -396,6 +396,7 @@ bindsym $mod+g exec dm-tool switch-to-greeter
 bindsym --release $mod+Escape exec light-locker-command -l
 
 # screenshotting
+# TODO: protect against screenshots directory not existing
 bindsym --release Print exec scrot "$HOME/Pictures/screenshots/full_screenshot_%Y%m%d_%H%M%S.png"
 bindsym --release Shift+Print exec scrot -u "$HOME/Pictures/screenshots/win_screenshot_%Y%m%d_%H%M%S.png"
 bindsym --release $mod+Shift+Print exec scrot -s "$HOME/Pictures/screenshots/sel_screenshot_%Y%m%d_%H%M%S.png"

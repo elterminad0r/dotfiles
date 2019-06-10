@@ -401,7 +401,29 @@ alias partycow='while true; do fortune | rcowsay; done | pv -qlL 3 | lolcat'
 # go on a 23 day mad one
 alias mathsparty='timestable -l 10000000 | pv -qlL 5 | lolcat -p 10 -F 0.01'
 
+# internet related
 alias parrot="curl parrot.live"
+# alias this to something really common
+# or better yet, write a function that randomly falls through to this but
+# normally doesn't, or that only does this after being called twenty times
+alias rick='mpv "https://www.youtube.com/watch?v=dQw4w9WgXcQ" -vo caca'
 
 # look cooler
 alias cmatrix='cmatrix -abu 1'
+
+alias mirrormirroronthewall='mpv /dev/video0 -vo caca'
+
+selfie() {
+    out="${1:-$HOME/Pictures/selfies/selfie_$(date +%s).jpg}"
+    mkdir -p "$HOME/Pictures/selfies"
+    echo "Taking selfie targeting $out"
+    ffmpeg -f video4linux2 -s 640x480 -i /dev/video0 -ss 0:0:2 -frames 1 "$out"
+}
+
+# just like screenshots()
+# TODO:
+# uses ls instead of find for chronological ordering
+selfies() {
+    \ls -t --directory "$HOME/Pictures/selfies"/* |
+        grep "${2:-}" | head -"${1:-1}";
+}
