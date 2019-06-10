@@ -1,18 +1,5 @@
 #compdef cfg
-
-#cfg-cvsserver cfg-receive-pack cfg-upload-archive cfg-upload-pack cfg-shell cfgk tig
-
-
-
-
-
-# Completion file for _cfg created by replacing each instance of "git" by "cfg"
-# in the completion file for git.
-
-
-
-
-
+# this file was automatically generated
 
 # Some parts of this completion's behaviour are configurable:
 #
@@ -309,7 +296,7 @@ _cfg-branch () {
   declare l c m d e
 
   l='--color --no-color -r --remotes -a -v --verbose --abbrev --no-abbrev --list --points-at --sort'
-  c='-l --create-reflog -f --force -t --track --no-track -u --set-upstream --set-upstream-to --unset-upstream --contains --no-contains --merged --no-merged'
+  c='--create-reflog -f --force -t --track --no-track -u --set-upstream --set-upstream-to --unset-upstream --contains --no-contains --merged --no-merged'
   m='-c --copy -C -m --move -M --edit-description'
   d='-d --delete -D'
 
@@ -351,7 +338,7 @@ _cfg-branch () {
     "($c $m $d : -v -vv --verbose)"{-v,-vv,--verbose}'[show SHA1 and commit subject line for each head]' \
     "($c $m $d :)--abbrev=[set minimum SHA1 display-length]: :__cfg_guard_number length" \
     "($c $m $d :)--no-abbrev[don't abbreviate sha1s]" \
-    "($l $m $d)"{-l,--create-reflog}"[create the branch's reflog]" \
+    "($l $m $d)--create-reflog[create the branch's reflog]" \
     "($l $m $d -f --force)"{-f,--force}'[force the creation of a new branch]' \
     "($l $m $d -t --track)"{-t,--track}'[setup configuration so that pull merges from the start point]' \
     "($l $m $d)--no-track[override the branch.autosetupmerge configuration variable]" \
@@ -752,11 +739,11 @@ _cfg-describe () {
     '--all[use any ref found in "$GIT_DIR/refs/"]' \
     '--tags[use any ref found in "$GIT_DIR/refs/tags"]' \
     '(--tags)--contains[find the tag after the commit instead of before]' \
-    '(--long)--abbrev=[set minimum SHA1 display-length]: :__cfg_guard_number length' \
+    '--abbrev=[set minimum SHA1 display-length]: :__cfg_guard_number length' \
     '(             --exact-match)--candidates=[consider up to given number of candidates]: :__cfg_guard_number "number of candidates"' \
     '(--candidates              )--exact-match[only output exact matches, same as --candidates=0]' \
     '--debug[display information about the searching strategy]' \
-    '(--abbrev)--long[always show full format, even for exact matches]' \
+    '--long[always show full format, even for exact matches]' \
     '*--match=[only consider tags matching glob pattern]:pattern' \
     "*--exclude=[don't consider tags matching glob pattern]:pattern" \
     '--always[show uniquely abbreviated commit object as fallback]' \
@@ -885,6 +872,8 @@ _cfg-fetch () {
     '(-n --no-tags -t --tags)'{-n,--no-tags}'[disable automatic tag following]' \
     '(--all -m --multiple)'{-m,--multiple}'[fetch from multiple remotes]' \
     '(-P --prune-tags)'{-P,--prune-tags}'[prune local tags no longer on remote and clobber changed tags]' \
+    \*{-o+,--server-option=}'[send specified string to the server when using protocol version 2]:option' \
+    '--negotiation-tip=[only report refs reachable from specified object to the server]:commit:__cfg_commits' \
     '--filter=[object filtering]:filter:_cfg_rev-list_filters' \
     '*:: :->repository-or-group-or-refspec' && ret=0
 
@@ -973,9 +962,10 @@ _cfg-gc () {
   _arguments -S -s \
     '--aggressive[more aggressively optimize]' \
     '--auto[check whether housekeeping is required]' \
-    '(        --no-prune)--prune=[prune loose objects older than given date]: :__cfg_datetimes' \
+    '(        --no-prune)--prune=-[prune loose objects older than given date]::date [2 weeks ago]:__cfg_datetimes' \
     '(--prune           )--no-prune[do not prune any loose objects]' \
-    '(-q --quiet)'{-q,--quiet}'[suppress progress reporting]'
+    '(-q --quiet)'{-q,--quiet}'[suppress progress reporting]' \
+    '--keep-largest-pack[repack all other packs except the largest pack]' \
 }
 
 (( $+functions[_cfg-grep] )) ||
@@ -1004,35 +994,37 @@ _cfg-grep () {
     '--untracked[search also in untracked files]' \
     '(-a --text)'{-a,--text}'[process binary files as if they were text]' \
     '(--textconv --no-textconv)--textconv[honor textconv filter settings]' \
-    '(--textconv --no-textconv)--no-textconv[do not honor textconv filter settings]' \
+    "(--textconv --no-textconv)--no-textconv[don't honor textconv filter settings]" \
     '(-i --ignore-case)'{-i,--ignore-case}'[ignore case when matching]' \
-    '-I[do not match pattern in binary files]' \
+    "-I[don't match pattern in binary files]" \
     '--max-depth=[descend at most given levels of directories]: :__cfg_guard_number depth' \
     '(-w --word-regexp)'{-w,--word-regexp}'[match only whole words]' \
     '(-v --invert-match)'{-v,--invert-match}'[select non-matching lines]' \
-    '(   -H)-h[supress output of filenames]' \
-    '(-h   )-H[show filenames]' \
+    '(-H)-h[suppress output of filenames]' \
+    '(-h -c --count)-H[show filenames]' \
     '--full-name[output paths relative to the project top directory]' \
-    '(-E --extended-regexp -G --basic-regexp -P --perl-regexp -F --fixed-strings)'{-E,--extended-regexp}'[use POSIX extended regexes]' \
-    '(-E --extended-regexp -G --basic-regexp -P --perl-regexp -F --fixed-strings)'{-G,--basic-regexp}'[use POSIX basic regexes]' \
+    '(-E --extended-regexp -G --basic-regexp -P --perl-regexp -F --fixed-strings)'{-E,--extended-regexp}'[use extended regular expressions]' \
+    '(-E --extended-regexp -G --basic-regexp -P --perl-regexp -F --fixed-strings)'{-G,--basic-regexp}'[use basic regular expressions]' \
     '(-E --extended-regexp -G --basic-regexp -P --perl-regexp -F --fixed-strings)'{-P,--perl-regexp}'[use perl-compatible regexes]' \
-    '(-E --extended-regexp -G --basic-regexp -P --perl-regexp -F --fixed-strings)'{-F,--fixed-strings}'[do not interpret pattern as a regex]' \
+    '(-E --extended-regexp -G --basic-regexp -P --perl-regexp -F --fixed-strings)'{-F,--fixed-strings}'[use literal strings]' \
     '(-n --line-number)'{-n,--line-number}'[prefix the line number to matching lines]' \
-    '(-l --files-with-matches -L --files-without-match --name-only)'{-l,--files-with-matches,--name-only}'[show only names of matching files]' \
-    '(-l --files-with-matches -L --files-without-match)'{-L,--files-without-match}'[show only names of non-matching files]' \
-    '(--cached -O --open-files-in-pager)'{-O+,--open-files-in-pager=}'-[open matching files in pager]:pager:_cmdstring' \
+    '(-c --count)--column[show column number of first match]' \
+    '(-c --count -l --files-with-matches --name-only -L --files-without-match -o --only-matching)'{-l,--files-with-matches,--name-only}'[show only names of matching files]' \
+    '(-c --count -l --files-with-matches --name-only -L --files-without-match -o --only-matching)'{-L,--files-without-match}'[show only names of non-matching files]' \
+    '(-c --count -o --only-matching -n --line-number --color --no-color --cached --heading -O --open-files-in-pager)'{-O,--open-files-in-pager=}'-[open matching files in pager]::pager:_cmdstring' \
     '(-z --null)'{-z,--null}'[output \0 after filenames]' \
-    '(-c --count)'{-c,--count}'[show number of matching lines in files]' \
-    '(        --no-color)--color=-[color matches]:: :__cfg_color_whens' \
-    '(--color           )--no-color[do not color matches]' \
-    '--break[prefix the line number to matching lines]' \
-    '--heading[show the filename above the matches]' \
-    '(-A --after-context)'{-A+,--after-context=}'[show <num> trailing lines, and separate groups of matches]: :__cfg_guard_number lines' \
-    '(-B --before-context)'{-B+,--before-context=}'[show <num> leading lines, and separate groups of matches]: :__cfg_guard_number lines' \
-    '(-A --after-context -B --before-context -C --context)'{-C+,--context=}'[show <num> leading and trailing lines, and separate groups of matches]: :__cfg_guard_number lines' \
+    '(-c --count -l --files-with-matches --name-only -L --files-without-match -o --only-matching)'{--only-matching,-o}'[show only matching part of line]' \
+    '(-h -c --count -l --files-with-matches --name-only -L --files-without-match -o --only-matching --color --break --heading -p --show-function -W --function-context)'{-c,--count}'[show number of matching lines in files]' \
+    '(--no-color -O --open-files-in-pager)--color=-[color matches]:: :__cfg_color_whens' \
+    "(--color -O --open-files-in-pager)--no-color[don't color matches]" \
+    '(-c --count -O --open-files-in-pager)--break[print an empty line between matches from different files]' \
+    '(-c --count -O --open-files-in-pager)--heading[show the filename above the matches]' \
+    '(-A --after-context)'{-A+,--after-context=}'[specify lines of trailing context]: :__cfg_guard_number lines' \
+    '(-B --before-context)'{-B+,--before-context=}'[specify lines of leading context]: :__cfg_guard_number lines' \
+    '(-A --after-context -B --before-context -C --context)'{-C+,--context=}'[specify lines of context]: :__cfg_guard_number lines' \
     '--threads=[use specified number of threads]:number of threads' \
-    '(-p --show-function)'{-p,--show-function}'[show preceding line containing function name of match]' \
-    '(-W --function-context)'{-W,--function-context}'[show whole function where a match was found]' \
+    '(-c --count -p --show-function)'{-p,--show-function}'[show preceding line containing function name of match]' \
+    '(-c --count -W --function-context)'{-W,--function-context}'[show whole function where a match was found]' \
     '(1)*-f+[read patterns from given file]:pattern file:_files' \
     '(1)*-e+[use the given pattern for matching]:pattern' \
     $pattern_operators \
@@ -1222,7 +1214,8 @@ _cfg-merge () {
 
   _arguments -S -s \
     $merge_options \
-    '-m+[set the commit message to be used for the merge commit]:merge message' \
+    \*{-m+,--message=}'[set the commit message to be used for the merge commit]:merge message' \
+    \*{-F+,--file=}'[read commit message from a file]:file' \
     '(--edit --no-edit)-e[open an editor to change the commit message]' \
     '(                    --no-rerere-autoupdate)--rerere-autoupdate[allow the rerere mechanism to update the index]' \
     '(--rerere-autoupdate                       )--no-rerere-autoupdate[do not allow the rerere mechanism to update the index]' \
@@ -1360,10 +1353,13 @@ _cfg-pull () {
 
   _arguments \
     $merge_options \
-    '(-r --rebase --no-rebase)'{-r=-,--rebase=-}'[perform a rebase after fetching]::rebase after fetching:((true\:"rebase after fetching"
-                                                                                                        false\:"merge after fetching"
-                                                                                                        preserve\:"rebase and preserve merges"
-													interactive\:"allow list of commits to be edited"))' \
+    '(-r --rebase --no-rebase)'{-r=-,--rebase=-}'[perform a rebase after fetching]::rebase after fetching:((
+      true\:"rebase after fetching"
+      false\:"merge after fetching"
+      merges\:"try to rebase merges instead of skipping them"
+      preserve\:"rebase and preserve merges"
+      interactive\:"allow list of commits to be edited"
+    ))' \
     '(-r --rebase            )--no-rebase[do not perform a rebase after fetching]' \
     '--autostash[automatically stash/stash pop before and after rebase]' \
     $fetch_options \
@@ -1435,6 +1431,20 @@ _cfg-push () {
   return ret
 }
 
+(( $+functions[_cfg-range-diff] )) ||
+_cfg-range-diff () {
+  local -a diff_options
+  __cfg_setup_diff_options
+
+  _arguments -s \
+    '--creation-factor=[specify weighting for creation]:weighting (percent)' \
+    '--no-dual-color[use simple diff colors]' \
+    $diff_options \
+    '1:range 1:__cfg_commit_ranges' \
+    '2:range 2:__cfg_commit_ranges' \
+    '3:revision 2:__cfg_commits'
+}
+
 (( $+functions[_cfg-rebase] )) ||
 _cfg-rebase () {
   local -a autosquash_opts
@@ -1469,6 +1479,7 @@ _cfg-rebase () {
     '(-i --interactive)--whitespace=-[detect a new or modified line that has whitespace errors]: :__cfg_apply_whitespace_strategies' \
     '(-i --interactive)--committer-date-is-author-date[use author date as committer date]' \
     '(-i --interactive --ignore-whitespace --whitespace --committer-date-is-author-date)'{-i,--interactive}'[make a list of commits to be rebased and open in $EDITOR]' \
+    '(-r --rebase-merges)'{-r-,--rebase-merges=-}'[try to rebase merges instead of skipping them]::option:(rebase-cousins no-rebase-cousins)' \
     '(-p --preserve-merges --interactive)'{-p,--preserve-merges}'[try to recreate merges instead of ignoring them]' \
     {-x+,--exec=}'[with -i\: append "exec <cmd>" after each line]:command:_command_names -e' \
     '(-k --keep-empty)'{-k,--keep-empty}'[keep empty commits in the result]' \
@@ -1708,6 +1719,9 @@ _cfg-stash () {
 	    '(-m --message)'{-m,--message}'[specify stash description]' \
             ':: :__cfg_modified_files' && ret=0
           ;;
+        (--)
+            __cfg_modified_files
+          ;;
         (list)
           local -a log_options revision_options
           __cfg_setup_log_options
@@ -1779,7 +1793,10 @@ _cfg-status () {
     '--ignored=-[show ignored files as well]:mode [traditional]:(traditional matching no)' \
     '(-z --null --column --no-column)'{-z,--null}'[use NUL termination on output]' \
     '(--no-column -z --null)--column=-[display in columns]::column.status option:((always\:"always show in columns" never\:"never show in columns" auto\:"show in columns if the output is to the terminal" column\:"fill columns before rows (default)" row\:"fill rows before columns" plain\:"show in one column" dense\:"make unequal size columns to utilize more space" nodense\:"make equal size columns"))' \
-    '(--column)--no-column[do not display in columns]' \
+    "(--column)--no-column[don't display in columns]" \
+    "(--no-renames -M --find-renames)--no-renames[don't detect renames]" \
+    '(--no-renames -M --find-renames)-M[detect renames]' \
+    '(--no-renames -M --find-renames)--find-renames=-[detect renames, optionally set similarity index]::similarity' \
     '*: :__cfg_ignore_line_inside_arguments _files'
 }
 
@@ -2001,15 +2018,6 @@ _cfg-subtree () {
 
 (( $+functions[_cfg-tag] )) ||
 _cfg-tag () {
-  local -a message_opts
-
-  if (( words[(I)-[asu]] )); then
-    message_opts=(
-      '(-m --message -F --file)'{-m+,--message=}'[specify tag message]:message'
-      '(-m --message -F --file)'{-F+,--file=}'[read tag message from given file]:message file:_files'
-    )
-  fi
-
   _arguments \
     - creation \
       '(-a --annotate -s --sign -u --local-user)'{-a,--annotate}'[create an unsigned, annotated tag]' \
@@ -2019,7 +2027,8 @@ _cfg-tag () {
       '(-f --force)'{-f,--force}'[replace existing tag]' \
       '--create-reflog[create a reflog]' \
       '--cleanup=[cleanup message]:mode:((verbatim\:"no cleanup" whitespace\:"remove leading and trailing whitespace" strip\:"remove leading and trailing whitespace and comments"))' \
-      $message_opts \
+      '(-m --message -F --file)'{-F+,--file=}'[read tag message from given file]:message file:_files' \
+      '(-m --message -F --file)'{-m+,--message=}'[specify tag message]:message' \
       ': :__cfg_tags' \
       ':: :__cfg_commits' \
     - deletion \
@@ -2041,7 +2050,7 @@ _cfg-tag () {
       '(-i --ignore-case)'{-i,--ignore-case}'[sorting and filtering are case-insensitive]' \
       ':: :_guard "^-*" pattern' \
     - verification \
-      '(-v --verify)'{-v,--verify}'[verify gpg signutare of tags]' \
+      '(-v --verify)'{-v,--verify}'[verify gpg signature of tags]' \
       '*:: :__cfg_ignore_line_inside_arguments __cfg_tags'
 }
 
@@ -2114,8 +2123,7 @@ _cfg-worktree() {
 	;;
       esac
       if [[ $state = worktrees ]]; then
-        _wanted directories expl 'working tree' compadd -S ' ' -f -M 'r:|/=* r:|=*' \
-            ${${(M)${(f)"$(_call_program directories cfg worktree list --porcelain)"}:#worktree*}#* } && ret=0
+        __cfg_worktrees && ret=0
       fi
     ;;
   esac
@@ -2166,16 +2174,18 @@ _cfg-config () {
     '(--global --system         -f --file --blob)--local[use local config file]' \
     '(--global --system --local           --blob)'{-f+,--file=}'[use given config file]:config file:_files' \
     '(--global --system --local -f --file)--blob=[read config from given blob object]:blob:__cfg_blobs' \
-    '(       --int --bool-or-int --path --expiry-date)--bool[setting is a boolean]' \
-    '(--bool       --bool-or-int --path --expiry-date)--int[setting is an integer]' \
-    '(--bool --int               --path --expiry-date)--bool-or-int[setting is an integer]' \
-    '(--bool --int --bool-or-int        --expiry-date)--path[setting is a path]' \
-    '(--bool --int --bool-or-int --path              )--expiry-date[setting is an expiry date]' \
+    '(-t --type --bool --int --bool-or-int --path --expiry-date)'{-t+,--type=}'[ensure that incoming and outgoing values are canonicalize-able as the given type]:type:(bool int bool-or-int path expiry-date color)' \
+    '(-t --type --int --bool-or-int --path --expiry-date)--bool[setting is a boolean]' \
+    '(-t --type --bool --bool-or-int --path --expiry-date)--int[setting is an integer]' \
+    '(-t --type --bool --int --path --expiry-date)--bool-or-int[setting is an integer]' \
+    '(-t --type --bool --int --bool-or-int --expiry-date)--path[setting is a path]' \
+    '(-t --type --bool --int --bool-or-int --path)--expiry-date[setting is an expiry date]' \
     '(-z --null)'{-z,--null}'[end values with NUL and newline between key and value]' \
     '(--get --get-all --get-urlmatch --replace-all --add --unset --unset-all --rename-section --remove-section -e --edit --get-color --get-colorbool)--name-only[show variable names only]' \
     '(--includes)'--no-includes"[don't respect \"include.*\" directives]" \
     '(--no-includes)'--includes'[respect "include.*" directives in config files when looking up values]' \
     '(--global --system --local -f --file --blob --get-urlmatch --replace-all --add --unset --unset-all --rename-section --remove-section -e --edit --get-color --get-colorbool)--show-origin[show origin of config]' \
+    '(2 --add -e --edit -l --list --name-only --rename-section --remove-section --replace-all --unset --unset-all)--default=[with --get, use specified default value when entry is missing]:default' \
     $name_arg \
     $value_arg \
     '::value regex' \
@@ -2330,7 +2340,15 @@ __cfg_config_option-or-value () {
     color.diff.frag:'color of hunk headers::->color'
     color.diff.func:'color of function in hunk header::->color'
     color.diff.old:'color of removed lines::->color'
+    color.diff.oldMoved:'color of lines removed by a move::->color'
+    color.diff.oldMovedAlternative:'alternative color of lines removed by a move::->color'
+    color.diff.oldMovedAlternativeDimmed:'dimmed alternative color of lines removed by a move::->color'
+    color.diff.oldMovedDimmed:'dimmed color of lines removed by a move::->color'
     color.diff.new:'color of added lines::->color'
+    color.diff.newMoved:'color of lines added by a move::->color'
+    color.diff.newMovedAlternative:'alternative color of lines added by a move::->color'
+    color.diff.newMovedAlternativeDimmed:'dimmed alternative color of lines added by a move::->color'
+    color.diff.newMovedDimmed:'dimmed color of lines added by a move::->color'
     color.diff.commit:'color of commit headers::->color'
     color.diff.whitespace:'color of whitespace errors::->color'
     color.decorate.branch:'color of branches::->color'
@@ -2594,9 +2612,13 @@ __cfg_config_option-or-value () {
     pull.rebase:'rebase branches on top of the fetched branch, instead of merging::->pull.rebase:false'
     pull.twohead:'default merge strategy to use when pulling a single branch::__cfg_merge_strategies'
     push.default:'action cfg push should take if no refspec is given::->push.default:simple'
+    push.followTags:'enable --follow-tags option by default::->bool:false'
+    push.gpgSign:'GPG-sign pushes::->bool:false'
+    push.recurseSubmodules:'ensure all submodule commits are available on a remote-tracking branch'
     rebase.stat:'show a diffstat of what changed upstream since last rebase::->bool:false'
-    rebase.autosquash:'autosquash by default::->bool:false'
-    rebase.autostash:'autostash by default::->bool:false'
+    rebase.autoSquash:'autosquash by default::->bool:false'
+    rebase.autoStash:'autostash by default::->bool:false'
+    rebase.missingCommitsCheck:'print a warning if some commits are removed'
     receive.autogc:'run cfg gc --auto after receiving data::->bool:true'
     receive.fsckObjects:'check all received objects::->bool:true'
     receive.hiderefs:'string(s) receive-pack uses to decide which refs to omit from its initial advertisement:hidden refs:->string'
@@ -2723,8 +2745,12 @@ __cfg_config_option-or-value () {
     'url.*.pushInsteadOf:string to start URLs to push to with:prefix:->string'
     user.email:'email address used for commits::_email_addresses -c'
     user.name:'full name used for commits:name:->string'
+    user.useConfigOnly:'avoid guessing defaults for user.email and user.name:->bool:true'
     user.signingkey:'default GPG key to use when creating signed tags::__cfg_gpg_secret_keys'
-    web.browser:'web browser to use::__cfg_browsers')
+    versionsort.suffix:'specify sort order of suffixes applied to tags:suffix'
+    web.browser:'web browser to use::__cfg_browsers'
+    worktree.guessRemote:'with add, if branch matches remote track it::->bool:true'
+  )
 
   declare -a cfg_present_options # 'present' is an adjective
   cfg_present_options=(
@@ -2967,8 +2993,11 @@ __cfg_config_option-or-value () {
           url:'URL prefixes'
           user:'options controlling user identity'
           web:'web options'
+          versionsort:'tag sorting options'
+          worktree:'cfg worktree options'
           svn:'cfg svn options'
-          svn-remote:'cfg svn remotes')
+          svn-remote:'cfg svn remotes'
+        )
         () {
           local i
           for i in ${(u)cfg_present_options%%.*}; do
@@ -3611,15 +3640,7 @@ _cfg-remote () {
             '(-m --master)'{-m,--master=}'[set HEAD of remote to point to given master branch]: :__cfg_branch_names' \
 	    '--mirror[do not use separate remotes]::mirror type:(fetch pull)' \
             ':name:__cfg_remotes' \
-            ':repository:->repository' && ret=0
-	  case $state in
-	    (repository)
-            _alternative \
-              'local-repositories::__cfg_local_repositories' \
-              'remote-repositories::__cfg_remote_repositories' \
-	      'urls::_urls' && ret=0
-	    ;;
-	  esac
+            ':repository:__cfg_repositories_or_urls' && ret=0
           ;;
         (get-url)
           _arguments -S -s \
@@ -3648,14 +3669,13 @@ _cfg-remote () {
             '*: :__cfg_branch_names' && ret=0
           ;;
         (set-url)
-          # TODO: Old URL should be one of those defined for the remote.
-          _arguments -S -s \
-            '(3)--push[manipulate push URLs instead of fetch URLs]' \
-            '--add[add URL to those already defined]' \
-            '(3)--delete[delete all matching URLs]' \
-            ': :__cfg_remotes' \
-            ':new url:_urls' \
-            ':old url:_urls' && ret=0
+          _arguments -S \
+            '--push[manipulate push URLs instead of fetch URLs]' \
+            '(3)--add[add URL to those already defined]' \
+            '(2)--delete[delete all matching URLs]' \
+            '1: :__cfg_remotes' \
+            '2:new url:__cfg_repositories_or_urls' \
+            '3:old url: __cfg_current_remote_urls ${(k)opt_args[--push]} $line[1]' && ret=0
           ;;
         (show)
           _arguments -S \
@@ -3703,7 +3723,8 @@ _cfg-repack () {
     '--depth=[maximum delta depth]:maximum delta depth' \
     '--threads=[limit maximum number of threads]:threads' \
     '--max-pack-size=-[maximum size of each output packfile]: : __cfg_guard_bytes "maximum pack size"' \
-    '--pack-kept-objects[repack objects in packs marked with .keep]'
+    '--pack-kept-objects[repack objects in packs marked with .keep]' \
+    '--keep-pack=[ignore named pack]:pack'
 }
 
 (( $+functions[_cfg-replace] )) ||
@@ -3719,10 +3740,16 @@ _cfg-replace () {
     '(: * --raw -f --force)'{-l,--list}'[list replace refs]:pattern' \
     {-d,--delete}'[delete existing replace refs]:*:replacement:__cfg_objects' \
     '(* 2 --format)'{-e,--edit}'[edit existing object and replace it with the new one]' \
-    '(--raw --format)'{-g,--graft}'[rewrite the parents of a commit]'
+    '(--raw --format)'{-g,--graft}'[rewrite the parents of a commit]' \
+    '--convert-graft-file[convert existing graft file]'
 }
 
 # Ancillary Commands (Interrogators)
+
+(( $+functions[_cfg-annotate] )) ||
+_cfg-annotate() {
+  _cfg-blame "$@"
+}
 
 (( $+functions[_cfg-blame] )) ||
 _cfg-blame () {
@@ -3755,6 +3782,8 @@ _cfg-blame () {
     '(-n --show-number)'{-n,--show-number}'[show the line number in the original commit]' \
     '-s[suppress author name and timestamp]' \
     '-w[ignore whitespace when finding lines]' \
+    '(--color-by-age)--color-lines[color redundant metadata from previous line differently]' \
+    '(--color-lines)--color-by-age[color lines by age]' \
     '--indent-heuristic[use indent-based heuristic to improve diffs]' \
     $revision_options \
     ':: :__cfg_revisions' \
@@ -3841,11 +3870,13 @@ _cfg-get-tar-commit-id () {
 (( $+functions[_cfg-help] )) ||
 _cfg-help () {
   _arguments -S -s \
-    '(         -g --guides -i --info -m --man -w --web)'{-a,--all}'[show all available commands]' \
-    '(-a --all -g --guides           -m --man -w --web)'{-i,--info}'[show all available commands]' \
-    '(-a --all -g --guides -i --info          -w --web)'{-m,--man}'[show all available commands]' \
-    '(-a --all -g --guides -i --info -m --man         )'{-w,--web}'[show all available commands]' \
-    '(-g --guides)'{-g,--guides}'[prints a list of useful guides on the standard output]' \
+    '(-c --config -i --info -m --man -w --web)'{-a,--all}'[show all available commands]' \
+    '(-)'{-c,--config}'[print all configuration variable names]' \
+    '(-a --all -g --guides -c --config -m --man -w --web)'{-i,--info}'[display manual for the command in info format]' \
+    '(-a --all -g --guides -c --config -i --info -w --web)'{-m,--man}'[display manual for the command in man format]' \
+    '(-a --all -g --guides -c --config -i --info -m --man)'{-w,--web}'[display manual for the command in HTML format]' \
+    '(-g --guides -c --config -i --info -m --man -w --web)'{-g,--guides}'[prints a list of useful guides on the standard output]' \
+    '(-v --verbose)'{-v,--verbose}'[print command descriptions]' \
     ': : _alternative commands:command:_cfg_commands "guides:cfg guides:(attributes glossary ignore modules revisions tutorial workflows)"'
 }
 
@@ -4714,6 +4745,7 @@ _cfg-pack-objects () {
     $thin_opt \
     '--shallow[create packs suitable for shallow fetches]' \
     '--honor-pack-keep[ignore objects in local pack with .keep file]' \
+    '--keep-pack=[ignore named pack]:pack' \
     '--compression=-[specify compression level]: :__cfg_compression_levels' \
     '--keep-true-parents[pack parents hidden by grafts]' \
     '--use-bitmap-index[use a bitmap index if available to speed up counting objects]' \
@@ -4890,6 +4922,7 @@ _cfg-cat-file () {
     '(--batch)--batch-check=-[print SHA1, type and size (or in specified format)]::format' \
     '--follow-symlinks[follow in-tree symlinks (used with --batch or --batch-check)]' \
     '--batch-all-objects[show all objects with --batch or --batch-check]' \
+    "--unordered[don't order --batch-all-objects output]" \
     '--buffer[disable flushing of output after each object]'
 }
 
@@ -5048,7 +5081,9 @@ _cfg-ls-remote () {
     "--refs[don't show peeled tags]" \
     '--exit-code[exit with status 2 when no matching refs are found in the remote repository]' \
     '--get-url[expand the URL of the given repository taking into account any "url.<base>.insteadOf" config setting]' \
+    '*--sort=[specify field name to sort on]:field:__cfg_ref_sort_keys' \
     '--symref[show underlying ref in addition to the object pointed by it]' \
+    \*{-o+,--server-option=}'[send specified string to the server when using protocol version 2]:option' \
     ': :__cfg_any_repositories' \
     '*: :__cfg_references'
 }
@@ -5629,7 +5664,7 @@ __cfg_describe_branch () {
 
 (( $+functions[__cfg_describe_commit] )) ||
 __cfg_describe_commit () {
-  __cfg_describe_branch $1 $2 $3 -M 'r:|/=**' "${(@)argv[4,-1]}"
+  __cfg_describe_branch $1 $2 $3 -M 'r:|/=* r:|=*' "${(@)argv[4,-1]}"
 }
 
 # Completion Wrappers
@@ -5700,6 +5735,7 @@ _cfg_commands () {
     notes:'add or inspect object notes'
     pull:'fetch from and merge with another repository or local branch'
     push:'update remote refs along with associated objects'
+    range-diff:'compare two commit ranges'
     rebase:'forward-port local commits to the updated upstream head'
     reset:'reset current HEAD to specified state'
     revert:'revert existing commits'
@@ -6418,7 +6454,7 @@ __cfg_heads () {
 
 (( $+functions[__cfg_heads_local] )) ||
 __cfg_heads_local () {
-  local cfgdir
+  local f cfgdir
   declare -a heads
 
   heads=(${(f)"$(_call_program headrefs cfg for-each-ref --format='"%(refname:short)"' refs/heads 2>/dev/null)"})
@@ -6546,7 +6582,7 @@ __cfg_recent_commits () {
   expl=()
   _wanted commit-tags expl 'commit tag' compadd "$@" -a - tags && ret=0
   expl=()
-  _wanted heads expl 'head' compadd "$@" -a - heads && ret=0
+  _wanted heads expl 'head' compadd -M "r:|/=* r:|=*" "$@" -a - heads && ret=0
   return $ret
 }
 
@@ -6671,7 +6707,7 @@ __cfg_tags () {
   tags=(${${(f)"$(_call_program tagrefs cfg for-each-ref --format='"%(refname)"' refs/tags 2>/dev/null)"}#refs/tags/})
   __cfg_command_successful $pipestatus || return 1
 
-  _wanted tags expl tag compadd -M 'r:|/=**' "$@" -a - tags
+  _wanted tags expl tag compadd -M 'r:|/=* r:|=*' "$@" -a - tags
 }
 
 (( $+functions[__cfg_commit_tags] )) ||
@@ -6694,7 +6730,7 @@ __cfg_tags_of_type () {
   tags=(${${(M)${(f)"$(_call_program ${(q)type}-tag-refs "cfg for-each-ref --format='%(*objecttype)%(objecttype) %(refname)' refs/tags 2>/dev/null")"}:#$type(tag|) *}#$type(tag|) refs/tags/})
   __cfg_command_successful $pipestatus || return 1
 
-  _wanted $type-tags expl "$type tag" compadd -M 'r:|/=**' "$@" -a - tags
+  _wanted $type-tags expl "$type tag" compadd -M 'r:|/=* r:|=*' "$@" -a - tags
 }
 
 # Reference Argument Types
@@ -6717,7 +6753,7 @@ __cfg_references () {
     _cfg_refs_cache_pwd=$PWD
   fi
 
-  _wanted references expl 'reference' compadd -M 'r:|/=**' -a - _cfg_refs_cache
+  _wanted references expl 'reference' compadd -M 'r:|/=* r:|=*' -a - _cfg_refs_cache
 }
 
 # ### currently unused; are some callers of __cfg_references supposed to call this function?
@@ -6731,7 +6767,7 @@ __cfg_local_references () {
     _cfg_local_refs_cache_pwd=$PWD
   fi
 
-  _wanted references expl 'reference' compadd -M 'r:|/=**' -a - _cfg_local_refs_cache
+  _wanted references expl 'reference' compadd -M 'r:|/=* r:|=*' -a - _cfg_local_refs_cache
 }
 
 (( $+functions[__cfg_remote_references] )) ||
@@ -6804,7 +6840,7 @@ __cfg_files () {
   local pref=$cfgcdup$cfgprefix$PREFIX
 
   # First allow ls-files to pattern-match in case of remote repository
-  files=(${(0)"$(_call_program files cfg ls-files -z --exclude-standard ${(q)opts} -- ${(q)${pref:+$pref\\\*}:-.} 2>/dev/null)"})
+  files=(${(0)"$(_call_program files cfg ls-files -z --exclude-standard ${(q)opts} -- ${(q)${pref:+$pref\*}:-.} 2>/dev/null)"})
   __cfg_command_successful $pipestatus || return
 
   # If ls-files succeeded but returned nothing, try again with no pattern
@@ -6963,6 +6999,21 @@ __cfg_local_repositories () {
   _wanted local-repositories expl 'local repositories' _directories
 }
 
+(( $+functions[__cfg_repositories_or_urls] )) ||
+__cfg_repositories_or_urls () {
+  _alternative \
+    'repositories::__cfg_repositories' \
+    'urls::_urls'
+}
+
+(( $+functions[__cfg_current_remote_urls] )) ||
+__cfg_current_remote_urls () {
+  local expl
+  _description remote-urls expl 'current url'
+  compadd "$expl[@]" -M 'r:|/=* r:|=*' - ${(f)"$(_call_program remote-urls
+      cfg remote get-url "$@" --all)"}
+}
+
 (( $+functions[__cfg_any_repositories] )) ||
 __cfg_any_repositories () {
   # TODO: should also be $GIT_DIR/remotes/origin
@@ -7097,16 +7148,22 @@ __cfg_setup_diff_options () {
     $exclusive_diff_options'--name-only[show only names of changed files]'
     $exclusive_diff_options'--name-status[show only names and status of changed files]'
     '--submodule=-[select output format for submodule differences]::format:((short\:"show pairs of commit names"
-									     log\:"list commits like cfg submodule does"
-									     diff\:"show differences"))'
-    '(        --no-color --color-words)--color=-[show colored diff]:: :__cfg_color_whens'
-    '(--color            --color-words)--no-color[turn off colored diff]'
+                                                                             log\:"list commits like cfg submodule does"
+                                                                             diff\:"show differences"))'
+    '(        --no-color --color-words --color-moved)--color=-[show colored diff]:: :__cfg_color_whens'
+    '(--color            --color-words --color-moved)--no-color[turn off colored diff]'
     '--word-diff=-[show word diff]::mode:((color\:"highlight changed words using color"
                                           plain\:"wrap deletions and insertions with markers"
                                           porcelain\:"use special line-based format for scripts"
                                           none\:"disable word diff"))'
     '--word-diff-regex=-[specify what constitutes a word]:word regex'
-    '(--color --no-color              )--color-words=-[show colored-word diff]::word regex'
+    '(--color --no-color                            )--color-words=-[show colored-word diff]::word regex'
+    '(--color --no-color                            )--color-moved=-[color moved lines differently]::mode:((no\:"do not highlith moved lines"
+                                                                                                           default\:"like zebra"
+                                                                                                           plain\:"highlight moved lines with color"
+                                                                                                           blocks\:"greedily detect blocks of moved text of at least 20 characters"
+                                                                                                           zebra\:"like blocks, with alternating colors between different blocks"
+                                                                                                           dimmed-zebra\:"like zebra, uninteresting parts are dimmed"))'
     '--no-renames[turn off rename detection]'
     $exclusive_diff_options'--check[warn if changes introduce trailing whitespace or space/tab indents]'
     '--full-index[show full object name of pre- and post-image blob]'
@@ -7547,6 +7604,28 @@ __cfg_browsers () {
     'builtin-browsers:builtin browser:compadd -a - builtinbrowsers'
 }
 
+__cfg_worktrees () {
+  local -a records=( ${(ps.\n\n.)"$(_call_program directories cfg worktree list --porcelain)"} )
+  local -a directories descriptions
+  local i hash branch
+  for i in $records; do
+    directories+=( ${${i%%$'\n'*}#worktree } )
+    hash=${${${"${(f)i}"[2]}#HEAD }[1,9]}
+    branch=${${"${(f)i}"[3]}#branch refs/heads/}
+
+    # Simulate the non-porcelain output
+    if [[ $branch == detached ]]; then
+      # TODO: show a ref that points at $hash here, like vcs_info does?
+      branch="(detached HEAD)"
+    else
+      branch="[$branch]"
+    fi
+
+    descriptions+=( "${directories[-1]}"$'\t'"$hash $branch" )
+  done
+  _wanted directories expl 'working tree' compadd -ld descriptions -S ' ' -f -M 'r:|/=* r:|=*' -a directories
+}
+
 (( $+functions[__cfg_difftools] )) ||
 __cfg_difftools () {
   __cfg_diff-or-merge-tools diff $*
@@ -7753,8 +7832,8 @@ _cfg() {
       '(: -)--man-path[print the manpath for the man pages for this version of Git and exit]' \
       '(: -)--info-path[print the path where the info files are installed and exit]' \
       '(: -)--html-path[display path to HTML documentation and exit]' \
-      '(-p --paginate)'{-p,--paginate}'[pipe output into $PAGER]' \
-      '--no-pager[do not pipe cfg output into a pager]' \
+      '(-p --paginate -P --no-pager)'{-p,--paginate}'[pipe output into a pager]' \
+      '(-p --paginate -P --no-pager)'{-P,--no-pager}"[don't pipe cfg output into a pager]" \
       '--cfg-dir=-[path to repository]: :_directories' \
       '--work-tree=-[path to working tree]: :_directories' \
       '--namespace=-[set the Git namespace]: :_directories' \
@@ -7772,7 +7851,10 @@ _cfg() {
         curcontext=${curcontext%:*:*}:cfg-$words[1]:
 	(( $+opt_args[--cfg-dir] )) && local -x GIT_DIR=$opt_args[--cfg-dir]
 	if ! _call_function ret _cfg-$words[1]; then
-	  if zstyle -T :completion:$curcontext: use-fallback; then
+	  if [[ $words[1] = \!* ]]; then
+	    words[1]=${words[1]##\!}
+	    _normal && ret=0
+	  elif zstyle -T :completion:$curcontext: use-fallback; then
 	    _default && ret=0
 	  else
 	    _message "unknown sub-command: $words[1]"
