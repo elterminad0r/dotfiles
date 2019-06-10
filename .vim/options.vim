@@ -234,7 +234,7 @@ set formatoptions+=tcqjronl
 " TODO: latex lists with tex.vim
 augroup TexListPat
     autocmd! FileType tex
-                \ setlocal formatlistpat=\\s*\\item\\(\\[[^\\]]*\\]\\)\\?\\s*
+                \ setlocal formatlistpat+=\\\|\\s*\\item\\(\\[[^\\]]*\\]\\)\\?\\s*
 augroup END
 
 " shorten certain types of diagnostic/informational messages more (eg [+]
