@@ -401,5 +401,7 @@ alias partycow='while true; do fortune | rcowsay; done | pv -qlL 3 | lolcat'
 # go on a 23 day mad one
 alias mathsparty='timestable -l 10000000 | pv -qlL 5 | lolcat -p 10 -F 0.01'
 
+alias parrot="curl parrot.live"
+
 # look cooler
 alias cmatrix='cmatrix -abu 1'
