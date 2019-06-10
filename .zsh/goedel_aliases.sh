@@ -415,9 +415,9 @@ alias mirrormirroronthewall='mpv /dev/video0 -vo caca'
 
 selfie() {
     out="${1:-$HOME/Pictures/selfies/selfie_$(date +%s).jpg}"
-    mkdir -p "$HOME/Pictures/selfies"
+    mkdir -p "$(dirname "$out")"
     echo "Taking selfie targeting $out"
-    ffmpeg -f video4linux2 -s 640x480 -i /dev/video0 -ss 0:0:2 -frames 1 "$out"
+    ffmpeg -f video4linux2 -i /dev/video0 -ss 0:0:2 -frames 1 "$out"
 }
 
 # just like screenshots()
