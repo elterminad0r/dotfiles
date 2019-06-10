@@ -1,8 +1,8 @@
 [Desktop Entry]
-DefaultProfile=solarized.profile
+DefaultProfile=gruvbox.profile
 
 [Favorite Profiles]
-Favorites=solarized.profile,vanilla.profile
+Favorites=solarized.profile,vanilla.profile,gruvbox.profile
 
 [KonsoleWindow]
 ShowMenuBarByDefault=false
