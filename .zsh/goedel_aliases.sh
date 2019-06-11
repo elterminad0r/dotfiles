@@ -377,6 +377,11 @@ figfonts() {
         -exec echo \;
 }
 
+# say all cows
+saycows() {
+    for i in $(cowsay -l | tail +2); do cowsay -f "$i" "$i"; done
+}
+
 # force lolcat to colour, so it can be piped. Who on earth pipes data to lolcat
 # in order for lolcat NOT TO CHANGE IT???
 alias lolcat='lolcat -f'
@@ -406,6 +411,8 @@ alias parrot="curl parrot.live"
 # alias this to something really common
 # or better yet, write a function that randomly falls through to this but
 # normally doesn't, or that only does this after being called twenty times
+
+# TODO: silent; disallow ctrl-c
 alias rick='mpv "https://www.youtube.com/watch?v=dQw4w9WgXcQ" -vo caca'
 
 # look cooler
