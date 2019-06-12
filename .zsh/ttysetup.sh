@@ -16,15 +16,15 @@ case $(tty) in
         GOEDEL_IS_TTY=true
         IZ_VC_FONTSIZE=5
         ter_fonts=(/usr/share/kbd/consolefonts/ter-1??n.psf.gz)
-            izu() {
-                if [[ $IZ_VC_FONTSIZE -ge 9 ]]; then
-                    >&2 echo "already at max font"
-                else
-                    ((IZ_VC_FONTSIZE++))
-                    setfont $ter_fonts[$IZ_VC_FONTSIZE]
-                    echo $ter_fonts[$IZ_VC_FONTSIZE]
-                fi
-            }
+        izu() {
+            if [[ $IZ_VC_FONTSIZE -ge 9 ]]; then
+                >&2 echo "already at max font"
+            else
+                ((IZ_VC_FONTSIZE++))
+                setfont $ter_fonts[$IZ_VC_FONTSIZE]
+                echo $ter_fonts[$IZ_VC_FONTSIZE]
+            fi
+        }
         izd() {
             if [[ $IZ_VC_FONTSIZE -le 1 ]]; then
                 >&2 echo "already at min font"
