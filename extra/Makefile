@@ -10,7 +10,7 @@ default:
 all: _all
 	make -B $<
 
-_all: package_list etc pip_freeze3 crontab
+_all: pacman_list etc pip_freeze3 crontab
 
 # store user crontab
 crontab:
@@ -18,7 +18,7 @@ crontab:
 	$(CFG) add $@
 
 # this is a simplistic way to keep track of which packages I have
-package_list:
+pacman_list:
 	pacman -Qqe > $@
 	$(CFG) add $@
 
