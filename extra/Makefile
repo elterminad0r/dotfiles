@@ -5,7 +5,7 @@ CFG = git --git-dir ~/.cfg --work-tree ~
 ETC_FILES = /etc/locale.gen /etc/locale.conf /etc/profile.d/libreoffice-still.sh /etc/lightdm/lightdm-gtk-greeter.conf /etc/mysql/my.cnf /etc/pacman.conf /etc/pacman.d/mirrorlist /etc/systemd/logind.conf /etc/texmf/web2c/fmtutil.cnf /etc/pam.d/su /etc/pam.d/su-l
 
 default:
-	# select an explicit target or all
+	$(error from Goedel: select an explicit target or all)
 
 all: _all
 	make -B $<

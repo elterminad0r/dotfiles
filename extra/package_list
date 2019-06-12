@@ -71,7 +71,12 @@ expac
 expect
 faad2
 fakeroot
+fbdump
+fbgrab
 fbida
+fbreader
+fbset
+fbv
 feh
 figlet
 file
@@ -148,6 +153,7 @@ jython
 kid3
 kitty
 kmag
+konsole
 latex2rtf
 less
 libao
@@ -186,6 +192,7 @@ moreutils
 mpc
 mpd
 mplayer
+mpv
 mupdf
 mutt
 mythes-en
