@@ -1,0 +1,31 @@
+#!/usr/bin/env python3
+
+"""
+This is a script that does some drawing with truecolor escape codes in the
+terminal.
+
+By default, it tries to take up about 90% of the screen.
+"""
+
+from colorsys import hsv_to_rgb
+from math import pi, sqrt, atan2
+from shutil import get_terminal_size
+
+def get_dimensions():
+    w, h = get_terminal_size()
+    if w < h * 2:
+        return w, w // 2
+    return h * 2, h
+
+WIDTH, HEIGHT = (int(0.9 * i) for i in get_dimensions())
+
+DIAG = sqrt((HEIGHT // 2 + 1) ** 2 + (WIDTH // 2 + 1) ** 2)
+
+for y in range(-HEIGHT // 2, HEIGHT // 2):
+    for x in range(-WIDTH // 2, WIDTH // 2):
+        h = atan2(y, x) / (2 * pi) + 1
+        s = sqrt(x ** 2 + y ** 2) / DIAG
+        r, g, b = (int(i * 255) for i in hsv_to_rgb(h, s, 1))
+        print(f"\x1b[48;2;{r};{g};{b}m ", end="")
+    print("\x1b[0m")
+print()

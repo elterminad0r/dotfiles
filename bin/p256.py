@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 
-# produces the same output as Tom Hale's solution at
-# https://askubuntu.com/questions/821157/print-a-256-color-test-pattern-in-the-terminal/821163#821163
+"""
+This is a script that draws some colours on the terminal using ANSI escape
+codes. It (hopefully) produces the same output as Tom Hale's solution at
+https://askubuntu.com/questions/821157/print-a-256-color-test-pattern-in-the-terminal/821163#821163
+"""
 
 for i in range(8):
     if i == 0:
