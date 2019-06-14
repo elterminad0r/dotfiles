@@ -4,7 +4,8 @@
 This is a script that does some drawing with truecolor escape codes in the
 terminal.
 
-By default, it tries to take up about 90% of the screen.
+By default, it tries to take up about 90% of the screen in the relatively
+shorter dimension.
 """
 
 from colorsys import hsv_to_rgb
