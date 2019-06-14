@@ -212,29 +212,23 @@ set nojoinspaces
 " n: be clever about formatting numbered lists, eg
 "    1. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 "       tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-"       veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-"       commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-"       velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-"       occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-"       mollit anim id est laborum.
 "    2. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 "       tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-"       veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-"       commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-"       velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-"       occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-"       mollit anim id est laborum.
+"   - Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+"     tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+"     + Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+"       tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+"       * Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+"         eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
 "   (see also: set formatlistpat)
 " l: do not break a line that was already too long before insertion
 set formatoptions+=tcqjronl
-" TODO: unordered lists
-" - a
-"   - b
-"   - c
-" TODO: latex lists with tex.vim
+" this makes vim recognise unordered 'bullet point' lists using -+*
+set formatlistpat+=\\\|^\\s*[-+*]\\s*
+" this makes vim recognise \item s in TeX files
 augroup TexListPat
     autocmd! FileType tex
-                \ setlocal formatlistpat+=\\\|\\s*\\item\\(\\[[^\\]]*\\]\\)\\?\\s*
+                \ setlocal formatlistpat+=\\\|^\\s*\\item\\(\\[[^\\]]*\\]\\)\\?\\s*
 augroup END
 
 " shorten certain types of diagnostic/informational messages more (eg [+]
