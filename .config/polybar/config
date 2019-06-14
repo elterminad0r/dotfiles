@@ -275,6 +275,8 @@ type = custom/script
 ; Command to be executed (using "/usr/bin/env sh -c [command]")
 exec = cat /proc/sys/kernel/random/entropy_avail
 
+label = %output:4%
+
 format-underline = #B5EAD7
 format-prefix-foreground = #B5EAD7
 format-prefix = " "
