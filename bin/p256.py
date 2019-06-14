@@ -25,7 +25,6 @@ for row in range(2):
                     print(f"\x1b[48;5;{i}m{i:3}\x1b[0m", end=end)
                 else:
                     print(f"\x1b[48;5;{i}m\x1b[38;5;0m{i:3}\x1b[0m", end=end)
-                # print(f"{i:3} ", end="")
             print("  ", end="")
         print()
     print()
