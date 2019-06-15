@@ -223,8 +223,9 @@ set nojoinspaces
 "   (see also: set formatlistpat)
 " l: do not break a line that was already too long before insertion
 set formatoptions+=tcqjronl
-" this makes vim recognise unordered 'bullet point' lists using -+*
-set formatlistpat+=\\\|^\\s*[-+*]\\s*
+" this makes the vim auto-formatting recognise unordered 'bullet point' lists
+" using -+*, in addition to the default ordered lists with numbers
+set formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*\\\|^\\s*[-+*]\\s*
 " this makes vim recognise \item s in TeX files
 augroup TexListPat
     autocmd! FileType tex
