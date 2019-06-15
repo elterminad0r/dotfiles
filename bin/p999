@@ -45,4 +45,3 @@ for y in range(-HEIGHT // 2, HEIGHT - HEIGHT // 2):
             *get_rgb(x, y, DIAG),
             *get_rgb(x, y + 0.5, DIAG)), end="")
     print("\x1b[0m")
-print()
