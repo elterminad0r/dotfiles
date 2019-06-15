@@ -32,7 +32,7 @@ WIDTH, HEIGHT = (int(0.9 * i) for i in get_dimensions())
 DIAG = sqrt((HEIGHT // 2 + 1) ** 2 + (WIDTH // 2 + 1) ** 2)
 
 def get_rgb(x, y, diag):
-    h = atan2(y, x) / (2 * pi) + 1
+    h = atan2(y * WIDTH, x * HEIGHT) / (2 * pi) + 1
     s = sqrt(x ** 2 + y ** 2) / diag
     return (int(i * 255) for i in hsv_to_rgb(h, s, 1))
 
