@@ -148,7 +148,8 @@ def make_head(prefix, head, command, indicator):
     figlet = subprocess.run(run, check=True, capture_output=True)
     return "\n".join(itertools.chain(
         ("{}{}".format(prefix, line).rstrip() for line in
-            figlet.stdout.decode().rstrip().split("\n")),
+            figlet.stdout.decode().rstrip().split("\n")
+            if line.strip()),
         (indicator,)))
 
 def process_file(file, command, backup, overwrite):

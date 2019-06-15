@@ -47,7 +47,7 @@
 	grephistory = "!git rev-list --all | xargs git grep"
 	# git is surprisingly clever here - the git ls-files knows to use the bare
 	# repository when it's cfg.
-	figmentize = "!git ls-files -z | xargs -0 -n1 figmentize"
+	figmentize = "!git grep -lz FIGMENTIZE | xargs -0 -n1 figmentize"
 	# edit files and add them afterwards, because typing two commands is for
 	# nerds
 	vim = "!cd -- \"${GIT_PREFIX:-.}\"; \"$EDITOR\" \"$@\"; git add \"$@\" #"
