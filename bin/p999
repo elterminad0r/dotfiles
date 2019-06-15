@@ -20,13 +20,21 @@ def get_dimensions():
 
 WIDTH, HEIGHT = (int(0.9 * i) for i in get_dimensions())
 
+# upper limit of distance from origin. +1 to be on the safe side
 DIAG = sqrt((HEIGHT // 2 + 1) ** 2 + (WIDTH // 2 + 1) ** 2)
 
-for y in range(-HEIGHT // 2, HEIGHT // 2):
-    for x in range(-WIDTH // 2, WIDTH // 2):
-        h = atan2(y, x) / (2 * pi) + 1
-        s = sqrt(x ** 2 + y ** 2) / DIAG
-        r, g, b = (int(i * 255) for i in hsv_to_rgb(h, s, 1))
-        print(f"\x1b[48;2;{r};{g};{b}m ", end="")
+def get_rgb(x, y, diag):
+    h = atan2(y, x) / (2 * pi) + 1
+    s = sqrt(x ** 2 + y ** 2) / diag
+    return (int(i * 255) for i in hsv_to_rgb(h, s, 1))
+
+for y in range(-HEIGHT // 2, HEIGHT - HEIGHT // 2):
+    for x in range(-WIDTH // 2, WIDTH - WIDTH // 2):
+        # Print a unicode upper half-block. This means I can set the foreground
+        # for one colour and the background for another, doubling my effective
+        # vertical resolution.
+        print("\x1b[38;2;{};{};{}m\x1b[48;2;{};{};{}m▀".format(
+            *get_rgb(x, y, DIAG),
+            *get_rgb(x, y + 0.5, DIAG)), end="")
     print("\x1b[0m")
 print()
