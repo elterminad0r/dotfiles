@@ -97,6 +97,7 @@ gcc-libs
 gdb
 geckodriver
 gedit
+gedit-plugins
 geogebra
 gettext
 ghc
@@ -231,7 +232,6 @@ perl-anyevent-i3
 perl-file-mimeinfo
 perl-image-exiftool
 pkgconf
-polybar
 powerline
 processing
 procps-ng
@@ -358,7 +358,6 @@ ttf-font-awesome
 ttf-inconsolata
 ttf-ionicons
 ttf-liberation
-ttf-literation-mono-powerline-git
 tumbler
 typespeed
 unclutter
@@ -377,7 +376,6 @@ wdiff
 wget
 which
 words
-wpa_actiond
 wpa_supplicant
 wtf
 xaos

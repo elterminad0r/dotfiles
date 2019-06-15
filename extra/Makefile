@@ -10,7 +10,7 @@ default:
 all: _all
 	make -B $<
 
-_all: pacman_list etc pip_freeze3 crontab
+_all: pacman_list aur_list etc pip_freeze3 crontab
 
 # store user crontab
 crontab:
@@ -19,7 +19,11 @@ crontab:
 
 # this is a simplistic way to keep track of which packages I have
 pacman_list:
-	pacman -Qqe > $@
+	pacman -Qqen > $@
+	$(CFG) add $@
+
+aur_list:
+	pacman -Qqem > $@
 	$(CFG) add $@
 
 # this is a very simplistic way to track files in /etc among my dotfiles
