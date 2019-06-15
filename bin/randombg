@@ -109,6 +109,7 @@ if __name__ == "__main__":
         try:
             with ensure_cache().open("rb") as stackfile:
                 stack = pickle.load(stackfile)
+        # TODO: just make this automatic
         except Exception:
             print("ERROR: you may need to initialise with --init\n\n")
             raise
