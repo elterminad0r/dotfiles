@@ -133,9 +133,9 @@ endfor
 filetype plugin indent on
 
 " similarly name and shame trailing whitespace
-highlight ExtraWhitespace ctermbg=red guibg=red
-augroup ExtraWhitespaceMatch
-    autocmd! VimEnter,WinEnter * match ExtraWhitespace /\s\+$/
+highlight TrailingWhitespace ctermbg=red guibg=red
+augroup TrailingWhitespaceMatch
+    autocmd! VimEnter,WinEnter * match TrailingWhitespace /\s\+$/
 augroup END
 
 " generating and using ctags
