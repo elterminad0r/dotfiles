@@ -3,8 +3,8 @@
 # simple wrapper script for my p256.py, which seeks to avoid needless
 # regeneration.
 
-# It's bash because I need the -nt operator. I'll make use the sh speedup when
-# POSIX gets with the times
+# It's bash because I need the -nt operator. I'll make use of the sh speedup
+# when POSIX gets with the times
 
 CACHE_NAME="$HOME/.cache/p256.txt"
 P256_NAME="$HOME/bin/p256.py"
