@@ -179,11 +179,11 @@
 	branch = master
 [submodule ".vim/bundle/gruvbox"]
 	path = .vim/bundle/gruvbox
-	url = https://github.com/goedel-gang/dotfiles.git
+	url = https://github.com/morhetz/gruvbox.git
 	branch = master
 [submodule ".themes/base16-rofi"]
 	path = .themes/base16-rofi
-	url = https://github.com/goedel-gang/dotfiles.git
+	url = https://github.com/0xdec/base16-rofi.git
 	branch = master
 [submodule ".themes/base16-fzf"]
 	path = .themes/base16-fzf
@@ -195,25 +195,25 @@
 	branch = master
 [submodule ".tmux/plugins/tpm"]
 	path = .tmux/plugins/tpm
-	url = https://github.com/goedel-gang/dotfiles.git
+	url = https://github.com/tmux-plugins/tpm
 	branch = master
 [submodule ".tmux/plugins/tmux-resurrect"]
 	path = .tmux/plugins/tmux-resurrect
-	url = https://github.com/goedel-gang/dotfiles.git
+	url = https://git::@github.com/tmux-plugins/tmux-resurrect
 	branch = master
 [submodule ".tmux/plugins/tmux-continuum"]
 	path = .tmux/plugins/tmux-continuum
-	url = https://github.com/goedel-gang/dotfiles.git
+	url = https://git::@github.com/tmux-plugins/tmux-continuum
 	branch = master
 [submodule ".tmux/plugins/tmux-copycat"]
 	path = .tmux/plugins/tmux-copycat
-	url = https://github.com/goedel-gang/dotfiles.git
+	url = https://git::@github.com/tmux-plugins/tmux-copycat
 	branch = master
 [submodule ".tmux/plugins/tmux-yank"]
 	path = .tmux/plugins/tmux-yank
-	url = https://github.com/goedel-gang/dotfiles.git
+	url = https://git::@github.com/tmux-plugins/tmux-yank
 	branch = master
 [submodule ".vim/bundle/vim-colors-solarized"]
 	path = .vim/bundle/vim-colors-solarized
-	url = https://github.com/goedel-gang/dotfiles.git
+	url = https://github.com/altercation/vim-colors-solarized.git
 	branch = master
