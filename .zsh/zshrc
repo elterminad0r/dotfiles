@@ -52,7 +52,7 @@ autoload -Uz colors && colors
 # easily copy/paste etc etc
 setopt transient_rprompt
 
-POWERLEVEL_THEME="$HOME/.zplugins/powerlevel10k/powerlevel10k.zsh-theme"
+POWERLEVEL_THEME="$ZDOTDIR/plugins/powerlevel10k/powerlevel10k.zsh-theme"
 
 # set up my prompt and general look of zsh.
 if [[ -n "$GOEDEL_IS_TTY" ]]; then
@@ -191,4 +191,4 @@ alias d='dirs -v | head -10'
 # zsh syntax highlighting
 # IMPORTANT: This needs to go at the end of the file because it hooks into other
 # ZLE widgets
-source_if_exists "$HOME/.zplugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+source_if_exists "$ZDOTDIR/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
