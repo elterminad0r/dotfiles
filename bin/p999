@@ -10,6 +10,10 @@ should look like a smooth colour wheel in a square pane that fits on the screen.
 
 By default, it tries to take up about 90% of the screen in the relatively
 shorter dimension.
+
+If you stare into the centre of the pattern closely for a couple of seconds, and
+then quickly switch to something with a white background (like a wall or a
+browser), you're in for a trip.
 """
 
 from colorsys import hsv_to_rgb
