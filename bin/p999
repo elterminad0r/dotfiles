@@ -2,7 +2,11 @@
 
 """
 This is a script that does some drawing with truecolor escape codes in the
-terminal.
+terminal. It's a nice little exercise in using truecolor escape codes, and in
+generating a colour wheel. It's also "useful" for testing the capabilities of
+your current terminal. For example, the output breaks hilariously in URxvt, and
+if you've got tmux set up to override truecolor, will look blocky in tmux. It
+should look like a smooth colour wheel in a square pane that fits on the screen.
 
 By default, it tries to take up about 90% of the screen in the relatively
 shorter dimension.
