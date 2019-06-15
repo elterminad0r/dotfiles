@@ -17,7 +17,7 @@ source "$HOME/.profile"
 
 # similar for function path
 typeset -U fpath
-fpath=(~/.zcomp $fpath[@])
+fpath=("$ZDOTDIR/zcomp" $fpath[@])
 
 # "List Xecutables" - excludes completion functions.
 alias lx='print -rl -- ${(ko)commands} ${(ko)functions} ${(ko)aliases} | grep -v "^_"'
