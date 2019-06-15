@@ -253,11 +253,11 @@ alias bzsh='ZDOTDIR=/ zsh'
 alias pzsh='GOEDEL_NO_POWERLINE=true zsh'
 alias przsh='sudo GOEDEL_NO_POWERLINE=true ZSH_DISABLE_COMPFIX=true ZDOTDIR="$ZDOTDIR" HOME="$HOME" zsh'
 # reload zsh configuration properly, by replacing the current shell with a fresh
-# zsh
-alias z='exec zsh'
+# zsh. Make sure that zsh doesn't get any arguments.
+alias z='exec zsh #'
 
 # similar for bash
-alias b='exec bash'
+alias b='exec bash #'
 # root bash
 alias rbash='sudo HOME="$HOME" bash'
 
