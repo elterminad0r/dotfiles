@@ -128,9 +128,9 @@ def build_line(y, w, h, tol):
     """
     # odd number of columns on purpose
     codes = groupby(
-            zip((get_rgb(x, y + 0.5, w, h, tol)
+            zip((get_rgb(x, y - 0.5, w, h, tol)
                     for x in range(-w // 2, 1 + w // 2)),
-                (get_rgb(x, y + 1, w, h, tol)
+                (get_rgb(x, y, w, h, tol)
                     for x in range(-w // 2, 1 + w // 2))))
     return "{}\x1b[0m".format("".join(
                 "\x1b[38;2;{}m\x1b[48;2;{}m{}"
@@ -143,11 +143,13 @@ def p999():
     """
     Draw a colour wheel
     """
-    w, h = (int(SCREEN_USAGE * i) for i in get_dimensions())
+    w, h = (int(SCREEN_USAGE * i) // 2 * 2 for i in get_dimensions())
     # the range from 1 within which to do antialiasing
     tol = sqrt((1 / w) ** 2 + (1 / (2 * h)) ** 2)
-    for y in range(-1 - h // 2, 1 + h // 2):
+    for y in range(-h // 2, 1 + h // 2):
         print(build_line(y, w, h, tol))
 
 if __name__ == "__main__":
+    # clear the screen
+    print("\x1b[H\x1b[2J")
     p999()
