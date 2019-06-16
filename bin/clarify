@@ -1,0 +1,18 @@
+#!/usr/bin/env python3
+
+"""
+Show value of stdin as a Python string.
+"""
+
+import sys
+
+def clarify(f):
+    """
+    Clarify the contents of a file-like object
+    """
+    for line in f:
+        # strip off newlines and quotes from lines and reprs respectively
+        print(repr(line.rstrip("\n"))[1:-1])
+
+if __name__ == "__main__":
+    clarify(sys.stdin)

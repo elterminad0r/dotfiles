@@ -239,9 +239,6 @@ alias latex="latex -synctex=1  --shell-escape -halt-on-error";
 alias pdflatex="pdflatex -synctex=1 -shell-escape -halt-on-error";
 alias xelatex="xelatex -synctex=1 -shell-escape -halt-on-error";
 
-# use GNU sed to explicitly print escape sequences
-alias clarify='sed -n l'
-
 # the space means that sudo can be followed by an alias (particularly things
 # like sudo p for sudo pacman)
 alias sudo='sudo '
