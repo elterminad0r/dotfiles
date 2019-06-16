@@ -231,11 +231,11 @@ set formatoptions+=tcqjronl
 " this makes the vim auto-formatting recognise unordered 'bullet point' lists
 " using -+*, in addition to the default ordered lists with numbers
 " Also, indent things after a TODO more nicely
-set formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*\\\|^\\s*[-+*]\\s*\\\|^\\s*\\(TODO\\\|FIXME\\)[:]\\?\\s*
+set formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*\\\|^\\s*[-+*]\\s*\\\|^\\s*\\%(TODO\\\|FIXME\\)[:]\\?\\s*
 " this makes vim recognise \item s in TeX files
 augroup TexListPat
     autocmd! FileType tex
-                \ setlocal formatlistpat+=\\\|^\\s*\\item\\(\\[[^\\]]*\\]\\)\\?\\s*
+                \ setlocal formatlistpat+=\\\|^\\s*\\item\\%(\\[[^\\]]*\\]\\)\\?\\s*
 augroup END
 
 " shorten certain types of diagnostic/informational messages more (eg [+]
