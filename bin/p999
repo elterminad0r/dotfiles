@@ -151,5 +151,5 @@ def p999():
 
 if __name__ == "__main__":
     # clear the screen
-    print("\x1b[H\x1b[2J")
+    print("\x1b[H\x1b[2J", end="")
     p999()
