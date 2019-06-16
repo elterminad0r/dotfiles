@@ -56,7 +56,11 @@ nnoremap <Leader>p :set paste!<CR>
 
 " Shortcut to turn highlighting on or off
 nnoremap <silent> <CR> :call ToggleHighlight()<CR>
+nnoremap <silent> <F3> :call ToggleHighlight()<CR>
 inoremap <silent> <F3> <C-o>:call IToggleHighlight()<CR>
+" TODO: go left and right with this
+map <F4> m'<Plug>CommentaryLine``
+imap <F4> <C-o>m'<C-o><Plug>CommentaryLine<C-o>``
 
 " Store the original carriage return for the CR fans
 nnoremap g<CR> <CR>
