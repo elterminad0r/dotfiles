@@ -26,14 +26,14 @@ browser), you're in for a trip.
 
 # TODO: let's make this really fast.
 #       Also add options for explicit ratios, or something else idk
-#       Also, add antialiasing
 
 import sys
 
 from colorsys import hsv_to_rgb
 from math import pi, sqrt, atan2
-from shutil import get_terminal_size, which
+from shutil import get_terminal_size
 from subprocess import run, CalledProcessError
+from itertools import groupby
 from os import getenv
 from re import findall
 
@@ -78,7 +78,8 @@ def get_win_dimensions():
         # separate variable just for intermediate computation
         corners = map(int, findall(r"[-+]\d+", corner_text))
         x_l, y_t, x_r, _, _, y_b, *_ = corners
-        return (x_r - x_l) % d_w, (y_b - y_t) % d_h
+        # - 1 + 1 so that a full screen window is calculated correctly.
+        return (x_r - x_l - 1) % d_w + 1, (y_b - y_t - 1) % d_h + 1
     except (CalledProcessError, FileNotFoundError) as e:
         print(f"not using xdotool: {e}", file=sys.stderr)
         geom, = (line for line in wininfo_lines if line.startswith("-geometry"))
@@ -98,34 +99,55 @@ def get_dimensions():
         return w, int(w / ratio)
     return int(h * ratio), h
 
-def get_rgb(x, y, w, h):
+def get_rgb(x, y, w, h, tol):
     """
-    Get an ANSI code to set the colour.
-    Will set to black if outside the circle, or an appropriate RGB colour
-    otherwise.
+    Get a truecolor ANSI code to set the colour Also does some antialiasing -
+    will be black if fully outside circle.
     """
-    # upper limit of distance from origin. +1 to be on the safe side
-    hu = atan2(y * w, x * h) / (2 * pi) + 1
-    s = 2 * sqrt((x * h) ** 2 + (y * w) ** 2) / (h * w)
-    if s < 1:
-        return "8;2;{};{};{}m".format(
-                *(int(i * 255) for i in hsv_to_rgb(hu, s, 1)))
-    return "0m"
+    dist = 2 * sqrt((x * h) ** 2 + (y * w) ** 2) / (h * w)
+    # print("\x1b[0m", x, y, w, h, hu, s, tol)
+    if dist < 1:
+        v = 1
+    elif dist < 1 + tol:
+        v = 1 - (dist - 1) / tol
+    else:
+        # used to be v = 0, but we can optimise this away
+        return 0, 0, 0
+    hu = atan2(y * w, x * h) / (2 * pi) + 0.5
+    s = min(dist, 1)
+    return tuple(int(i * 255) for i in hsv_to_rgb(hu, s, v))
+
+def build_line(y, w, h, tol):
+    """
+    Build a whole line of the circle, minimising redundancy and encapsulating
+    the line-buffering
+
+    It prints unicode upper half-blocks. This means I can set the foreground for
+    one colour and the background for another, doubling my effective vertical
+    resolution.
+    """
+    # odd number of columns on purpose
+    codes = groupby(
+            zip((get_rgb(x, y + 0.5, w, h, tol)
+                    for x in range(-w // 2, 1 + w // 2)),
+                (get_rgb(x, y + 1, w, h, tol)
+                    for x in range(-w // 2, 1 + w // 2))))
+    return "{}\x1b[0m".format("".join(
+                "\x1b[38;2;{}m\x1b[48;2;{}m{}"
+                    .format(";".join(map(str, top_rgb)),
+                            ";".join(map(str, bot_rgb)),
+                            "▀" * sum(1 for _ in grouper))
+                    for (top_rgb, bot_rgb), grouper in codes))
 
 def p999():
     """
     Draw a colour wheel
     """
     w, h = (int(SCREEN_USAGE * i) for i in get_dimensions())
-    for y in range(-h // 2, h - h // 2):
-        for x in range(-w // 2, w - w // 2):
-            # Print a unicode upper half-block. This means I can set the
-            # foreground for one colour and the background for another, doubling
-            # my effective vertical resolution.
-            print("\x1b[3{}\x1b[4{}▀".format(
-                get_rgb(x, y, w, h),
-                get_rgb(x, y + 0.5, w, h)), end="")
-        print("\x1b[0m")
+    # the range from 1 within which to do antialiasing
+    tol = sqrt((1 / w) ** 2 + (1 / (2 * h)) ** 2)
+    for y in range(-1 - h // 2, 1 + h // 2):
+        print(build_line(y, w, h, tol))
 
 if __name__ == "__main__":
     p999()
