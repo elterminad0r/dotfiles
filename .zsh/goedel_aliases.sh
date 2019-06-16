@@ -128,7 +128,7 @@ alias feh='feh -d'
 
 # ls aliases, based on what the ls in PATH seems to be capable of
 # https://stackoverflow.com/questions/1676426/how-to-check-the-ls-version
-if silent ls --color -d .; then # GNU ls, probably
+if silent ls --color -d /; then # GNU ls, probably
     # lc_all=c so that sorting is case sensitive, as it should be.
     alias ls='LC_ALL=C ls -h --group-directories-first --color=auto'
     # long listings with and without group of owner
