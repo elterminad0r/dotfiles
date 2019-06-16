@@ -2,6 +2,7 @@
 # hasn't been read yet (eg in a TTY) leading to a misunderstanding about
 # ZDOTDIR.
 
-source "$HOME/.profile"
+>&2 echo "Izaak's zshrc: something has gone horribly wrong"
+
 source "$ZDOTDIR/.zshenv"
 source "$ZDOTDIR/.zshrc"
