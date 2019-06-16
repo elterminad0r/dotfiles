@@ -252,8 +252,7 @@ set pastetoggle=<F2>
 
 " name and shame any actual tabs
 set list
-" I don't know but this certainly doesn't seem to work on vim 800 on MacOS
-if v:version >= 801
+if has("patch-8.1.0759")
     set listchars=tab:<->
 else
     set listchars=tab:>-
