@@ -7,8 +7,8 @@ These are my dotfiles, maintained in Git using
     git clone --bare "https://github.com/goedel-gang/dotfiles" "$HOME/.cfg"
     # cfg stash
     cfg checkout
-    git submodule init
-    git submodule update
+    cfg submodule init
+    cfg submodule update
 
 ![screenshot](https://github.com/goedel-gang/dotfiles/blob/master/extra/README_GRUVBOX.png)
 
