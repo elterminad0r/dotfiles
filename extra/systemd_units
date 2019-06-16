@@ -17,8 +17,9 @@ mysqld.service                              enabled
 NetworkManager-dispatcher.service           enabled
 NetworkManager.service                      enabled
 org.cups.cupsd.service                      enabled
+postfix.service                             enabled
 avahi-daemon.socket                         enabled
 org.cups.cupsd.socket                       enabled
 remote-fs.target                            enabled
 
-21 unit files listed.
+22 unit files listed.

@@ -26,6 +26,7 @@ bluez-utils
 boost
 bsd-games
 bzip2
+calcurse
 cbatticon
 chromium
 clang
@@ -70,6 +71,7 @@ exo
 expac
 expect
 faad2
+fakechroot
 fakeroot
 fbdump
 fbgrab
@@ -83,6 +85,7 @@ file
 filesystem
 findutils
 firefox
+firejail
 flashplugin
 flex
 fontforge
@@ -232,6 +235,7 @@ perl-anyevent-i3
 perl-file-mimeinfo
 perl-image-exiftool
 pkgconf
+postfix
 powerline
 processing
 procps-ng
