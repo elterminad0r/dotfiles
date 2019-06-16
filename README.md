@@ -4,10 +4,11 @@ These are my dotfiles, maintained in Git using
 
     alias cfg='/usr/bin/git --git-dir="$HOME/.cfg/" --work-tree=$HOME'
     cfg config --local status.showUntrackedFiles no
-    git clone --recursive --bare "https://github.com/goedel-gang/dotfiles" "$HOME/.cfg"
-    cfg submodule update --remote
+    git clone --bare "https://github.com/goedel-gang/dotfiles" "$HOME/.cfg"
     # cfg stash
     cfg checkout
+    git submodule init
+    git submodule update
 
 ![screenshot](https://github.com/goedel-gang/dotfiles/blob/master/extra/README_GRUVBOX.png)
 
