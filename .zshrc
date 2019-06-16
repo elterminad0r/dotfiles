@@ -4,5 +4,6 @@
 
 >&2 echo "Izaak's zshrc: something has gone horribly wrong"
 
+source "$HOME/.profile"
 source "$ZDOTDIR/.zshenv"
 source "$ZDOTDIR/.zshrc"
