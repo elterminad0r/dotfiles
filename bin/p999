@@ -8,7 +8,7 @@ your current terminal. For example, the output breaks hilariously in URxvt, and
 if you've got tmux set up to override truecolor, will look blocky in tmux. It
 should look like a smooth colour wheel in that fits on the screen.
 
-It tries to make the circle the right aspect ratio by quering the pixel
+It tries to make the circle the right aspect ratio by querying the pixel
 dimensions of the current window. If this literally breaks, it will fall back to
 the assumption that its output is roughly 1x2 (for example if you don't have
 xwininfo or you're running in tmux). However, if you've got some other
@@ -26,6 +26,7 @@ browser), you're in for a trip.
 
 # TODO: let's make this really fast.
 #       Also add options for explicit ratios, or something else idk
+#       make clearing the screen optional
 
 import sys
 
