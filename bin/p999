@@ -24,6 +24,7 @@ browser), you're in for a trip.
 # TODO: let's make this really fast.
 #       Also add options for explicit ratios, or something else idk
 #       make clearing the screen optional
+#       add option for background colour
 
 import sys
 
@@ -99,11 +100,10 @@ def get_dimensions():
 
 def get_rgb(x, y, w, h, tol):
     """
-    Get a truecolor ANSI code to set the colour Also does some antialiasing -
-    will be black if fully outside circle.
+    Get a truecolor RGB triple to set the colour to. Also does some antialiasing
+    - will be black if fully outside circle.
     """
     dist = 2 * sqrt((x * h) ** 2 + (y * w) ** 2) / (h * w)
-    # print("\x1b[0m", x, y, w, h, hu, s, tol)
     if dist < 1:
         v = 1
     elif dist < 1 + tol:
