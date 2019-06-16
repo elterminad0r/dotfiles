@@ -16,9 +16,6 @@ circumstance that's causing the pixel dimensions to not be the same as the
 actual screen real estate available to the terminal, this circle will probably
 be squashed a little.
 
-By default, it tries to take up about 90% of the screen in the relatively
-shorter dimension.
-
 If you stare into the centre of the pattern closely for a couple of seconds, and
 then quickly switch to something with a white background (like a wall or a
 browser), you're in for a trip.
@@ -37,8 +34,6 @@ from subprocess import run, CalledProcessError
 from itertools import groupby
 from os import getenv
 from re import findall
-
-SCREEN_USAGE = 0.9
 
 def get_window_id():
     """
@@ -96,6 +91,8 @@ def get_dimensions():
     # determine the aspect ratio of one character, in order to print as much of
     # a square as possible.
     ratio = (px_h * w) / (px_w * h)
+    # leave either 4 extra lines or 1 blank column
+    w, h = w - 1, h - 4
     if w < h * ratio:
         return w, int(w / ratio)
     return int(h * ratio), h
@@ -144,7 +141,7 @@ def p999():
     """
     Draw a colour wheel
     """
-    w, h = (int(SCREEN_USAGE * i) // 2 * 2 for i in get_dimensions())
+    w, h = (i // 2 * 2 for i in get_dimensions())
     # the range from 1 within which to do antialiasing
     tol = sqrt((1 / w) ** 2 + (1 / (2 * h)) ** 2)
     for y in range(-h // 2, 1 + h // 2):
