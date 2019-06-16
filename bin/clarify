@@ -2,6 +2,8 @@
 
 """
 Show value of stdin as a Python string.
+
+It's kind of simliar to GNU sed -n l
 """
 
 import sys
