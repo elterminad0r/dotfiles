@@ -1,0 +1,18 @@
+# vim: ft=muttrc
+
+# .__                           .__
+# |  |    ____    ____  _____   |  | _______   ____
+# |  |   /  _ \ _/ ___\ \__  \  |  | \_  __ \_/ ___\
+# |  |__(  <_> )\  \___  / __ \_|  |__|  | \/\  \___
+# |____/ \____/  \___  >(____  /|____/|__|    \___  >
+#                    \/      \/                   \/
+# FIGMENTIZE: localrc
+
+# Muttrc to read mail from /var/spool/mail
+
+# TODO - any way to make this not be specific to "izaak"
+
+set folder=/var/spool/mail
+set mbox=+izaak
+
+source ~/.mutt/muttrc

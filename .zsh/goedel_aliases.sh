@@ -322,8 +322,7 @@ gal() {
     git config --list | grep '^alias' | sed 's/^alias\.//' | grep "$1"
 }
 
-alias mutt='echo "use configured mailbox" >&2'
-alias hills_mail='\mutt -F ~/.mutt/hills_muttrc'
+alias mutt='\mutt -F ~/.mutt/localrc'
 alias gmail='\mutt -F ~/.mutt/gmail_muttrc'
 
 # get most recent n screenshots (1 by default)
