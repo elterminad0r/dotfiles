@@ -25,6 +25,7 @@ browser), you're in for a trip.
 #       Also add options for explicit ratios, or something else idk
 #       make clearing the screen optional
 #       add option for background colour
+#       option to toggle antialiasing?
 
 import sys
 
@@ -104,12 +105,12 @@ def get_rgb(x, y, w, h, tol):
     - will be black if fully outside circle.
     """
     dist = 2 * sqrt((x * h) ** 2 + (y * w) ** 2) / (h * w)
-    if dist < 1:
+    if dist < 1 - tol:
         v = 1
     elif dist < 1 + tol:
-        v = 1 - (dist - 1) / tol
+        v = (1 - dist) / (2 * tol) + 0.5
     else:
-        # used to be v = 0, but we can optimise this away
+        # used to be v = 0, but we can prematurely optimise this case
         return 0, 0, 0
     hu = atan2(y * w, x * h) / (2 * pi) + 0.5
     s = min(dist, 1)
@@ -143,7 +144,7 @@ def p999():
     """
     w, h = (i // 2 * 2 for i in get_dimensions())
     # the range from 1 within which to do antialiasing
-    tol = sqrt((1 / w) ** 2 + (1 / (2 * h)) ** 2)
+    tol = sqrt((1 / w) ** 2 + (1 / (2 * h)) ** 2) / 2
     for y in range(-h // 2, 1 + h // 2):
         print(build_line(y, w, h, tol))
 
