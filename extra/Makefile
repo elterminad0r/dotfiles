@@ -10,7 +10,7 @@ default:
 all: _all
 	make -B $<
 
-_all: pacman_list aur_list etc pip_freeze3 crontab
+_all: pacman_list aur_list etc pip_freeze3 crontab systemd_units
 
 # store user crontab
 crontab:
@@ -30,6 +30,11 @@ aur_list:
 etc: $(ETC_FILES)
 	mkdir -p etc
 	./etc_store $(ETC_FILES)
+	$(CFG) add $@
+
+# TODO: strip frivolities
+systemd_units:
+	systemctl list-unit-files --state=enabled > $@
 	$(CFG) add $@
 
 pip_freeze3:

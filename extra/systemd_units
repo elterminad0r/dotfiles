@@ -1,0 +1,24 @@
+UNIT FILE                                   STATE  
+org.cups.cupsd.path                         enabled
+autovt@.service                             enabled
+avahi-daemon.service                        enabled
+bluetooth.service                           enabled
+cronie.service                              enabled
+cups-browsed.service                        enabled
+dbus-org.bluez.service                      enabled
+dbus-org.freedesktop.Avahi.service          enabled
+dbus-org.freedesktop.NetworkManager.service enabled
+dbus-org.freedesktop.nm-dispatcher.service  enabled
+display-manager.service                     enabled
+getty@.service                              enabled
+lightdm.service                             enabled
+mariadb.service                             enabled
+mysqld.service                              enabled
+NetworkManager-dispatcher.service           enabled
+NetworkManager.service                      enabled
+org.cups.cupsd.service                      enabled
+avahi-daemon.socket                         enabled
+org.cups.cupsd.socket                       enabled
+remote-fs.target                            enabled
+
+21 unit files listed.
