@@ -1,1 +1,1 @@
-source "$ZDOTDIR/zshenv"
+zshenv

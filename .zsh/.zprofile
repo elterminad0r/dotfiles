@@ -1,1 +1,1 @@
-source "$ZDOTDIR/zprofile"
+zprofile
