@@ -220,12 +220,18 @@ set nojoinspaces
 "       tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
 "       * Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
 "         eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+"   FIXME: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+"          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+"      TODO: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+"            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+"            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
 "   (see also: set formatlistpat)
 " l: do not break a line that was already too long before insertion
 set formatoptions+=tcqjronl
 " this makes the vim auto-formatting recognise unordered 'bullet point' lists
 " using -+*, in addition to the default ordered lists with numbers
-set formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*\\\|^\\s*[-+*]\\s*
+" Also, indent things after a TODO more nicely
+set formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*\\\|^\\s*[-+*]\\s*\\\|^\\s*\\(TODO\\\|FIXME\\)[:]\\?\\s*
 " this makes vim recognise \item s in TeX files
 augroup TexListPat
     autocmd! FileType tex
