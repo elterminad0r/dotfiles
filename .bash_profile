@@ -6,4 +6,4 @@
 #      \/      \/      \/      \//_____/|__|                                         \/
 # FIGMENTIZE: bash_profile
 
-[[ -f ~/.bashrc ]] && . ~/.bashrc
+source "$HOME/.bashrc"
