@@ -12,4 +12,4 @@ xset r rate 200 30
 unclutter --timeout 1 &
 compton --no-fading-openclose &
 
-source $HOME/.profile
+source "$HOME/.profile"
