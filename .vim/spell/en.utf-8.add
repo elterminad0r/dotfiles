@@ -11,3 +11,5 @@ Shimmi
 #cmpcpp
 ncmpcpp
 iterable
+stdin
+stdout
