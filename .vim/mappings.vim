@@ -133,7 +133,7 @@ nnoremap <Leader>S :exec "normal! a".RepeatChar(nr2char(getchar()), v:count1)<CR
 " bindings
 nnoremap go o<Esc>
 nnoremap gO O<Esc>
-noremap gg go<Esc>
+nnoremap gg go
 
 " automatically show more information with ^G. Careful not to bind this in
 " mapmode-x, as there it is used to switch from [Visual] to [Selection]

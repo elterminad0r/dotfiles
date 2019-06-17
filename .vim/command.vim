@@ -64,16 +64,17 @@ endfunction
 command! W call W()
 
 " reload/edit configuration files
+" TODO: some kind of centralised idea
 command! Vrc call ReloadVimConf()
-command! Evr e $MYVIMRC " ~/.vim/*rc FIXME - to edit all vimrc files
-command! Egr e $MYGVIMRC
-command! Ezr e ~/.zshrc
-command! Exr e ~/.Xresources
-command! Ear e ~/.goedel_aliases
-command! E3r e ~/.config/i3/config
-command! Efr e ~/fun
-command! Etr e ~/Documents/TODO
-command! Eur e ~/.tmux.conf
+command! Evr argadd  ~/.vim/{vimrc,*.vim,gvimrc} | n
+" TODO: use $ZDOTDIR and $bASHDOTDIR
+command! Ezr argadd ~/.zsh/{zshrc,*.zsh,*.sh,zshenv,zprofile,prompts/*} ~/.bash/* ~/.profile | n
+" TODO: this is a workaround to get just files
+command! Exr argadd ~/.Xresources ~/.X/**/*.* ~/.xinitrc ~/.xprofile | n
+command! E3r argadd ~/.config/i3/config | n
+command! Efr argadd ~/fun | n
+command! Etr argadd ~/Documents/TODO | n
+command! Eur argadd ~/.tmux.conf | n
 
 " command to insert output of ex command into buffer
 " VIMSCRIPT IS SO COOL
