@@ -8,7 +8,7 @@ pattern="$1"
 shift
 
 if grep --version | head -n 1 | grep -q GNU; then
-    grepflags=-iz
+    grepflags=-izZ
     xargsflags=-0
 else
     >&2 echo "warning: grep not safe on newlines: hit Enter to continue"
