@@ -94,6 +94,8 @@ source_if_exists "$ZDOTDIR/dircolors.sh"
 
 source_if_exists "$ZDOTDIR/tmuxopen.sh"
 
+bind '"\C-e": alias-expand-line'
+
 # List Xecutables - print all possible things that could act like a command -
 # that is, Aliases, Builtins, Commands, Keywords
 alias lx="compgen -A function -abck | grep -v '^_' | uniq"
