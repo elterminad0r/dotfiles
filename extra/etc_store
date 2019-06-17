@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
 for file; do
-    cp "$file" ./etc/"${file//\//%}"
+    dest_file="${file//%/%%}"
+    dest_file="./etc/${dest_file//\//%s}"
+    cp "$file" "$dest_file"
 done
