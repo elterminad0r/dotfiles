@@ -1,3 +1,11 @@
+#                                          __
+# ______ _______   ____    _____  ______ _/  |_
+# \____ \\_  __ \ /  _ \  /     \ \____ \\   __\
+# |  |_> >|  | \/(  <_> )|  Y Y  \|  |_> >|  |
+# |   __/ |__|    \____/ |__|_|  /|   __/ |__|
+# |__|                         \/ |__|
+# FIGMENTIZE: prompt
+
 # alternative prompt without any plugins or fancy fonts. Basically emulates
 # the important bits of my powerline prompt
 autoload -Uz vcs_info

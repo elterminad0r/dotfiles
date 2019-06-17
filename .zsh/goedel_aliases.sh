@@ -78,18 +78,15 @@ alias populate_dirstack='find "$HOME" -maxdepth 2 -type d -print0 | while IFS= r
 alias airplane='nmcli radio all off'
 alias unairplane='nmcli radio all on'
 
-# sanitise $1 so that it becomes suitable for use with your basic grep
-function grepsanitise() {
-    sed 's/[].*^$]\|\[/\\&/g' <<< "$1"
-}
-
 # make grep and friends case insensitive
 alias grep='grep -i --color=auto'
 alias ack='ack -i'
 alias ag='ag -i'
+alias rg='rg -i'
 
 # run pascal files as scripts with instantfpc
-alias ifpc='instantfpc'
+# -B to always recompile
+alias ifpc='instantfpc -B'
 
 # FIXME this doesn't actually work because of hoogle for some reason
 alias hoogle='hoogle --color=true'
@@ -98,6 +95,22 @@ alias hoogle='hoogle --color=true'
 alias ccat='highlight -O ansi'
 # an alternative with pygmentize is:
 # alias ccat='pygmentize -g -f terminal'
+
+# cat an eXecutable
+xcat() {
+    loc="$(command -v "$1")" || return 1
+    if silent command -v isutf8; then
+        if isutf8 "$loc"; then
+            cat "$loc"
+        fi
+    # obviously not waterproof: if you have an executable called "text", for
+    # example. But then you deserve this anyway
+    elif file "$loc" | silent grep text; then
+        cat "$loc"
+    else
+        >&2 echo "not a text file"
+    fi
+}
 
 # DIY coloured man pages using an alias so it's faster
 # colours personally engineered to not be utterly disgusting, unlike OMZ's
@@ -164,14 +177,6 @@ alias rm='rm -i'
 alias mv='mv -i'
 alias cp='cp -i'
 
-# never mind about that, it seems to break everything
-# case $OSTYPE in
-#     darwin*)
-#         # because the OSX system vimrc is shite
-#         alias vim='vim -u ~/.vimrc'
-#         ;;
-# esac
-
 # vim is now 60% faster to type than emacs
 # This is an alias that I've quite badly gotten used to. Beware that you might
 # accidentally open actual vi on systems where vi isn't symlinked to vim
@@ -184,11 +189,11 @@ alias view='vim -R'
 
 # open the most recently written session in ~/.vim/sessions
 revim() {
-    local n=${1:-1}
+    local n="${1:-1}"
     # TODO
     # assumes that you've not got any newlines in your session names, because
     # chronological order is a PAIN with find.
-    vim -S "$(\ls -t --directory "$HOME/.vim/sessions"/* | head -n $n | tail -n 1)"
+    vim -S "$(\ls -t --directory "$HOME/.vim/sessions"/* | head -n "$n" | tail -n 1)"
 }
 
 # if light locker exists, alias lock to be alongside poweroff & reboot etc
@@ -259,18 +264,17 @@ alias b='exec bash #'
 alias rbash='sudo HOME="$HOME" bash'
 
 # open various config files
+# TODO: some kind of centralised idea
 alias vi3='vim ~/.config/i3/config'
 alias viz='vim "$ZDOTDIR"/{zshrc,*.zsh,*.sh,zshenv,zprofile,prompts/*} "$BASHDOTDIR"/* ~/.profile'
 alias vig='vim ~/.gitconfig'
 alias vit='vim ~/Documents/TODO'
 alias viv='vim ~/.vim/{vimrc,*.vim,gvimrc}'
-alias vif='vim ~/fun'
-alias vid='vim ~/fun/diary'
-alias vix='vim ~/.Xresources ~/.X/**(.) ~.xinitrc ~/.xprofile'
-alias vic='vim ~/.config'
+alias vid='vim -S ~/.vim/sessions/diary'
+alias vix='vim ~/.Xresources ~/.X/**(.) ~/.xinitrc ~/.xprofile'
+alias vitm='vim ~/.tmux.conf'
 alias visafe='vim -c "set noswapfile nobackup nowritebackup noundofile viminfo="'
 alias vienc='visafe ~/Documents/.enc/'
-alias vitm='vim ~/.tmux.conf'
 
 # reload various types of configuration
 alias x='xrdb -merge -I"$XDOTDIR" ~/.Xresources'
