@@ -203,6 +203,11 @@ map <Leader>s :s/\s\+$//<CR>
 " similar mapping to make text titlecase
 map <Leader>t :s/\v<(.)(\w*)/\u\1\L\2/g<CR>
 
+" FIGMENTOFF
+nnoremap <F5> AFIGMENTIZE:<Space><C-r>%<Esc>
+" FIGMENTOFF
+inoremap <F5> FIGMENTIZE:<Space><C-r>%
+
 " easier window resizing with ^W+++++ and ------ and <<<<<< and >>>>>
 " https://www.vim.org/scripts/script.php?script_id=2223
 " TODO: implement some framework to automate this

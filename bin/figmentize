@@ -8,6 +8,9 @@
 #      \/                      \/      \/      \/                 \/     \/
 # FIGMENTIZE: "Figmentize"
 
+# FIGMENTOFF
+# FIGMENTIZE: should not happen
+
 """
 This is a script I've written to automatically insert figlet ASCII art headers
 into config files. This allows me to easily maintain a unified config file
@@ -22,9 +25,16 @@ backups in ~/.figmentize/.
 """
 
 import re
-import subprocess
 import shlex
 import itertools
+import subprocess
+# needs Python 3.5+
+try:
+    subprocess.run
+except NameError:
+    sys.exit("Geriatric snake? Get with the times")
+
+import collections
 import functools
 
 import sys
@@ -123,6 +133,17 @@ def read_pars(file):
     contents = file.read()
     return contents.split("\n\n"), contents
 
+def roll(iterable, n):
+    """
+    slide a window of width n across an iterable
+    """
+    it = iter(iterable)
+    window = collections.deque(itertools.islice(it, n), maxlen=n)
+    yield window
+    for i in it:
+        window.append(i)
+        yield window
+
 # TODO: add support for flag/command overrides in a figmentize indicator
 def match_head_par(par):
     """
@@ -135,7 +156,9 @@ def match_head_par(par):
     """
     return functools.reduce(lambda a, b: a or b,
             (re.match("(.*?)FIGMENTI[ZS]E:\\s*['\"]?(.*?)['\"]?\\s*$", line)
-                for line in par.split("\n")),
+                for prev, line in roll(itertools.chain([""], par.split("\n")),
+                                       2)
+                if "FIGMENTOFF" not in prev),
             False)
 
 def make_head(prefix, head, command, indicator):

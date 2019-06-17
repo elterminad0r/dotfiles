@@ -1,5 +1,13 @@
 #!/usr/bin/env python3
 
+#         ________   .________  ________
+# ______  \_____  \  |   ____/ /  _____/
+# \____ \  /  ____/  |____  \ /   __  \
+# |  |_> >/       \  /       \\  |__\  \
+# |   __/ \_______ \/______  / \_____  /
+# |__|            \/       \/        \/
+# FIGMENTIZE: p256
+
 """
 This is a script that draws some colours on the terminal using ANSI escape
 codes. It (hopefully) produces the same output as Tom Hale's solution at

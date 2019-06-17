@@ -1,5 +1,13 @@
 #!/usr/bin/env python3
 
+# ___.                      _____    __
+# \_ |__           ____    /  _  \ _/  |_
+#  | __ \  _______/ ___\  /  /_\  \\   __\
+#  | \_\ \/_____/\  \___ /    |    \|  |
+#  |___  /        \___  >\____|__  /|__|
+#      \/             \/         \/
+# FIGMENTIZE: b-cAt
+
 """
 Script to sPoNgEbOb CaPiTaLiSe stdin, or files from argv.
 """

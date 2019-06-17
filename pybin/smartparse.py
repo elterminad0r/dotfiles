@@ -1,3 +1,11 @@
+#                                   __
+#   ______  _____  _____  _______ _/  |_ ______ _____  _______  ______  ____
+#  /  ___/ /     \ \__  \ \_  __ \\   __\\____ \\__  \ \_  __ \/  ___/_/ __ \
+#  \___ \ |  Y Y  \ / __ \_|  | \/ |  |  |  |_> >/ __ \_|  | \/\___ \ \  ___/
+# /____  >|__|_|  /(____  /|__|    |__|  |   __/(____  /|__|  /____  > \___  >
+#      \/       \/      \/               |__|        \/            \/      \/
+# FIGMENTIZE: smartparse
+
 """
 smartparse: modifications to argparse that allow proper paragraph splitting
 while still wrapping properly, and also including defaults by default. Inspired

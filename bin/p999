@@ -1,5 +1,13 @@
 #!/usr/bin/env python3
 
+#         ________  ________  ________
+# ______ /   __   \/   __   \/   __   \
+# \____ \\____    /\____    /\____    /
+# |  |_> >  /    /    /    /    /    /
+# |   __/  /____/    /____/    /____/
+# |__|
+# FIGMENTIZE: p999
+
 """
 This is a script that does some drawing with truecolor escape codes in the
 terminal. It's a nice little exercise in using truecolor escape codes, and in
@@ -19,6 +27,8 @@ be squashed a little.
 If you stare into the centre of the pattern closely for a couple of seconds, and
 then quickly switch to something with a white background (like a wall or a
 browser), you're in for a trip.
+
+It will need Python 3.5+ to run.
 """
 
 # TODO: let's make this really fast.
@@ -32,7 +42,11 @@ import sys
 from colorsys import hsv_to_rgb
 from math import pi, sqrt, atan2
 from shutil import get_terminal_size
-from subprocess import run, CalledProcessError, PIPE
+# this will need python 3.5+
+try:
+    from subprocess import run, CalledProcessError, PIPE
+except ImportError:
+    sys.exit("Geriatric snake? Get with the times")
 from itertools import groupby
 from os import getenv
 from re import findall
