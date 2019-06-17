@@ -112,6 +112,8 @@ xcat() {
     fi
 }
 
+alias gpl="cat /usr/share/licenses/common/GPL3/license.txt"
+
 # DIY coloured man pages using an alias so it's faster
 # colours personally engineered to not be utterly disgusting, unlike OMZ's
 # colored-manpages, apparently.
