@@ -32,7 +32,7 @@ import sys
 from colorsys import hsv_to_rgb
 from math import pi, sqrt, atan2
 from shutil import get_terminal_size
-from subprocess import run, CalledProcessError
+from subprocess import run, CalledProcessError, PIPE
 from itertools import groupby
 from os import getenv
 from re import findall
@@ -46,7 +46,7 @@ def get_window_id():
     else:
         try:
             result = run(["xdotool", "getactivewindow"],
-                    check=True, capture_output=True)
+                    check=True, stdout=PIPE)
             return result.stdout.decode().strip()
         except (CalledProcessError, FileNotFoundError) as e:
             raise FileNotFoundError("Cannot get window id")
@@ -59,7 +59,7 @@ def get_win_dimensions():
     """
     try:
         result = run(["xwininfo", "-id", get_window_id()],
-                check=True, capture_output=True)
+                check=True, stdout=PIPE)
         wininfo_lines = [l.strip() for l in result.stdout.decode().split("\n")]
     except (CalledProcessError, FileNotFoundError) as e:
         print(f"not using xwininfo: {e}", file=sys.stderr)
@@ -68,7 +68,7 @@ def get_win_dimensions():
     try:
         # this is better because xterm gives its geometry in characters
         d_result = run(["xdotool", "getdisplaygeometry"],
-                check=True, capture_output=True)
+                check=True, stdout=PIPE)
         d_w, d_h = map(int, d_result.stdout.decode().split())
         corner_text, = (line for line in wininfo_lines
                 if line.startswith("Corners:"))

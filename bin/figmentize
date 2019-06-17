@@ -39,7 +39,7 @@ def get_figlet_default():
     Get figlet's default font directory
     """
     figlet = subprocess.run(["figlet", "-I", "2"],
-            check=True, capture_output=True)
+            check=True, stdout=subprocess.PIPE)
     return figlet.stdout.decode().strip()
 
 # directory to store backup files in, relative to $HOME. This will be fed to a
@@ -145,7 +145,7 @@ def make_head(prefix, head, command, indicator):
     """
     run = [*command, head]
     print(f"running $ {' '.join(map(shlex.quote, run))}", file=sys.stderr)
-    figlet = subprocess.run(run, check=True, capture_output=True)
+    figlet = subprocess.run(run, check=True, stdout=subprocess.PIPE)
     return "\n".join(itertools.chain(
         ("{}{}".format(prefix, line).rstrip() for line in
             figlet.stdout.decode().rstrip().split("\n")
