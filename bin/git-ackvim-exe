@@ -1,0 +1,22 @@
+#!/usr/bin/env sh
+
+# Git subcommand that opens files with names matching a regular expression
+
+set -e
+
+>&2 echo "searching in $PWD"
+
+if grep --version | head -n 1 | grep -q GNU; then
+    grepflags=-izZ
+    xargsflags=-0
+    gitlsflags=-z
+else
+    >&2 echo "warning: grep not safe on newlines: hit Enter to continue"
+    read -r
+    grepflags=-i
+    xargsflags=
+    gitlsflags=
+fi
+
+# check if grep is GNU to determine whether or not to use nulls.
+git ls-files $gitlsflags | grep $grepflags "$@" | vim-stdin $xargsflags

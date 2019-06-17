@@ -1,0 +1,21 @@
+#!/usr/bin/env sh
+
+# grep for a given pattern in file _names_, opening any matches.
+
+set -eu
+
+pattern="$1"
+shift
+
+if grep --version | head -n 1 | grep -q GNU; then
+    grepflags=-iz
+    xargsflags=-0
+else
+    >&2 echo "warning: grep not safe on newlines: hit Enter to continue"
+    read -r
+    grepflags=-i
+    xargsflags=
+fi
+
+# wacky quoting on purpose, so empty variables are ignored
+printf '%s\0' "$@" | grep $grepflags "$pattern" | vim-stdin $xargsflags

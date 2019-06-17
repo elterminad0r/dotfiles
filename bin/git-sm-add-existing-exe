@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+
+# Git subcommand to register an existing Git repository in the tree as a
+# submodule.
+
+set -eu
+
+pwd
+cd -- "${GIT_PREFIX:-.}"
+pwd
+git submodule add -b master \
+    "$(cd -- "$1"; \
+       git --git-dir=.git --work-tree=. remote get-url origin)" "$1"

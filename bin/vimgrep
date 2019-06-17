@@ -1,0 +1,23 @@
+#!/usr/bin/env sh
+
+# grep for a pattern in given files' _contents_, opening all files with a match
+# in $EDITOR or vim.
+
+set -eu
+
+pattern="$1"
+shift
+
+if grep --version | head -n 1 | grep -q GNU; then
+    grepflags=-liz
+    xargsflags=-0
+else
+    >&2 echo "warning: grep not safe on newlines: hit Enter to continue"
+    read -r
+    grepflags=-li
+    xargsflags=
+fi
+
+# wacky quoting on purpose, so empty variables are ignored
+grep $grepflags "$pattern" "$@" | \
+    GOEDEL_VIMACK_SEARCH="$pattern" vim-stdin $xargsflags

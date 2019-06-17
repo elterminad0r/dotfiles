@@ -27,6 +27,7 @@
 	tool = vimdiff
 [core]
 	excludesfile = ~/.gitignore
+# Git aliases. See also some longer custom git subcommands in ~/bin/git-*
 [alias]
 	c = commit -v
 	ca = commit -v --all
@@ -41,6 +42,7 @@
 	au = add --update
 	unadd = rm --cached
 	chmodx = update-index --chmod=+x
+	chmod-x = update-index --chmod=-x
 	# this is an aliases that expands to a shell command. You can use $1 etc
 	# inside the command and then finish the command with a # to ignore the
 	# supplied arguments.
@@ -51,19 +53,10 @@
 	# edit files and add them afterwards, because typing two commands is for
 	# nerds
 	vim = "!cd -- \"${GIT_PREFIX:-.}\"; \"${EDITOR:-vim}\" \"$@\"; git add \"$@\" #"
-	# open all files that have names matching some regex. Can be used to open
-	# all files, if given no argument. Intricacy where you have to reattach
-	# /dev/tty to vim if using it through xargs. Its arguments are just grep
-	# arguments, so you can pass flags and expressions.
-	# We need to pass the DUMMY argument to take up $0
-	grepvim = "!git ls-files -z | grep -Zzi \"$@\" | xargs -0 bash -c '</dev/tty \"${EDITOR:-vim}\" \"$@\"' DUMMY #"
-	# open all files that have content matching some regex. Same protocol as
-	# vimgrep.
-	vimgrep = "!git grep -liz \"$@\" | xargs -0 bash -c '</dev/tty \"${EDITOR:-vim}\" \"$@\"' DUMMY #"
-	# for losers on systems with terrible greps that don't know -z
-	# (ie me sometimes)
-	losergrepvim = "!git ls-files | grep -i \"$@\" | xargs bash -c '</dev/tty \"${EDITOR:-vim}\" \"$@\"' DUMMY #"
-	sm-add-existing = "!cd -- \"${GIT_PREFIX:-.}\"; git submodule add -b master \"$(cd -- \"$1\"; git --git-dir=.git --work-tree=. remote get-url origin)\" \"$1\" #"
+	vimack = "!git grep -liz \"$1\" | GOEDEL_VIMACK_SEARCH=\"$1\" vim-stdin -0 #"
+	# alias to get tab completion
+	ackvim = "ackvim-exe"
+	sm-add-existing = "sm-add-existing-exe"
 	sm-reattach = "submodule foreach 'git checkout master'"
 	sm-status = "submodule foreach 'git status'"
 	gud = "!echo scrub #"

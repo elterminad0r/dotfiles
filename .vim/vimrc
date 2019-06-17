@@ -152,6 +152,18 @@ endif
 
 nnoremap <silent> <Leader>c :call MakeTags()<CR>
 
+function! GoedelCheckSearch()
+    if !empty($GOEDEL_VIMACK_SEARCH)
+        let @/ = $GOEDEL_VIMACK_SEARCH
+        silent! normal! n
+        call feedkeys(":set hlsearch\<CR>")
+    endif
+endfunction
+
+augroup SearchGoedelPattern
+    autocmd! BufWinEnter * call GoedelCheckSearch()
+augroup END
+
 " workaround because you can't redefine a running function.
 " This means that if this function is modified, YOU MUST EXIT VIM
 if !exists("*ReloadVimConf")

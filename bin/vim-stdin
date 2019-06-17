@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+
+# open files from stdin in vim, and reattach the tty. We need to pass DUMMY to
+# take up $0.
+# https://superuser.com/questions/336016/invoking-vi-through-find-xargs-breaks-my-terminal-why
+
+# Arguments are passed through to xargs
+
+set -eu
+
+xargs "$@" bash -c '
+    if [ "$#" -gt 0 ]; then
+        </dev/tty "${EDITOR:-vim}" "$@"
+    else
+        >&2 echo "no files to edit"
+    fi' DUMMY

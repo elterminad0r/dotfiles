@@ -1,0 +1,24 @@
+#!/usr/bin/env sh
+
+# search recursively a pattern in file _content_, and open matching files in vim
+
+set -eu
+
+pattern="$1"
+
+if grep --version | head -n 1 | grep -q GNU; then
+    grepflags=-lizZ
+    xargsflags=-0
+    findflags=-print0
+else
+    >&2 echo "warning: grep not safe on newlines: hit Enter to continue"
+    read -r
+    grepflags=-li
+    xargsflags=
+    findflags=
+fi
+
+# wacky quoting on purpose, so empty variables are ignored
+find . -type f $findflags | \
+    xargs $xargsflags grep $grepflags "$pattern" | \
+    GOEDEL_VIMACK_SEARCH="$pattern" vim-stdin $xargsflags
