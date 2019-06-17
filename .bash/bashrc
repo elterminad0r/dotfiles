@@ -98,6 +98,12 @@ source_if_exists "$ZDOTDIR/tmuxopen.sh"
 # that is, Aliases, Builtins, Commands, Keywords
 alias lx="compgen -A function -abck | grep -v '^_' | uniq"
 
+# as per `man which`
+which () {
+    (alias; declare -f) | command which --tty-only --read-alias --read-functions --show-tilde --show-dot $@
+}
+export -f which
+
 set -o vi
 
 # use good bash completion.
