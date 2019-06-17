@@ -112,6 +112,7 @@ xcat() {
     fi
 }
 
+# TODO: make this a more versatile command
 alias gpl="cat /usr/share/licenses/common/GPL3/license.txt"
 
 # DIY coloured man pages using an alias so it's faster
