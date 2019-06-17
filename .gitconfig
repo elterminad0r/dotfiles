@@ -25,6 +25,9 @@
 	helper = store
 [merge]
 	tool = vimdiff
+	conflictstyle = diff3
+[diff]
+	tool = vimdiff
 [core]
 	excludesfile = ~/.gitignore
 # Git aliases. See also some longer custom git subcommands in ~/bin/git-*
