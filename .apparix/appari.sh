@@ -331,21 +331,20 @@ function portal-expand() {
             # run in an explicit bash subshell to be able to locally set the
             # right options
             export -f apparix_serialise
-            parentdir="$parentdir" APPARIXEXPAND="$APPARIXEXPAND" bash <<EOF
-            cd -- "\$parentdir" || exit 1
+            parentdir="$parentdir" APPARIXEXPAND="$APPARIXEXPAND" bash -c '
+            cd -- "$parentdir" || exit 1
             shopt -s nullglob
             shopt -u dotglob
             shopt -u failglob
             GLOBIGNORE="./:../"
             for _subdir in */ .*/; do
-                subdir="\${_subdir%/}"
-                parentdir="\$(printf "%s" "\$parentdir" | apparix_serialise)"
-                parentdir="\${parentdir%#}"
-                subdir="\$(printf "%s" "\$subdir" | apparix_serialise)"
-                subdir="\${subdir%#}"
-                echo "j,\$subdir,\$parentdir/\$subdir" >> "\$APPARIXEXPAND"
-            done
-EOF
+                subdir="${_subdir%/}"
+                parentdir="$(printf "%s" "$parentdir" | apparix_serialise)"
+                parentdir="${parentdir%#}"
+                subdir="$(printf "%s" "$subdir" | apparix_serialise)"
+                subdir="${subdir%#}"
+                echo "j,$subdir,$parentdir/$subdir" >> "$APPARIXEXPAND"
+            done'
         done || true
 }
 
