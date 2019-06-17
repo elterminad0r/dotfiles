@@ -75,6 +75,7 @@ source_if_exists "$ZDOTDIR/options.zsh"
 source_if_exists "$ZDOTDIR/keys.zsh"
 
 ZAPPARIXHOME="$ZDOTDIR/apparix"
+ZAPPARIX_ACTIVE=false
 source_if_exists "$ZDOTDIR/apparix.zsh"
 
 alias -g ...='../..'
