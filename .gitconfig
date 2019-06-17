@@ -57,7 +57,7 @@
 	# nerds
 	vim = "!cd -- \"${GIT_PREFIX:-.}\"; \"${EDITOR:-vim}\" \"$@\"; git add \"$@\" #"
 	vimack = "!git grep -liz \"$1\" | GOEDEL_VIMACK_SEARCH=\"$1\" vim-stdin -0 #"
-	# alias to get tab completion
+	# alias to get tab completion in zsh
 	ackvim = "ackvim-exe"
 	sm-add-existing = "sm-add-existing-exe"
 	sm-reattach = "submodule foreach 'git checkout master'"
@@ -65,3 +65,4 @@
 	gud = "!echo scrub #"
 	# https://stackoverflow.com/questions/673407/how-do-i-clear-my-local-working-directory-in-git
 	mkempty = "!true | git mktree | xargs git commit-tree | xargs git tag empty"
+	du = "!git ls-files -z | xargs -0 du -sbh | sort -h"
