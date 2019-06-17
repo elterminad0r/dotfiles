@@ -145,6 +145,7 @@ def roll(iterable, n):
         yield window
 
 # TODO: add support for flag/command overrides in a figmentize indicator
+#       automatically insert the file name from %?
 def match_head_par(par):
     """
     Check to see if the paragraph has a figlet heading indicator (that looks
