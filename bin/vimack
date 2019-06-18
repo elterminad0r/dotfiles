@@ -1,6 +1,7 @@
 #!/usr/bin/env sh
 
-# search recursively a pattern in file _content_, and open matching files in vim
+# search recursively for a pattern in file _content_, and open matching files in
+# $EDITOR or vim
 
 set -eu
 
