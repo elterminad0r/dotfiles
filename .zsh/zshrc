@@ -44,14 +44,9 @@ source_if_exists "$ZDOTDIR/dircolors.sh"
 # provides things like the $fg_bold array
 autoload -Uz colors && colors
 
-HELPDIR=/usr/share/zsh/5.7.1/help/
-if [[ -d "$HELPDIR" ]]; then
-    unalias run-help
-    autoload -Uz run-help
-    alias help='run-help'
-else
-    >&2 echo "Izaak's zshrc: could not find help directory"
-fi
+unalias run-help
+autoload -Uz run-help
+alias help='run-help'
 
 # killer feature!
 # make rprompt go away when I move on. This hugely reduces clutter when you
