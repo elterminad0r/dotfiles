@@ -8,48 +8,50 @@ default:
 	$(error from Goedel: select an explicit target)
 
 arch: _arch
-	make -B $<
+	@make -B $<
+	@$(CFG) status
 
 _arch: pacman_list aur_list etc pip_freeze3 crontab.arch systemd_units
 
 mac: _mac
-	make -B $<
+	@make -B $<
+	@$(CFG) status
 
 _mac: brew_list crontab.mac
 
 # store user crontab
 crontab.arch:
 	crontab -l > $@
-	$(CFG) add $@
+	@$(CFG) add $@
 
 crontab.mac:
 	crontab -l > $@
-	$(CFG) add $@
+	@$(CFG) add $@
 
 # this is a simplistic way to keep track of which packages I have
 pacman_list:
 	pacman -Qqen > $@
-	$(CFG) add $@
+	@$(CFG) add $@
 
 aur_list:
 	pacman -Qqem > $@
-	$(CFG) add $@
+	@$(CFG) add $@
 
 brew_list:
 	brew leaves > $@
-	$(CFG) add $@
+	@$(CFG) add $@
 
 # this is a very simplistic way to track files in /etc among my dotfiles
 etc:
 	mkdir -p etc
 	./etc_store $(ETC_FILES)
-	$(CFG) add $@
+	@$(CFG) add $@
 
 # TODO: strip frivolities
 systemd_units:
 	systemctl list-unit-files --state=enabled > $@
-	$(CFG) add $@
+	@$(CFG) add $@
 
 pip_freeze3:
 	python3 -m pip freeze --user > $@
-	$(CFG) add $@
+	@$(CFG) add $@
