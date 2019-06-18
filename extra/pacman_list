@@ -115,6 +115,7 @@ gnome-mahjongg
 gnome-mines
 gnome-power-manager
 gnome-terminal
+gnu-netcat
 gnuchess
 gnuplot
 go
@@ -217,6 +218,7 @@ network-manager-applet
 networkmanager
 networkmanager-dispatcher-ntpd
 newsboat
+nmap
 nodejs
 noto-fonts-emoji
 npm
@@ -329,6 +331,7 @@ shellcheck
 simplescreenrecorder
 smartmontools
 sox
+sshpass
 strace
 sudo
 swi-prolog
