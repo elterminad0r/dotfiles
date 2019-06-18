@@ -12,4 +12,7 @@ xset r rate 200 30
 unclutter --timeout 1 &
 compton --no-fading-openclose &
 
-source "$HOME/.profile"
+. "$HOME/.profile"
+
+[ -f ~/.Xresources ] && xrdb -merge -I"$XDOTDIR" ~/.Xresources
+[ -f ~/.Xmodmap ] && xmodmap ~/.Xmodmap

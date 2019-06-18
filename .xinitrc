@@ -8,9 +8,7 @@
 #       \/         \/                         \/
 # FIGMENTIZE: xinitrc
 
-[[ -f /etc/xprofile ]] && . /etc/xprofile
-[[ -f ~/.xprofile ]] && . ~/.xprofile
-[[ -f ~/.Xresources ]] && xrdb -merge -I"$XDOTDIR" ~/.Xresources
-[[ -f ~/.Xmodmap ]] && xmodmap ~/.Xmodmap
+[ -f /etc/xprofile ] && . /etc/xprofile
+[ -f ~/.xprofile ] && . ~/.xprofile
 
 exec i3
