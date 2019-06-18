@@ -35,12 +35,14 @@ for arg; do
     esac
 done
 
-pattern="${1:-}"
-shift
-
-if [[ "$#" = "0" ]]; then
+if [ "$#" -le "1" ]; then
     >&2 echo "need files - did you want vimack?"
+    >&2 usage
+    exit 1
 fi
+
+pattern="$1"
+shift
 
 if grep --version | head -n 1 | grep -q GNU; then
     grepflags=-liZ
