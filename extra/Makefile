@@ -5,15 +5,24 @@ CFG = git --git-dir ~/.cfg --work-tree ~
 ETC_FILES = /etc/locale.gen /etc/locale.conf /etc/profile.d/libreoffice-still.sh /etc/lightdm/lightdm-gtk-greeter.conf /etc/mysql/my.cnf /etc/pacman.conf /etc/pacman.d/mirrorlist /etc/systemd/logind.conf /etc/texmf/web2c/fmtutil.cnf /etc/pam.d/su /etc/pam.d/su-l /etc/postfix/aliases /etc/postfix/master.cf /etc/postfix/main.cf
 
 default:
-	$(error from Goedel: select an explicit target or all)
+	$(error from Goedel: select an explicit target)
 
-all: _all
+arch: _arch
 	make -B $<
 
-_all: pacman_list aur_list etc pip_freeze3 crontab systemd_units
+_arch: pacman_list aur_list etc pip_freeze3 crontab.arch systemd_units
+
+mac: _mac
+	make -B $<
+
+_mac: brew_list crontab.mac
 
 # store user crontab
-crontab:
+crontab.arch:
+	crontab -l > $@
+	$(CFG) add $@
+
+crontab.mac:
 	crontab -l > $@
 	$(CFG) add $@
 
@@ -26,8 +35,12 @@ aur_list:
 	pacman -Qqem > $@
 	$(CFG) add $@
 
+brew_list:
+	brew leaves > $@
+	$(CFG) add $@
+
 # this is a very simplistic way to track files in /etc among my dotfiles
-etc: $(ETC_FILES)
+etc:
 	mkdir -p etc
 	./etc_store $(ETC_FILES)
 	$(CFG) add $@
