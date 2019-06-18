@@ -37,4 +37,4 @@
 # Ranges or lists of names are not allowed.
 
 */30 * * * * DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus DISPLAY=:0 PYTHONPATH="$HOME/pybin:$PYTHONPATH" "$HOME/bin/randombg" --random
-0 * * * * cd "$HOME/extra" && make all
+0 * * * * cd "$HOME/extra" && make arch
