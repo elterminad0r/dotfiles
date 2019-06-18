@@ -32,36 +32,36 @@
 	excludesfile = ~/.gitignore
 # Git aliases. See also some longer custom git subcommands in ~/bin/git-*
 [alias]
-	c = commit -v
-	ca = commit -v --all
-	co = checkout
-	st = status --show-stash
+	c = "commit -v"
+	ca = "commit -v --all"
+	co = "checkout"
+	st = "status --show-stash"
 	# consistent with the existence of `git rm`, `git mv`, etc
-	ls = ls-files
-	unstage = reset HEAD --
-	unchange = checkout --
-	a = add
-	aa = add --all
-	au = add --update
-	unadd = rm --cached
-	chmodx = update-index --chmod=+x
-	chmod-x = update-index --chmod=-x
+	ls = "ls-files"
+	unstage = "reset HEAD --"
+	unchange = "checkout --"
+	a = "add"
+	aa = "add --all"
+	au = "add --update"
+	unadd = "rm --cached"
+	chmodx = "update-index --chmod=+x"
+	chmod-x = "update-index --chmod=-x"
 	# this is an aliases that expands to a shell command. You can use $1 etc
 	# inside the command and then finish the command with a # to ignore the
 	# supplied arguments.
 	grephistory = "!git rev-list --all | xargs git grep"
 	# git is surprisingly clever here - the git ls-files knows to use the bare
 	# repository when it's cfg.
-	figmentize = "!git grep -lz FIGMENTIZE | xargs -0 -n1 figmentize"
+	figmentize = "!git grep -lz FIGMENTIZE | xargs -0 -n1 figmentize #"
 	# edit files and add them afterwards, because typing two commands is for
 	# nerds
 	vim = "!cd -- \"${GIT_PREFIX:-.}\"; \"${EDITOR:-vim}\" \"$@\"; git add \"$@\" #"
 	# alias to get tab completion in zsh
 	vimack = "vimack-exe"
 	sm-add-existing = "sm-add-existing-exe"
-	sm-reattach = "submodule foreach 'git checkout master'"
-	sm-status = "submodule foreach 'git status'"
+	sm-reattach = "submodule foreach 'git checkout master' #"
+	sm-status = "submodule foreach 'git status' #"
 	gud = "!echo scrub #"
 	# https://stackoverflow.com/questions/673407/how-do-i-clear-my-local-working-directory-in-git
-	mkempty = "!true | git mktree | xargs git commit-tree | xargs git tag empty"
-	du = "!git ls-files -z | xargs -0 du -sbh | sort -h"
+	mkempty = "!true | git mktree | xargs git commit-tree | xargs git tag empty #"
+	du = "!git ls-files -z | xargs -0 du -sbh | sort -h #"
