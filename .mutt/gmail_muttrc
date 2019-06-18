@@ -12,16 +12,16 @@ set spoolfile="=INBOX"
 set record="+sent"
 set postponed="+postponed"
 
-set realname = "Izaak van Dongen"
-set from = "izaak.van.dongen@gmail.com"
 set envelope_from = yes
 
 set folder = imaps://imap.gmail.com/
+# set realname = "My Name"
 # set imap_user = "my.name@gmail.com"
 # set imap_pass = "hunter2"
 source ~/.mutt/.gmail_pass
 set smtp_url = smtps://$imap_user@smtp.gmail.com/
 set smtp_pass = $imap_pass
+set from = $imap_user
 
 set spoolfile = "=INBOX"
 set record = "=[Gmail]/Sent Mail"
