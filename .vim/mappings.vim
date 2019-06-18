@@ -108,7 +108,7 @@ xnoremap <silent> * :<C-U>call <SID>VSetSearch('/')<CR>/<C-R>/<CR>
 xnoremap <silent> # :<C-U>call <SID>VSetSearch('?')<CR>?<C-R>/<CR>
 " vmap <kMultiply> *
 nmap <silent> <Plug>VLToggle :let g:VeryLiteral = !g:VeryLiteral
-  \\| echo "VeryLiteral " . (g:VeryLiteral ? "On" : "Off")<CR>
+  \ <bar> echo "VeryLiteral " . (g:VeryLiteral ? "On" : "Off")<CR>
 " if !hasmapto("<Plug>VLToggle")
 "   nmap <unique> <Leader>vl <Plug>VLToggle
 " endif
@@ -221,12 +221,12 @@ nnoremap <Leader>xgx :%!xxd<CR>
 nnoremap <Leader>xgX :%!xxd -r<CR>
 nnoremap <Leader>xb :.!xxd -b<CR>
 xnoremap <Leader>xb :!xxd -b<CR>
-nnoremap <Leader>xB :.!xxd-bin-hex \| xxd -r -p<CR>
-xnoremap <Leader>xB :!xxd-bin-hex \| xxd -r -p<CR>
+nnoremap <Leader>xB :.!xxd-bin-hex <bar> xxd -r -p<CR>
+xnoremap <Leader>xB :!xxd-bin-hex <bar> xxd -r -p<CR>
 nnoremap <Leader>xgb :%!xxd -b<CR>
-nnoremap <Leader>xgB :%!xxd-bin-hex \| xxd -r -p<CR>
-nnoremap <Leader>xtx :.!xxd-bin-hex \| xxd -r -p \| xxd<CR>
-xnoremap <Leader>xtx :!xxd-bin-hex \| xxd -r -p \| xxd<CR>
+nnoremap <Leader>xgB :%!xxd-bin-hex <bar> xxd -r -p<CR>
+nnoremap <Leader>xtx :.!xxd-bin-hex <bar> xxd -r -p <bar> xxd<CR>
+xnoremap <Leader>xtx :!xxd-bin-hex <bar> xxd -r -p <bar> xxd<CR>
 
 " mappings for cApItAlIsAtIoN
 " TODO: make a proper operator of this
