@@ -329,7 +329,7 @@ gal() {
     git config --list | grep '^alias' | sed 's/^alias\.//' | grep "$1"
 }
 
-alias mutt='\mutt -F ~/.mutt/localrc'
+alias mutt='\mutt -F <(cat <(~/.mutt/make_localrc.sh /var/spool/mail /var/mail) ~/.mutt/localrc)'
 alias gmail='\mutt -F ~/.mutt/gmail_muttrc'
 
 # get most recent n screenshots (1 by default)
