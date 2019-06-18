@@ -62,6 +62,11 @@ inoremap <silent> <F3> <C-o>:call IToggleHighlight()<CR>
 map <F4> m'<Plug>CommentaryLine``
 imap <F4> <C-o>m'<C-o><Plug>CommentaryLine<C-o>``
 
+" FIGMENTOFF
+nnoremap <F5> AFIGMENTIZE:<Space><C-r>%<Esc>
+" FIGMENTOFF
+inoremap <F5> FIGMENTIZE:<Space><C-r>%
+
 " Store the original carriage return for the CR fans
 nnoremap g<CR> <CR>
 
@@ -193,20 +198,42 @@ noremap gQ Q
 
 " map <Leader>wq :w<CR>:bd<CR>
 " A nice and easy mapping to close a buffer, without closing vim
-nmap <Leader>q :bd<CR>
+nnoremap <Leader>q :bd<CR>
 
-" A quick way to strip trailing whiteSpace. Select an area in visual mode, and
-" hit <Leader>s.
-" TODO: make this a proper operator
-map <Leader>s :s/\s\+$//<CR>
+" A quick way to strip trailing whitespace. Select an area in visual mode, or
+" go to a line in normal mode, and hit <Leader>s
+" TODO: make this an operator
+nnoremap <Leader>s :.s/\s\+$//<CR>
+xnoremap <Leader>s :s/\s\+$//<CR>
 
 " similar mapping to make text titlecase
-map <Leader>t :s/\v<(.)(\w*)/\u\1\L\2/g<CR>
+nnoremap <Leader>t :.s/\v<(.)(\w*)/\u\1\L\2/g<CR>
+xnoremap <Leader>t :s/\v<(.)(\w*)/\u\1\L\2/g<CR>
 
-" FIGMENTOFF
-nnoremap <F5> AFIGMENTIZE:<Space><C-r>%<Esc>
-" FIGMENTOFF
-inoremap <F5> FIGMENTIZE:<Space><C-r>%
+" Converting to and from hex or binary dumps
+" xxd should have been packaged together with vim, and xxd-bin-hex is a Python
+" script in my ~/bin.
+nnoremap <Leader>xx :.!xxd<CR>
+xnoremap <Leader>xx :!xxd<CR>
+nnoremap <Leader>xX :.!xxd -r<CR>
+xnoremap <Leader>xX :!xxd -r<CR>
+nnoremap <Leader>xgx :%!xxd<CR>
+nnoremap <Leader>xgX :%!xxd -r<CR>
+nnoremap <Leader>xb :.!xxd -b<CR>
+xnoremap <Leader>xb :!xxd -b<CR>
+nnoremap <Leader>xB :.!xxd-bin-hex \| xxd -r -p<CR>
+xnoremap <Leader>xB :!xxd-bin-hex \| xxd -r -p<CR>
+nnoremap <Leader>xgb :%!xxd -b<CR>
+nnoremap <Leader>xgB :%!xxd-bin-hex \| xxd -r -p<CR>
+nnoremap <Leader>xtx :.!xxd-bin-hex \| xxd -r -p \| xxd<CR>
+xnoremap <Leader>xtx :!xxd-bin-hex \| xxd -r -p \| xxd<CR>
+
+" mappings for cApItAlIsAtIoN
+" TODO: make a proper operator of this
+nnoremap <Leader>gu :.!b-cAt<CR>
+xnoremap <Leader>gu :!b-cAt<CR>
+nnoremap <Leader>gU :.!b-cAt -r<CR>
+xnoremap <Leader>gU :!b-cAt -r<CR>
 
 " easier window resizing with ^W+++++ and ------ and <<<<<< and >>>>>
 " https://www.vim.org/scripts/script.php?script_id=2223
