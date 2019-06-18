@@ -1,4 +1,5 @@
 #!/usr/bin/env sh
+
 # Similar to vimack, except it's a Git subcommand that searches the Git
 # repository.
 

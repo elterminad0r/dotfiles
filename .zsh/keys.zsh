@@ -19,9 +19,11 @@ bindkey "^H" backward-delete-char
 bindkey "^?" backward-delete-char
 bindkey "^U" backward-kill-line
 bindkey "^W" backward-kill-word
+
 # allow ctrl-p, ctrl-n for navigate history (standard behaviour)
 bindkey '^P' up-history
 bindkey '^N' down-history
+
 bindkey '^E' _expand_alias
 bindkey -M vicmd "K" run-help
 
