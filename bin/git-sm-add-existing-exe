@@ -5,6 +5,36 @@
 
 set -eu
 
+usage() {
+    cat <<EOF
+git sm-add-existing-exe [-h|--help] SUBMODULE
+Perform 'git submodule add' on the existing Git repository SUBMODULE, setting
+the tracking branch to master on the remote repository at the location of the
+origin remote within SUBMODULE.
+EOF
+}
+
+# no need for anything so sophisticated as getopts. Furthermore, I like to be
+# able to put -h after positional arguments.
+for arg; do
+    case "$arg" in
+        "-h"|"--help")
+            usage;
+            exit 0;
+            ;;
+        "--")
+            break;
+            ;;
+        "-"*)
+            >&2 echo "unrecognised option: $arg";
+            >&2 usage;
+            exit 1;
+            ;;
+        *)
+            ;;
+    esac
+done
+
 echo "pwd: $PWD"
 cd -- "${GIT_PREFIX:-.}"
 echo "pwd: $PWD"

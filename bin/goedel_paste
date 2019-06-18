@@ -4,6 +4,37 @@ silent() {
     "$@" > /dev/null 2> /dev/null
 }
 
+usage() {
+    cat <<EOF
+goedel_paste [-h|--help]
+Attempt to write the contents of the system clipboard to stdout, by trying to
+figure out what system it's on and what executables are available. Should
+certainly work on MacOS and X on Linux if you have one of the clipboard
+interfaces installed (xclip, xsel).
+EOF
+}
+
+# no need for anything so sophisticated as getopts. Furthermore, I like to be
+# able to put -h after positional arguments.
+for arg; do
+    case "$arg" in
+        "-h"|"--help")
+            usage;
+            exit 0;
+            ;;
+        "--")
+            break;
+            ;;
+        "-"*)
+            >&2 echo "unrecognised option: $arg";
+            >&2 usage;
+            exit 1;
+            ;;
+        *)
+            ;;
+    esac
+done
+
 case "$(uname -s)" in
     Darwin)
         pbpaste
