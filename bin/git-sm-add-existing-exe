@@ -5,9 +5,9 @@
 
 set -eu
 
-pwd
+echo "pwd: $PWD"
 cd -- "${GIT_PREFIX:-.}"
-pwd
+echo "pwd: $PWD"
 git submodule add -b master \
     "$(cd -- "$1"; \
        git --git-dir=.git --work-tree=. remote get-url origin)" "$1"

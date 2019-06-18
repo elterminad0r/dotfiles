@@ -5,6 +5,36 @@
 
 set -eu
 
+usage() {
+    cat <<EOF
+vimgrep [-h|--help] PATTERN FILE [FILE...]
+Search for the regular expression PATTERN in the contents of given FILES.
+
+Open any files with matching contents in \$EDITOR or vim.
+EOF
+}
+
+# no need for anything so sophisticated as getopts. Furthermore, I like to be
+# able to put -h after positional arguments.
+for arg; do
+    case "$arg" in
+        "-h"|"--help")
+            usage;
+            exit 0;
+            ;;
+        "--")
+            break;
+            ;;
+        "-"*)
+            >&2 echo "unrecognised option: $arg";
+            >&2 usage;
+            exit 1;
+            ;;
+        *)
+            ;;
+    esac
+done
+
 pattern="${1:-}"
 shift
 
@@ -19,7 +49,7 @@ else
     >&2 echo "warning: grep not safe on newlines: hit Enter to continue"
     read -r
     grepflags=-li
-    xargsflags=
+    xargsflags=-d'\n'
 fi
 
 # wacky quoting on purpose, so empty variables are ignored

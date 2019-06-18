@@ -56,9 +56,8 @@
 	# edit files and add them afterwards, because typing two commands is for
 	# nerds
 	vim = "!cd -- \"${GIT_PREFIX:-.}\"; \"${EDITOR:-vim}\" \"$@\"; git add \"$@\" #"
-	vimack = "!git grep -liz \"$1\" | GOEDEL_VIMACK_SEARCH=\"$1\" vim-stdin -0 #"
 	# alias to get tab completion in zsh
-	ackvim = "ackvim-exe"
+	vimack = "vimack-exe"
 	sm-add-existing = "sm-add-existing-exe"
 	sm-reattach = "submodule foreach 'git checkout master'"
 	sm-status = "submodule foreach 'git status'"

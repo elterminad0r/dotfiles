@@ -1,28 +1,14 @@
 #!/usr/bin/env sh
-
-# search recursively for a pattern in file contents *and* file names, and open
-# matching files in $EDITOR or vim.
-
-# The first argument, if present, is a regular expression (for whatever grep you
-# have on your sytsem) to search for in files.
-
-# The second argument, if present, is a similar regular expression to filter
-# file names by.
-
-# If either one is empty, it will match everything, as expected.
-
-# Aims to be mostly functional if you have only POSIX utilities.
+# Similar to vimack, except it's a Git subcommand that searches the Git
+# repository.
 
 set -eu
 
 usage() {
     cat <<EOF
-vimack [-h|--help] [CONTENT_PATTERN [FILENAME_PATTERN]]
-Search for the (grep) regular expression CONTENT_PATTERN recursively in current
-directory, in files with names matching (the grep regex) FILENAME_PATTERN, if
-given. An empty pattern matches everything.
-
-Open any matching files in \$EDITOR or vim.
+git vimack-exe [-h|--help] [CONTENT_PATTERN [FILENAME_PATTERN]]
+Search for CONTENT_PATTERN recursively in current directory, in files with names
+matching FILENAME_PATTERN, if given. An empty pattern matches everything.
 EOF
 }
 
@@ -55,7 +41,7 @@ if grep --version | head -n 1 | grep -q GNU &&
     grep_content_flags=-liZ
     grep_filename_flags=-iZz
     xargsflags=-0
-    findflags=-print0
+    gitlsflags=-z
     sortflags=-z
 else
     >&2 echo "warning: grep not safe on newlines: hit Enter to continue"
@@ -63,14 +49,16 @@ else
     grep_content_flags=-li
     grep_filename_flags=-i
     xargsflags=-d'\n'
-    findflags=
+    gitlsflags=
     sortflags=
 fi
 
-file_dump="/tmp/vimack_$(date +%s)"
+file_dump="/tmp/git-vimack_$(date +%s)"
+
+>&2 echo "searching in $PWD"
 
 # wacky quoting on purpose, so empty variables are ignored
-find . -type f $findflags | \
+git ls-files $gitlsflags | \
     grep $grep_filename_flags "$filename_pattern" | \
     xargs $xargsflags grep $grep_content_flags "$content_pattern" | \
     sort $sortflags | \
