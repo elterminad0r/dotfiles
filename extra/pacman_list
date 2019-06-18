@@ -28,6 +28,7 @@ bsd-games
 bzip2
 calcurse
 cbatticon
+cheese
 chromium
 clang
 cloc
@@ -108,8 +109,13 @@ gifsicle
 gimp
 git
 glibc
+gnome-2048
+gnome-chess
+gnome-mahjongg
+gnome-mines
 gnome-power-manager
 gnome-terminal
+gnuchess
 gnuplot
 go
 gobject-introspection
