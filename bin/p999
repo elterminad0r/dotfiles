@@ -76,7 +76,7 @@ def get_win_dimensions():
                 check=True, stdout=PIPE)
         wininfo_lines = [l.strip() for l in result.stdout.decode().split("\n")]
     except (CalledProcessError, FileNotFoundError) as e:
-        print(f"not using xwininfo: {e}", file=sys.stderr)
+        print("not using xwininfo: {}".format(e), file=sys.stderr)
         w, h = get_terminal_size()
         return w, h * 2
     try:
@@ -93,7 +93,7 @@ def get_win_dimensions():
         # - 1 + 1 so that a full screen window is calculated correctly.
         return (x_r - x_l - 1) % d_w + 1, (y_b - y_t - 1) % d_h + 1
     except (CalledProcessError, FileNotFoundError) as e:
-        print(f"not using xdotool: {e}", file=sys.stderr)
+        print("not using xdotool: {}".format(e), file=sys.stderr)
         geom, = (line for line in wininfo_lines if line.startswith("-geometry"))
         w, h, *_ = map(int, findall(r"\d+", geom))
         return w, h

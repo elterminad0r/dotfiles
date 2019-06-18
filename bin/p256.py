@@ -16,12 +16,12 @@ https://askubuntu.com/questions/821157/print-a-256-color-test-pattern-in-the-ter
 
 for i in range(8):
     if i == 0:
-        print(f"\x1b[4{i}m{i:3}\x1b[0m", end="")
+        print("\x1b[4{0}m{0:3}\x1b[0m".format(i), end="")
     else:
-        print(f" \x1b[4{i};30m{i:3}\x1b[0m", end="")
+        print(" \x1b[4{0};30m{0:3}\x1b[0m".format(i), end="")
 
 for i in range(8, 16):
-    print(f" \x1b[10{i - 8};30m{i:3}\x1b[0m", end="")
+    print(" \x1b[10{};30m{:3}\x1b[0m".format(i - 8, i), end="")
 
 print()
 print()
@@ -33,9 +33,10 @@ for row in range(2):
                 i = 16 + (row * 3 + col) * 6 ** 2 + y * 6 + x
                 end = "" if x == 5 and col == 2 else " "
                 if y < 3:
-                    print(f"\x1b[48;5;{i}m{i:3}\x1b[0m", end=end)
+                    print("\x1b[48;5;{0}m{0:3}\x1b[0m".format(i), end=end)
                 else:
-                    print(f"\x1b[48;5;{i}m\x1b[38;5;0m{i:3}\x1b[0m", end=end)
+                    print("\x1b[48;5;{0}m\x1b[38;5;0m{0:3}\x1b[0m".format(i),
+                            end=end)
             if col != 2:
                 print("  ", end="")
         print()
@@ -44,11 +45,11 @@ for row in range(2):
 for x in range(12):
     i = 232 + x
     end = "" if x == 11 else " "
-    print(f"\x1b[48;5;{i}m{i:3}\x1b[0m", end=end)
+    print("\x1b[48;5;{0}m{0:3}\x1b[0m".format(i), end=end)
 print()
 
 for x in range(12):
     i = 244 + x
     end = "" if x == 11 else " "
-    print(f"\x1b[48;5;{i}m\x1b[38;5;0m{i:3}\x1b[0m", end=end)
+    print("\x1b[48;5;{0}m\x1b[38;5;0m{0:3}\x1b[0m".format(i), end=end)
 print()

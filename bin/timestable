@@ -63,10 +63,15 @@ def timestable(w, h):
     pad = len(str(w * h)) + 1
     xr = range(1, w + 1)
     yr = range(1, h + 1)
-    print(f"{MULT:>{pad}} {VERT}{''.join(f'{x:>{pad}}' for x in xr)}")
-    print(f"{'':{HORZ}>{pad}}{HORZ}{CROS}{'':{HORZ}>{pad * w}}")
+    print("{MULT:>{pad}} {VERT}{0}".format(
+        "".join('{:>{pad}}'.format(x, pad=pad) for x in xr),
+        pad=pad, MULT=MULT, VERT=VERT))
+    print("{0:{HORZ}>{pad}}{HORZ}{CROS}{0:{HORZ}>{1}}".format(
+            "", pad * w, HORZ=HORZ, pad=pad, CROS=CROS))
     for y in yr:
-        print(f"{y:>{pad}} {VERT}{''.join(f'{x * y:>{pad}}' for x in xr)}")
+        print("{0:>{pad}} {VERT}{1}".format(
+            y, "".join("{:>{pad}}".format(x * y, pad=pad) for x in xr),
+            pad=pad, VERT=VERT))
 
 def get_args():
     parser = argparse.ArgumentParser(description=__doc__)

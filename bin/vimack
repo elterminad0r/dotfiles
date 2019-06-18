@@ -8,7 +8,7 @@ set -eu
 pattern="$1"
 
 if grep --version | head -n 1 | grep -q GNU; then
-    grepflags=-lizZ
+    grepflags=-liZ
     xargsflags=-0
     findflags=-print0
 else

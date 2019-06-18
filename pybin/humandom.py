@@ -41,4 +41,5 @@ if __name__ == "__main__":
     from itertools import islice
     for _k in range(20):
         k = 0.1 * _k
-        print(f"k={k:4.2f}: {''.join(' @'[i] for i in islice(heads_tails(k), 50))}")
+        print("k={:4.2f}: {}".format(
+            k, "".join(" @"[i] for i in islice(heads_tails(k), 50))))

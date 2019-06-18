@@ -43,7 +43,7 @@ def ensure_cache():
     if not STACK.exists():
         Notify.Notification.new(
                 "randombg",
-                f"Creating {STACK!s}")
+                "Creating {!s}".format(stack))
     STACK.parent.mkdir(parents=True, exist_ok=True)
     return STACK
 
@@ -61,7 +61,7 @@ class BackgroundStack:
         else:
             Notify.Notification.new(
                     "randombg",
-                    f"{choice} (s:{self.pos})").show()
+                    "{} (s:{})".format(choice, self.pos)).show()
             subprocess.call(
                     ["feh", "--bg-scale", str(choice)])
 
