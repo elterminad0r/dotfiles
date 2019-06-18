@@ -362,6 +362,8 @@ alias pacsystree='for i in $(pacman -Qeq); do pactree $i; done'
 alias tolower='tr "[:upper:]" "[:lower:]"'
 alias toupper='tr "[:lower:]" "[:upper:]"'
 
+alias rot13='tr "A-Za-z" "N-ZA-Mn-za-m"'
+
 # Frivolous aliases
 
 # make figlet use my extra figlet fonts
