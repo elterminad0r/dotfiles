@@ -376,6 +376,7 @@ call plug#begin('~/.vim/bundle')
         " let g:UltiSnipsSnippetsDir = $HOME.'/vimfiles/bundle/vim-snippets/UltiSnips'
         " let g:UltiSnipsSnippetDirectories = ['UltiSnips']
         Plug 'SirVer/ultisnips'
+        " TODO: maybe move away from this, it's a little intrusive
     endif
 
     " " vimtex options

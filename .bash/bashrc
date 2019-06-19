@@ -13,15 +13,6 @@
 # cutting edge readline features with gay abandon, so you'll probably need at
 # least bash 4.something, idk ask someone who uses bash.
 
-# vim-like: totally silence the given command, with less of the tedium. doesn't
-# affect return status, so can be used inside if statements.
-# black magic: "$@" expands to each argument as a separate word.
-# gotcha: this won't expand any aliases you have. This is probably preferred
-# functionality anyway, though (at least for me)
-silent() {
-    "$@" > /dev/null 2> /dev/null
-}
-
 # define this function so that I can source things with impunity, but my bashrc
 # won't break as hard if taken out of context.
 # it goes through all of its arguments, stopping as soon as it can source any
@@ -52,7 +43,7 @@ version_assert() {
 }
 
 # read lines of file "$1" into goedel_array
-if silent version_assert 4 0 0; then
+if >/dev/null 2>&1 version_assert 4 0 0; then
     read_array() {
         mapfile -t goedel_array < "$1"
     }
@@ -126,6 +117,9 @@ if version_assert 4 1 0; then
 else
     >&2 echo "(not sourcing bash completion or apparix)"
 fi
+
+# define completion for my xcat function
+complete -c xcat
 
 # tab completion for git
 # The one I have bundled probably required a new-ish bash

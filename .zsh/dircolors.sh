@@ -10,7 +10,7 @@
 # the system
 
 # TODO make aware of profiles etc
-if silent command -v dircolors; then
+if >/dev/null 2>&1 command -v dircolors; then
     if [ "$GOEDEL_IS_TTY" != "true" ]; then
         if [ -f "$ZDOTDIR/solarized.dircolors" ]; then
             eval "$(dircolors "$ZDOTDIR/solarized.dircolors")"

@@ -19,7 +19,8 @@ fi
 # set up completions for kitty. Bit of a dubious way to package completion code,
 # but hey. Also for some incomprehensible reason they seem to have custom
 # completion code for files
-if silent command -v kitty; then
+
+if >/dev/null 2>&1 command command -v kitty; then
     source <(kitty +complete setup zsh)
 else
     >&2 echo "zshrc: you should probably install kitty or get rid of this bit"
@@ -54,7 +55,6 @@ zstyle ':completion:*:*:*:users' ignored-patterns \
         rpc rpcuser rpm rtkit scard shutdown squid sshd statd svn sync tftp \
         usbmux uucp vcsa wwwrun xfs '_*'
 
-# ... unless we really want to.
 zstyle '*' single-ignored show
 
 zstyle ':completion:*' completer _expand _complete _ignored
@@ -65,7 +65,6 @@ zstyle ':completion:*' glob 1
 zstyle ':completion:*' insert-unambiguous false
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' list-suffixes true
-# zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*'
 zstyle ':completion:*' menu select=1
 zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
 zstyle ':completion:*' substitute 1

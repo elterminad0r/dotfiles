@@ -107,7 +107,7 @@ apparix_prompt() {
     # Check if apparix exists by checking if there is an amibm command.
     # Alternative might be to check if APPARIXHOME exists but this is I think
     # nicer
-    if silent command -v amibm; then
+    if >/dev/null 2>&1 command -v amibm; then
         # escape backticks and dollars so that bash doesn't get confused about
         # command substitution
         local goedel_bm="$(amibm | sed 's/[$`]/\\&/g')"
@@ -155,7 +155,7 @@ goedel_prompt() {
     # zsh P10K prompt, but this is optional.
 
     # the first branch only works if you sourced git-prompt.sh earlier.
-    if silent command -v __git_ps1; then
+    if >/dev/null 2>&1 command -v __git_ps1; then
         # This last part uses __git_ps1 to inject some information about dirty
         # states and branches when in a git repository. This can be made much
         # prettier using just vanilla zsh, with the vcs_info autoload function.
@@ -180,7 +180,7 @@ prompt_profile() {
         echo -n "$component..."
         time for ((i=0; i<LOOPS; i++)); do
             # mock some arguments for the component that want them
-            silent "$component" 1 1
+            >/dev/null 2>&1 "$component" 1 1
         done
     done
 }

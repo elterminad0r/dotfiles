@@ -1,9 +1,5 @@
 #!/usr/bin/env sh
 
-silent() {
-    "$@" > /dev/null 2> /dev/null
-}
-
 usage() {
     cat <<EOF
 goedel_copy [-h|--help]
@@ -43,9 +39,9 @@ case "$(uname -s)" in
         cat > /dev/clipboard
         ;;
     *)
-        if silent command -v xclip; then
+        if >/dev/null 2>&1 command -v xclip; then
             xclip -in -selection clipboard
-        elif silent command -v xsel; then
+        elif >/dev/null 2>&1 command -v xsel; then
             xsel --clipboard --input
         else
             >&2 echo "I'm not ready for this"

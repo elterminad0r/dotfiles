@@ -12,17 +12,8 @@
 # It seems to roughly work with both zsh and bash, but I couldn't possibly tell
 # you about anything else. It uses plenty of posix incompatible [[ ]]
 
-# vim-like: totally silence the given command, with less of the tedium. doesn't
-# affect return status, so can be used inside if statements.
-# black magic: "$@" expands to each argument as a separate word.
-# gotcha: this won't expand any aliases you have. This is probably preferred
-# functionality anyway, though (at least for me)
-silent() {
-    "$@" > /dev/null 2> /dev/null
-}
-
 # if tac command doesn't exist, use tail -r instead, and hope for the best
-if ! silent command -v tac; then
+if ! >/dev/null 2>&1 command -v tac; then
     tac() {
         tail -r -- "$@"
     }
@@ -99,13 +90,13 @@ alias ccat='highlight -O ansi'
 # cat an eXecutable
 xcat() {
     loc="$(command -v "$1")" || return 1
-    if silent command -v isutf8; then
+    if >/dev/null 2>&1 command -v isutf8; then
         if isutf8 "$loc"; then
             cat "$loc"
         fi
     # obviously not waterproof: if you have an executable called "text", for
     # example. But then you deserve this anyway
-    elif file "$loc" | silent grep text; then
+    elif file "$loc" | >/dev/null 2>&1 grep text; then
         cat "$loc"
     else
         >&2 echo "not a text file"
@@ -144,7 +135,7 @@ alias feh='feh -d'
 
 # ls aliases, based on what the ls in PATH seems to be capable of
 # https://stackoverflow.com/questions/1676426/how-to-check-the-ls-version
-if silent ls --color -d /; then # GNU ls, probably
+if >/dev/null 2>&1 ls --color -d /; then # GNU ls, probably
     # lc_all=c so that sorting is case sensitive, as it should be.
     alias ls='LC_ALL=C ls -h --group-directories-first --color=auto'
     # long listings with and without group of owner
@@ -154,7 +145,7 @@ if silent ls --color -d /; then # GNU ls, probably
     alias lt='\ls -ltrh --color=auto'
     alias lb='ls -lSr'
     alias ldir='ls -l --directory'
-elif silent gls --color -d .; then # GNU ls is on the system as "gls"
+elif >/dev/null 2>&1 gls --color -d .; then # GNU ls is on the system as "gls"
     alias ls='LC_ALL=C gls -h --group-directories-first --color=auto'
     alias l='ls -l -G'
     alias ll='ls -l'
@@ -162,7 +153,7 @@ elif silent gls --color -d .; then # GNU ls is on the system as "gls"
     alias lt='\gls -ltrh --color=auto'
     alias lb='ls -lSr'
     alias ldir='ls -l --directory'
-elif silent ls -G -d .; then # BSD ls, probably (eg as on MacOS)
+elif >/dev/null 2>&1 ls -G -d .; then # BSD ls, probably (eg as on MacOS)
     alias ls='LC_ALL=C ls -h -G'
     alias lt='\ls -ltrh -G'
     alias l='ls -l -o'
@@ -200,7 +191,7 @@ revim() {
 }
 
 # if light locker exists, alias lock to be alongside poweroff & reboot etc
-if silent command -v light-locker-command; then
+if >/dev/null 2>&1 command -v light-locker-command; then
     alias lock='light-locker-command -l'
 else
     # mess around with quotes for ships and giggs
@@ -230,9 +221,9 @@ case "$(uname -s)" in
         alias o=cygstart
         ;;
     *)
-        if silent command -v mimeopen; then
+        if >/dev/null 2>&1 command -v mimeopen; then
             alias o=mimeopen
-        elif silent command -v xdg-open; then
+        elif >/dev/null 2>&1 command -v xdg-open; then
             alias o=xdg-open
         else
             alias o='echo "no idea mate" >&2'
@@ -419,7 +410,7 @@ alias parrot="curl parrot.live"
 # or better yet, write a function that randomly falls through to this but
 # normally doesn't, or that only does this after being called twenty times
 
-# TODO: silent; disallow ctrl-c
+# TODO: silence output; disallow ctrl-c
 alias rick='mpv "https://www.youtube.com/watch?v=dQw4w9WgXcQ" -vo caca'
 
 # look cooler
