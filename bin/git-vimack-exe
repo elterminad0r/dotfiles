@@ -56,7 +56,7 @@ if grep --version | head -n 1 | grep -q GNU &&
         tee "$file_dump" | \
         GOEDEL_VIMACK_SEARCH="$content_pattern" vim-stdin -0
     echo "opened files:"
-    < "$file_dump" xargs $xargsflags printf '%s\n'
+    < "$file_dump" xargs -0 printf '%s\n'
 else
     >&2 echo "warning: grep not safe on newlines: hit Enter to continue"
     read -r
