@@ -35,9 +35,18 @@ zle -N edit-command-line
 # functionality gets automatically propelled into vim.
 bindkey -M vicmd '^V' edit-command-line
 
+# function in order to temporarily set null_glob
+function get_fzf_bindings() {
+    emulate -L zsh
+    setopt csh_null_glob
+    FZF_BINDINGS=( /usr/share/fzf/key-bindings.zsh
+                   /usr/local/Cellar/fzf/*/shell/key-bindings.zsh )
+}
+get_fzf_bindings
+
 # use fzf for completion
 # TODO: make this less intrusive
-if source_if_exists /usr/share/fzf/key-bindings.zsh; then
+if source_if_exists $FZF_BINDINGS; then
     source_if_exists "$HOME/.themes/base16-fzf/bash/base16-gruvbox-dark-medium.config"
 else
     >&2 echo "defining history-incremental-pattern-search-backward instead"
