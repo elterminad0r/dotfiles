@@ -17,7 +17,7 @@
 # won't break as hard if taken out of context.
 # it goes through all of its arguments, stopping as soon as it can source any
 # one of them.
-source_if_exists() {
+function source_if_exists() {
     for sfile; do
         if [[ -f "$sfile" ]]; then
             source "$sfile"

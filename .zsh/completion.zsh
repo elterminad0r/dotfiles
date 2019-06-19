@@ -71,7 +71,7 @@ zstyle ':completion:*' substitute 1
 zstyle :compinstall filename "$ZDOTDIR/zshrc"
 
 # Display red dots whilst waiting for completion.
-expand-or-complete-with-dots() {
+function expand-or-complete-with-dots() {
     print -Pn "%{%F{red}......%f%}"
     zle expand-or-complete
     zle redisplay
