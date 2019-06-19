@@ -259,10 +259,10 @@ alias pzsh='GOEDEL_NO_POWERLINE=true zsh'
 alias przsh='sudo GOEDEL_NO_POWERLINE=true ZSH_DISABLE_COMPFIX=true ZDOTDIR="$ZDOTDIR" HOME="$HOME" zsh'
 # reload zsh configuration properly, by replacing the current shell with a fresh
 # zsh. Make sure that zsh doesn't get any arguments.
-alias z='exec zsh #'
+alias z='if [ -z "$(jobs)" ]; then exec zsh; else jobs; fi #'
 
 # similar for bash
-alias b='exec bash #'
+alias b='if [ -z "$(jobs)" ]; then exec bash; else jobs; fi #'
 # root bash
 alias rbash='sudo HOME="$HOME" bash'
 
