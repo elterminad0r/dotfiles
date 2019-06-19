@@ -54,6 +54,7 @@ export FILE='ranger'
 export CLICOLOR=1
 
 export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CACHE_HOME="$HOME/.cache"
 
 # make caca programs run in curses, so they're properly in your terminal
 export CACA_DRIVER=ncurses
