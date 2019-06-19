@@ -183,6 +183,10 @@ shopt -s nocasematch
 # the prompt string undergoes variable expansion/command substitution/etc
 shopt -s promptvars
 
+# stop <C-[sq]> from killing my flow, and in fact expose them for keybinding
+stty -ixon
+alias reset='\reset; stty -ixon'
+
 # to stop bash being confused by zsh
 export HISTFILE="$BASHDOTDIR/.bash_history"
 # do not limit history

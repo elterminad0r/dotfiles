@@ -48,6 +48,10 @@ unalias run-help
 autoload -Uz run-help
 alias help='run-help'
 
+# in general, just disable flow control
+stty -ixon
+alias reset='\reset; stty -ixon'
+
 # killer feature!
 # make rprompt go away when I move on. This hugely reduces clutter when you
 # resize the screen a lot, as the active rprompt gets redrawn, and means you can

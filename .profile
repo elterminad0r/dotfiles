@@ -90,9 +90,6 @@ export BASHDOTDIR="$HOME/.bash"
 
 export XDOTDIR="$HOME/.X"
 
-# stop <C-[sq]> from killing my flow, and in fact expose them for keybinding
-stty -ixon
-
 # add $1 to path if it isn't already in path.
 # Be sure that you pass a proper full path to this, rather than a relative one.
 add_to_path() {

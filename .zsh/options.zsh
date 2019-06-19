@@ -38,8 +38,7 @@ setopt glob_star_short
 # error if glob does not match
 setopt nomatch
 
-# no ^S and ^Q killjoys. This is also done by stty -ixon in ~/.profile, but ah
-# well
+# no ^S and ^Q killjoys within zsh.
 unsetopt flowcontrol
 # do not allow > redirection to clobber files. Must use >! or >|
 unsetopt clobber
