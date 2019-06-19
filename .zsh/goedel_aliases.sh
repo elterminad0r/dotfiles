@@ -124,14 +124,14 @@ alias gpl="cat /usr/share/licenses/common/GPL3/license.txt"
 
 # also, a bit of trickery to make the alias be on one line, but formatted over
 # several, as some systems get themselves confused about \ns.
-alias man='LESS_TERMCAP_mb="$(tput bold)$(tput setaf 6)" \
-           LESS_TERMCAP_md="$(tput bold)$(tput setaf 4)" \
-           LESS_TERMCAP_so="$(tput setab 0)$(tput setaf 7)" \
-           LESS_TERMCAP_us="$(tput setaf 2)" \
-           LESS_TERMCAP_me="$(tput sgr0)" \
-           LESS_TERMCAP_se="$(tput sgr0)" \
-           LESS_TERMCAP_ue="$(tput sgr0)" \
-           man'
+alias man="$(echo 'LESS_TERMCAP_mb="$(tput bold)$(tput setaf 6)"' \
+                  'LESS_TERMCAP_md="$(tput bold)$(tput setaf 4)"' \
+                  'LESS_TERMCAP_so="$(tput setab 0)$(tput setaf 7)"' \
+                  'LESS_TERMCAP_us="$(tput setaf 2)"' \
+                  'LESS_TERMCAP_me="$(tput sgr0)"' \
+                  'LESS_TERMCAP_se="$(tput sgr0)"' \
+                  'LESS_TERMCAP_ue="$(tput sgr0)"' \
+                  'man')"
 
 alias info='info --vi-keys'
 
