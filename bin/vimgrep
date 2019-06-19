@@ -54,8 +54,9 @@ else
     xargsflags=-d'\n'
 fi
 
-tmp_templ="/tmp/vimgrep/$USER.$PWD.$(date '+%Y%m%d%H%M%S').XXXXXXXX"
+tmp_templ="/tmp/vimgrep/$USER.$(date '+%Y%m%d%H%M%S').XXXXXXXX"
 mkdir -p "$(dirname "$tmp_templ")"
+>/dev/null 2>&1 chmod a+rwxt "$(dirname "$tmp_templ")" || true
 file_dump="$(mktemp "$tmp_templ")"
 
 # wacky quoting on purpose, so empty variables are ignored
