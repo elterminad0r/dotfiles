@@ -38,7 +38,7 @@ aur_list:
 	@$(CFG) add $@
 
 brew_list:
-	brew leaves > $@
+	/usr/local/bin/brew leaves > $@
 	@$(CFG) add $@
 
 # this is a very simplistic way to track files in /etc among my dotfiles

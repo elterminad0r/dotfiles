@@ -11,4 +11,5 @@ pkg-config
 pypy3
 r
 ripgrep
+shellcheck
 the_silver_searcher
