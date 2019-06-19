@@ -160,6 +160,22 @@ function! GoedelCheckSearch()
     endif
 endfunction
 
+function! GoedelToggleSearch()
+    if !empty($GOEDEL_VIMACK_SEARCH)
+        let g:goedel_vimack_search_store = $GOEDEL_VIMACK_SEARCH
+        let $GOEDEL_VIMACK_SEARCH = ''
+    else
+        if exists("g:goedel_vimack_search_store")
+            let $GOEDEL_VIMACK_SEARCH = g:goedel_vimack_search_store
+            call GoedelCheckSearch()
+        else
+            echohl ErrorMsg
+            echo "Goedel search does not appear to have been initialised"
+            echohl None
+        endif
+    endif
+endfunction
+
 augroup SearchGoedelPattern
     autocmd! BufWinEnter * call GoedelCheckSearch()
 augroup END

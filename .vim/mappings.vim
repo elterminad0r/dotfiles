@@ -56,6 +56,16 @@ nnoremap <Leader>p :set paste!<CR>
 
 " Shortcut to turn highlighting on or off
 nnoremap <silent> <CR> :call ToggleHighlight()<CR>
+
+" Store the original carriage return for the CR fans
+nnoremap g<CR> <CR>
+
+" However, in the command-line window I do want CR to be a normal CR, so I
+" automatically unset and reset this mapping.
+augroup CmdWinCRRestore
+    autocmd! CmdWinEnter * nnoremap <buffer> <CR> <CR>
+augroup END
+
 nnoremap <silent> <F3> :call ToggleHighlight()<CR>
 inoremap <silent> <F3> <C-o>:call IToggleHighlight()<CR>
 " TODO: go left and right with this
@@ -67,14 +77,9 @@ nnoremap <F5> AFIGMENTIZE:<Space><C-r>%<Esc>
 " FIGMENTOFF
 inoremap <F5> FIGMENTIZE:<Space><C-r>%
 
-" Store the original carriage return for the CR fans
-nnoremap g<CR> <CR>
-
-" However, in the command-line window I do want CR to be a normal CR, so I
-" automatically unset and reset this mapping.
-augroup CmdWinCRRestore
-    autocmd! CmdWinEnter * nnoremap <buffer> <CR> <CR>
-augroup END
+" Toggle the vimack search on or off
+nnoremap <F6> :call GoedelToggleSearch()<CR>
+inoremap <F6> <C-o>:call GoedelToggleSearch()<CR>
 
 " Search for selected text. This makes * and # work for visual selections, so
 " you can search for things that aren't a unit of text as defined by * and # by
