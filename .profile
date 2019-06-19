@@ -20,8 +20,6 @@ fi
 export EDITOR='vim'
 export VISUAL='vim'
 export PAGER='less'
-    # TODO: think of a better solution for this
-    # export PAGER='vimpager'; export VIMPAGERRC="~/.vim/vimpager.vim"
 # default terminal.
 # I'm currently kind of stuck between termite and kitty.
 # (Also I like terminator, konsole)
