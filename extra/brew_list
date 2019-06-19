@@ -1,15 +1,17 @@
 ack
+cmatrix
 coreutils
+cowsay
 figlet
+fortune
 fzf
 ghostscript
 htop
 ipython
-libcaca
+lolcat
 macvim
 mpv
 mutt
-ncurses
 neofetch
 pkg-config
 pypy3
@@ -18,4 +20,6 @@ ripgrep
 shellcheck
 the_silver_searcher
 tig
+tmux
+toilet
 vte
