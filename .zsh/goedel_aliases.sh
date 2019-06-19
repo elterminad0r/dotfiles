@@ -259,14 +259,14 @@ alias rbash='sudo HOME="$HOME" bash'
 
 # open various config files
 # TODO: some kind of centralised idea
-alias vi3='vim ~/.config/i3/config'
-alias viz='vim "$ZDOTDIR"/{zshrc,*.zsh,*.sh,zshenv,zprofile,prompts/*} "$BASHDOTDIR"/* ~/.profile'
-alias vig='vim ~/.gitconfig'
-alias vit='vim ~/Documents/TODO'
-alias viv='vim ~/.vim/{vimrc,*.vim,gvimrc}'
+alias vi3='"${EDITOR:-vim}" ~/.config/i3/config'
+alias viz='"${EDITOR:-vim}" "$ZDOTDIR"/{zshrc,*.zsh,*.sh,zshenv,zprofile,prompts/*} "$BASHDOTDIR"/* ~/.profile'
+alias vig='"${EDITOR:-vim}" ~/.gitconfig'
+alias vit='"${EDITOR:-vim}" ~/Documents/TODO'
+alias viv='"${EDITOR:-vim}" ~/."${EDITOR:-vim}"/{"${EDITOR:-vim}"rc,*."${EDITOR:-vim}",g"${EDITOR:-vim}"rc}'
+alias vix='"${EDITOR:-vim}" ~/.Xresources ~/.X/**(.) ~/.xinitrc ~/.xprofile'
+alias vitm='"${EDITOR:-vim}" ~/.tmux.conf'
 alias vid='vim -S ~/.vim/sessions/diary'
-alias vix='vim ~/.Xresources ~/.X/**(.) ~/.xinitrc ~/.xprofile'
-alias vitm='vim ~/.tmux.conf'
 alias visafe='vim -c "set noswapfile nobackup nowritebackup noundofile viminfo="'
 alias vienc='visafe ~/Documents/.enc/'
 
