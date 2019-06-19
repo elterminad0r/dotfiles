@@ -81,6 +81,10 @@ inoremap <F5> FIGMENTIZE:<Space><C-r>%
 nnoremap <F6> :call GoedelToggleSearch()<CR>
 inoremap <F6> <C-o>:call GoedelToggleSearch()<CR>
 
+" Essential to any man's vimrc
+nnoremap <F7> AWE'RE<Space>GOING<Space>TO<Space>THE<Space>EMMIES<ESC>
+inoremap <F7> WE'RE<Space>GOING<Space>TO<Space>THE<Space>EMMIES<ESC>
+
 " Search for selected text. This makes * and # work for visual selections, so
 " you can search for things that aren't a unit of text as defined by * and # by
 " default. It seems fairly black magicky, it comes from
@@ -303,12 +307,16 @@ xnoremap <silent> <Left> :<C-U>call DedentOne(visualmode(), v:count1)<CR>gv
 
 " Experimental demonstration proof of concept of a lockdown mode for when you
 " want to confuse people. Enter with <Leader>~, exit with ^6
+" TODO what was the space for again
 nmap <Leader>~ :enew<CR>:MakeScratch<CR>iPASTA<CR><SID>(pasta)<Space>
 imap <script> <SID>(pasta)<Space>q Actually,<CR><SID>(pasta)<Space>
 imap <script> <SID>(pasta)<Space><Esc> HAHA,<CR><SID>(pasta)<Space>
+imap <script> <SID>(pasta)<Space><C-c> hehe,<CR><SID>(pasta)<Space>
 imap <script> <SID>(pasta)<Space>w I<Space>would<Space>like<Space>to<Space>interject<Space>for<Space>a<Space>moment.<CR><SID>(pasta)<Space>
+" doesn't work because this script is greedy on prefixes, I think
+" imap <script> <SID>(pasta)<Space><F7> I<Space>just<Space>need<Space>to<Space>axe<Space>you<Space>a<Space>few<Space>questions<CR><SID>(pasta)<Space>
 imap <script> <SID>(pasta)<Space><C-^> <Esc>u:bd<CR>
-imap <SID>(pasta)<Space> <Nop>
+imap <script> <SID>(pasta)<Space> <Nop>
 
 " open various config files in Vim (eg Vim Vimrc, Vim Gvimrc)
 nmap <Leader>vv :Evr<CR>

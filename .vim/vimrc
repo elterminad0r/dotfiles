@@ -91,13 +91,13 @@ if &t_Co > 2 || has("gui_running")
     if &term != "linux"
         " if the solarized colorscheme exists, load it
         try
-            " provide default colorscheme with not too objectionable
-            " highlighting of cursorcolumn, cursorline, line numbers and bad
-            " spellings.
+            " TODO: provide default colorscheme with not too objectionable
+            "       highlighting of cursorcolumn, cursorline, line numbers and
+            "       bad spellings.
             set termguicolors
             colorscheme gruvbox
             " TODO: is there any way to make the background transparent? this
-            " way breaks airline:
+            "       way breaks airline:
             " highlight Normal ctermbg=None
             " make special keycodes like ^S legible
             highlight! link SpecialKey Special
