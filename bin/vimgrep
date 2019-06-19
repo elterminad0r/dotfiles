@@ -44,25 +44,24 @@ fi
 pattern="$1"
 shift
 
-if grep --version | head -n 1 | grep -q GNU; then
-    grepflags=-Z
-    xargsflags=-0
-else
-    >&2 echo "warning: grep not safe on newlines: hit Enter to continue"
-    read -r
-    grepflags=
-    xargsflags=-d'\n'
-fi
-
 tmp_templ="/tmp/vimgrep/$USER.$(date '+%Y%m%d%H%M%S').XXXXXXXX"
 mkdir -p "$(dirname "$tmp_templ")"
 >/dev/null 2>&1 chmod a+rwxt "$(dirname "$tmp_templ")" || true
 file_dump="$(mktemp "$tmp_templ")"
 
-# wacky quoting on purpose, so empty variables are ignored
-grep -li $grepflags "$pattern" "$@" | \
-    tee "$file_dump" | \
-    GOEDEL_VIMACK_SEARCH="$pattern" vim-stdin $xargsflags
-
-echo "opened files"
-< "$file_dump" xargs $xargsflags printf '%q\n'
+if grep --version | head -n 1 | grep -q GNU; then
+    grep -liZ "$pattern" "$@" | \
+        tee "$file_dump" | \
+        GOEDEL_VIMACK_SEARCH="$pattern" vim-stdin -0
+    echo "opened files:"
+    < "$file_dump" xargs -0 printf '%s\n'
+else
+    >&2 echo "warning: grep not safe on newlines: hit Enter to continue"
+    read -r
+    grep -li "$pattern" "$@" | \
+        tee "$file_dump" | \
+        tr '\n' '\0' | \
+        GOEDEL_VIMACK_SEARCH="$pattern" vim-stdin -0
+    echo "opened files:"
+    < "$file_dump" tr '\n' '\0' | xargs -0 printf '%s\n'
+fi

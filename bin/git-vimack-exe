@@ -37,23 +37,6 @@ done
 content_pattern="${1:-}"
 filename_pattern="${2:-}"
 
-if grep --version | head -n 1 | grep -q GNU &&
-   sort --version | head -n 1 | grep -q GNU; then
-    grep_content_flags=-Z
-    grep_filename_flags=-Zz
-    xargsflags=-0
-    gitlsflags=-z
-    sortflags=-z
-else
-    >&2 echo "warning: grep not safe on newlines: hit Enter to continue"
-    read -r
-    grep_content_flags=
-    grep_filename_flags=
-    xargsflags=-d'\n'
-    gitlsflags=
-    sortflags=
-fi
-
 tmp_templ="/tmp/git-vimack/$USER.$(date '+%Y%m%d%H%M%S').XXXXXXXX"
 mkdir -p "$(dirname "$tmp_templ")"
 >/dev/null 2>&1 chmod a+rwxt "$(dirname "$tmp_templ")" || true
@@ -61,14 +44,30 @@ file_dump="$(mktemp "$tmp_templ")"
 
 >&2 echo "searching in $PWD"
 
-# wacky quoting on purpose, so empty variables are ignored
+# list all git *files* (not submodules etc)
 # https://stackoverflow.com/questions/40165650/how-to-list-all-files-tracked-by-git-excluding-submodules
-git grep -l $gitlsflags '' | \
-    grep -i $grep_filename_flags "$filename_pattern" | \
-    xargs $xargsflags grep -li $grep_content_flags "$content_pattern" | \
-    sort $sortflags | \
-    tee "$file_dump" | \
-    GOEDEL_VIMACK_SEARCH="$content_pattern" vim-stdin $xargsflags
 
-echo "opened files"
-< "$file_dump" xargs $xargsflags printf '%q\n'
+if grep --version | head -n 1 | grep -q GNU &&
+   sort --version | head -n 1 | grep -q GNU; then
+    git grep -lz '' | \
+        grep -izZ "$filename_pattern" | \
+        xargs -0 grep -liZ "$content_pattern" | \
+        sort -z | \
+        tee "$file_dump" | \
+        GOEDEL_VIMACK_SEARCH="$content_pattern" vim-stdin -0
+    echo "opened files:"
+    < "$file_dump" xargs $xargsflags printf '%s\n'
+else
+    >&2 echo "warning: grep not safe on newlines: hit Enter to continue"
+    read -r
+    git grep -l '' | \
+        grep -i "$filename_pattern" | \
+        tr '\n' '\0' | \
+        xargs -0 grep -li "$content_pattern" | \
+        sort | \
+        tee "$file_dump" | \
+        tr '\n' '\0' | \
+        GOEDEL_VIMACK_SEARCH="$content_pattern" vim-stdin -0
+    echo "opened files:"
+    < "$file_dump" tr '\n' '\0' | xargs -0 printf '%s\n'
+fi

@@ -8,6 +8,8 @@
 
 set -eu
 
+# on BSD, this is unnecessary because xargs simply doesn't run the command for
+# an empty input.
 xargs "$@" bash -c '
     if [ "$#" -gt 0 ]; then
         </dev/tty "${EDITOR:-vim}" "$@"
