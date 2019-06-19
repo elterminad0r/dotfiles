@@ -44,7 +44,7 @@ fi
 pattern="$1"
 shift
 
-tmp_templ="/tmp/grepvim/$USER.$(date '+%Y%m%d%H%M%S').XXXXXXXX"
+tmp_templ="${TMPDIR:-/tmp/}grepvim/$USER.$(date '+%Y%m%d%H%M%S').XXXXXXXX"
 mkdir -p "$(dirname "$tmp_templ")"
 >/dev/null 2>&1 chmod a+rwxt "$(dirname "$tmp_templ")" || true
 file_dump="$(mktemp "$tmp_templ")"
