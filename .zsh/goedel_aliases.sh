@@ -23,7 +23,8 @@ fi
 # obviously for personal use only, it uses eval etc and so forth ad nauseum
 # In zsh, you can interactively expand the current word as an alias using <C-x>a
 # by default (the ZLE _expand_alias function). In bash you can bind
-# alias-expand-line with readline.
+# alias-expand-line with readline. However neither of those are recursive so you
+# have to laboriously do them maybe two or three times. Ergo, this function.
 enhance() {
     # here be horrors
     # Use the non-posix %q because I can (well, I can't really but I'm not
