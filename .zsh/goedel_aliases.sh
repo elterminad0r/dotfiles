@@ -22,12 +22,16 @@ fi
 # function to fully expand its arguments if they're aliases.
 # obviously for personal use only, it uses eval etc and so forth ad nauseum
 # In zsh, you can interactively expand the current word as an alias using <C-x>a
-# by default (the ZLE _expand_alias function)
-# TODO: fix this - doesn't work properly for eg $ enhance echo "abc def" hij
+# by default (the ZLE _expand_alias function). In bash you can bind
+# alias-expand-line with readline.
 enhance() {
+    # here be horrors
+    # Use the non-posix %q because I can (well, I can't really but I'm not
+    # hugely concerned about POSIX compliance in utility functions for Bash and
+    # Zsh)
     eval "
     GOEDEL_ENHANCE_F() {
-        $*
+        $(printf "%q " "$@")
     }"
     declare -f GOEDEL_ENHANCE_F |\
         if [ -n "$ZSH_VERSION" ]; then
@@ -120,14 +124,14 @@ alias gpl="cat /usr/share/licenses/common/GPL3/license.txt"
 
 # also, a bit of trickery to make the alias be on one line, but formatted over
 # several, as some systems get themselves confused about \ns.
-alias man="$(echo "LESS_TERMCAP_mb='$(tput bold)$(tput setaf 6)'"\
-                  "LESS_TERMCAP_md='$(tput bold)$(tput setaf 4)'"\
-                  "LESS_TERMCAP_so='$(tput setab 0)$(tput setaf 7)'"\
-                  "LESS_TERMCAP_us='$(tput setaf 2)'"\
-                  "LESS_TERMCAP_me='$(tput sgr0)'"\
-                  "LESS_TERMCAP_se='$(tput sgr0)'"\
-                  "LESS_TERMCAP_ue='$(tput sgr0)'"\
-                  "man")"
+alias man='LESS_TERMCAP_mb="$(tput bold)$(tput setaf 6)" \
+           LESS_TERMCAP_md="$(tput bold)$(tput setaf 4)" \
+           LESS_TERMCAP_so="$(tput setab 0)$(tput setaf 7)" \
+           LESS_TERMCAP_us="$(tput setaf 2)" \
+           LESS_TERMCAP_me="$(tput sgr0)" \
+           LESS_TERMCAP_se="$(tput sgr0)" \
+           LESS_TERMCAP_ue="$(tput sgr0)" \
+           man'
 
 alias info='info --vi-keys'
 
@@ -357,11 +361,16 @@ alias rot13='tr "A-Za-z" "N-ZA-Mn-za-m"'
 
 # Frivolous aliases
 
+if [ -n "$(echo | figlet -t 2>&1 || true)" ]; then
+    FIG_FLAGS='-w "$COLUMNS"'
+else
+    FIG_FLAGS='-t'
+fi
 # make figlet use my extra figlet fonts
 if [ -d "$HOME/builds/figlet-fonts" ]; then
-    alias figlet='figlet -k -t -d ~/builds/figlet-fonts/'
+    alias figlet="figlet -k $FIG_FLAGS -d ~/builds/figlet-fonts/"
 else
-    alias figlet='figlet -kt'
+    alias figlet="figlet -k $FIG_FLAGS"
 fi
 
 # display all figlet fonts
