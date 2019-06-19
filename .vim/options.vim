@@ -175,7 +175,8 @@ if has('langmap') && exists('+langnoremap')
     set langnoremap
 endif
 " Makes % more sophisticated sometimes?
-" I'm not sure if this works, and actually mostly it just seems kind of fragile.
+" TODO: I'm not sure if this works, and actually mostly it just seems kind of
+"       fragile.
 " packadd matchit
 
 " line numbers, that are relative to current line
