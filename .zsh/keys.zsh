@@ -38,7 +38,7 @@ bindkey -M vicmd '^V' edit-command-line
 # function in order to temporarily set null_glob
 function get_fzf_bindings() {
     emulate -L zsh
-    setopt csh_null_glob
+    setopt null_glob
     FZF_BINDINGS=( /usr/share/fzf/key-bindings.zsh
                    /usr/local/Cellar/fzf/*/shell/key-bindings.zsh )
 }

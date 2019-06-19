@@ -20,7 +20,7 @@ fi
 # but hey. Also for some incomprehensible reason they seem to have custom
 # completion code for files
 
-if >/dev/null 2>&1 command command -v kitty; then
+if >/dev/null 2>&1 command -v kitty; then
     source <(kitty +complete setup zsh)
 else
     >&2 echo "zshrc: you should probably install kitty or get rid of this bit"
