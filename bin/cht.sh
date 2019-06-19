@@ -744,5 +744,5 @@ while true; do
     version)        cmd_name=version;;
     *)              cmd_name="query"; cmd_args="$input";;
   esac
-  "cmd_$cmd_name" $cmd_args 
+  "cmd_$cmd_name" $cmd_args
 done
