@@ -34,7 +34,6 @@ clang
 cloc
 cmake
 cmatrix
-cmus
 compton
 conky
 coq
@@ -209,7 +208,6 @@ mupdf
 mutt
 mythes-en
 mythes-nl
-nano
 ncmpcpp
 neofetch
 neovim
