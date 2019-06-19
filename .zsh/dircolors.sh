@@ -12,8 +12,8 @@
 # TODO make aware of profiles etc
 if silent command -v dircolors; then
     if [ "$GOEDEL_IS_TTY" != "true" ]; then
-        if [ -f "$HOME/.dir_colors_solarized" ]; then
-            eval "$(dircolors "$HOME/.dir_colors_solarized")"
+        if [ -f "$ZDOTDIR/solarized.dircolors" ]; then
+            eval "$(dircolors "$ZDOTDIR/solarized.dircolors")"
         else
             >&2 echo "using default dircolors"
             eval "$(dircolors)"

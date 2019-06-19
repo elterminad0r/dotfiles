@@ -1,3 +1,5 @@
+# vim: ft=dircolors
+
 #     .___.__                          .__
 #   __| _/|__|_______     ____   ____  |  |    ____ _______  ______
 #  / __ | |  |\_  __ \  _/ ___\ /  _ \ |  |   /  _ \\_  __ \/  ___/
@@ -5,6 +7,9 @@
 # \____ | |__| |__|______\___  >\____/ |____/ \____/ |__|  /____  >
 #      \/         /_____/    \/                                 \/
 # FIGMENTIZE: dir_colors
+
+# Original:
+# https://github.com/seebi/dircolors-solarized/blob/master/dircolors.ansi-dark
 
 # Exact Solarized Dark color theme for the color GNU ls utility.
 # Designed for dircolors (GNU coreutils) 5.97
