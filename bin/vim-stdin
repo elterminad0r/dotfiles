@@ -4,15 +4,23 @@
 # take up $0.
 # https://superuser.com/questions/336016/invoking-vi-through-find-xargs-breaks-my-terminal-why
 
-# Arguments are passed through to xargs
+# Arguments are passed through to xargs. It also prints out which files have
+# been opened.
 
 set -eu
 
-# on BSD, this is unnecessary because xargs simply doesn't run the command for
-# an empty input.
-xargs "$@" bash -c '
-    if [ "$#" -gt 0 ]; then
-        </dev/tty "${EDITOR:-vim}" "$@"
-    else
-        >&2 echo "no files to edit"
-    fi' DUMMY
+tmp_templ="${TMPDIR:-/tmp/}vim-stdin/$USER.$(date '+%Y%m%d%H%M%S').XXXXXXXX"
+mkdir -p "$(dirname "$tmp_templ")"
+>/dev/null 2>&1 chmod a+rwxt "$(dirname "$tmp_templ")" || true
+file_dump="$(mktemp "$tmp_templ")"
+
+tee "$file_dump" | \
+    xargs "$@" bash -c '
+        if [ $# -gt 0 ]; then
+            </dev/tty "${EDITOR:-vim}" -- "$@"
+        else
+            >&2 echo "no files to edit"
+        fi' DUMMY
+
+echo "opened files:"
+< "$file_dump" xargs "$@" printf "%s\n"

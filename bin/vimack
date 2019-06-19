@@ -50,21 +50,13 @@ done
 content_pattern="${1:-}"
 filename_pattern="${2:-}"
 
-tmp_templ="${TMPDIR:-/tmp/}vimack/$USER.$(date '+%Y%m%d%H%M%S').XXXXXXXX"
-mkdir -p "$(dirname "$tmp_templ")"
->/dev/null 2>&1 chmod a+rwxt "$(dirname "$tmp_templ")" || true
-file_dump="$(mktemp "$tmp_templ")"
-
 if grep --version | head -n 1 | grep -q GNU &&
    sort --version | head -n 1 | grep -q GNU; then
     find . -type f -print0 | \
         grep -izZ "$filename_pattern" | \
-        xargs -0 grep -liz "$content_pattern" | \
+        xargs -0 grep -liZ "$content_pattern" | \
         sort -z | \
-        tee "$file_dump" | \
         GOEDEL_VIMACK_SEARCH="$content_pattern" vim-stdin -0
-    echo "opened files:"
-    < "$file_dump" xargs -0 printf '%s\n'
 else
     >&2 echo "warning: grep not safe on newlines: hit Enter to continue"
     read -r
@@ -73,10 +65,6 @@ else
         tr '\n' '\0' | \
         xargs -0 grep -li "$content_pattern" | \
         sort | \
-        tee "$file_dump" | \
         tr '\n' '\0' | \
         GOEDEL_VIMACK_SEARCH="$content_pattern" vim-stdin -0
-
-    echo "opened files:"
-    < "$file_dump" tr '\n' '\0' xargs -0 printf '%s\n'
 fi

@@ -44,26 +44,15 @@ fi
 pattern="$1"
 shift
 
-tmp_templ="${TMPDIR:-/tmp/}grepvim/$USER.$(date '+%Y%m%d%H%M%S').XXXXXXXX"
-mkdir -p "$(dirname "$tmp_templ")"
->/dev/null 2>&1 chmod a+rwxt "$(dirname "$tmp_templ")" || true
-file_dump="$(mktemp "$tmp_templ")"
-
 if grep --version | head -n 1 | grep -q GNU; then
     printf "%s\0" "$@" | \
         grep -izZ "$pattern" | \
-        tee "$file_dump" | \
         vim-stdin -0
-    echo "opened files:"
-    < "$file_dump" xargs -0 printf '%s\n'
 else
     >&2 echo "warning: grep not safe on newlines: hit Enter to continue"
     read -r
     printf "%s\n" "$@" | \
         grep -i "$pattern" | \
-        tee "$file_dump" | \
         tr '\n' '\0' | \
         vim-stdin -0
-    echo "opened files:"
-    < "$file_dump" tr '\n' '\0' | xargs -0 printf '%s\n'
 fi
