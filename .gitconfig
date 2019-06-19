@@ -38,6 +38,9 @@
 	st = "status --show-stash"
 	# consistent with the existence of `git rm`, `git mv`, etc
 	ls = "ls-files"
+	ll = "log --stat"
+	lu = "log -u"
+	lo = "log --oneline"
 	unstage = "reset HEAD --"
 	unchange = "checkout --"
 	a = "add"
