@@ -39,9 +39,10 @@ It will need Python 3.5+ to run.
 
 import sys
 
+from pathlib import Path
 from colorsys import hsv_to_rgb
 from math import pi, sqrt, atan2
-from shutil import get_terminal_size
+from shutil import get_terminal_size, copyfileobj
 # this will need python 3.5+
 try:
     from subprocess import run, CalledProcessError, PIPE
@@ -49,7 +50,15 @@ except ImportError:
     sys.exit("Geriatric snake? Get with the times")
 from itertools import groupby
 from os import getenv
+from os.path import getmtime
 from re import findall
+
+if getenv("XDG_CACHE_HOME"):
+    CACHE_HOME = Path(getenv("XDG_CACHE_HOME"))
+else:
+    CACHE_HOME = Path.home() / Path(".cache")
+
+CACHE_DIR = CACHE_HOME / Path("p999")
 
 def get_window_id():
     """
@@ -76,7 +85,7 @@ def get_win_dimensions():
                 check=True, stdout=PIPE)
         wininfo_lines = [l.strip() for l in result.stdout.decode().split("\n")]
     except (CalledProcessError, FileNotFoundError) as e:
-        print("not using xwininfo: {}".format(e), file=sys.stderr)
+        print("not using xwininfo: {}".format(e), file=sys.stderr, flush=True)
         w, h = get_terminal_size()
         return w, h * 2
     try:
@@ -90,10 +99,11 @@ def get_win_dimensions():
         # separate variable just for intermediate computation
         corners = map(int, findall(r"[-+]\d+", corner_text))
         x_l, y_t, x_r, _, _, y_b, *_ = corners
+        print("situation normal", file=sys.stderr, flush=True)
         # - 1 + 1 so that a full screen window is calculated correctly.
         return (x_r - x_l - 1) % d_w + 1, (y_b - y_t - 1) % d_h + 1
     except (CalledProcessError, FileNotFoundError) as e:
-        print("not using xdotool: {}".format(e), file=sys.stderr)
+        print("not using xdotool: {}".format(e), file=sys.stderr, flush=True)
         geom, = (line for line in wininfo_lines if line.startswith("-geometry"))
         w, h, *_ = map(int, findall(r"\d+", geom))
         return w, h
@@ -152,17 +162,29 @@ def build_line(y, w, h, tol):
                             "▀" * sum(1 for _ in grouper))
                     for (top_rgb, bot_rgb), grouper in codes))
 
-def p999():
+def _p999(w, h, file):
     """
-    Draw a colour wheel
+    Draw a colour wheel of w by h in `file`
     """
-    w, h = (i // 2 * 2 for i in get_dimensions())
+    # clear the screen
+    print("\x1b[H\x1b[2J", end="", file=file)
     # the range from 1 within which to do antialiasing
     tol = sqrt((1 / w) ** 2 + (1 / (2 * h)) ** 2) / 2
     for y in range(-h // 2, 1 + h // 2):
-        print(build_line(y, w, h, tol))
+        print(build_line(y, w, h, tol), file=file)
+
+def p999(w, h):
+    CACHE_DIR.mkdir(exist_ok=True, parents=True)
+    cache_path = CACHE_DIR / Path("{}x{}.p999".format(w, h))
+    if (not cache_path.exists() or
+            getmtime(str(cache_path)) < getmtime(__file__)):
+        print("writing cache to {}".format(cache_path),
+                file=sys.stderr, flush=True)
+        with cache_path.open("w") as cache_file:
+            _p999(w, h, cache_file)
+    with cache_path.open("r") as cache_file:
+        copyfileobj(cache_file, sys.stdout)
 
 if __name__ == "__main__":
-    # clear the screen
-    print("\x1b[H\x1b[2J", end="")
-    p999()
+    w, h = (i // 2 * 2 for i in get_dimensions())
+    p999(w, h)
