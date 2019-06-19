@@ -224,13 +224,13 @@ augroup ConfigReloadI3
     autocmd! BufWritePost ~/.config/i3/config,~/.config/i3status/config,~/.conkyrc,~/.config/i3blocks/config call ReloadI3Conf()
 augroup END
 
-" function! ToggleAmbiwidth()
-"     if &ambiwidth == "single"
-"         set ambiwidth=double
-"     else
-"         set ambiwidth=single
-"     endif
-" endfunction
+function! ToggleAmbiwidth()
+    if &ambiwidth == "single"
+        set ambiwidth=double
+    else
+        set ambiwidth=single
+    endif
+endfunction
 
 " mnemonic: emoji
-" nnoremap yoe :call ToggleAmbiwidth()<CR>
+nnoremap yoe :call ToggleAmbiwidth()<CR>
