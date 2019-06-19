@@ -21,6 +21,7 @@ traverse, so strictly speaking it's a list.
 # TODO add command line options for wallpaper directory, stack location, max
 #      stack size
 
+import os
 import pickle
 import collections
 import random
@@ -35,8 +36,11 @@ from gi.repository import Notify
 Notify.init("backgrounds")
 
 WALLPAPERS = (pathlib.Path.home() / pathlib.Path("Pictures/wallpapers"))
-STACK = (pathlib.Path.home() /
-                  pathlib.Path(".cache/randombg/stack.pickle"))
+if os.getenv("XDG_CACHE_HOME"):
+    CACHE_HOME = pathlib.Path(os.getenv("XDG_CACHE_HOME"))
+else:
+    CACHE_HOME = pathlib.Path.home() / pathlib.Path(".cache")
+STACK = CACHE_HOME / pathlib.Path("randombg/stack.pickle")
 MAX_STACK = 100
 
 def ensure_cache():

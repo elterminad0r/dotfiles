@@ -6,7 +6,7 @@
 # It's bash because I need the -nt operator. I'll make use of the sh speedup
 # when POSIX gets with the times
 
-CACHE_NAME="$HOME/.cache/p256.txt"
+CACHE_NAME="${XDG_CACHE_HOME:-$HOME/.cache/}p256.txt"
 P256_NAME="$HOME/bin/p256.py"
 
 if [[ ! -f "$CACHE_NAME" ]] || [[ "$P256_NAME" -nt "$CACHE_NAME" ]]; then
