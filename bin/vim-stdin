@@ -22,5 +22,5 @@ tee "$file_dump" | \
             >&2 echo "no files to edit"
         fi' DUMMY
 
-echo "opened files:"
-< "$file_dump" xargs "$@" printf "%s\n"
+>&2 echo "opened files:"
+>&2 < "$file_dump" xargs "$@" printf "%s\n"

@@ -47,24 +47,55 @@ for arg; do
     esac
 done
 
+get_files_null() {
+    if 1>&2 command -v rg; then
+        rg -li0 "$content_pattern" | \
+            grep -izZ "$filename_pattern"
+    elif 1>&2 command -v ag; then
+        ag -li0 "$content_pattern" | \
+            grep -izZ "$filename_pattern"
+    elif 1>&2 command -v ack; then
+        ack -li --print0 "$content_pattern" | \
+            grep -izZ "$filename_pattern"
+    else
+        >&2 echo "Going old-school"
+        find . -name .git -prune -type f -print0 | \
+            grep -izZ "$filename_pattern" | \
+            xargs -0 grep -liZ "$content_pattern" | \
+            sort -z
+    fi
+}
+
+get_files_notnull() {
+    if 1>&2 command -v rg; then
+        rg -li "$content_pattern" | \
+            grep -i "$filename_pattern"
+    elif 1>&2 command -v ag; then
+        ag -li "$content_pattern" | \
+            grep -i "$filename_pattern"
+    elif 1>&2 command -v ack; then
+        ack -li "$content_pattern" | \
+            grep -i "$filename_pattern"
+    else
+        >&2 echo "Going old-school"
+        find . -name .git -prune -type f | \
+            grep -i "$filename_pattern" | \
+            xargs -0 grep -li "$content_pattern" | \
+            tr '\n' '\0' | \
+            sort
+    fi
+}
+
 content_pattern="${1:-}"
 filename_pattern="${2:-}"
 
 if grep --version | head -n 1 | grep -q GNU &&
    sort --version | head -n 1 | grep -q GNU; then
-    find . -type f -print0 | \
-        grep -izZ "$filename_pattern" | \
-        xargs -0 grep -liZ "$content_pattern" | \
-        sort -z | \
+    get_files_null | \
         GOEDEL_VIMACK_SEARCH="$content_pattern" vim-stdin -0
 else
     >&2 echo "warning: grep not safe on newlines: hit Enter to continue"
     read -r
-    find . -type f | \
-        grep -i "$filename_pattern" | \
-        tr '\n' '\0' | \
-        xargs -0 grep -li "$content_pattern" | \
-        sort | \
-        tr '\n' '\0' | \
+    get_files_notnull | \
         GOEDEL_VIMACK_SEARCH="$content_pattern" vim-stdin -0
 fi
