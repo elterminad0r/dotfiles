@@ -1,6 +1,7 @@
 ack
 coreutils
 figlet
+fzf
 ghostscript
 htop
 ipython
