@@ -39,29 +39,32 @@ filename_pattern="${2:-}"
 
 if grep --version | head -n 1 | grep -q GNU &&
    sort --version | head -n 1 | grep -q GNU; then
-    grep_content_flags=-liZ
-    grep_filename_flags=-iZz
+    grep_content_flags=-Z
+    grep_filename_flags=-Zz
     xargsflags=-0
     gitlsflags=-z
     sortflags=-z
 else
     >&2 echo "warning: grep not safe on newlines: hit Enter to continue"
     read -r
-    grep_content_flags=-li
-    grep_filename_flags=-i
+    grep_content_flags=
+    grep_filename_flags=
     xargsflags=-d'\n'
     gitlsflags=
     sortflags=
 fi
 
-file_dump="/tmp/git-vimack_$(date +%s)"
+tmp_templ="/tmp/git-vimack/$USER.$PWD.$GIT_DIR.$(date '+%Y%m%d%H%M%S').XXXXXXXX"
+mkdir -p "$(dirname "$tmp_templ")"
+file_dump="$(mktemp "$tmp_templ")"
 
 >&2 echo "searching in $PWD"
 
 # wacky quoting on purpose, so empty variables are ignored
-git ls-files $gitlsflags | \
-    grep $grep_filename_flags "$filename_pattern" | \
-    xargs $xargsflags grep $grep_content_flags "$content_pattern" | \
+# https://stackoverflow.com/questions/40165650/how-to-list-all-files-tracked-by-git-excluding-submodules
+git grep -l $gitlsflags '' | \
+    grep -i $grep_filename_flags "$filename_pattern" | \
+    xargs $xargsflags grep -li $grep_content_flags "$content_pattern" | \
     sort $sortflags | \
     tee "$file_dump" | \
     GOEDEL_VIMACK_SEARCH="$content_pattern" vim-stdin $xargsflags

@@ -52,27 +52,29 @@ filename_pattern="${2:-}"
 
 if grep --version | head -n 1 | grep -q GNU &&
    sort --version | head -n 1 | grep -q GNU; then
-    grep_content_flags=-liZ
-    grep_filename_flags=-iZz
+    grep_content_flags=-Z
+    grep_filename_flags=-Zz
     xargsflags=-0
     findflags=-print0
     sortflags=-z
 else
     >&2 echo "warning: grep not safe on newlines: hit Enter to continue"
     read -r
-    grep_content_flags=-li
-    grep_filename_flags=-i
+    grep_content_flags=
+    grep_filename_flags=
     xargsflags=-d'\n'
     findflags=
     sortflags=
 fi
 
-file_dump="/tmp/vimack_$(date +%s)"
+tmp_templ="/tmp/vimack/$USER.$PWD.$(date '+%Y%m%d%H%M%S').XXXXXXXX"
+mkdir -p "$(dirname "$tmp_templ")"
+file_dump="$(mktemp "$tmp_templ")"
 
 # wacky quoting on purpose, so empty variables are ignored
 find . -type f $findflags | \
-    grep $grep_filename_flags "$filename_pattern" | \
-    xargs $xargsflags grep $grep_content_flags "$content_pattern" | \
+    grep -i $grep_filename_flags "$filename_pattern" | \
+    xargs $xargsflags grep -li $grep_content_flags "$content_pattern" | \
     sort $sortflags | \
     tee "$file_dump" | \
     GOEDEL_VIMACK_SEARCH="$content_pattern" vim-stdin $xargsflags

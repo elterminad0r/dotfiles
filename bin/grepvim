@@ -45,14 +45,26 @@ pattern="$1"
 shift
 
 if grep --version | head -n 1 | grep -q GNU; then
-    grepflags=-izZ
+    grepflags=-zZ
     xargsflags=-0
+    printfsep='\0'
 else
     >&2 echo "warning: grep not safe on newlines: hit Enter to continue"
     read -r
-    grepflags=-i
+    grepflags=
     xargsflags=-d'\n'
+    printfsep='\n'
 fi
 
+tmp_templ="/tmp/grepvim/$USER.$PWD.$(date '+%Y%m%d%H%M%S').XXXXXXXX"
+mkdir -p "$(dirname "$tmp_templ")"
+file_dump="$(mktemp "$tmp_templ")"
+
 # wacky quoting on purpose, so empty variables are ignored
-printf '%s\0' "$@" | grep $grepflags "$pattern" | vim-stdin $xargsflags
+printf "%s$printfsep" "$@" | \
+    grep -i $grepflags "$pattern" | \
+    tee "$file_dump" | \
+    vim-stdin $xargsflags
+
+echo "opened files"
+< "$file_dump" xargs $xargsflags printf '%q\n'
