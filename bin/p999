@@ -36,6 +36,7 @@ It will need Python 3.5+ to run.
 #       make clearing the screen optional
 #       add option for background colour
 #       option to toggle antialiasing?
+#       generally read arguments, show help
 
 import sys
 
@@ -174,6 +175,9 @@ def _p999(w, h, file):
         print(build_line(y, w, h, tol), file=file)
 
 def p999(w, h):
+    """
+    A caching wrapper around _p999.
+    """
     CACHE_DIR.mkdir(exist_ok=True, parents=True)
     cache_path = CACHE_DIR / Path("{}x{}.p999".format(w, h))
     if (not cache_path.exists() or

@@ -6,6 +6,8 @@
 # It's bash because I need the -nt operator. I'll make use of the sh speedup
 # when POSIX gets with the times
 
+# TODO: show help message
+
 CACHE_NAME="${XDG_CACHE_HOME:-$HOME/.cache/}p256.txt"
 P256_NAME="$HOME/bin/p256.py"
 
