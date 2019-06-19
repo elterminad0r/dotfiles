@@ -4,6 +4,9 @@ figlet
 ghostscript
 htop
 ipython
+libcaca
+macvim
+mpv
 mutt
 ncurses
 neofetch
@@ -13,3 +16,5 @@ r
 ripgrep
 shellcheck
 the_silver_searcher
+tig
+vte
