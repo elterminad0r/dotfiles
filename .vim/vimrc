@@ -76,7 +76,7 @@ function! ToggleHighlight()
         else
             call feedkeys(":set hlsearch\<CR>")
         endif
-        let g:goedel_highlighted = xor(1, g:goedel_highlighted)
+        let g:goedel_highlighted = !g:goedel_highlighted
     endif
 endfunction
 

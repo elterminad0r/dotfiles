@@ -24,11 +24,34 @@ endif
 " binding to change font size
 nnoremap <Leader>f :set guifont=*<CR>
 
-" TODO: maybe add some yo- toggles
-" same as default guioptions, but without tabs, scrollbars, menus or toolbars.
-set guioptions=agiLtc
-" same as default options but turn off blinking
-set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,ve:ver35-Cursor-blinkon0,o:hor50-Cursor-blinkon0,i-ci:ver25-Cursor/lCursor-blinkon0,r-cr:hor20-Cursor/lCursor-blinkon0,sm:block-Cursor-blinkon0
+let g:goedel_gui_is_up = 1
+function! ToggleGUI()
+    if g:goedel_gui_is_up
+        " same as default guioptions, but without tabs, scrollbars, menus or
+        " toolbars.
+        set guioptions=agiLtc
+    else
+        set guioptions&
+    endif
+    let g:goedel_gui_is_up = !g:goedel_gui_is_up
+endfunction
+call ToggleGUI()
+nnoremap <F7> :call ToggleGUI()<CR>
+inoremap <F7> <C-o>:call ToggleGUI()<CR>
+
+let g:goedel_cursor_is_blinking = 1
+function! ToggleBlinking()
+    if g:goedel_cursor_is_blinking
+        " same as default options but turn off blinking
+        set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,ve:ver35-Cursor-blinkon0,o:hor50-Cursor-blinkon0,i-ci:ver25-Cursor/lCursor-blinkon0,r-cr:hor20-Cursor/lCursor-blinkon0,sm:block-Cursor-blinkon0
+    else
+        set guicursor&
+    endif
+    let g:goedel_cursor_is_blinking = !g:goedel_cursor_is_blinking
+endfunction
+call ToggleBlinking()
+nnoremap <F8> :call ToggleBlinking()<CR>
+inoremap <F8> <C-o>:call ToggleBlinking()<CR>
 
 " allow the use of select mode, which is more like a Microsoft windows
 " selection.
