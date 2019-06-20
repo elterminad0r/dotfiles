@@ -13,7 +13,7 @@
 
 # this is where it is on my system. Find a copy at
 # https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh.
-# I also have a backuip copy in my .bash_scripts, but that's not under any kind
+# I also have a backuip copy in my .bash/scripts, but that's not under any kind
 # of version control or package management.
 source_if_exists /usr/share/git/git-prompt.sh "$HOME/$BASHDOTDIR/scripts/git-prompt.sh"
 
@@ -71,8 +71,8 @@ shlvl_prompt() {
     fi
 }
 
-# function which returns magenta if the user has root privileges, and yellow
-# otherwise
+# function which returns red if the user has root privileges, and magenta
+# otherwise, displaying the username
 user_prompt() {
     if [[ $EUID -ne 0 ]]; then
         # echo -n "\[$(tput setaf 5)\]\u"
