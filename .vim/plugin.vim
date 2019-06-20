@@ -104,6 +104,8 @@ call plug#begin('~/.vim/bundle')
     " let g:gruvbox_termcolors=300
     " let g:gruvbox_undercurl = 1
     let g:gruvbox_italic = 1
+    " mnemonic: toggle slant
+    nnoremap yo/ :let g:gruvbox_italic = !g:gruvbox_italic <bar> colorscheme gruvbox<CR>
     Plug 'morhetz/gruvbox'
 
     let g:airline_detect_modified=1

@@ -18,11 +18,33 @@ if (!exists("g:goedel_set_font")) || !g:goedel_set_font
     let g:goedel_set_font=1
 endif
 
-" set toolbar+=text
-" set toolbariconsize=tiny
+nnoremap g<C-l> <C-l>:redraw!<CR>
 
 " binding to change font size
 nnoremap <Leader>f :set guifont=*<CR>
+
+" Allow increasing/decreasing the font size
+function! IncreaseFontSize()
+    let &guifont = substitute(
+     \ &guifont,
+     \ '\d\+',
+     \ '\=eval(submatch(0)+1)',
+     \ '')
+endfunction
+
+function! DecreaseFontSize()
+    let &guifont = substitute(
+     \ &guifont,
+     \ '\d\+',
+     \ '\=max([1, eval(submatch(0)-1)])',
+     \ '')
+endfunction
+
+nmap <Leader>F <SID>(fresize)
+nmap <script> <SID>(fresize)- :call DecreaseFontSize()<CR><SID>(fresize)
+nmap <script> <SID>(fresize)+ :call IncreaseFontSize()<CR><SID>(fresize)
+nmap <script> <SID>(fresize)= :ResetFont<CR><SID>(fresize)
+nmap <script> <SID>(fresize) <Nop>
 
 let g:goedel_gui_is_up = 1
 function! ToggleGUI()

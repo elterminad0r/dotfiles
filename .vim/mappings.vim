@@ -286,7 +286,7 @@ nnoremap <script> <SID>(wresize)- <C-W>-<SID>(wresize)
 nnoremap <script> <SID>(wresize)> <C-W>><SID>(wresize)
 nnoremap <script> <SID>(wresize)< <C-W><<SID>(wresize)
 nnoremap <script> <SID>(wresize)= <C-W>=<SID>(wresize)
-nmap <SID>(wresize) <Nop>
+nmap <script> <SID>(wresize) <Nop>
 
 " easier horizontal scrolling with zllllll and LLLL and hhh and HHHHH
 " as seen in "easier window resizing"
@@ -298,7 +298,7 @@ nnoremap <script> <SID>(hscroll)h zh<SID>(hscroll)
 nnoremap <script> <SID>(hscroll)l zl<SID>(hscroll)
 nnoremap <script> <SID>(hscroll)H zH<SID>(hscroll)
 nnoremap <script> <SID>(hscroll)L zL<SID>(hscroll)
-nmap <SID>(horscroll) <Nop>
+nmap <script> <SID>(horscroll) <Nop>
 
 " Indent/dedent by a single space
 " I think this is probably pretty kludgey, but it seems to work
@@ -357,6 +357,8 @@ nmap <Leader>v3 :E3r<CR>
 nmap <Leader>vf :Efr<CR>
 nmap <Leader>vt :Etr<CR>
 nmap <Leader>vu :Eur<CR>
+
+nnoremap yo@ :call ToggleUHex()<CR>
 
 " Toggle extra transparency, with a mapping prefix in the style of tpope's
 " unimpaired. This is because for example in URXVT I only have a transparent

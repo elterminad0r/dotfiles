@@ -23,6 +23,7 @@
 " TODO: insert-mode mapping to close the innermost unclosed delimiter.
 " TODO: text object for a filename, as in <cfile> maybe
 " TODO: add mnemonic comments to mappings where appropriate
+" TODO: generally see how unimpaired does things, and maybe move on
 
 set encoding=utf-8
 
@@ -48,7 +49,7 @@ if &t_Co > 2 || has("gui_running")
     endif
     " when I open a hacked together light terminal, use a light colorscheme.
     " I have this back here already so that background is expose to plugins
-    if $GOEDEL_COLORSCHEME == "light"
+    if $GOEDEL_COLORSCHEME ==# "light"
         set background=light
     else
         set background=dark
@@ -60,6 +61,15 @@ source ~/.vim/plugin.vim
 source ~/.vim/options.vim
 source ~/.vim/mappings.vim
 source ~/.vim/command.vim
+
+" show hex characters as codes
+function! ToggleUHex()
+    if &display =~# "uhex"
+        set display-=uhex
+    else
+        set display+=uhex
+    endif
+endfunction
 
 " some hacky functionality to toggle search highlighting
 if !exists("g:goedel_highlighted")
@@ -225,7 +235,7 @@ augroup ConfigReloadI3
 augroup END
 
 function! ToggleAmbiwidth()
-    if &ambiwidth == "single"
+    if &ambiwidth ==# "single"
         set ambiwidth=double
     else
         set ambiwidth=single
