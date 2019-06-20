@@ -236,6 +236,10 @@ nnoremap <Leader>xgb :%!xxd -b<CR>
 nnoremap <Leader>xgB :%!xxd-bin-hex <bar> xxd -r -p<CR>
 nnoremap <Leader>xtx :.!xxd-bin-hex <bar> xxd -r -p <bar> xxd<CR>
 xnoremap <Leader>xtx :!xxd-bin-hex <bar> xxd -r -p <bar> xxd<CR>
+nnoremap <Leader>xgtx :%!xxd-bin-hex <bar> xxd -r -p <bar> xxd<CR>
+nnoremap <Leader>xtb :.!xxd -r <bar> xxd -b<CR>
+xnoremap <Leader>xtb :!xxd -r <bar> xxd -b<CR>
+nnoremap <Leader>xgtb :%!xxd -r <bar> xxd -b<CR>
 
 " mappings for cApItAlIsAtIoN
 " TODO: make a proper operator of this
