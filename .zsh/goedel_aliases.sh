@@ -65,6 +65,9 @@ insomniac_press() {
     notify-send press "$(date +"%H:%M:%S")"
 }
 
+# test out notify-send
+alias notificate='for c in low normal critical; do notify-send -u "$c" "$c message" "This has $c priority"; done'
+
 # function to cd to a lot of directories, for experimenting with DIRSTACK type
 # options
 # Also serves as a handy example of how to properly loop over find output.
