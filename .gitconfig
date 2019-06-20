@@ -43,10 +43,10 @@
 	lo = "log --oneline"
 	unstage = "reset HEAD --"
 	unchange = "checkout --"
+	unadd = "rm --cached"
 	a = "add"
 	aa = "add --all"
 	au = "add --update"
-	unadd = "rm --cached"
 	chmodx = "update-index --chmod=+x"
 	chmod-x = "update-index --chmod=-x"
 	# this is an aliases that expands to a shell command. You can use $1 etc
