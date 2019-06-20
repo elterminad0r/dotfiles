@@ -244,9 +244,34 @@ nnoremap <Leader>xgtb :%!xxd -r <bar> xxd -b<CR>
 " mappings for cApItAlIsAtIoN
 " TODO: make a proper operator of this
 nnoremap <Leader>gu :.!b-cAt<CR>
+nnoremap <Leader>ggu :%!b-cAt<CR>
 xnoremap <Leader>gu :!b-cAt<CR>
 nnoremap <Leader>gU :.!b-cAt -r<CR>
+nnoremap <Leader>ggU :%!b-cAt -r<CR>
 xnoremap <Leader>gU :!b-cAt -r<CR>
+
+" X p a n d
+" TODO: again, operate
+"       and make this higher IQ - it's not very adaptive
+"       really it deserves its own executable
+if has("python3")
+    nnoremap <Leader>gx :.py3do return " ".join(line)<CR>
+    nnoremap <Leader>ggx :%py3do return " ".join(line)<CR>
+    xnoremap <Leader>gx :py3do return " ".join(line)<CR>
+    nnoremap <Leader>gX :.py3do return line[::2]<CR>
+    nnoremap <Leader>ggX :%py3do return line[::2]<CR>
+    xnoremap <Leader>gX :py3do return line[::2]<CR>
+elseif has("python")
+    nnoremap <Leader>gx :.pydo return " ".join(line)<CR>
+    nnoremap <Leader>ggx :%pydo return " ".join(line)<CR>
+    xnoremap <Leader>gx :%pydo return " ".join(line)<CR>
+    nnoremap <Leader>gX :.pydo return line[::2]<CR>
+    nnoremap <Leader>ggX :%pydo return line[::2]<CR>
+    xnoremap <Leader>gX :pydo return line[::2]<CR>
+else
+    noremap <Leader>gx :echo "my anaconda don't"<CR>
+    noremap <Leader>gX :echo "my anaconda don't"<CR>
+endif
 
 " easier window resizing with ^W+++++ and ------ and <<<<<< and >>>>>
 " https://www.vim.org/scripts/script.php?script_id=2223
