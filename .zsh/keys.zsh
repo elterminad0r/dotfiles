@@ -25,6 +25,7 @@ bindkey '^P' up-history
 bindkey '^N' down-history
 
 bindkey '^E' _expand_alias
+bindkey -M vicmd '^E' _expand_alias
 bindkey -M vicmd "K" run-help
 
 # load a widget for command-line editing in $EDITOR
