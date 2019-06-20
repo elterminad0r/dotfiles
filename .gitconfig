@@ -31,6 +31,9 @@
 [core]
 	excludesfile = ~/.gitignore
 # Git aliases. See also some longer custom git subcommands in ~/bin/git-*
+# These aren't all about convenience - sometimes I just find it hard to remember
+# obscure names for Git commands, so I have aids like "unstage" for
+# reset HEAD --.
 [alias]
 	c = "commit -v"
 	ca = "commit -v --all"
@@ -45,6 +48,7 @@
 	unchange = "checkout --"
 	unadd = "rm --cached"
 	a = "add"
+	register = "add -N"
 	aa = "add --all"
 	au = "add --update"
 	chmodx = "update-index --chmod=+x"
