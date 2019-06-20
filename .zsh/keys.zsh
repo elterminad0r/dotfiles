@@ -35,14 +35,13 @@ zle -N edit-command-line
 # functionality gets automatically propelled into vim.
 bindkey -M vicmd '^V' edit-command-line
 
-# function in order to temporarily set null_glob
-function get_fzf_bindings() {
+# anonymous function in order to temporarily set null_glob
+() {
     emulate -L zsh
     setopt null_glob
     FZF_BINDINGS=( /usr/share/fzf/key-bindings.zsh
                    /usr/local/Cellar/fzf/*/shell/key-bindings.zsh )
 }
-get_fzf_bindings
 
 # use fzf for completion
 # TODO: make this less intrusive
