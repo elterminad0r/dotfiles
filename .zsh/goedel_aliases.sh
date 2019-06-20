@@ -307,25 +307,7 @@ gfc() {
     GIT_DIR="$HOME/.cfg" GIT_WORK_TREE="$HOME" tig
 }
 
-# legacy gal function from when I used shell aliases for git
-# gal() {
-#     grep alias "$HOME/.gitconfig" | grep "$*"
-# }
-
-# function to display or filter git aliases, looking for some regex. quite
-# useful if you have a complex alias for something but you can't remember
-# the name, but you know roughly the subject it's in. Can also be used to show
-# what aliases do if you want to use them yourself.
-gal() {
-    # scrape the alias section using an awk command, which sets a flag to true
-    # at [alias], and then unsets it as soon as there is a nonwhite character on
-    # the first line
-    # awk '/\[alias\]/{a=1;next}/^[^	]/{a=0}a' "$HOME/.gitconfig" |\
-    #   sed "s/^	//" | grep -v "^;" | grep "$1"
-    git config --list | grep '^alias' | sed 's/^alias\.//' | grep "$1"
-}
-
-alias mutt='\mutt -F <(cat <(~/.mutt/make_localrc.sh /var/spool/mail /var/mail) ~/.mutt/localrc)'
+alias mutt='mutt -F <(cat <(~/.mutt/make_localrc.sh /var/spool/mail /var/mail) ~/.mutt/localrc)'
 alias gmail='\mutt -F ~/.mutt/gmail_muttrc'
 
 # get most recent n screenshots (1 by default)
