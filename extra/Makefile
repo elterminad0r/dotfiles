@@ -25,36 +25,36 @@ _mac: brew_list crontab.mac
 # store user crontab
 crontab.arch:
 	@crontab -l > $@
-	@$(CFG) add --verbose $@
+	@$(CFG) add --verbose $@ >&2
 
 crontab.mac:
 	@crontab -l > $@
-	@$(CFG) add --verbose $@
+	@$(CFG) add --verbose $@ >&2
 
 # this is a simplistic way to keep track of which packages I have
 pacman_list:
 	@pacman -Qqen > $@
-	@$(CFG) add --verbose $@
+	@$(CFG) add --verbose $@ >&2
 
 aur_list:
 	@pacman -Qqem > $@
-	@$(CFG) add --verbose $@
+	@$(CFG) add --verbose $@ >&2
 
 brew_list:
 	@/usr/local/bin/brew leaves > $@
-	@$(CFG) add --verbose $@
+	@$(CFG) add --verbose $@ >&2
 
 # this is a very simplistic way to track files in /etc among my dotfiles
 etc:
 	@mkdir -p etc
 	@./etc_store $(ETC_FILES)
-	@$(CFG) add --verbose $@
+	@$(CFG) add --verbose $@ >&2
 
 # TODO: strip frivolities
 systemd_units:
 	@systemctl list-unit-files --state=enabled > $@
-	@$(CFG) add --verbose $@
+	@$(CFG) add --verbose $@ >&2
 
 pip_freeze3:
 	@python3 -m pip freeze --user > $@
-	@$(CFG) add --verbose $@
+	@$(CFG) add --verbose $@ >&2
