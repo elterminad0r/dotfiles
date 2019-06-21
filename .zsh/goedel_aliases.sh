@@ -141,6 +141,8 @@ alias info='info --vi-keys'
 
 alias feh='feh -d'
 
+alias tree="tree --dirsfirst"
+
 # ls aliases, based on what the ls in PATH seems to be capable of
 # https://stackoverflow.com/questions/1676426/how-to-check-the-ls-version
 if >/dev/null 2>&1 ls --color -d /; then # GNU ls, probably
