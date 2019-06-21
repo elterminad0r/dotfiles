@@ -9,6 +9,7 @@
 
 set -eu
 
+# Make a temp file to tee the file list to.
 tmp_templ="${TMPDIR:-/tmp/}vim-stdin/$USER.$(date '+%Y%m%d%H%M%S').XXXXXXXX"
 mkdir -p "$(dirname "$tmp_templ")"
 >/dev/null 2>&1 chmod a+rwxt "$(dirname "$tmp_templ")" || true
@@ -22,5 +23,19 @@ tee "$file_dump" | \
             >&2 echo "no files to edit"
         fi' DUMMY
 
->&2 echo "opened files:"
->&2 < "$file_dump" xargs "$@" printf "%s\n"
+# Notify which files were opened. This is not intended to be parsed - instead
+# you find the input to vim-stdin, wherever that came from.
+# It tries to find a way to print them as quote-escaped, so it's not too
+# confusing if you have a file with a newline in the name.
+# TODO: make this prettier when no files
+>&2 printf "opened files:"
+if env printf --version | head -n 1 | grep -q GNU; then
+    printf '\n'
+    >&2 < "$file_dump" xargs "$@" env printf "%q\n"
+elif >/dev/null 2>&1 command bash; then
+    printf '\n'
+    >&2 < "$file_dump" xargs "$@" bash -c 'printf "%q\n" "$@"' DUMMY
+else
+    >&2 printf " (unsafe printing on newlines)\n"
+    >&2 < "$file_dump" xargs "$@" printf "%s\n"
+fi

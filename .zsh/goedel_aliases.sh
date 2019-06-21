@@ -82,6 +82,7 @@ alias grep='grep -i --color=auto'
 alias ack='ack -i'
 alias ag='ag -i'
 alias rg='rg -i'
+alias vimack='vimack -iI'
 
 # run pascal files as scripts with instantfpc
 # -B to always recompile

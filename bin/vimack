@@ -1,10 +1,18 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
+
+#        .__                           __
+# ___  __|__|  _____  _____     ____  |  | __
+# \  \/ /|  | /     \ \__  \  _/ ___\ |  |/ /
+#  \   / |  ||  Y Y  \ / __ \_\  \___ |    <
+#   \_/  |__||__|_|  /(____  / \___  >|__|_ \
+#                  \/      \/      \/      \/
+# FIGMENTIZE: vimack
 
 # search recursively for a pattern in file contents *and* file names, and open
 # matching files in $EDITOR or vim.
 
 # The first argument, if present, is a regular expression (for whatever grep you
-# have on your sytsem) to search for in files.
+# have on your system) to search for in files.
 
 # The second argument, if present, is a similar regular expression to filter
 # file names by.
@@ -13,89 +21,309 @@
 
 # Aims to be mostly functional if you have only POSIX utilities.
 
+# I have had to make it a bash script because POSIX shell makes it very hard to
+# be safe with newlines and nulls. It shouldn't have a big impact on performance
+# as the script itself doesn't do much heavy lifting.
+
+# TODO: spread the love
+#       write completions
+
 set -eu
 
 usage() {
     cat <<EOF
-vimack [-h|--help] [CONTENT_PATTERN [FILENAME_PATTERN]]
+vimack [OPTION...] [CONTENT_PATTERN [FILENAME_PATTERN [GOEDEL_PATTERN]]]
+
 Search for the (grep) regular expression CONTENT_PATTERN recursively in current
 directory, in files with names matching (the grep regex) FILENAME_PATTERN, if
 given. An empty pattern matches everything.
 
 Open any matching files in \$EDITOR or vim.
+
+Options:
+-h, --help:       Show this message and exit
+-d, --dryrun:     Just list files, in a parse-able format. Can be thought of as
+                  setting \$EDITOR to printf "%s\\n" or printf "%s\\0"
+-0:               Use null separators if using --dryrun
+-q,--quote:       Use \`printf "%q\n"\` to print dryrun matches. This will
+                  require GNU printf, probably. This tries to use nulls inside
+                  the pipeline, but the output is always newline separated
+                  because %q should be safe on newlines.
+-l, --list:       List files and matches, intended more for "checking" if you
+                  have the command right before going into your editor.
+-i, --ignorecase: Ignore case in file content searches.
+-I, --fileignore: Ignore case in file name matching.
+--quiet:          Don't complain about safety on newlines.
+--rg, --ag, --ack, --find:
+                  Use the corresponding strategy to find files.
+
+This script also passes the environment variable GOEDEL_VIMACK_SEARCH to the
+editor (through the script vim-stdin). If given, it takes the value of
+GOEDEL_PATTERN, otherwise it becomes CONTENT_PATTERN. This allows you to adjust
+for different regex engines if you're using complicated patterns. I have my Vim
+set up to automatically jump to any matches (and I have a mapping to toggle
+this behaviour). Basically it's up to you what you do with it.
 EOF
 }
 
-# no need for anything so sophisticated as getopts. Furthermore, I like to be
-# able to put -h after positional arguments.
-for arg; do
-    case "$arg" in
-        "-h"|"--help")
-            usage;
-            exit 0;
-            ;;
-        "--")
-            break;
+expand_arg() {
+    case "$1" in
+        "--"*)
+            printf "%s\n" "$1"
             ;;
         "-"*)
-            >&2 echo "unrecognised option: $arg";
-            >&2 usage;
-            exit 1;
+            printf "%s" "${1#-}" | fold -w1 | sed "s/^/-/"
+            printf '\n'
             ;;
         *)
+            printf "%s\n" "$1"
             ;;
     esac
+}
+
+# not using getopts, to some extent just to prove to myself that I don't need
+# to. Furthermore I like have long arguments, and also options starting with two
+# dashes. And letting options appear anywhere in the list.
+# https://unix.stackexchange.com/questions/258512/how-to-remove-a-positional-parameter-from
+# Using this to basically rotate through the argument list, only not rotating
+# the options back round.
+skip_remaining=false
+dryrun=false
+dryrun_nulls=false
+dryrun_quote=false
+list_files=false
+quiet_mode=false
+ignorecase=false
+file_ignorecase=false
+find_override=
+# TODO: this is unsafe on newlines in arguments
+for _arg; do
+    shift
+    if [ "$skip_remaining" = "true" ]; then
+        set -- "$@" "$_arg"
+    else
+        while IFS='' read -r arg; do
+            case "$arg" in
+                "-h"|"--help")
+                    usage
+                    exit 0
+                    ;;
+                "-d"|"--dryrun")
+                    dryrun=true
+                    ;;
+                "-0")
+                    dryrun_nulls=true
+                    quiet_mode=true
+                    ;;
+                "-q"|"--quote")
+                    dryrun_quote=true
+                    dryrun_nulls=true
+                    ;;
+                "-l"|"--list")
+                    list_files=true
+                    ;;
+                "-i"|"--ignorecase")
+                    ignorecase=true
+                    ;;
+                "-I"|"--fileignore")
+                    file_ignorecase=true
+                    ;;
+                "--quiet")
+                    quiet_mode=true
+                    ;;
+                "--rg"|"--ag"|"--ack"|"--find")
+                    find_override=${arg#--}
+                    ;;
+                "--")
+                    skip_remaining=true
+                    ;;
+                "-"*)
+                    >&2 echo "unrecognised option: $arg"
+                    >&2 usage
+                    exit 1
+                    ;;
+                *)
+                    set -- "$@" "$arg"
+                    ;;
+            esac
+        done < <(expand_arg "$_arg")
+    fi
 done
-
-get_files_null() {
-    if 1>&2 command -v rg; then
-        rg -li0 "$content_pattern" | \
-            grep -izZ "$filename_pattern"
-    elif 1>&2 command -v ag; then
-        ag -li0 "$content_pattern" | \
-            grep -izZ "$filename_pattern"
-    elif 1>&2 command -v ack; then
-        ack -li --print0 "$content_pattern" | \
-            grep -izZ "$filename_pattern"
-    else
-        >&2 echo "Going old-school"
-        find . -name .git -prune -type f -print0 | \
-            grep -izZ "$filename_pattern" | \
-            xargs -0 grep -liZ "$content_pattern" | \
-            sort -z
-    fi
-}
-
-get_files_notnull() {
-    if 1>&2 command -v rg; then
-        rg -li "$content_pattern" | \
-            grep -i "$filename_pattern"
-    elif 1>&2 command -v ag; then
-        ag -li "$content_pattern" | \
-            grep -i "$filename_pattern"
-    elif 1>&2 command -v ack; then
-        ack -li "$content_pattern" | \
-            grep -i "$filename_pattern"
-    else
-        >&2 echo "Going old-school"
-        find . -name .git -prune -type f | \
-            grep -i "$filename_pattern" | \
-            xargs -0 grep -li "$content_pattern" | \
-            tr '\n' '\0' | \
-            sort
-    fi
-}
 
 content_pattern="${1:-}"
 filename_pattern="${2:-}"
+goedel_pattern="${3:-$content_pattern}"
 
-if grep --version | head -n 1 | grep -q GNU &&
-   sort --version | head -n 1 | grep -q GNU; then
-    get_files_null | \
-        GOEDEL_VIMACK_SEARCH="$content_pattern" vim-stdin -0
-else
-    >&2 echo "warning: grep not safe on newlines: hit Enter to continue"
-    read -r
-    get_files_notnull | \
-        GOEDEL_VIMACK_SEARCH="$content_pattern" vim-stdin -0
+if [ -z "$find_override" ]; then
+    for com in rg ag ack find; do
+        if >/dev/null 2>&1 command -v "$com"; then
+            find_override="$com"
+            break
+        fi
+    done
+    if [ -n "$find_override" ]; then
+        [ "$quiet_mode" = "false" ] && { printf "strategy: ";
+                                         command -v "$find_override"; } >&2
+    else
+        >&2 echo "could not find a suitable program for find_override"
+        exit 1
+    fi
 fi
+
+# make input as safe as possible for xargs to read with -0
+# Of course, -0 isn't strictly POSIX, but what's a man supposed to do
+xargs_safe() {
+    if [ "$zero_mode" = "false" ] &&
+       [ -n "$filename_pattern" ]; then
+        tr '\n' '\0'
+    else
+        cat
+    fi
+}
+
+do_vimack() {
+    if [ "$ignorecase" = "true" ]; then
+        icflags=-i
+    else
+        icflags=
+    fi
+    if [ "$file_ignorecase" = "true" ]; then
+        ic_fileflags=-i
+    else
+        ic_fileflags=
+    fi
+    if ! grep --version | head -n 1 | grep -q GNU || \
+       ! sort --version | head -n 1 | grep -q GNU; then
+        zero_mode=false
+        rg_flags=
+        ack_flags=
+        grep_in_flags=
+        grep_out_flags=
+        find_flags=
+        sort_flags=
+        if [ -n "$filename_pattern" ] &&
+           [ "$find_override" = "find" ] ||
+           [ "$quiet_mode" = "false" ]; then
+            >&2 echo "warning: grep not safe on newlines: hit Enter to continue"
+            read -r
+        fi
+    else
+        zero_mode=true
+        rg_flags=-0
+        ack_flags=--print0
+        grep_in_flags=-z
+        grep_out_flags=-Z
+        find_flags=-print0
+        sort_flags=-z
+    fi
+    case "$find_override" in
+        "rg"|"ag"|"ack"|"find")
+            if [ "$list_files" = "true" ]; then
+                "${find_override}_strategy_list"
+            elif [ "$dryrun" = "true" ]; then
+                "${find_override}_strategy_dry" | \
+                    if [ "$dryrun_quote" = "true" ]; then
+                        if env printf --version | \
+                           head -n 1 | grep -q GNU; then
+                            xargs_safe | xargs -0 env printf "%q\n"
+                        elif >/dev/null 2>&1 command bash; then
+                            xargs_safe | \
+                                xargs -0 bash -c 'printf "%q\n" "$@"' DUMMY
+                        else
+                            >&2 echo "Can't find a suitable printf"
+                            exit 1
+                        fi
+                    elif [ "$dryrun_nulls" = "true" ]; then
+                        xargs_safe
+                    else
+                        xargs_safe | xargs -0 printf "%s\n"
+                    fi
+            else
+                "${find_override}_strategy_dry" | \
+                    xargs_safe | \
+                    GOEDEL_VIMACK_SEARCH="$goedel_pattern" vim-stdin -0
+            fi
+            ;;
+        *)
+            >&2 echo "unknown find_override: $find_override";
+            exit 1
+            ;;
+    esac
+}
+
+# grep if a pattern was given. Optionally, grep on $2 if $1 is not empty.
+# Strategy functions may optionally choose to use this. It is obviously faster
+# not to, but some utilities make it quite hard for you to filter files for
+# them.
+# The reason I don't want to just do meaningless greps is to be careful with
+# newlines and nulls.
+files_grep_dry() {
+    if [ -n "$1" ]; then
+        grep $ic_fileflags $grep_in_flags $grep_out_flags -- "${2:-$1}"
+    else
+        cat
+    fi
+}
+
+files_grep_list() {
+    if [ -n "$1" ]; then
+        grep $ic_fileflags $grep_in_flags -- "${2:-$1}"
+    else
+        cat
+    fi
+}
+
+# Generally wacky quoting throughout on purpose, so that we get word splitting
+
+rg_strategy_dry() {
+    rg -l $icflags $rg_flags "$content_pattern" | \
+        files_grep_dry "$filename_pattern"
+}
+
+rg_strategy_list() {
+    rg --color=ansi $icflags "$content_pattern" | \
+        # wacky business to parse the ANSI codes from ripgrep
+        files_grep_list "$filename_pattern" \
+                       $'^\x1b\[0m\x1b\[35m[^\x1b]*'"$filename_pattern"$'[^\x1b]*\x1b\[0m:'
+}
+
+ag_strategy_dry() {
+    ag -l $icflags $rg_flags "$content_pattern" | \
+        files_grep_dry "$filename_pattern"
+}
+
+ag_strategy_list() {
+    ag $icflags --color "$content_pattern" | \
+        files_grep_list "$filename_pattern" \
+                       $'^\x1b[1;32m[^\x1b]*'"$filename_pattern"$'[^\x1b]*\x1b[0m\x1b[K:'
+}
+
+ack_strategy_dry() {
+    ack -l $icflags $ack_flags "$content_pattern" | \
+        files_grep_dry "$filename_pattern"
+}
+
+ack_strategy_list() {
+    ack $icflags --color "$content_pattern" | \
+        files_grep_list "$filename_pattern" \
+                       $'^\x1b[1;32m[^\x1b]*'"$filename_pattern"$'[^\x1b]*\x1b[0m:'
+}
+
+find_strategy_dry() {
+    find . -name .git -prune -o -type f $find_flags | \
+        files_grep_dry "$filename_pattern" | \
+        xargs_safe  | \
+        xargs -0 grep -l $icflags $grep_out_flags \
+                         -- "$content_pattern" | \
+        sort $sort_flags;
+}
+
+find_strategy_list() {
+    find . -name .git -prune -o -type f $find_flags | \
+        files_grep_dry "$filename_pattern" | \
+        xargs_safe  | \
+        xargs -0 grep --color=always $icflags \
+                         -- "$content_pattern"
+}
+
+do_vimack
