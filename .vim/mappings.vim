@@ -142,6 +142,9 @@ nnoremap S :exec "normal! i".RepeatChar(nr2char(getchar()), v:count1)<CR>
 " and similar for append single character
 nnoremap <Leader>S :exec "normal! a".RepeatChar(nr2char(getchar()), v:count1)<CR>
 
+" map Y so it behaves like D and C
+nnoremap Y y$
+
 " Am I crazy?? this makes much more sense. nG is used to go to line, ngg is
 " used to go to character, G is EOF, gg is SOF, and g[oO] are these mad useful
 " bindings
