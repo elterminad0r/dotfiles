@@ -1,17 +1,6 @@
 # shellcheck disable=SC2016,SC2155,SC1003 shell=bash
 # vim: ts=4 sw=0 sts=-1 et ft=bash
 
-#   ___  __  __  ____    ___   ____  _____   _     _   _  _____  _
-#  |_ _||  \/  ||  _ \  / _ \ |  _ \|_   _| / \   | \ | ||_   _|| |
-#   | | | |\/| || |_) || | | || |_) | | |  / _ \  |  \| |  | |  | |
-#   | | | |  | ||  __/ | |_| ||  _ <  | | / ___ \ | |\  |  | |  |_|
-#  |___||_|  |_||_|     \___/ |_| \_\ |_|/_/   \_\|_| \_|  |_|  (_)
-#
-# This fork of apparix is not compatible with older Bashes, as it relies on you
-# having sourced bash-completion (https://github.com/scop/bash-completion),
-# which needs Bash 4.1.
-
-
 # ignore errors about:
 # - unexpanded substitutions in single quotes, because sometimes you need to
 #   delay command substitution
@@ -44,7 +33,7 @@
 #  partly in C.  For both systems the bookmarking commands are implemented as
 #  shell functions.  The names of these functions are the same between the two
 #  implementations and the function definitions are very similar.  The apparix
-#  shell functions invoke a C executable. Apparish uses another shell funtion to
+#  shell functions invoke a C executable. Apparish uses another shell function to
 #  mimic this C program and apparish provides two additional functions, and
 #  apparix-list. The pivotal commands however are 'bm' (bookmark) and 'to' (go
 #  to mark). You can change from apparix to apparish and vice versa, as they use
@@ -134,15 +123,15 @@
  #
 
 APPARIXHOME="${APPARIXHOME:=$HOME}"
-# ensure directory exists
+# ensure APPARIXHOME exists
 command mkdir -p "$APPARIXHOME"
 APPARIXRC="${APPARIXRC:=$APPARIXHOME/.apparixrc}"
 APPARIXEXPAND="${APPARIXEXPAND:=$APPARIXHOME/.apparixexpand}"
 APPARIXLOG="${APPARIXLOG:=$APPARIXHOME/.apparixlog}"
 
-GOEDEL_PLACEHOLDER="${GOEDEL_PLACEHOLDER:=__GOEDEL_PLACEHOLDER__}"
+APPARIX_PLACEHOLDER="${APPARIX_PLACEHOLDER:=__APPARIX_PLACEHOLDER__}"
 
-# ensure these files exist
+# ensure set up and log files exist
 command touch "$APPARIXRC"
 command touch "$APPARIXEXPAND"
 command touch "$APPARIXLOG"
@@ -169,8 +158,8 @@ function apparix_serialise() {
 }
 
 # https://stackoverflow.com/questions/723157/how-to-insert-a-newline-in-front-of-a-pattern
-# Makes use of the dummy placeholder _GOEDEL_PLACEHOLDER_, so please don't put
-# that in any of your directories or tags, or if you do, think of a better
+# Makes use of the dummy placeholder __APPARIX_PLACEHOLDER__, so please don't
+# put that in any of your directories or tags, or if you do, think of a better
 # placeholder.
 # https://unix.stackexchange.com/questions/17732/where-has-the-trailing-newline-char-gone-from-my-command-substitution
 # This adds a trailing character "#" to preserve any trailing newlines you had.
@@ -180,10 +169,10 @@ function apparix_deserialise() {
     # newlines, or particularly the lack thereof across distributions.
     # BSD sed just bluntly adds a newline at the end.
     # https://stackoverflow.com/questions/13325138/why-does-sed-add-a-new-line-in-osx
-    command perl -pe 's/%%/'"$GOEDEL_PLACEHOLDER"'/g;
+    command perl -pe 's/%%/'"$APPARIX_PLACEHOLDER"'/g;
                       s/%c/,/g;
                       s/%n/\'$'\n''/g;
-                      s/'"$GOEDEL_PLACEHOLDER"'/%/g'
+                      s/'"$APPARIX_PLACEHOLDER"'/%/g'
     echo -n '#'
 }
 
@@ -350,10 +339,7 @@ function unportal() {
     else
         target="$PWD"
     fi
-    # prepend two commas to "e" lines to safely ignore bookmarks called "e"
-    command sed "s/^e/,,e/" "$APPARIXRC" | \
-        command grep -v -F ",e,$target" | \
-        command sed "s/^,,e/e/" > "$APPARIXRC.new"
+    command grep -v -Fx "e,$target" "$APPARIXRC" > "$APPARIXRC.new"
     apparix_change || nochange=true
     command mv "$APPARIXRC.new" "$APPARIXRC"
     portal-expand
@@ -442,27 +428,6 @@ function whence() {
     done
 }
 
-function todo() {
-    # make sure to use Bashy expansion for "$@"/TODO
-    [ -n "$ZSH_VERSION" ] && emulate -L bash
-    ae "$1" "$2"/TODO
-}
-
-function rme() {
-    [ -n "$ZSH_VERSION" ] && emulate -L bash
-    ae "$1" "$2"/README
-}
-
-# apparix listing of directories of mark
-function ald() {
-    arun "$1" "$2" ls -d
-}
-
-# apparix ls of mark
-function als() {
-    arun "$1" "$2" ls
-}
-
 # apparix search if current directory is a bookmark or portal
 function amibm() {
     [ -n "$ZSH_VERSION" ] && emulate -L bash
@@ -492,6 +457,31 @@ function bmgrep() {
         column -t -s,
 }
 
+# edit a TODO file
+function todo() {
+    # make sure to use Bashy expansion for "$@"/TODO
+    [ -n "$ZSH_VERSION" ] && emulate -L bash
+    ae "$1" "$2"/TODO
+}
+
+# edit a README file
+function rme() {
+    [ -n "$ZSH_VERSION" ] && emulate -L bash
+    ae "$1" "$2"/README
+}
+
+# apparix listing of directories of mark
+function ald() {
+    arun "$1" "$2" ls -d
+}
+
+# apparix ls of mark
+function als() {
+    arun "$1" "$2" ls
+}
+
+# We need to define this intermediate function so that we move the argument
+# order around
 function apparix_aget_cp() {
     cp "$1" .
 }
@@ -516,6 +506,7 @@ function ae() {
     arun "$1" "$2" "${EDITOR:-vim}"
 }
 
+# Display usage text
 function apparish_ls() {
     cat <<EOH
   bm MARK                 Bookmark current directory as mark
@@ -552,6 +543,27 @@ if [[ -n "$BASH_VERSION" ]]; then
         return 0
     }
 
+    # complete sensibly on filenames and directories
+    # https://stackoverflow.com/questions/12933362/getting-compgen-to-include...
+    # -slashes-on-directories-when-looking-for-files
+    function _all_files_compgen() {
+        local cur="$1"
+
+        # The outcommented code splits directories and files but then treats
+        # them the same. Previously, it used to add a slash for directories, but
+        # this makes completing actually harder; Manually adding a slash is a
+        # good way of instigating the next level of completion. Anyway, I've
+        # kept this around in case people want to change this behaviour. I use
+        # comm because old greps have an issue where -v does not treat an empty
+        # file with -f correctly.
+        # $ comm -3 <(compgen -f -- "$cur" | sort) \
+        #           <(compgen -d -- "$cur" | sort) # | sed -e 's/$/ /'
+        # Directories (add -S / for slash separator):
+        # $ compgen -d -- "$cur"
+
+        compgen -f -- "$cur"
+    }
+
     # https://stackoverflow.com/questions/3685970/check-if-a-bash-array-...
     # contains-a-value
     function elemOf() {
@@ -562,20 +574,82 @@ if [[ -n "$BASH_VERSION" ]]; then
     }
 
     # a file, used by _apparix_comp
-    # uses _filedir, so archeological bash is unsupported
     function _apparix_comp_file() {
         local caller="$1"
-        # this is used by _filedir
-        # shellcheck disable=SC2034
-        local cur="$2"
+        local cur_file="$2"
+
         if elemOf "$caller" "${APPARIX_DIR_FUNCTIONS[@]}"; then
-            _filedir -d
+            if [[ -n "$BERTRAND_RUSSEL" ]]; then
+                # # Directories (add -S / for slash separator):
+                compgen -d -- "$cur_file"
+            else
+                goedel_compfile "$cur_file" d
+            fi
         elif elemOf "$caller" "${APPARIX_FILE_FUNCTIONS[@]}"; then
-            _filedir
+            # complete on filenames. this is a little harder to do nicely.
+            if [[ -n "$BERTRAND_RUSSEL" ]]; then
+                _all_files_compgen "$cur_file"
+            else
+                goedel_compfile "$cur_file" f
+            fi
         else
             >&2 echo "Unknown caller: Izaak has probably messed something up"
             return 1
         fi
+    }
+
+    # the existence of this function is a counterexample to Gödel's little known
+    # incompletion theorem: there's no such thing as good completion on files in
+    # Bash
+    function goedel_compfile() {
+        local part_esc="$1"
+        case "$2" in
+            f)
+                local find_files=true;;
+            d) ;;
+            *) >&2 echo "Specify file type"; return 1;;
+        esac
+        local part_unesc="$(bash -c "printf '%s' $part_esc")"
+        local part_dir="$(dirname "$part_unesc")"
+        COMPREPLY=()
+        # can't pipe to while because that's a subshell and we need to modify
+        # COMREPLY.
+        while IFS='' read -r -d '' result; do
+            # this is a bit of a weird hack because printf "%q\n" with no
+            # arguments prints ''. It should be robust, because any actual
+            # single quotes will have been escaped by printf.
+            if [[ "$result" != "''" ]]; then
+                COMPREPLY+=("$result")
+            fi
+        # use an explicit bash subshell to set some glob flags.
+        done < <(part_dir="$part_dir" part_unesc="$part_unesc" \
+                 find_files="$find_files" bash -c '
+            shopt -s nullglob
+            shopt -s extglob
+            shopt -u dotglob
+            shopt -u failglob
+            GLOBIGNORE="./:../"
+            if [[ "$part_dir" == "." ]]; then
+                find_name_prefix="./"
+            fi
+            # here we delay the %q escaping because I want to strip trailing /s
+            if [[ -d "$part_unesc" ]]; then
+                if [[ "$part_unesc" != +(/) ]]; then
+                    part_unesc="${part_unesc%%+(/)}"
+                fi
+                if [[ "$find_files" == true ]]; then
+                    printf "%q\0" "$part_unesc"/* "$part_unesc"/*/
+                else
+                    printf "%q\0" "$part_unesc"/*/
+                fi
+            else
+                if [[ "$find_files" == true ]]; then
+                    printf "%q\0" "$part_unesc"*/ "$part_unesc"*
+                else
+                    printf "%q\0" "$part_unesc"*/
+                fi
+            fi'
+        )
     }
 
     # generate completions for a bookmark. It's case insensitive. This completes
@@ -652,14 +726,14 @@ elif [[ -n "$ZSH_VERSION" ]]; then
     # these functions are totally safe because the serialisation system
     # guarantees no newlines in apparixrc.
     function _apparix_file() {
-        IFS=$'\n'
+        local IFS=$'\n'
         _arguments \
             '1:mark:($(cut -d, -f2 "$APPARIXRC" "$APPARIXEXPAND"))' \
             '2:file:_path_files -W "$(apparish "$words[2]" 2>/dev/null)"'
     }
 
     function _apparix_directory() {
-        IFS=$'\n'
+        local IFS=$'\n'
         _arguments \
             '1:mark:($(cut -d, -f2 "$APPARIXRC" "$APPARIXEXPAND"))' \
             '2:file:_path_files -/W "$(apparish "$words[2]" 2>/dev/null)"'
