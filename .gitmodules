@@ -186,3 +186,7 @@
 	path = .vim/bundle/vim-colors-solarized
 	url = https://github.com/altercation/vim-colors-solarized.git
 	branch = master
+[submodule ".themes/mutt-dracula"]
+	path = .themes/mutt-dracula
+	url = https://github.com/dracula/mutt.git
+	branch = master

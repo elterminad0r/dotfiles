@@ -313,8 +313,8 @@ gfc() {
     GIT_DIR="$HOME/.cfg" GIT_WORK_TREE="$HOME" tig
 }
 
-alias mutt='mutt -F <(cat <(~/.mutt/make_localrc.sh /var/spool/mail /var/mail) ~/.mutt/localrc)'
-alias gmail='\mutt -F ~/.mutt/gmail_muttrc'
+alias mutt='mutt -F <(cat <(~/.mutt/make_localrc.sh /var/spool/mail /var/mail) ~/.mutt/local.muttrc)'
+alias gmail='\mutt -F ~/.mutt/gmail.muttrc'
 
 # get most recent n screenshots (1 by default)
 # useful to copy it to current directory or similar.
