@@ -24,6 +24,7 @@
 " TODO: text object for a filename, as in <cfile> maybe
 " TODO: add mnemonic comments to mappings where appropriate
 " TODO: generally see how unimpaired does things, and maybe move on
+" TODO: make a proper little mode for toggling things, with a menu
 
 set encoding=utf-8
 
