@@ -279,7 +279,7 @@ alias visafe='vim -c "set noswapfile nobackup nowritebackup noundofile viminfo="
 alias vienc='visafe ~/Documents/.enc/'
 
 # reload various types of configuration
-alias x='xrdb -merge -I"$XDOTDIR" ~/.Xresources'
+alias x='xrdb -merge -I"$XDOTDIR" ~/.Xresources; xmodmap ~/.Xmodmap; xset r rate 200 30'
 alias t='tmux source-file ~/.tmux.conf'
 
 # restart or test wifi connection
