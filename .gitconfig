@@ -63,7 +63,7 @@
 	vim = "!cd -- \"${GIT_PREFIX:-.}\"; \"${EDITOR:-vim}\" \"$@\"; git add \"$@\" #"
 	# aliased so that Git passes through environment variables like GIT_DIR and
 	# WORK_TREE
-	vimack = "!vimack --git"
+	vimack = "!vimack -iI --git"
 	sm-add-existing = "sm-add-existing-exe"
 	sm-reattach = "submodule foreach 'git checkout master'"
 	sm-status = "submodule foreach 'git status'"

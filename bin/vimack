@@ -27,6 +27,7 @@
 
 # TODO: spread the love
 #       write completions
+#       detect binary files in the find strategy
 
 set -eu
 
