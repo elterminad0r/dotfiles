@@ -47,6 +47,8 @@ enhance() {
         fi | tac | tail -n +2 | tac
 }
 
+alias xclarify='tr "\n" "\0" | xargs -0 printf "%q\n"'
+
 # if you want to really ruin someone's day, run this in a high frequency while
 # loop:
 # while true; do insomniac_twitch; sleep 0.5; done
