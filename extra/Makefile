@@ -14,49 +14,47 @@ default:
 
 arch: _arch
 	@make -B $< > /dev/null
-	@$(CFG) status --porcelain
 
 _arch: pacman_list aur_list etc pip_freeze3 crontab.arch systemd_units
 
 mac: _mac
 	@make -B $< > /dev/null
-	@$(CFG) status --porcelain
 
 _mac: brew_list crontab.mac
 
 # store user crontab
 crontab.arch:
 	@crontab -l > $@
-	@$(CFG) add $@
+	@$(CFG) add --verbose $@
 
 crontab.mac:
 	@crontab -l > $@
-	@$(CFG) add $@
+	@$(CFG) add --verbose $@
 
 # this is a simplistic way to keep track of which packages I have
 pacman_list:
 	@pacman -Qqen > $@
-	@$(CFG) add $@
+	@$(CFG) add --verbose $@
 
 aur_list:
 	@pacman -Qqem > $@
-	@$(CFG) add $@
+	@$(CFG) add --verbose $@
 
 brew_list:
 	@/usr/local/bin/brew leaves > $@
-	@$(CFG) add $@
+	@$(CFG) add --verbose $@
 
 # this is a very simplistic way to track files in /etc among my dotfiles
 etc:
 	@mkdir -p etc
 	@./etc_store $(ETC_FILES)
-	@$(CFG) add $@
+	@$(CFG) add --verbose $@
 
 # TODO: strip frivolities
 systemd_units:
 	@systemctl list-unit-files --state=enabled > $@
-	@$(CFG) add $@
+	@$(CFG) add --verbose $@
 
 pip_freeze3:
 	@python3 -m pip freeze --user > $@
-	@$(CFG) add $@
+	@$(CFG) add --verbose $@
