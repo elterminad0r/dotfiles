@@ -77,4 +77,6 @@ function expand-or-complete-with-dots() {
 }
 zle -N expand-or-complete-with-dots
 bindkey "^I" expand-or-complete-with-dots
-
+# Shift-tab to complete backwards
+# You should also be able to use ^N and ^P
+bindkey '^[[Z' reverse-menu-complete
