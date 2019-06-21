@@ -18,3 +18,5 @@ set sort=threads
 
 alternative_order text/plain text/html
 auto_view text/html
+
+source ~/.mutt/gruvbox.mutt
