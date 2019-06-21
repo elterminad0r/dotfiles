@@ -11,7 +11,10 @@
 """
 Show value of stdin as a Python string.
 
-It's kind of simliar to GNU sed -n l
+It's kind of similar to GNU sed -n l, or something like
+tr '\n' '\0' | xargs -0 printf '%q\n'
+but this will work anywhere there is Python, and is consistently more readable,
+and doesn't put dollar signs everywhere (at the start or the end).
 """
 
 import sys

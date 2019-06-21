@@ -61,8 +61,9 @@
 	# edit files and add them afterwards, because typing two commands is for
 	# nerds
 	vim = "!cd -- \"${GIT_PREFIX:-.}\"; \"${EDITOR:-vim}\" \"$@\"; git add \"$@\" #"
-	# alias to get tab completion in zsh
-	vimack = "vimack-exe"
+	# aliased so that Git passes through environment variables like GIT_DIR and
+	# WORK_TREE
+	vimack = "!vimack --git"
 	sm-add-existing = "sm-add-existing-exe"
 	sm-reattach = "submodule foreach 'git checkout master' #"
 	sm-status = "submodule foreach 'git status' #"

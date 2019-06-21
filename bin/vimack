@@ -54,7 +54,7 @@ Options:
 -i, --ignorecase: Ignore case in file content searches.
 -I, --fileignore: Ignore case in file name matching.
 --quiet:          Don't complain about safety on newlines.
---rg, --ag, --ack, --find:
+--rg, --ag, --ack, --find, --git:
                   Use the corresponding strategy to find files.
 
 This script also passes the environment variable GOEDEL_VIMACK_SEARCH to the
@@ -131,7 +131,7 @@ for _arg; do
                 "--quiet")
                     quiet_mode=true
                     ;;
-                "--rg"|"--ag"|"--ack"|"--find")
+                "--rg"|"--ag"|"--ack"|"--find"|"--git")
                     find_override=${arg#--}
                     ;;
                 "--")
@@ -181,6 +181,15 @@ xargs_safe() {
     fi
 }
 
+# Turn nulls back into newlines if needed.
+display_safe() {
+    if [ "$zero_mode" = "true" ]; then
+        tr '\0' '\n'
+    else
+        cat
+    fi
+}
+
 do_vimack() {
     if [ "$ignorecase" = "true" ]; then
         icflags=-i
@@ -197,6 +206,7 @@ do_vimack() {
         zero_mode=false
         rg_flags=
         ack_flags=
+        git_flags=
         grep_in_flags=
         grep_out_flags=
         find_flags=
@@ -211,44 +221,35 @@ do_vimack() {
         zero_mode=true
         rg_flags=-0
         ack_flags=--print0
+        git_flags=-z
         grep_in_flags=-z
         grep_out_flags=-Z
         find_flags=-print0
         sort_flags=-z
     fi
-    case "$find_override" in
-        "rg"|"ag"|"ack"|"find")
-            if [ "$list_files" = "true" ]; then
-                "${find_override}_strategy_list"
-            elif [ "$dryrun" = "true" ]; then
-                "${find_override}_strategy_dry" | \
-                    if [ "$dryrun_quote" = "true" ]; then
-                        if env printf --version | \
-                           head -n 1 | grep -q GNU; then
-                            xargs_safe | xargs -0 env printf "%q\n"
-                        elif >/dev/null 2>&1 command bash; then
-                            xargs_safe | \
-                                xargs -0 bash -c 'printf "%q\n" "$@"' DUMMY
-                        else
-                            >&2 echo "Can't find a suitable printf"
-                            exit 1
-                        fi
-                    elif [ "$dryrun_nulls" = "true" ]; then
-                        xargs_safe
-                    else
-                        xargs_safe | xargs -0 printf "%s\n"
-                    fi
+    if [ "$list_files" = "true" ]; then
+        "${find_override}_strategy_list"
+    elif [ "$dryrun" = "true" ]; then
+        "${find_override}_strategy_dry" | \
+            if [ "$dryrun_quote" = "true" ]; then
+                if env printf --version | \
+                    head -n 1 | grep -q GNU; then
+                    xargs_safe | xargs -0 env printf "%q\n"
+                elif >/dev/null 2>&1 command bash; then
+                    xargs_safe | xargs -0 bash -c 'printf "%q\n" "$@"' DUMMY
+                else
+                    >&2 echo "Can't find a suitable printf"
+                    exit 1
+                fi
+            elif [ "$dryrun_nulls" = "true" ]; then
+                xargs_safe
             else
-                "${find_override}_strategy_dry" | \
-                    xargs_safe | \
-                    GOEDEL_VIMACK_SEARCH="$goedel_pattern" vim-stdin -0
+                xargs_safe | xargs -0 printf "%s\n"
             fi
-            ;;
-        *)
-            >&2 echo "unknown find_override: $find_override";
-            exit 1
-            ;;
-    esac
+    else
+        "${find_override}_strategy_dry" | xargs_safe | \
+            GOEDEL_VIMACK_SEARCH="$goedel_pattern" vim-stdin -0
+    fi
 }
 
 # grep if a pattern was given. Optionally, grep on $2 if $1 is not empty.
@@ -267,6 +268,8 @@ files_grep_dry() {
 
 files_grep_list() {
     if [ -n "$1" ]; then
+        printf "%q " grep $ic_fileflags $grep_in_flags -- "${2:-$1}"
+        echo
         grep $ic_fileflags $grep_in_flags -- "${2:-$1}"
     else
         cat
@@ -280,11 +283,14 @@ rg_strategy_dry() {
         files_grep_dry "$filename_pattern"
 }
 
+# not robust on newlines, due to rg's weird output format
 rg_strategy_list() {
+    grep_in_flags=
     rg --color=ansi $icflags "$content_pattern" | \
         # wacky business to parse the ANSI codes from ripgrep
         files_grep_list "$filename_pattern" \
-                       $'^\x1b\[0m\x1b\[35m[^\x1b]*'"$filename_pattern"$'[^\x1b]*\x1b\[0m:'
+                       $'^\x1b\\[0m\x1b\\[35m[^\x1b]*'"$filename_pattern"$'[^\x1b]*\x1b\\[0m:' | \
+        display_safe
 }
 
 ag_strategy_dry() {
@@ -292,10 +298,13 @@ ag_strategy_dry() {
         files_grep_dry "$filename_pattern"
 }
 
+# similar problem to rg
 ag_strategy_list() {
+    grep_in_flags=
     ag $icflags --color "$content_pattern" | \
         files_grep_list "$filename_pattern" \
-                       $'^\x1b[1;32m[^\x1b]*'"$filename_pattern"$'[^\x1b]*\x1b[0m\x1b[K:'
+                       $'^\x1b\\[1;32m[^\x1b]*'"$filename_pattern"$'[^\x1b]*\x1b\\[0m\x1b\\[K:' | \
+        display_safe
 }
 
 ack_strategy_dry() {
@@ -304,9 +313,10 @@ ack_strategy_dry() {
 }
 
 ack_strategy_list() {
-    ack $icflags --color "$content_pattern" | \
+    ack $icflags $ack_flags --color "$content_pattern" | \
         files_grep_list "$filename_pattern" \
-                       $'^\x1b[1;32m[^\x1b]*'"$filename_pattern"$'[^\x1b]*\x1b[0m:'
+                       $'^\x1b\\[1;32m[^\x1b]*'"$filename_pattern"$'[^\x1b]*\x1b\\[0m:' | \
+        display_safe
 }
 
 find_strategy_dry() {
@@ -324,6 +334,20 @@ find_strategy_list() {
         xargs_safe  | \
         xargs -0 grep --color=always $icflags \
                          -- "$content_pattern"
+}
+
+git_strategy_dry() {
+    git grep -l $icflags $git_flags "$content_pattern" | \
+        files_grep_dry "$filename_pattern"
+}
+
+# also not safe on newlines
+git_strategy_list() {
+    grep_in_flags=
+    git grep $icflags --color=always "$content_pattern" | \
+        files_grep_list "$filename_pattern" \
+                       $'^[^\x1b]*'"$filename_pattern"$'[^\x1b]*\x1b\\[36m:' | \
+        display_safe
 }
 
 do_vimack
