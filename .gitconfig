@@ -65,8 +65,8 @@
 	# WORK_TREE
 	vimack = "!vimack --git"
 	sm-add-existing = "sm-add-existing-exe"
-	sm-reattach = "submodule foreach 'git checkout master' #"
-	sm-status = "submodule foreach 'git status' #"
+	sm-reattach = "submodule foreach 'git checkout master'"
+	sm-status = "submodule foreach 'git status'"
 	gud = "!echo scrub #"
 	# https://stackoverflow.com/questions/673407/how-do-i-clear-my-local-working-directory-in-git
 	mkempty = "!true | git mktree | xargs git commit-tree | xargs git tag empty #"
