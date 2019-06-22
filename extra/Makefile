@@ -21,6 +21,7 @@ reflect_install:
 
 arch: _arch
 	@make -B $< > /dev/null
+	@$(CFG) add --verbose ~/.lyrics >&2
 
 _arch: pacman_list aur_list slash pip_freeze3 crontab.arch systemd_units
 
