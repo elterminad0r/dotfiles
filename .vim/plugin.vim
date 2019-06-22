@@ -315,9 +315,6 @@ call plug#begin('~/.vim/bundle')
     endif
     Plug 'mileszs/ack.vim'
 
-    " tell vim-commentary what comments to use in tex files
-    augroup TexComments
-    augroup END
     " makes gc comment-uncomment lines
     Plug 'tpope/vim-commentary'
 

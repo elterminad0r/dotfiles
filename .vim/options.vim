@@ -227,6 +227,9 @@ set formatoptions+=tcqjronl
 set formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*\\\|^\\s*[-+*]\\s*\\\|^\\s*\\%(TODO\\\|FIXME\\)[:]\\?\\s*
 " this is further customised in ftplugin/tex.vim
 
+" tell Vim to assume that tex files are latex, by default
+let g:tex_flavor = 'latex'
+
 " shorten certain types of diagnostic/informational messages more (eg [+]
 " instead of "written")
 set shortmess=atToO
