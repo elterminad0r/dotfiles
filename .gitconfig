@@ -44,6 +44,8 @@
 	ll = "log --stat"
 	lu = "log -u"
 	lo = "log --oneline"
+	lg = "log --oneline --graph"
+	lga = "log --oneline --graph --all"
 	unstage = "reset HEAD --"
 	unchange = "checkout --"
 	unadd = "rm --cached"
