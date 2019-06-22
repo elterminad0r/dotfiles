@@ -101,16 +101,20 @@ alias ccat='highlight -O ansi'
 # cat an eXecutable
 xcat() {
     loc="$(command -v "$1")" || return 1
-    if >/dev/null 2>&1 command -v isutf8; then
-        if isutf8 "$loc"; then
+    if [ -f "$loc" ]; then
+        if >/dev/null 2>&1 command -v isutf8; then
+            if isutf8 "$loc"; then
+                cat "$loc"
+            fi
+        # obviously not waterproof: if you have an executable called "text", for
+        # example. But then you deserve this anyway
+        elif file "$loc" | >/dev/null 2>&1 grep text; then
             cat "$loc"
+        else
+            >&2 echo "not a text file"
         fi
-    # obviously not waterproof: if you have an executable called "text", for
-    # example. But then you deserve this anyway
-    elif file "$loc" | >/dev/null 2>&1 grep text; then
-        cat "$loc"
     else
-        >&2 echo "not a text file"
+        >&2 echo "not a file: '$loc'"
     fi
 }
 
