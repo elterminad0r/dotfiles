@@ -158,10 +158,18 @@ if >/dev/null 2>&1 ls --color -d /; then # GNU ls, probably
     # long listings with and without group of owner
     alias l='ls -l -G'
     alias ll='ls -l'
+    # long listing of all files
     alias la='ls -la'
+    # long listing sorted by time
     alias lt='\ls -ltrh --color=auto'
+    # long listing sorted by size
     alias lb='ls -lSr'
+    # list directory arguments as directories, instead of listing their
+    # contents.
     alias ldir='ls -l --directory'
+    # sort by extension
+    # TODO: possible on BSD?
+    alias lext='ls -lX'
 elif >/dev/null 2>&1 gls --color -d .; then # GNU ls is on the system as "gls"
     alias ls='LC_ALL=C gls -h --group-directories-first --color=auto'
     alias l='ls -l -G'
@@ -170,6 +178,7 @@ elif >/dev/null 2>&1 gls --color -d .; then # GNU ls is on the system as "gls"
     alias lt='\gls -ltrh --color=auto'
     alias lb='ls -lSr'
     alias ldir='ls -l --directory'
+    alias lext='ls -lX'
 elif >/dev/null 2>&1 ls -G -d .; then # BSD ls, probably (eg as on MacOS)
     alias ls='LC_ALL=C ls -h -G'
     alias lt='\ls -ltrh -G'
