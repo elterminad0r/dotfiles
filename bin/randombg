@@ -17,16 +17,17 @@ traverse, so strictly speaking it's a list.
 """
 
 # TODO add option for a literal path
-# TODO fail gracefully if feh not present
 # TODO add command line options for wallpaper directory, stack location, max
 #      stack size
 
 import os
+import sys
 import pickle
 import collections
 import random
 import subprocess
 import pathlib
+import shutil
 
 import smartparse as argparse
 
@@ -59,15 +60,27 @@ class BackgroundStack:
     def set_bg(self, choice):
         if not isinstance(choice, pathlib.Path):
             notif = Notify.Notification.new(
+                    "randombg",
                     "Your cache is out of date - not using pathlib")
             notif.set_urgency(Notify.Urgency.CRITICAL)
             notif.show()
+            print("Cache out of date", file=sys.stderr)
+            sys.exit(1)
         else:
-            Notify.Notification.new(
-                    "randombg",
-                    "{} (s:{})".format(choice, self.pos)).show()
-            subprocess.call(
-                    ["feh", "--bg-scale", str(choice)])
+            if shutil.which("feh"):
+                Notify.Notification.new(
+                        "randombg",
+                        "{} (s:{})".format(choice, self.pos)).show()
+                subprocess.call(
+                        ["feh", "--bg-scale", str(choice)])
+            else:
+                notif = Notify.Notification.new(
+                        "randombg",
+                        "Feh executable not present")
+                notif.set_urgency(Notify.Urgency.CRITICAL)
+                notif.show()
+                print("No feh executable", file=sys.stderr)
+                sys.exit(1)
 
     def random_bg(self):
         # TODO: prevent repetition

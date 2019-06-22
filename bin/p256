@@ -6,7 +6,14 @@
 # It's bash because I need the -nt operator. I'll make use of the sh speedup
 # when POSIX gets with the times
 
-# TODO: show help message
+if [ "$#" -gt 0 ]; then
+    cat <<EOF
+p256
+Produce some output to test the 256-colour capability of your terminal. Takes no
+arguments.
+EOF
+    exit 1
+fi
 
 CACHE_NAME="${XDG_CACHE_HOME:-$HOME/.cache/}p256.txt"
 P256_NAME="$HOME/bin/p256.py"
