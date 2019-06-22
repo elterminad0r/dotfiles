@@ -100,15 +100,7 @@ set thesaurus=~/.vim/thesaurus/thesaurus_pkg/thesaurus.txt
 " spellcapcheck set to nothing stops vim from whining about capitalisation in
 " the middle of sentences.
 set spelllang=en_gb,nl spellcapcheck=
-" Make files be "text" by default
-" augroup TextFileType
-"     autocmd! BufEnter * if &filetype == "" | setlocal ft=text | endif
-" augroup END
-" Enable spelling for these filetypes
 set spell
-" augroup SpellingFiles
-"     autocmd! FileType latex,tex,text,markdown setlocal spell
-" augroup END
 
 " don't show mode as the lightline plugin does this already.
 set noshowmode
@@ -233,11 +225,7 @@ set formatoptions+=tcqjronl
 " using -+*, in addition to the default ordered lists with numbers
 " Also, indent things after a TODO more nicely
 set formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*\\\|^\\s*[-+*]\\s*\\\|^\\s*\\%(TODO\\\|FIXME\\)[:]\\?\\s*
-" this makes vim recognise \item s in TeX files
-augroup TexListPat
-    autocmd! FileType tex
-                \ setlocal formatlistpat+=\\\|^\\s*\\item\\%(\\[[^\\]]*\\]\\)\\?\\s*
-augroup END
+" this is further customised in ftplugin/tex.vim
 
 " shorten certain types of diagnostic/informational messages more (eg [+]
 " instead of "written")

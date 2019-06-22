@@ -308,9 +308,6 @@ call plug#begin('~/.vim/bundle')
         \ }
     Plug 'luochen1990/rainbow'
     nnoremap yo( :RainbowToggle<CR>
-    " augroup  EnableRainbow
-    "     autocmd! VimEnter,WinEnter * RainbowToggleOn
-    " augroup END
 
     " vimgrep-like thing but with ack, but actually with ag
     if executable('ag')
@@ -320,7 +317,6 @@ call plug#begin('~/.vim/bundle')
 
     " tell vim-commentary what comments to use in tex files
     augroup TexComments
-        autocmd! FileType tex setlocal commentstring=%\ %s
     augroup END
     " makes gc comment-uncomment lines
     Plug 'tpope/vim-commentary'
