@@ -2,7 +2,7 @@
 # hasn't been read yet (eg in a TTY or ssh) leading to a misunderstanding about
 # ZDOTDIR.
 
->&2 echo "Izaak's zshrc: something has gone horribly, but recoverably,  wrong"
+>&2 echo "Izaak's zshrc: something has gone horribly, but recoverably, wrong"
 
 source "$HOME/.profile"
 source "$ZDOTDIR/.zshenv"
