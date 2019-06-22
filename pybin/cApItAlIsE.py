@@ -78,6 +78,9 @@ class HumANdomcaPITalisEr(BaSeCaPiTaLiSeR):
         self.bitstream = heads_tails()
 
     def _process(self, s):
+        """
+        Process an iterable, returning a generator of characters
+        """
         for c in s:
             if c.isalpha():
                 if next(self.bitstream):
