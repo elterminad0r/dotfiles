@@ -66,6 +66,9 @@ call plug#begin('~/.vim/bundle')
     " Git stuff
     Plug 'tpope/vim-fugitive'
 
+    " Browse Github with fugitive
+    Plug 'tpope/vim-rhubarb'
+
     " Tmux stuff
     Plug 'tpope/vim-tbone'
 
