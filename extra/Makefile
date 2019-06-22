@@ -1,4 +1,4 @@
-.PHONY: default all _all
+.PHONY: default arch _arch mac _mac reflect_install mirrorlist.uk
 
 # Makefile to store information about the system.
 
@@ -11,6 +11,13 @@ ETC_FILES = /etc/locale.gen /etc/locale.conf /etc/profile.d/libreoffice-still.sh
 
 default:
 	$(error from Goedel: select an explicit target)
+
+mirrorlist.uk:
+	reflector -c "United Kingdom" -f 100 --save $@
+	@$(CFG) add --verbose $@ >&2
+
+reflect_install:
+	cat mirrorlist.uk | sudo tee /etc/pacman.d/mirrorlist > /dev/null
 
 arch: _arch
 	@make -B $< > /dev/null
