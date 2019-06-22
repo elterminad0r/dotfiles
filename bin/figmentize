@@ -61,7 +61,7 @@ CONFIG_FILE = (pathlib.Path.home() /
 DEFAULT_CONFIG = {
         # by default, kern and disable wrapping.
         # TODO: this wrap width seems to work, and if you go much larger it
-        # doesn't. Why?
+        #       doesn't. Why?
         "flags": ["-k", "-w", "10000"],
         "font": "standard",
         "dir": get_figlet_default()}
@@ -203,7 +203,7 @@ def process_file(file, command, backup, overwrite):
         else:
             file = sys.stdout
         # TODO: this is a little dangerous as it can close stdout. Might lead to
-        # bugs
+        #       bugs
         with file:
             file.write("\n\n".join(output))
 

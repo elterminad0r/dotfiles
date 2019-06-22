@@ -21,7 +21,6 @@ class BaSeCaPiTaLiSeR:
     """
     Base class to provide capitalisation.
     """
-
     def process(self, s):
         """
         Process a string into a string
@@ -34,7 +33,6 @@ class CaPiTaLiSeR(BaSeCaPiTaLiSeR):
     distinguish between the class CaPiTaLiSeR and a cApItAlIsEr instance, using
     case conventions.
     """
-
     def __init__(self, make_upcase=False):
         """
         Pass in True to start on an uppercase letter
@@ -59,7 +57,6 @@ class RAnDOMCApItALiseR(BaSeCaPiTaLiSeR):
     """
     Similar object that instead provides random capitalisation.
     """
-
     def _process(self, s):
         """
         Process an iterable, returning a generator of characters
@@ -75,9 +72,8 @@ class RAnDOMCApItALiseR(BaSeCaPiTaLiSeR):
 
 class HumANdomcaPITalisEr(BaSeCaPiTaLiSeR):
     """
-    Use humandom get get more aesthetically random capitalisation
+    Use humandom to get more aesthetically random capitalisation
     """
-
     def __init__(self):
         self.bitstream = heads_tails()
 
