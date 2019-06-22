@@ -4,8 +4,8 @@
 
 for file; do
     if [ -f "$file" ]; then
-        dest_file="${file//%/%%}"
-        dest_file="./etc/${dest_file//\//%s}"
+        dest_file="./etc/$file"
+        mkdir -p "$(dirname "$dest_file")"
         cp "$file" "$dest_file"
     else
         >&2 echo "can't copy $file"
