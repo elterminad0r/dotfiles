@@ -100,7 +100,7 @@ alias ccat='highlight -O ansi'
 
 # cat an eXecutable
 xcat() {
-    loc="$(command -v "$1")" || return 1
+    loc="$(sh -c 'command -v "$1"' DUMMY "$1")" || return 1
     if [ -f "$loc" ]; then
         if >/dev/null 2>&1 command -v isutf8; then
             if isutf8 "$loc"; then
