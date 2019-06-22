@@ -15,7 +15,7 @@ default:
 arch: _arch
 	@make -B $< > /dev/null
 
-_arch: pacman_list aur_list etc pip_freeze3 crontab.arch systemd_units
+_arch: pacman_list aur_list slash pip_freeze3 crontab.arch systemd_units
 
 mac: _mac
 	@make -B $< > /dev/null
@@ -45,8 +45,8 @@ brew_list:
 	@$(CFG) add --verbose $@ >&2
 
 # this is a very simplistic way to track files in /etc among my dotfiles
-etc:
-	@mkdir -p etc
+slash:
+	@mkdir -p $@
 	@./etc_store $(ETC_FILES)
 	@$(CFG) add --verbose $@ >&2
 

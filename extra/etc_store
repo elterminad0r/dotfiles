@@ -4,7 +4,7 @@
 
 for file; do
     if [ -f "$file" ]; then
-        dest_file="./etc/$file"
+        dest_file="./slash/$file"
         mkdir -p "$(dirname "$dest_file")"
         cp "$file" "$dest_file"
     else
