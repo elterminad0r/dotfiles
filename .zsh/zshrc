@@ -8,8 +8,6 @@
 
 # Zshrc by Izaak van Dongen/oh-my-zsh/probably some other people
 # I no longer use oh-my-zsh as I found it a little too restrictive regarding
-#
-#
 # setting some options and variables (HISTSIZE in particular), and also it
 # seemed to persistently mess up my locale environment variables like LC_ALL
 
