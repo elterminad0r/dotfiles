@@ -257,6 +257,7 @@ pypy
 pypy3
 pyside2
 python
+python-ansi2html
 python-dbus
 python-gobject
 python-matplotlib
