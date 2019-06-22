@@ -151,8 +151,6 @@ for _arg; do
     fi
 done
 
-printf "%q\n" "$@"
-
 content_pattern="${1:-}"
 filename_pattern="${2:-}"
 goedel_pattern="${3:-$content_pattern}"
