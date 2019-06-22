@@ -91,9 +91,10 @@ bind '"\C-e": alias-expand-line'
 # that is, Aliases, Builtins, Commands, Keywords
 alias lx="compgen -A function -abck | grep -v '^_' | uniq"
 
-# as per `man which`
+# as per `man which`, only done a little more neatly
 which () {
-    (alias; declare -f) | command which --tty-only --read-alias --read-functions --show-tilde --show-dot $@
+    { alias; declare -f; } | command which \
+        --tty-only --read-alias --read-functions --show-tilde --show-dot "$@"
 }
 export -f which
 
@@ -107,16 +108,17 @@ if version_assert 4 1 0; then
     # make the default completion understand ~s and things (basically, I just
     # copied however ls and cat are defined to complete)
     complete -D -F _longopt
-    # fix colon filename completion: http://tiswww.case.edu/php/chet/bash/FAQ.
-    # COMP_WORDBREAKS="${COMP_WORDBREAKS//:}"
-    APPARIXHOME="$HOME/.apparix"
-    APPARIXRC="$APPARIXHOME/apparixrc"
-    APPARIXEXPAND="$APPARIXHOME/apparixexpand"
-    APPARIXLOG="$APPARIXHOME/apparixlog"
-    source_if_exists "$APPARIXHOME/appari.sh"
 else
-    >&2 echo "(not sourcing bash completion or apparix)"
+    >&2 echo "(not sourcing bash completion)"
 fi
+
+# fix colon filename completion: http://tiswww.case.edu/php/chet/bash/FAQ.
+# COMP_WORDBREAKS="${COMP_WORDBREAKS//:}"
+APPARIXHOME="$HOME/.apparix"
+APPARIXRC="$APPARIXHOME/apparixrc"
+APPARIXEXPAND="$APPARIXHOME/apparixexpand"
+APPARIXLOG="$APPARIXHOME/apparixlog"
+source_if_exists "$APPARIXHOME/appari.sh"
 
 # define completion for my xcat function
 complete -c xcat
