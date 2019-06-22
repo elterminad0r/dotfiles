@@ -103,3 +103,9 @@ add_to_path() {
 for bin_dir in "$HOME/bin" "$HOME/.gem/ruby/2.6.0/bin" "$HOME/.local/bin"; do
     add_to_path "$bin_dir"
 done
+
+if >/dev/null 2>&1 command -v brew; then
+    export BREW_PREFIX="$(brew --prefix)"
+else
+    export BREW_PREFIX="/usr/local"
+fi

@@ -41,7 +41,7 @@ bindkey -M vicmd '^V' edit-command-line
     emulate -L zsh
     setopt null_glob
     FZF_BINDINGS=( /usr/share/fzf/key-bindings.zsh
-                   /usr/local/Cellar/fzf/*/shell/key-bindings.zsh )
+                   "${BREW_PREFIX:-/usr/local}"/Cellar/fzf/*/shell/key-bindings.zsh )
 }
 
 # use fzf for completion

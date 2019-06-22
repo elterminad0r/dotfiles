@@ -16,7 +16,7 @@
 # I also have a backuip copy in my .bash/scripts, but that's not under any kind
 # of version control or package management.
 source_if_exists /usr/share/git/git-prompt.sh \
-                 /usr/local/etc/bash_completion.d/git-prompt.sh
+                 "${BREW_PREFIX:-/usr/local}/etc/bash_completion.d/git-prompt.sh"
 
 # show if there are staged/unstaged changes
 export GIT_PS1_SHOWDIRTYSTATE=true
