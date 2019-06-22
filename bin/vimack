@@ -75,7 +75,6 @@ expand_arg() {
             ;;
         "-"*)
             printf "%s" "${1#-}" | fold -w1 | sed "s/^/-/"
-            printf '\n'
             ;;
         *)
             printf "%s\n" "$1"
@@ -152,6 +151,8 @@ for _arg; do
     fi
 done
 
+printf "%q\n" "$@"
+
 content_pattern="${1:-}"
 filename_pattern="${2:-}"
 goedel_pattern="${3:-$content_pattern}"
@@ -203,8 +204,10 @@ do_vimack() {
     else
         ic_fileflags=
     fi
-    if ! grep --version | head -n 1 | grep -q GNU || \
-       ! sort --version | head -n 1 | grep -q GNU; then
+    if ! grep --version | head -n 1 | grep -q GNU ||
+       ! sort --version | head -n 1 | grep -q GNU &&
+       [ -n "$filename_pattern" ] ||
+       [ "$find_override" = "find" ]; then
         zero_mode=false
         rg_flags=
         ack_flags=
@@ -213,9 +216,7 @@ do_vimack() {
         grep_out_flags=
         find_flags=
         sort_flags=
-        if [ -n "$filename_pattern" ] &&
-           [ "$find_override" = "find" ] ||
-           [ "$quiet_mode" = "false" ]; then
+        if [ "$quiet_mode" = "false" ]; then
             >&2 echo "warning: grep not safe on newlines: hit Enter to continue"
             read -r
         fi
@@ -270,8 +271,6 @@ files_grep_dry() {
 
 files_grep_list() {
     if [ -n "$1" ]; then
-        printf "%q " grep $ic_fileflags $grep_in_flags -- "${2:-$1}"
-        echo
         grep $ic_fileflags $grep_in_flags -- "${2:-$1}"
     else
         cat

@@ -29,7 +29,7 @@ tee "$file_dump" | \
 # confusing if you have a file with a newline in the name.
 # TODO: make this prettier when no files
 >&2 printf "opened files:"
-if env printf --version | head -n 1 | grep -q GNU; then
+if 2>&1 env printf --version | head -n 1 | grep -q GNU; then
     printf '\n'
     >&2 < "$file_dump" xargs "$@" env printf "%q\n"
 elif >/dev/null 2>&1 command bash; then
