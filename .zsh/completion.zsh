@@ -34,7 +34,6 @@ zstyle ':completion:*' matcher-list 'm:{a-zA-Z-_}={A-Za-z_-}' 'r:|=*' 'l:|=* r:|
 
 zstyle ':completion:*' special-dirs true
 
-zstyle ':completion:*' list-colors ''
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
 
 zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-directories
@@ -62,7 +61,11 @@ zstyle ':completion:*' expand prefix suffix
 zstyle ':completion:*' file-sort name
 zstyle ':completion:*' glob 1
 zstyle ':completion:*' insert-unambiguous false
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+if [[ -n "$LS_COLORS" ]]; then
+    zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+else
+    zstyle ':completion:*' list-colors ''
+fi
 zstyle ':completion:*' list-suffixes true
 zstyle ':completion:*' menu select=1
 zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
