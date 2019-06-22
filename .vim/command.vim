@@ -68,7 +68,7 @@ command! W call W()
 command! Vrc call ReloadVimConf()
 command! Evr argadd  ~/.vim/{vimrc,*.vim,gvimrc} | n
 " TODO: use $ZDOTDIR and $bASHDOTDIR
-command! Ezr argadd ~/.zsh/{zshrc,*.zsh,*.sh,zshenv,zprofile,prompts/*} ~/.bash/* ~/.apparix/appari.sh ~/.profile | n
+command! Ezr argadd ~/.zsh/{zshrc,*.zsh,*.sh,zshenv,zprofile,prompts/*} ~/.bash/* ~/.apparix/*.*sh ~/.profile | n
 " TODO: this is a workaround to get just files
 command! Exr argadd ~/.Xresources ~/.X/**/*.* ~/.xinitrc ~/.xprofile | n
 command! E3r argadd ~/.config/i3/config | n

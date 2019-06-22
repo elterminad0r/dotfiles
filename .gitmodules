@@ -194,3 +194,7 @@
 	path = .vim/bundle/vim-rhubarb
 	url = https://github.com/tpope/vim-rhubarb.git
 	branch = master
+[submodule ".apparix"]
+	path = .apparix
+	url = https://github.com/goedel-gang/bash-utils
+	branch = master

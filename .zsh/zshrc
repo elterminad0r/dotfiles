@@ -82,9 +82,9 @@ source_if_exists "$ZDOTDIR/completion.zsh"
 source_if_exists "$ZDOTDIR/options.zsh"
 source_if_exists "$ZDOTDIR/keys.zsh"
 
-ZAPPARIXHOME="$ZDOTDIR/apparix"
+ZAPPARIXHOME="$HOME/.apparix"
 ZAPPARIX_ACTIVE=false
-source_if_exists "$ZDOTDIR/apparix.zsh"
+source_if_exists "$ZAPPARIXHOME/apparix.zsh"
 
 alias -g ...='../..'
 alias -g ....='../../..'
