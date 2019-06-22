@@ -287,6 +287,8 @@ rg_strategy_list() {
     grep_in_flags=
     rg --color=ansi $icflags "$content_pattern" | \
         # wacky business to parse the ANSI codes from ripgrep
+        # This is basically not at all guaranteed to be safe, but you really
+        # shouldn't be putting ANSI SGR codes in your file names.
         files_grep_list "$filename_pattern" \
                        $'^\x1b\\[0m\x1b\\[35m[^\x1b]*'"$filename_pattern"$'[^\x1b]*\x1b\\[0m:' | \
         display_safe
