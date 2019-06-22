@@ -104,7 +104,7 @@ set -o vi
 # The script I have bundled probably required a new-ish bash.
 if version_assert 4 1 0; then
     source_if_exists /usr/share/bash-completion/bash_completion \
-                     "$HOME/$BASHDOTDIR/scripts/bash_completion"
+                     /usr/local/etc/profile.d/bash_completion.sh
     # make the default completion understand ~s and things (basically, I just
     # copied however ls and cat are defined to complete)
     complete -D -F _longopt
@@ -126,7 +126,8 @@ complete -c xcat
 # tab completion for git
 # The one I have bundled probably required a new-ish bash
 if version_assert 3 2 57; then
-    source_if_exists /usr/share/git/completion/git-completion.bash "$HOME/$BASHDOTDIR/scripts/git-completion.bash"
+    source_if_exists /usr/share/git/completion/git-completion.bash \
+                     /usr/local/etc/bash_completion.d/git-completion.bash
 else
     >&2 echo "(not sourcing git completion)"
 fi

@@ -1,4 +1,5 @@
 ack
+bash
 cmatrix
 coreutils
 cowsay
@@ -6,6 +7,7 @@ figlet
 fortune
 fzf
 ghostscript
+git
 htop
 ipython
 lolcat
@@ -24,4 +26,5 @@ tig
 tmux
 toilet
 vte
+zsh
 zsh-completions

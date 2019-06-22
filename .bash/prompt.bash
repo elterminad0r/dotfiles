@@ -15,7 +15,8 @@
 # https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh.
 # I also have a backuip copy in my .bash/scripts, but that's not under any kind
 # of version control or package management.
-source_if_exists /usr/share/git/git-prompt.sh "$HOME/$BASHDOTDIR/scripts/git-prompt.sh"
+source_if_exists /usr/share/git/git-prompt.sh \
+                 /usr/local/etc/bash_completion.d/git-prompt.sh
 
 # show if there are staged/unstaged changes
 export GIT_PS1_SHOWDIRTYSTATE=true
