@@ -118,7 +118,7 @@ APPARIXHOME="$HOME/.apparix"
 APPARIXRC="$APPARIXHOME/apparixrc"
 APPARIXEXPAND="$APPARIXHOME/apparixexpand"
 APPARIXLOG="$APPARIXHOME/apparixlog"
-source_if_exists "$APPARIXHOME/appari.sh"
+source_if_exists "$APPARIXHOME/appari.sh" "$APPARIXHOME/.bourne-apparish"
 
 # define completion for my xcat function
 complete -c xcat

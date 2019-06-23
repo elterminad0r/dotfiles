@@ -15,7 +15,7 @@ mkdir -p "$(dirname "$tmp_templ")"
 >/dev/null 2>&1 chmod a+rwxt "$(dirname "$tmp_templ")" || true
 file_dump="$(mktemp "$tmp_templ")"
 
-tee "$file_dump" | \
+tee "$file_dump" |
     xargs "$@" bash -c '
         if [ $# -gt 0 ]; then
             </dev/tty "${EDITOR:-vim}" -- "$@"

@@ -34,7 +34,7 @@ enhance() {
     GOEDEL_ENHANCE_F() {
         $(printf "%q " "$@")
     }"
-    declare -f GOEDEL_ENHANCE_F |\
+    declare -f GOEDEL_ENHANCE_F |
         if [ -n "$ZSH_VERSION" ]; then
             tail -n +2 | sed "s/^	//"
         # assume everything else acts like bash
@@ -383,8 +383,8 @@ figfonts() {
         (end='' printf "flf tlf "  && figlet -I 5) | sed -e 's/  */\\|/g')"'\)$')"
     echo "finding all $exts in $(figlet -I 2)"
     find "$(figlet -I 2)" -type f -regex "$exts" \
-        -exec echo {} \;\
-        -exec figlet -ktd "$(figlet -I 2)" -f {} "${1:-Test 123}" \;\
+        -exec echo {} \; \
+        -exec figlet -ktd "$(figlet -I 2)" -f {} "${1:-Test 123}" \; \
         -exec echo \;
 }
 

@@ -45,14 +45,14 @@ pattern="$1"
 shift
 
 if grep --version | head -n 1 | grep -q GNU; then
-    printf "%s\0" "$@" | \
-        grep -izZ "$pattern" | \
+    printf "%s\0" "$@" |
+        grep -izZ "$pattern" |
         vim-stdin -0
 else
     >&2 echo "warning: grep not safe on newlines: hit Enter to continue"
     read -r
-    printf "%s\n" "$@" | \
-        grep -i "$pattern" | \
-        tr '\n' '\0' | \
+    printf "%s\n" "$@" |
+        grep -i "$pattern" |
+        tr '\n' '\0' |
         vim-stdin -0
 fi

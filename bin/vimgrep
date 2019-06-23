@@ -45,12 +45,12 @@ pattern="$1"
 shift
 
 if grep --version | head -n 1 | grep -q GNU; then
-    grep -liZ "$pattern" "$@" | \
+    grep -liZ "$pattern" "$@" |
         GOEDEL_VIMACK_SEARCH="$pattern" vim-stdin -0
 else
     >&2 echo "warning: grep not safe on newlines: hit Enter to continue"
     read -r
-    grep -li "$pattern" "$@" | \
-        tr '\n' '\0' | \
+    grep -li "$pattern" "$@" |
+        tr '\n' '\0' |
         GOEDEL_VIMACK_SEARCH="$pattern" vim-stdin -0
 fi

@@ -122,7 +122,7 @@ EOF
 
   local dependencies=(python git virtualenv)
   for dep in "${dependencies[@]}"; do
-    command -v "$dep" >/dev/null || \
+    command -v "$dep" >/dev/null ||
     { echo "DEPENDENCY: \"$dep\" is needed to install cheat.sh in the standalone mode" >&2; _exit_code=1; }
   done
   [ "$_exit_code" -ne 0 ] && return "$_exit_code"
