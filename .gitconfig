@@ -62,7 +62,7 @@
 	figmentize = "!git grep -lz FIGMENTIZE | xargs -0 -n1 figmentize #"
 	# edit files and add them afterwards, because typing two commands is for
 	# nerds
-	vim = "!cd -- \"${GIT_PREFIX:-.}\"; \"${EDITOR:-vim}\" \"$@\"; git add \"$@\" #"
+	vim = "!cd -- \"${GIT_PREFIX:-.}\"; \"${EDITOR:-vim}\" \"$@\"; git add --verbose \"$@\" #"
 	# aliased so that Git passes through environment variables like GIT_DIR and
 	# WORK_TREE. Furthermore, make it happen from CWD.
 	# In a pinch, this can also be used to simply open all files under Git in an

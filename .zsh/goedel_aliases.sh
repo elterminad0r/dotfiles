@@ -41,7 +41,7 @@ enhance() {
         else
             tail -n +3 | sed "s/^    //"
         # this removes the last line. Can't use head -n -1 as that doesn't work
-        # on BSD. Obviously is hugely inoptimal, as it required linear storage
+        # on BSD. Obviously is hugely inoptimal, as it requires linear storage
         # out of nowhere, and only works on finite inputs. Fortunately, function
         # definitions are usually both small and finite.
         fi | tac | tail -n +2 | tac
