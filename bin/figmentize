@@ -52,11 +52,10 @@ def get_figlet_default():
             check=True, stdout=subprocess.PIPE)
     return figlet.stdout.decode().strip()
 
-# directory to store backup files in, relative to $HOME. This will be fed to a
-# pathlib.Path
-BACKUP_DIR = pathlib.Path.home() / ".figmentize/backup"
+# directory to store backup files in, relative to $HOME.
+BACKUP_DIR = pathlib.Path.home() / ".figmentize" / "backup"
 # location of the figmentizerc file
-CONFIG_FILE = pathlib.Path.home() / ".figmentize/figmentizerc.json"
+CONFIG_FILE = pathlib.Path.home() / ".figmentize" / "figmentizerc.json"
 DEFAULT_CONFIG = {
         # by default, kern and disable wrapping.
         # TODO: this wrap width seems to work, and if you go much larger it

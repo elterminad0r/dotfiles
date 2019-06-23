@@ -36,12 +36,12 @@ gi.require_version('Notify', '0.7')
 from gi.repository import Notify
 Notify.init("backgrounds")
 
-WALLPAPERS = pathlib.Path.home() / "Pictures/wallpapers"
+WALLPAPERS = pathlib.Path.home() / "Pictures" / "wallpapers"
 if os.getenv("XDG_CACHE_HOME"):
     CACHE_HOME = pathlib.Path(os.getenv("XDG_CACHE_HOME"))
 else:
     CACHE_HOME = pathlib.Path.home() / ".cache"
-STACK = CACHE_HOME / "randombg/stack.pickle"
+STACK = CACHE_HOME / "randombg" / "stack.pickle"
 MAX_STACK = 100
 
 def ensure_cache():
