@@ -64,7 +64,9 @@
 	# nerds
 	vim = "!cd -- \"${GIT_PREFIX:-.}\"; \"${EDITOR:-vim}\" \"$@\"; git add \"$@\" #"
 	# aliased so that Git passes through environment variables like GIT_DIR and
-	# WORK_TREE. Furthermore, make it happen from CWD
+	# WORK_TREE. Furthermore, make it happen from CWD.
+	# In a pinch, this can also be used to simply open all files under Git in an
+	# editor.
 	vimack = "!cd -- \"${GIT_PREFIX:-.}\"; vimack -iI --git"
 	vimack-I = "!cd -- \"${GIT_PREFIX:-.}\"; vimack --git"
 	vimack-g = "!vimack -iI --git"
