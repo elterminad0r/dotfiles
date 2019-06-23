@@ -57,9 +57,9 @@ from re import findall
 if getenv("XDG_CACHE_HOME"):
     CACHE_HOME = Path(getenv("XDG_CACHE_HOME"))
 else:
-    CACHE_HOME = Path.home() / Path(".cache")
+    CACHE_HOME = Path.home() / ".cache"
 
-CACHE_DIR = CACHE_HOME / Path("p999")
+CACHE_DIR = CACHE_HOME / "p999"
 
 def get_window_id():
     """
@@ -177,9 +177,9 @@ def p999(w, h):
     A caching wrapper around _p999.
     """
     CACHE_DIR.mkdir(exist_ok=True, parents=True)
-    cache_path = CACHE_DIR / Path("{}x{}.p999".format(w, h))
+    cache_path = CACHE_DIR / "{}x{}.p999".format(w, h)
     if (not cache_path.exists() or
-            getmtime(str(cache_path)) < getmtime(__file__)):
+            getmtime(cache_path) < getmtime(__file__)):
         print("writing cache to {}".format(cache_path),
                 file=sys.stderr, flush=True)
         with cache_path.open("w") as cache_file:
