@@ -8,9 +8,11 @@ recurse
 Izaak
 plugins
 Shimmi
-#cmpcpp
 ncmpcpp
 iterable
 stdin
 stdout
 whitespace
+mediant
+rationals
+nonzero
