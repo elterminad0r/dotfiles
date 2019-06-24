@@ -72,6 +72,28 @@ function! ToggleUHex()
     endif
 endfunction
 
+" Toggle all the crap I put in my columns, proxied by the number option. Written
+" in such a way that it does not break if I change my default options.
+let g:columns_are_on = 1
+function! ToggleColumn()
+    if &number
+        let g:columns_are_on = 0
+        windo setlocal nonumber norelativenumber foldcolumn=0
+    else
+        let g:columns_are_on = 1
+        windo setlocal number< relativenumber< foldcolumn<
+    endif
+endfunction
+
+augroup SetColumns
+    autocmd! BufWinEnter *
+                \ if g:columns_are_on |
+                \     setlocal number< relativenumber< foldcolumn< |
+                \ else |
+                \     setlocal nonumber norelativenumber foldcolumn=0 |
+                \ endif
+augroup END
+
 " some hacky functionality to toggle search highlighting
 if !exists("g:goedel_highlighted")
     let g:goedel_highlighted = 1

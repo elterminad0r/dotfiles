@@ -182,8 +182,8 @@ set number
 set relativenumber
 augroup InsertModeLineNos
     autocmd!
-    autocmd InsertEnter * set norelativenumber
-    autocmd InsertLeave * set relativenumber
+    autocmd InsertEnter * if &number | set norelativenumber | endif
+    autocmd InsertLeave * if &number | set relativenumber | endif
 augroup END
 
 " whitespace

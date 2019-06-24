@@ -362,6 +362,7 @@ nmap <Leader>vt :Etr<CR>
 nmap <Leader>vu :Eur<CR>
 
 nnoremap yo@ :call ToggleUHex()<CR>
+nnoremap yo` :call ToggleColumn()<CR>
 
 " Toggle extra transparency, with a mapping prefix in the style of tpope's
 " unimpaired. This is because for example in URXVT I only have a transparent
