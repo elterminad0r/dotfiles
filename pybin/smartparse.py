@@ -17,21 +17,23 @@ Be careful as this does rely on implementation details.
 """
 
 import argparse
-#del argparse.__all__
 from argparse import *
+import enum
 import re
 import textwrap
-
-_ArgumentParser = argparse.ArgumentParser
 
 def ArgumentParser(*args, **kwargs):
     """
     Wrap ArgumentParser, providing the custom help formatter.
     """
-    return _ArgumentParser(*args, **kwargs,
+    return argparse.ArgumentParser(*args, **kwargs,
                            formatter_class=SmartFormatter)
 
 class SmartFormatter(ArgumentDefaultsHelpFormatter):
+    """
+    Formatter class that fixes the paragraph formatting, whiel still respecting
+    the width.
+    """
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self._whitespace_matcher = re.compile(" +", re.ASCII)
@@ -42,3 +44,37 @@ class SmartFormatter(ArgumentDefaultsHelpFormatter):
                                          initial_indent=indent,
                                          subsequent_indent=indent)
                            for paragraph in text.split("\n\n"))
+
+class APEnumBase:
+    """
+    Allow argparse arguments to be Enums. Lets you do things like
+
+    >>> parser.add_argument('some_val', type=SomeEnum.argparse, choices=list(SomeEnum))
+
+    Built on from
+    https://stackoverflow.com/a/55500795/5468953
+    """
+    def __str__(self):
+        return self.name.lower()
+
+    def __repr__(self):
+        return str(self)
+
+    @classmethod
+    def argparse(cls, s):
+        try:
+            return cls[s.upper()]
+        except KeyError:
+            return s
+
+class APEnum(APEnumBase, enum.Enum):
+    pass
+
+if __name__ == "__main__":
+    class MyEnum(APEnum):
+        ONE = enum.auto()
+        TWO = enum.auto()
+    parser = ArgumentParser(description=__doc__)
+    parser.add_argument("number", type=MyEnum.argparse, choices=list(MyEnum))
+    args = parser.parse_args()
+    print("you picked: {}".format(args.number))
