@@ -74,7 +74,9 @@ expand_arg() {
             printf "%s\n" "$1"
             ;;
         "-"*)
-            printf "%s" "${1#-}" | fold -w1 | sed "s/^/-/"
+            # awk to fill in a trailing newline if fold doesn't add it, due to
+            # differences between GNU and BSD.
+            printf "%s" "${1#-}" | fold -w1 | sed "s/^/-/" | awk 1
             ;;
         *)
             printf "%s\n" "$1"
