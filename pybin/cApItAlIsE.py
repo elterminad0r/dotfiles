@@ -9,8 +9,8 @@
 """
 CaPiTaLiSaTiOn framework
 
-Not packages with any __main__ code. This is implemented elsewhere, in bob_eChO
-and bob_cAt in my ~/bin.
+The __main__ code is a simple demo. The serious CaPiTaLiSaTiOn is implemented
+elsewhere, in b_eChO and b_cAt in my ~/bin.
 """
 
 from random import random
@@ -89,3 +89,10 @@ class HumANdomcaPITalisEr(BaSeCaPiTaLiSeR):
                     yield c.lower()
             else:
                 yield c
+
+if __name__ == "__main__":
+    import sys
+    cApItAlIsEr = CaPiTaLiSeR()
+    with open(__file__, "r") as source:
+        for line in source:
+            sys.stdout.write(cApItAlIsEr.process(line))
