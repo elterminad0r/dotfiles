@@ -445,6 +445,11 @@ alias rick='mpv "https://www.youtube.com/watch?v=dQw4w9WgXcQ" -vo caca'
 alias cmatrix='cmatrix -abu 1'
 
 alias mirrormirroronthewall='mpv /dev/video0 -vo caca'
+alias mirrormirroronframebuffer='mpv /dev/video0 -vo drm'
+
+# FrameBufferScreenShot. Has to be quoted this way because you need to use it
+# with sudo.
+alias fbss="sudo fbgrab \"$HOME/Pictures/screenshots/fb_\$(date +%Y%m%d_%H%M%S.png)\""
 
 selfie() {
     out="${1:-$HOME/Pictures/selfies/selfie_$(date +%s).jpg}"
