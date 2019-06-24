@@ -121,6 +121,21 @@ xcat() {
 # TODO: make this a more versatile command
 alias gpl="cat /usr/share/licenses/common/GPL3/license.txt"
 
+gitignore_cat() {
+    if [ "$#" = 0 ]; then
+        >&2 echo "no matches"
+    elif [ "$#" = 1 ]; then
+        cat "$1"
+    else
+        >&2 echo "matches:"
+        >&2 printf "%s\n" "$@"
+    fi
+}
+
+gitignore() {
+    gitignore_cat "$HOME/programmeren/gitignore"/**/*"$1"*
+}
+
 # DIY coloured man pages using an alias so it's faster
 # colours personally engineered to not be utterly disgusting, unlike OMZ's
 # colored-manpages, apparently.
