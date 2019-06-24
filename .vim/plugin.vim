@@ -270,6 +270,7 @@ call plug#begin('~/.vim/bundle')
     " if you want  to Change Word, use ce.
     " eh, this causes some kind of weird behaviour, particularly with iw and
     " jumping over some kinds of punctuation etc.
+    " TODO: this can be replaced by /-based things, surely.
     Plug 'bkad/CamelCaseMotion'
     map <silent> <Leader>w <Plug>CamelCaseMotion_w
     map <silent> <Leader>b <Plug>CamelCaseMotion_b
