@@ -198,3 +198,11 @@
 	path = .apparix
 	url = https://github.com/goedel-gang/bash-utils
 	branch = master
+[submodule "builds/figlet-fonts"]
+	path = builds/figlet-fonts
+	url = https://github.com/xero/figlet-fonts
+	branch = master
+[submodule "programmeren/gitignore"]
+	path = programmeren/gitignore
+	url = https://github.com/github/gitignore
+	branch = master
