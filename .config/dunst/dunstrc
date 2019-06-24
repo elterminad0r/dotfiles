@@ -226,17 +226,18 @@
     frame_color = "#d5c4a1"
     separator_color = "#d5c4a1"
 
+# built on from
 # https://github.com/khamer/base16-dunst/blob/master/themes/base16-gruvbox-dark-medium.dunstrc
 
 [base16_low]
     msg_urgency = low
-    background = "#3c3836"
-    foreground = "#665c54"
+    background = "#504945"
+    foreground = "#d5c4a1"
 
 [base16_normal]
     msg_urgency = normal
-    background = "#504945"
-    foreground = "#d5c4a1"
+    background = "#d5c4a1"
+    foreground = "#504945"
 
 [base16_critical]
     msg_urgency = critical
