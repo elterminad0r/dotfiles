@@ -30,7 +30,7 @@ mac: _mac
 	@make -B $< > /dev/null
 	@$(CFG) add --verbose Makefile >&2
 
-_mac: brew_list crontab.mac
+_mac: brew_list crontab.mac brew_cask_list
 
 # store user crontab
 crontab.arch:
@@ -52,6 +52,10 @@ aur_list:
 
 brew_list:
 	@/usr/local/bin/brew leaves > $@
+	@$(CFG) add --verbose $@ >&2
+
+brew_cask_list:
+	@/usr/local/bin/brew cask list > $@
 	@$(CFG) add --verbose $@ >&2
 
 # this is a very simplistic way to track files in /etc among my dotfiles
