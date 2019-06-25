@@ -11,11 +11,6 @@
 case $(tty) in
     /dev/tty[0-9]*)
         echo "launching tty setup"
-        # weird little hack I thought of to make MPD continue output when
-        # switching to a TTY. TODO TODO TODO
-        if >/dev/null 2>&1 mpc; then
-            mpc toggle; mpc toggle
-        fi
         # I prepend goedel to things because of the feeling of security it gives
         # me
         export GOEDEL_IS_TTY=true

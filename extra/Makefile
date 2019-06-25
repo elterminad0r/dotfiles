@@ -10,7 +10,7 @@ CFG = git --git-dir ~/.cfg --work-tree ~
 ETC_FILES = /etc/locale.gen /etc/locale.conf /etc/profile.d/libreoffice-still.sh /etc/lightdm/lightdm-gtk-greeter.conf /etc/mysql/my.cnf /etc/pacman.conf /etc/pacman.d/mirrorlist /etc/systemd/logind.conf /etc/texmf/web2c/fmtutil.cnf /etc/pam.d/su /etc/pam.d/su-l /etc/postfix/aliases /etc/postfix/master.cf /etc/postfix/main.cf
 
 default:
-	$(error from Goedel: select an explicit target)
+	$(error "from Goedel: select an explicit target (eg mac or arch)")
 
 mirrorlist.uk:
 	reflector -c "United Kingdom" -f 100 --save $@
@@ -22,11 +22,13 @@ reflect_install:
 arch: _arch
 	@make -B $< > /dev/null
 	@$(CFG) add --verbose ~/.lyrics >&2
+	@$(CFG) add --verbose Makefile >&2
 
-_arch: pacman_list aur_list slash pip_freeze3 crontab.arch systemd_units
+_arch: pacman_list aur_list slash pip_freeze3 crontab.arch systemd_units groups
 
 mac: _mac
 	@make -B $< > /dev/null
+	@$(CFG) add --verbose Makefile >&2
 
 _mac: brew_list crontab.mac
 
@@ -56,6 +58,10 @@ brew_list:
 slash:
 	@mkdir -p $@
 	@./etc_store $(ETC_FILES)
+	@$(CFG) add --verbose $@ >&2
+
+groups:
+	@groups "$$USER" > $@
 	@$(CFG) add --verbose $@ >&2
 
 # TODO: strip frivolities
