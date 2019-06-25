@@ -8,7 +8,7 @@
 #                                      \/                     \/
 # FIGMENTIZE: gitignore
 
-tags
+.tags
 __pycache__
 *.pyc
 *.pdf

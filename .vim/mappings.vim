@@ -138,6 +138,7 @@ inoremap <C-c> <Esc>u
 function! RepeatChar(char, count)
     return repeat(a:char, a:count)
 endfunction
+" TODO: 2Sx doesn't work
 nnoremap S :exec "normal! i".RepeatChar(nr2char(getchar()), v:count1)<CR>
 " and similar for append single character
 nnoremap <Leader>S :exec "normal! a".RepeatChar(nr2char(getchar()), v:count1)<CR>

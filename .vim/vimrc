@@ -174,7 +174,7 @@ augroup END
 " generating and using ctags
 if executable("ctags")
     function! MakeTags()
-        silent !echo "runnning ctags in $(pwd)"; ctags -R -o newtags; mv -f newtags tags
+        silent !echo "runnning ctags in $(pwd)"; ctags -R -o .tags.new; mv -f .tags.new .tags
         redraw!
     endfunction
 else

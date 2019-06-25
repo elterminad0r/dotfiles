@@ -308,6 +308,8 @@ set hidden
 " instead of b
 set switchbuf+=useopen,usetab
 
+" I like to reduce visible clutter by making tags hidden
+set tags+=./.tags,.tags
 " tag binary search
 set tagbsearch
 " fancy business showing entire definition
