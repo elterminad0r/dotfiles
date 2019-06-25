@@ -449,13 +449,17 @@ alias mirrormirroronframebuffer='mpv /dev/video0 -vo drm'
 
 # FrameBufferScreenShot. Has to be quoted this way because you need to use it
 # with sudo.
-alias fbss="sudo fbgrab \"$HOME/Pictures/screenshots/fb_\$(date +%Y%m%d_%H%M%S.png)\""
+fbss() {
+    local fbss_loc="$HOME/Pictures/screenshots/fb_\$(date +%Y%m%d_%H%M%S.png)"
+    mkdir -p "$(dirname "$selfie_loc")"
+    sudo fbgrab "$fbss_loc"
+}
 
 selfie() {
-    out="${1:-$HOME/Pictures/screenshots/selfie_$(date +%Y%m%d_%H%M%S).jpg}"
-    mkdir -p "$(dirname "$out")"
-    echo "Taking selfie targeting $out"
-    ffmpeg -f video4linux2 -i /dev/video0 -ss 0:0:2 -frames 1 "$out"
+    local selfie_loc="${1:-$HOME/Pictures/screenshots/selfie_$(date +%Y%m%d_%H%M%S).jpg}"
+    mkdir -p "$(dirname "$selfie_loc")"
+    echo "Taking selfie targeting $selfie_loc"
+    ffmpeg -f video4linux2 -i /dev/video0 -ss 0:0:2 -frames 1 "$selfie_loc"
 }
 
 # just like screenshots()
