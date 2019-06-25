@@ -452,7 +452,7 @@ alias mirrormirroronframebuffer='mpv /dev/video0 -vo drm'
 alias fbss="sudo fbgrab \"$HOME/Pictures/screenshots/fb_\$(date +%Y%m%d_%H%M%S.png)\""
 
 selfie() {
-    out="${1:-$HOME/Pictures/selfies/selfie_$(date +%s).jpg}"
+    out="${1:-$HOME/Pictures/screenshots/selfie_$(date +%Y%m%d_%H%M%S).jpg}"
     mkdir -p "$(dirname "$out")"
     echo "Taking selfie targeting $out"
     ffmpeg -f video4linux2 -i /dev/video0 -ss 0:0:2 -frames 1 "$out"
