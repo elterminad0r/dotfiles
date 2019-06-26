@@ -301,7 +301,7 @@ alias rbash='sudo HOME="$HOME" bash'
 # open various config files
 # TODO: some kind of centralised idea
 alias vi3='"${EDITOR:-vim}" ~/.config/i3/config'
-alias viz='"${EDITOR:-vim}" "$ZDOTDIR"/{zshrc,*.zsh,*.sh,zshenv,zprofile,prompts/*} "$BASHDOTDIR"/*(.) ~/.apparix/*.*sh ~/.profile'
+alias viz='"${EDITOR:-vim}" "$ZDOTDIR"/{zshrc,*.zsh,*.sh,zshenv,zprofile,prompts/*} "$BASHDOTDIR"/*(.) ~/.bash/apparix/*.*sh ~/.profile'
 alias vig='"${EDITOR:-vim}" ~/.gitconfig'
 alias vit='"${EDITOR:-vim}" ~/Documents/TODO'
 alias viv='"${EDITOR:-vim}" ~/."${EDITOR:-vim}"/{"${EDITOR:-vim}"rc,*."${EDITOR:-vim}",g"${EDITOR:-vim}"rc}'
