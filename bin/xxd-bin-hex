@@ -14,7 +14,7 @@ def bin_to_hex(line):
     """
     _, *fields = line.split(" ")
     output = []
-    for ind, i in enumerate(fields):
+    for i in fields:
         if not (len(i) == 8 and set(i).issubset(BIN_CHARS)):
             break
         output.append("{:02x}".format(int(i, 2)))
