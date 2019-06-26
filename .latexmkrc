@@ -8,11 +8,17 @@
 #            \/            \/       \/      \/      \/
 # FIGMENTIZE: latexmk
 
+# Make it so that compilers don't wait for you to type whatever crap it is they
+# want if there's an error. Further use shell-escape by default because that's
+# useful for listings and things.
 $latex = "latex -synctex=1  --shell-escape -halt-on-error %O %S";
 $pdflatex = "pdflatex -synctex=1 -shell-escape -halt-on-error %O %S";
 $xelatex = "xelatex -synctex=1 -shell-escape -halt-on-error %O %S";
+
 $sleep_time = 1;
+# PDF mode by default
 $pdf_mode = 1;
+# Define DVI and PS viewers because why not
 $dvi_previewer = 'start xdvi -watchfile 1.5';
 $ps_previewer  = 'start gv --watch';
 
