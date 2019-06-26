@@ -190,6 +190,7 @@ function! GoedelCheckSearch()
         let @/ = $GOEDEL_VIMACK_SEARCH
         silent! normal! n
         call feedkeys(":set hlsearch\<CR>")
+        let g:goedel_highlighted = 1
     endif
 endfunction
 
