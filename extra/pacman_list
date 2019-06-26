@@ -12,6 +12,7 @@ arch-wiki-docs
 arch-wiki-lite
 archlinux-wallpaper
 asciinema
+atop
 autoconf
 automake
 awesome-terminal-fonts
@@ -107,6 +108,7 @@ ghc
 gifsicle
 gimp
 git
+glava
 glibc
 gnome-2048
 gnome-chess
@@ -130,6 +132,7 @@ gst-plugins-good
 gtk-engine-murrine
 gtk-xfce-engine
 gtk3
+gtop
 gv
 gvim
 gzip
@@ -146,11 +149,13 @@ i3-gaps
 i3blocks
 i3lock
 i3status
+iftop
 imagemagick
 inetutils
 inkscape
 inotify-tools
 intel-ucode
+iotop
 iproute2
 iputils
 ipython
@@ -222,6 +227,7 @@ nodejs
 noto-fonts-emoji
 npm
 nss-mdns
+ntop
 ntp
 openssh
 osdbattery
