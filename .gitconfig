@@ -54,6 +54,7 @@
 	register = "add -N"
 	aa = "add --all"
 	au = "add --update"
+	pushpushpush = "!while ! git push \"$@\"; do sleep 10; done #"
 	# this is an aliases that expands to a shell command. You can use $1 etc
 	# inside the command and then finish the command with a # to ignore the
 	# supplied arguments.
