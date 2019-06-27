@@ -24,13 +24,13 @@ arch: _arch
 	@$(CFG) add --verbose ~/.lyrics >&2
 	@$(CFG) add --verbose Makefile >&2
 
-_arch: pacman_list aur_list slash pip_freeze3 crontab.arch systemd_units groups
+_arch: pacman.list aur.list slash pip3.list crontab.arch systemd_units groups
 
 mac: _mac
 	@make -B $< > /dev/null
 	@$(CFG) add --verbose Makefile >&2
 
-_mac: brew_list crontab.mac brew_cask_list
+_mac: brew.list crontab.mac brew_cask.list
 
 # store user crontab
 crontab.arch:
@@ -42,27 +42,27 @@ crontab.mac:
 	@$(CFG) add --verbose $@ >&2
 
 # this is a simplistic way to keep track of which packages I have
-pacman_list:
-	@pacman -Qqen > $@
-	@$(CFG) add --verbose $@ >&2
+pacman.list: pacman_store
+	@./$<
+	@$(CFG) add --verbose $@ $< >&2
 
-aur_list:
+aur.list:
 	@pacman -Qqem > $@
 	@$(CFG) add --verbose $@ >&2
 
-brew_list:
+brew.list:
 	@/usr/local/bin/brew leaves > $@
 	@$(CFG) add --verbose $@ >&2
 
-brew_cask_list:
+brew_cask.list:
 	@/usr/local/bin/brew cask list > $@
 	@$(CFG) add --verbose $@ >&2
 
 # this is a very simplistic way to track files in /etc among my dotfiles
-slash:
+slash: etc_store
 	@mkdir -p $@
-	@./etc_store $(ETC_FILES)
-	@$(CFG) add --verbose $@ >&2
+	@./$< $(ETC_FILES)
+	@$(CFG) add --verbose $@ $< >&2
 
 groups:
 	@groups "$$USER" > $@
@@ -73,6 +73,6 @@ systemd_units:
 	@systemctl list-unit-files --state=enabled > $@
 	@$(CFG) add --verbose $@ >&2
 
-pip_freeze3:
+pip3.list:
 	@python3 -m pip freeze --user > $@
 	@$(CFG) add --verbose $@ >&2

@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+# Bash for now for process substitution
+
+# Creating lists of installed packages with Pacman, but eliminating full groups
+# and other redundant information
+
+pacman -Qg | cut -d' ' -f1 | uniq > .pacgroups.list
+
+true > .full_pacgroups.list
+true > .pacgroups.expand
+
+while IFS= read -r group; do
+    if [ "$(pacman -Sg "$group" | wc -l)" = "$(pacman -Qg "$group" | wc -l)" ]; then
+        echo "$group" >> .full_pacgroups.list
+        pacman -Qg "$group" | cut -d' ' -f2 >> .pacgroups.expand
+    fi
+done < .pacgroups.list
+
+comm -2 -3 <(pacman -Qqntt | sort) <(sort .pacgroups.expand) > pacman.list
+cat .full_pacgroups.list >> pacman.list
