@@ -10,9 +10,9 @@ These are my dotfiles, maintained in Git using
     cfg submodule init
     cfg submodule update
 
-![screenshot](https://github.com/goedel-gang/dotfiles/blob/master/extra/README_GRUVBOX.png)
+![screenshot](https://github.com/goedel-gang/dotfiles/blob/master/.github/README_GRUVBOX.png)
 
 How it has looked at some point in the past:
 
-![screenshot](https://github.com/goedel-gang/dotfiles/blob/master/extra/README_SOLARIZED.png)
-![screenshot](https://github.com/goedel-gang/dotfiles/blob/master/extra/README_SOLARIZED_OLD.png)
+![screenshot](https://github.com/goedel-gang/dotfiles/blob/master/.github/README_SOLARIZED.png)
+![screenshot](https://github.com/goedel-gang/dotfiles/blob/master/.github/README_SOLARIZED_OLD.png)
