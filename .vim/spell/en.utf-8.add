@@ -17,3 +17,6 @@ mediant
 rationals
 nonzero
 Lindenmayer
+nullary
+falsey
+truthy
