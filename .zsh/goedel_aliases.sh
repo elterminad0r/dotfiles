@@ -447,8 +447,7 @@ alias cmatrix='cmatrix -abu 1'
 alias mirrormirroronthewall='mpv /dev/video0 -vo caca'
 alias mirrormirroronframebuffer='mpv /dev/video0 -vo drm'
 
-# FrameBufferScreenShot. Has to be quoted this way because you need to use it
-# with sudo.
+# FrameBufferScreenShot.
 fbss() {
     local fbss_loc="$HOME/Pictures/screenshots/fb_\$(date +%Y%m%d_%H%M%S.png)"
     mkdir -p "$(dirname "$selfie_loc")"
