@@ -3,11 +3,13 @@
 # Need bash for fancy parameter expansion
 
 for file; do
+    dest_file="./slash/$file"
+    mkdir -p "$(dirname "$dest_file")"
     if [ -f "$file" ]; then
-        dest_file="./slash/$file"
-        mkdir -p "$(dirname "$dest_file")"
         cp "$file" "$dest_file"
+    elif [ -d "$file" ]; then
+        cp -R "$file" "$dest_file"
     else
-        >&2 echo "can't copy $file"
+        >&2 echo "can't find $file"
     fi
 done
