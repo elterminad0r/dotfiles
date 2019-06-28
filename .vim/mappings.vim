@@ -83,7 +83,7 @@ inoremap <F6> <C-o>:call GoedelToggleSearch()<CR>
 
 " Essential to any man's vimrc
 nnoremap <F7> AWE'RE<Space>GOING<Space>TO<Space>THE<Space>EMMIES<ESC>
-inoremap <F7> WE'RE<Space>GOING<Space>TO<Space>THE<Space>EMMIES<ESC>
+inoremap <F7> WE'RE<Space>GOING<Space>TO<Space>THE<Space>EMMIES
 
 " Search for selected text. This makes * and # work for visual selections, so
 " you can search for things that aren't a unit of text as defined by * and # by
