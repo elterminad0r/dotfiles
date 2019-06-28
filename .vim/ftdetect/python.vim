@@ -1,1 +1,1 @@
-autocmd BufRead,BufNewFile *.pyde set filetype=python
+autocmd BufRead,BufNewFile *.pyde setfiletype python
