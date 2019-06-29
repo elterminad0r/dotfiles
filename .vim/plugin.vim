@@ -38,7 +38,6 @@
 "   with lightline.
 " ultisnips (together with vim-snippets): snippet engine and manager. Lets you
 "   do things like type for<C-s> or GPL3<C-s> to expand snippets.
-" vim-Verdin: provides omnicomplete for VimL files (i_^X^O)
 " python-syntax: provides cleverer syntax highlighting for Python (eg that's
 "   aware of format strings, and doesn't highlight "file")
 
@@ -349,8 +348,8 @@ Plug 'kana/vim-textobj-fold'
 " FIXME various extensions (.dpr, .lpr) not recognised
 Plug 'rkennedy/vim-delphi', { 'for': 'pascal' }
 
-" autocompletion for vim files
-Plug 'machakann/vim-Verdin', { 'for': 'vim' }
+" Filetype for i3 config files
+Plug 'mboughaba/i3config.vim', { 'for': 'i3config' }
 
 " I want e to be a LaTeX environment, so will use g instead.
 let g:textobj_entire_no_default_key_mappings=1
