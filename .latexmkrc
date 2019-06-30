@@ -10,7 +10,8 @@
 
 # Make it so that compilers don't wait for you to type whatever crap it is they
 # want if there's an error. Further use shell-escape by default because that's
-# useful for listings and things.
+# useful for listings and things. Security implications: Don't buy LaTeX from
+# strangers with ulterior motives.
 $latex = "latex -synctex=1  --shell-escape -halt-on-error %O %S";
 $pdflatex = "pdflatex -synctex=1 -shell-escape -halt-on-error %O %S";
 $xelatex = "xelatex -synctex=1 -shell-escape -halt-on-error %O %S";
