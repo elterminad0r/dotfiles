@@ -36,8 +36,9 @@ endif
 " Use space as the leader key. This key is used by plugins, and by you, to make
 " custom longer mappings. By default it's set to be \ (backslash) which is
 " frankly terrible. Space is much faster to type
-map <Space> <Nop>
+noremap <Space> <Nop>
 let mapleader = ' '
+noremap g<Space> <Space>
 " To see what kind of mappings there are with it, issue :map <Leader>
 
 " colour-related options, wrapped in some conditions just to be on the safe side
