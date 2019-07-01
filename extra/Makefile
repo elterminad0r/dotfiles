@@ -1,4 +1,4 @@
-.PHONY: default arch _arch mac _mac reflect_install mirrorlist.uk
+.PHONY: default arch _arch mac _mac reflect_install mirrorlist.uk vim lyrics
 
 # Makefile to store information about the system.
 
@@ -19,10 +19,19 @@ mirrorlist.uk:
 reflect_install:
 	cat mirrorlist.uk | sudo tee /etc/pacman.d/mirrorlist > /dev/null
 
-arch: _arch
-	@make -B $< > /dev/null
-	@$(CFG) add --verbose ~/.lyrics >&2
+arch: _arch vim lyrics
+	@make -B _arch > /dev/null
 	@$(CFG) add --verbose Makefile >&2
+
+lyrics:
+	@$(CFG) add --verbose ~/.lyrics >&2
+
+vim:
+	@$(CFG) add --verbose ~/.vim/ftdetect >&2
+	@$(CFG) add --verbose ~/.vim/ftplugin >&2
+	@$(CFG) add --verbose ~/.vim/indent >&2
+	@$(CFG) add --verbose ~/.vim/autoload >&2
+	@$(CFG) add --verbose ~/.vim/after >&2
 
 _arch: pacman.list aur.list slash pip3.list crontab.arch systemd_units groups
 
