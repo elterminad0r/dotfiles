@@ -80,8 +80,8 @@
 	gud = "!echo scrub #"
 	# https://stackoverflow.com/questions/673407/how-do-i-clear-my-local-working-directory-in-git
 	mkempty = "!true | git mktree | xargs git commit-tree | xargs git tag empty #"
-	du = "!git grep -lz '' | xargs -0 du -sbh | sort -h #"
-	sm-du = "!git ls-files -z | xargs -0 du -sbh | sort -h #"
+	du = "!git grep -lz '' | xargs -0 du -sbhc | sort -h #"
+	sm-du = "!git ls-files -z | xargs -0 du -sbhc | sort -h #"
 	# to display or filter git aliases, looking for some regex. quite useful if
 	# you have a complex alias for something but you can't remember the name,
 	# but you know roughly the subject it's in. Can also be used to show what
