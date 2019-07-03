@@ -1,4 +1,3 @@
-accountsservice
 ack
 acpi
 alacritty
@@ -9,7 +8,9 @@ archlinux-wallpaper
 arch-wiki-docs
 arch-wiki-lite
 arc-icon-theme
+aria2
 asciinema
+atomicparsley
 atop
 awesome-terminal-fonts
 bash-completion
@@ -64,6 +65,7 @@ fbreader
 fbset
 fbv
 feh
+ffmpegthumbnailer
 figlet
 firefox
 firejail
@@ -171,6 +173,7 @@ mutt
 mythes-en
 mythes-nl
 ncmpcpp
+nemo
 neofetch
 neovim
 netctl
