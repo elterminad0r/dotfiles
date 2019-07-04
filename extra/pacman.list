@@ -9,6 +9,7 @@ arch-wiki-docs
 arch-wiki-lite
 arc-icon-theme
 aria2
+ario
 asciinema
 atomicparsley
 atop
@@ -21,6 +22,7 @@ bluez-utils
 boost
 bsd-games
 calcurse
+cantata
 cbatticon
 cheese
 chromium
@@ -282,6 +284,7 @@ shellcheck
 simplescreenrecorder
 smartmontools
 s-nail
+sonata
 sox
 sshpass
 strace
@@ -320,6 +323,7 @@ xaos
 xdg-user-dirs
 xdotool
 xf86-video-intel
+xfmpc
 xorg-twm
 xorg-xfd
 xorg-xmag
