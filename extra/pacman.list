@@ -139,7 +139,6 @@ kmag
 konsole
 latex2rtf
 libappindicator-gtk3
-libcue
 libdbi
 libfaketime
 libmythes
@@ -172,6 +171,7 @@ mupdf
 mutt
 mythes-en
 mythes-nl
+nautilus
 ncmpcpp
 nemo
 neofetch
@@ -197,9 +197,12 @@ pavucontrol
 pdfjs
 pdfsam
 perl-anyevent-i3
+perl-data-dump
 perl-file-mimeinfo
 perl-image-exiftool
+perl-json
 perl-list-moreutils
+perl-lwp-protocol-https
 perl-term-readline-gnu
 postfix
 powerline
@@ -322,7 +325,6 @@ xorg-xfd
 xorg-xmag
 xterm
 youtube-dl
-youtube-viewer
 zathura-cb
 zathura-pdf-mupdf
 zathura-ps
