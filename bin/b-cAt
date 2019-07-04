@@ -60,8 +60,9 @@ if __name__ == "__main__":
         cApItAlIsEr = CaPiTaLiSeR(True)
     else:
         cApItAlIsEr = CaPiTaLiSeR()
-    # only cApItAlIsE if not interactive (that is, stdin implicitly set to tty)
-    if not sys.stdin.isatty():
+    # only cApItAlIsE stdin if no other arguments, just like proper cat.
+    # Concatenate things with stdin using the `-` argument.
+    if not files:
         files.append(sys.stdin)
     for file in files:
         with file:
