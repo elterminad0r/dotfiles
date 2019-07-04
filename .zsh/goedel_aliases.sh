@@ -322,7 +322,7 @@ alias p88='ping 8.8.8.8 -c 20 -w 60'
 # Easier to type than git, plus instead of showing help, make the default action
 # be my status alias (using the alias because that's also where I add some flags
 # etc).
-# Completions defined in ~/.zsh/completion.zsh
+# Completions defined in ~/.zsh/completion.zsh, and in ~/.bash/bashrc
 g() {
     if [ "$#" = 0 ]; then
         set -- st
@@ -335,10 +335,7 @@ g() {
 # from the alias, and I define my own completion in $ZDOTDIR/zcomp/_cfg.
 # Same default status thing as above
 cfg() {
-    if [ "$#" = 0 ]; then
-        set -- st
-    fi
-    git --git-dir="$HOME/.cfg/" --work-tree="$HOME" "$@"
+    GIT_DIR="$HOME/.cfg" GIT_WORK_TREE="$HOME" g "$@"
 }
 
 # tig but for cfg

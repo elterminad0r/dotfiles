@@ -128,6 +128,8 @@ complete -c xcat
 if version_assert 3 2 57; then
     source_if_exists /usr/share/git/completion/git-completion.bash \
                      "${BREW_PREFIX:-/usr/local}/etc/bash_completion.d/git-completion.bash"
+    # make g complete the same as git (obtained with `complete -p git`)
+    complete -o bashdefault -o default -o nospace -F __git_wrap__git_main g
 else
     >&2 echo "(not sourcing git completion)"
 fi
