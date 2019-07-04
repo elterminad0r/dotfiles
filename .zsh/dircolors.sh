@@ -12,7 +12,8 @@
 # TODO make aware of profiles etc
 if >/dev/null 2>&1 command -v dircolors; then
     if [ "$GOEDEL_IS_TTY" != "true" ]; then
-        # workaround because dircolors doesn't know kitty's terminfo
+        # workaround because dircolors doesn't know kitty's terminfo, and I
+        # sometimes like to use kitty
         if [ "$TERM" = "xterm-kitty" ]; then
             provisional_term=xterm-256color
         else
@@ -20,6 +21,8 @@ if >/dev/null 2>&1 command -v dircolors; then
         fi
 
         if [ -f "$ZDOTDIR/solarized.dircolors" ]; then
+            # regenerate this here just to keep it up to date
+            TERM="xterm-256color" dircolors "$ZDOTDIR/solarized.dircolors" > "$ZDOTDIR/solarized.lscolors"
             eval "$(TERM="$provisional_term" dircolors "$ZDOTDIR/solarized.dircolors")"
         else
             >&2 echo "using default dircolors"
