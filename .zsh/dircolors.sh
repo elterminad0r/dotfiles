@@ -12,16 +12,24 @@
 # TODO make aware of profiles etc
 if >/dev/null 2>&1 command -v dircolors; then
     if [ "$GOEDEL_IS_TTY" != "true" ]; then
+        # workaround because dircolors doesn't know kitty's terminfo
+        if [ "$TERM" = "xterm-kitty" ]; then
+            provisional_term=xterm-256color
+        else
+            provisional_term="$TERM"
+        fi
+
         if [ -f "$ZDOTDIR/solarized.dircolors" ]; then
-            eval "$(dircolors "$ZDOTDIR/solarized.dircolors")"
+            eval "$(TERM="$provisional_term" dircolors "$ZDOTDIR/solarized.dircolors")"
         else
             >&2 echo "using default dircolors"
-            eval "$(dircolors)"
+            eval "$(TERM="$provisional_term" dircolors)"
         fi
     else
         >&2 echo "using default dircolors as in tty"
         eval "$(dircolors)"
     fi
 else
-    >&2 echo "dircolors executable not found"
+    >&2 echo "dircolors executable not found, using one I prepared earlier"
+    source "$ZDOTDIR/lscolor_fallback.sh"
 fi
