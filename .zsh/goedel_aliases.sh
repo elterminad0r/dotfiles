@@ -319,22 +319,25 @@ alias t='tmux source-file ~/.tmux.conf'
 alias wifirestart='sudo systemctl restart NetworkManager.service'
 alias p88='ping 8.8.8.8 -c 20 -w 60'
 
-# nice git alias. BASH USERS BEWARE: Bash isn't able to look inside aliases to
-# provide tab completion for their contents. The easy solution is to switch to
-# zsh, or you might consider implementing something like this
-# https://unix.stackexchange.com/questions/4219/how-do-i-get-bash-completion-for-command-aliases
-# in your bashrc.
-alias g=git
-
-# neither of these can sustain Zsh's completion
-# so I wrote cfg as a function and scrape _git (see $ZDOTDIR/zcomp/Makefile)
-# alias cfg='GIT_DIR="$HOME/.cfg" GIT_WORK_TREE="$HOME" git'
-# alias cfg=git --git-dir="$HOME/.cfg/" --work-tree="$HOME"
+# Easier to type than git, plus instead of showing help, make the default action
+# be my status alias (using the alias because that's also where I add some flags
+# etc).
+# Completions defined in ~/.zsh/completion.zsh
+g() {
+    if [ "$#" = 0 ]; then
+        set -- st
+    fi
+    git "$@"
+}
 
 # special git for dotfiles
 # it's a function because it can't be trusted to have its completion inferred
-# from the alias, and I define my own completion in $ZDOTDIR/zcomp/_cfg
+# from the alias, and I define my own completion in $ZDOTDIR/zcomp/_cfg.
+# Same default status thing as above
 cfg() {
+    if [ "$#" = 0 ]; then
+        set -- st
+    fi
     git --git-dir="$HOME/.cfg/" --work-tree="$HOME" "$@"
 }
 

@@ -29,6 +29,10 @@ fi
 # define completion for the xcat function
 compdef _command_names xcat
 
+# make g complete like git
+# https://stackoverflow.com/questions/4221239/zsh-use-completions-for-command-x-when-i-type-command-y
+compdef '_dispatch git git' g
+
 # completion insensitive to case and hyphen/underscores
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z-_}={A-Za-z_-}' 'r:|=*' 'l:|=* r:|=*'
 
