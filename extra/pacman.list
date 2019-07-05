@@ -243,7 +243,6 @@ python-whoosh
 python-xdg
 python-xlib
 qt5-3d
-qt5-canvas3d
 qt5-charts
 qt5-connectivity
 qt5-datavis3d
@@ -286,6 +285,7 @@ smartmontools
 s-nail
 sonata
 sox
+speedtest-cli
 sshpass
 strace
 swi-prolog

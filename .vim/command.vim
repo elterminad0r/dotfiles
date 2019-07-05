@@ -66,7 +66,7 @@ command! W call W()
 " reload/edit configuration files
 " TODO: some kind of centralised idea
 command! Vrc call ReloadVimConf()
-command! Evr argadd  ~/.vim/{vimrc,*.vim,gvimrc} | n
+command! Evr argadd  ~/.vim/{vimrc,*.vim,gvimrc,{ft*,indent,after}/**.vim} | n
 " TODO: use $ZDOTDIR and $bASHDOTDIR
 command! Ezr argadd ~/.zsh/{zshrc,*.zsh,*.sh,zshenv,zprofile,prompts/*} ~/.bash/* ~/.bash/apparix/*.*sh ~/.profile | n
 " TODO: this is a workaround to get just files
