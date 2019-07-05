@@ -285,7 +285,7 @@ alias sudo='sudo '
 # root zsh
 alias rzsh='sudo ZSH_DISABLE_COMPFIX=true ZDOTDIR="$ZDOTDIR" HOME="$HOME" zsh'
 # bare zsh
-alias bzsh='ZDOTDIR=/ zsh'
+alias bzsh='zsh -f'
 # plain (root)? zsh
 alias pzsh='GOEDEL_NO_POWERLINE=true zsh'
 alias przsh='sudo GOEDEL_NO_POWERLINE=true ZSH_DISABLE_COMPFIX=true ZDOTDIR="$ZDOTDIR" HOME="$HOME" zsh'
@@ -297,6 +297,7 @@ alias z='if [ -z "$(jobs)" ]; then exec zsh; else jobs; fi #'
 alias b='if [ -z "$(jobs)" ]; then exec bash; else jobs; fi #'
 # root bash
 alias rbash='sudo HOME="$HOME" bash'
+alias bbash='bash --norc'
 
 # open various config files
 # TODO: some kind of centralised idea
