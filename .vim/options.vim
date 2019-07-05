@@ -184,6 +184,9 @@ augroup InsertModeLineNos
     autocmd!
     autocmd InsertEnter * if &number | set norelativenumber | endif
     autocmd InsertLeave * if &number | set relativenumber | endif
+    " This seems to be causing some flickering nowadays
+    " TODO TODO TODO
+    autocmd!
 augroup END
 
 " whitespace
