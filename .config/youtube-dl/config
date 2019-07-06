@@ -1,3 +1,6 @@
 --add-metadata
 --embed-thumbnail
 --write-all-thumbnails
+--write-info-json
+--embed-subs
+--all-subs
