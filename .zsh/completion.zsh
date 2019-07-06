@@ -10,7 +10,7 @@ autoload -Uz compinit
 # leftover from oh-my-zsh
 # Sometimes I manually disable security checks, for example to run a zsh as
 # root.
-if [[ "$ZSH_DISABLE_COMPFIX" == "true" ]]; then
+if [ "$ZSH_DISABLE_COMPFIX" = "true" ]; then
     compinit -u
 else
     compinit
@@ -66,7 +66,7 @@ zstyle ':completion:*' expand prefix suffix
 zstyle ':completion:*' file-sort name
 zstyle ':completion:*' glob 1
 zstyle ':completion:*' insert-unambiguous false
-if [[ -n "$LS_COLORS" ]]; then
+if [ -n "$LS_COLORS" ]; then
     zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 else
     zstyle ':completion:*' list-colors ''

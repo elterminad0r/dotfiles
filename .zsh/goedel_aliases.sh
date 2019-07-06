@@ -99,9 +99,10 @@ alias ccat='highlight -O ansi'
 # alias ccat='pygmentize -g -f terminal'
 
 # cat an eXecutable
+# TODO: make this adapt to functions and aliases (???)
 xcat() {
     loc="$(sh -c 'command -v "$1"' DUMMY "$1")" || return 1
-    if [ -f "$loc" ]; then
+    if [ -r "$loc" ]; then
         if >/dev/null 2>&1 command -v isutf8; then
             if isutf8 "$loc"; then
                 cat "$loc"
@@ -439,13 +440,14 @@ alias parrot="curl parrot.live"
 # or better yet, write a function that randomly falls through to this but
 # normally doesn't, or that only does this after being called twenty times
 
-# TODO: silence output; disallow ctrl-c
-alias rick='mpv "https://www.youtube.com/watch?v=dQw4w9WgXcQ" -vo caca'
+alias rick='echo "critical system update; do not interrupt"; mpv "https://www.youtube.com/watch?v=dQw4w9WgXcQ" -vo caca --really-quiet'
 
 # look cooler
 alias cmatrix='cmatrix -abu 1'
 
-alias mirrormirroronthewall='mpv /dev/video0 -vo caca'
+alias mirrormirroronthewall='mpv /dev/video0'
+alias mirrormirrorontheascii='mpv /dev/video0 -vo caca'
+alias mirrormirroronthe16777216='mpv /dev/video0 -vo tct'
 alias mirrormirroronframebuffer='mpv /dev/video0 -vo drm'
 
 # FrameBufferScreenShot.

@@ -20,7 +20,7 @@ if >/dev/null 2>&1 command -v dircolors; then
             provisional_term="$TERM"
         fi
 
-        if [ -f "$ZDOTDIR/solarized.dircolors" ]; then
+        if [ -r "$ZDOTDIR/solarized.dircolors" ]; then
             # regenerate this here just to keep it up to date
             TERM="xterm-256color" dircolors "$ZDOTDIR/solarized.dircolors" > "$ZDOTDIR/solarized.lscolors"
             eval "$(TERM="$provisional_term" dircolors "$ZDOTDIR/solarized.dircolors")"

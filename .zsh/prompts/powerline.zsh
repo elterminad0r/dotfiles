@@ -6,7 +6,7 @@
 # me a quick hint of what each colour looks like, and would recommend investing
 # in something similar if you're messing around with colours in terminals
 
-if [[ "$GOEDEL_COLORSCHEME" == light ]]; then
+if [ "$GOEDEL_COLORSCHEME" = "light" ]; then
     POWERLEVEL9K_COLOR_SCHEME='light'
 else
     POWERLEVEL9K_COLOR_SCHEME='dark'

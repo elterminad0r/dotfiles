@@ -18,7 +18,7 @@ fi
 CACHE_NAME="${XDG_CACHE_HOME:-$HOME/.cache/}p256.txt"
 P256_NAME="$HOME/bin/p256.py"
 
-if [[ ! -f "$CACHE_NAME" ]] || [[ "$P256_NAME" -nt "$CACHE_NAME" ]]; then
+if [ ! -r "$CACHE_NAME" ] || [[ "$P256_NAME" -nt "$CACHE_NAME" ]]; then
     >&2 echo "regenerating"
     mkdir -p "$(dirname "$CACHE_NAME")"
     "$P256_NAME" > "$CACHE_NAME"

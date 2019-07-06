@@ -17,7 +17,7 @@
 # one of them.
 function source_if_exists() {
     for sfile; do
-        if [[ -f "$sfile" ]]; then
+        if [ -r "$sfile" ]; then
             source "$sfile"
             return 0
         fi
@@ -61,10 +61,10 @@ setopt transient_rprompt
 POWERLEVEL_THEME="$ZDOTDIR/plugins/powerlevel10k/powerlevel10k.zsh-theme"
 
 # set up my prompt and general look of zsh.
-if [[ -n "$GOEDEL_IS_TTY" ]]; then
+if [ -n "$GOEDEL_IS_TTY" ]; then
     source "$ZDOTDIR/prompts/tty.zsh"
-elif [[ -z "$GOEDEL_NO_POWERLINE" && -f "$POWERLEVEL_THEME" ]]; then
-    if [[ -z "$GOEDEL_NOPUREPOWER" ]]; then
+elif [ -z "$GOEDEL_NO_POWERLINE" ] && [ -r "$POWERLEVEL_THEME" ]; then
+    if [ -z "$GOEDEL_NOPUREPOWER" ]; then
         # default pathway, when nothing is disabled
         source "$ZDOTDIR/prompts/purepower.zsh"
     else
