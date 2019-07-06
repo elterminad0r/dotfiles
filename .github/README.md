@@ -11,6 +11,9 @@ These are my dotfiles, maintained in Git using
     cfg checkout
     cfg submodule update --init
 
+Of course they should be considered an entirely volatile, possibly hostile work
+in progress.
+
 ![screenshot](https://github.com/goedel-gang/dotfiles/blob/master/.github/README_GRUVBOX.png)
 
 How it has looked at some point in the past:
