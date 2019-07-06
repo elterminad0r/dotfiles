@@ -3,6 +3,7 @@ acpi
 alacritty
 alsa-utils
 ant
+antiword
 arc-gtk-theme
 archlinux-wallpaper
 arch-wiki-docs
@@ -21,9 +22,11 @@ bind-tools
 bluez-utils
 boost
 bsd-games
+cabextract
 calcurse
 cantata
 cbatticon
+cdrtools
 cheese
 chromium
 clang
@@ -60,6 +63,7 @@ exfat-utils
 expac
 expect
 fakechroot
+fastjar
 fbdump
 fbgrab
 fbida
@@ -140,6 +144,7 @@ kitty
 kmag
 konsole
 latex2rtf
+lesspipe
 libappindicator-gtk3
 libdbi
 libfaketime
@@ -224,6 +229,7 @@ python2-prompt_toolkit
 python2-pylint
 python2-pyqt5
 python-ansi2html
+python-html2text
 python-matplotlib
 python-networkx
 python-pandas
@@ -273,6 +279,7 @@ reiserfsprogs
 reptyr
 ripgrep
 rofi
+rpmextract
 rsync
 rust
 rxvt-unicode
@@ -308,6 +315,8 @@ ttf-inconsolata
 ttf-ionicons
 typespeed
 unclutter
+unrar
+unrtf
 usbutils
 valgrind
 vi
