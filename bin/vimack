@@ -280,14 +280,14 @@ files_grep_list() {
 # Generally wacky quoting throughout on purpose, so that we get word splitting
 
 rg_strategy_dry() {
-    rg -l $icflags $rg_flags "$content_pattern" |
+    rg -l $icflags $rg_flags -- "$content_pattern" |
         files_grep_dry "$filename_pattern"
 }
 
 # not robust on newlines, due to rg's weird output format
 rg_strategy_list() {
     grep_in_flags=
-    rg --color=ansi $icflags "$content_pattern" |
+    rg --color=ansi $icflags -- "$content_pattern" |
         # wacky business to parse the ANSI codes from ripgrep
         # This is basically not at all guaranteed to be safe, but you really
         # shouldn't be putting ANSI SGR codes in your file names.
@@ -297,26 +297,26 @@ rg_strategy_list() {
 }
 
 ag_strategy_dry() {
-    ag -l $icflags $rg_flags "$content_pattern" |
+    ag -l $icflags $rg_flags -- "$content_pattern" |
         files_grep_dry "$filename_pattern"
 }
 
 # similar problem to rg
 ag_strategy_list() {
     grep_in_flags=
-    ag $icflags --color "$content_pattern" |
+    ag $icflags --color -- "$content_pattern" |
         files_grep_list "$filename_pattern" \
                         $'^\x1b\\[1;32m[^\x1b]*'"$filename_pattern"$'[^\x1b]*\x1b\\[0m\x1b\\[K:' |
         display_safe
 }
 
 ack_strategy_dry() {
-    ack -l $icflags $ack_flags "$content_pattern" |
+    ack -l $icflags $ack_flags -- "$content_pattern" |
         files_grep_dry "$filename_pattern"
 }
 
 ack_strategy_list() {
-    ack $icflags $ack_flags --color "$content_pattern" |
+    ack $icflags $ack_flags --color -- "$content_pattern" |
         files_grep_list "$filename_pattern" \
                         $'^\x1b\\[1;32m[^\x1b]*'"$filename_pattern"$'[^\x1b]*\x1b\\[0m:' |
         display_safe
@@ -340,14 +340,14 @@ find_strategy_list() {
 }
 
 git_strategy_dry() {
-    git grep -l $icflags $git_flags "$content_pattern" |
+    git grep -l $icflags $git_flags -- "$content_pattern" |
         files_grep_dry "$filename_pattern"
 }
 
 # also not safe on newlines
 git_strategy_list() {
     grep_in_flags=
-    git grep $icflags --color=always "$content_pattern" |
+    git grep $icflags --color=always -- "$content_pattern" |
         files_grep_list "$filename_pattern" \
                        $'^[^\x1b]*'"$filename_pattern"$'[^\x1b]*\x1b\\[36m:' |
         display_safe
