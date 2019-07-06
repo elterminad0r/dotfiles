@@ -34,7 +34,8 @@ compdef _command_names xcat
 compdef '_dispatch git git' g
 
 # completion insensitive to case and hyphen/underscores
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z-_}={A-Za-z_-}' 'r:|=*' 'l:|=* r:|=*'
+# https://stackoverflow.com/questions/24226685/have-zsh-return-case-insensitive-auto-complete-matches-but-prefer-exact-matches
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 
 zstyle ':completion:*' special-dirs true
 
@@ -83,7 +84,15 @@ function expand-or-complete-with-dots() {
     zle redisplay
 }
 zle -N expand-or-complete-with-dots
-bindkey "^I" expand-or-complete-with-dots
+bindkey -M main "^I" expand-or-complete-with-dots
 # Shift-tab to complete backwards
 # You should also be able to use ^N and ^P
-bindkey '^[[Z' reverse-menu-complete
+bindkey -M main '^[[Z' reverse-menu-complete
+
+# auto-expand aliases. Not sure I'm a huge fan
+# function expand-alias() {
+#     zle _expand_alias
+#     zle self-insert
+# }
+# zle -N expand-alias
+# bindkey -M main ' ' expand-alias

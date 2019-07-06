@@ -15,16 +15,16 @@ bindkey -v
 # zle -A backward-kill-line vi-kill-line
 # zle -A backward-kill-word vi-backward-kill-word
 # zle -A backward-delete-char vi-backward-delete-char
-bindkey "^H" backward-delete-char
-bindkey "^?" backward-delete-char
-bindkey "^U" backward-kill-line
-bindkey "^W" backward-kill-word
+bindkey -M main "^H" backward-delete-char
+bindkey -M main "^?" backward-delete-char
+bindkey -M main "^U" backward-kill-line
+bindkey -M main "^W" backward-kill-word
 
 # allow ctrl-p, ctrl-n for navigate history (standard behaviour)
-bindkey '^P' up-history
-bindkey '^N' down-history
+bindkey -M main '^P' up-history
+bindkey -M main '^N' down-history
 
-bindkey '^E' _expand_alias
+bindkey -M main '^E' _expand_alias
 bindkey -M vicmd '^E' _expand_alias
 bindkey -M vicmd "K" run-help
 
@@ -50,7 +50,7 @@ if source_if_exists $FZF_BINDINGS; then
     source_if_exists "$HOME/.themes/base16-fzf/bash/base16-gruvbox-dark-medium.config"
 else
     >&2 echo "defining history-incremental-pattern-search-backward instead"
-    bindkey '^R' history-incremental-pattern-search-backward
+    bindkey -M main '^R' history-incremental-pattern-search-backward
 fi
 # TODO: does this do anything?
 # source_if_exists /usr/share/fzf/completion.zsh
