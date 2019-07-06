@@ -5,7 +5,7 @@
 for file; do
     dest_file="./slash/$file"
     mkdir -p "$(dirname "$dest_file")"
-    if [ -f "$file" ]; then
+    if [ -r "$file" ] && [ -f "$file" ]; then
         cp "$file" "$dest_file"
     elif [ -d "$file" ]; then
         cp -R "$file" "$dest_file"

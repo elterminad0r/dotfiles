@@ -1,0 +1,5 @@
+include "/usr/share/kbd/keymaps/i386/qwerty/uk.map.gz"
+
+# Swap caps-lock and escape in tty for vim purposes.
+keycode 1 = Caps_Lock
+keycode 58 = Escape

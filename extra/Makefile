@@ -1,13 +1,15 @@
-.PHONY: default arch _arch mac _mac reflect_install mirrorlist.uk vim lyrics
+.PHONY: default arch _arch mac _mac reflect_install mirrorlist.uk vim lyrics bin
 
 # Makefile to store information about the system.
 
 # Generally everything is silent, because I like to run this in a cron job, and
 # only have it email me if anything needs my attention.
 
+# Will stage things in my dotfiles repository wherever possible.
+
 CFG = git --git-dir ~/.cfg --work-tree ~
 
-ETC_FILES = /etc/locale.gen /etc/locale.conf /etc/profile.d/libreoffice-still.sh /etc/lightdm/lightdm-gtk-greeter.conf /etc/my.cnf /etc/my.cnf.d /etc/pacman.conf /etc/pacman.d/mirrorlist /etc/systemd/logind.conf /etc/texmf/web2c/fmtutil.cnf /etc/pam.d/su /etc/pam.d/su-l /etc/postfix/aliases /etc/postfix/master.cf /etc/postfix/main.cf
+ETC_FILES = /etc/locale.gen /etc/locale.conf /etc/profile.d/libreoffice-still.sh /etc/lightdm/lightdm-gtk-greeter.conf /etc/my.cnf /etc/my.cnf.d /etc/pacman.conf /etc/pacman.d/mirrorlist /etc/systemd/logind.conf /etc/texmf/web2c/fmtutil.cnf /etc/pam.d/su /etc/pam.d/su-l /etc/postfix/aliases /etc/postfix/master.cf /etc/postfix/main.cf /etc/vconsole.conf /usr/local/share/kbd/keymaps/swap-esc-caps.map /etc/systemd/system/kbdrate.service
 
 default:
 	$(error "from Goedel: select an explicit target (eg mac or arch)")
@@ -19,7 +21,7 @@ mirrorlist.uk:
 reflect_install:
 	cat mirrorlist.uk | sudo tee /etc/pacman.d/mirrorlist > /dev/null
 
-arch: _arch vim lyrics
+arch: _arch
 	@make -B _arch > /dev/null
 	@$(CFG) add --verbose Makefile >&2
 
@@ -33,13 +35,16 @@ vim:
 	@$(CFG) add --verbose ~/.vim/autoload >&2
 	@$(CFG) add --verbose ~/.vim/after >&2
 
-_arch: pacman.list aur.list slash pip3.list crontab.arch systemd_units groups
+bin:
+	@$(CFG) add --verbose ~/bin
+
+_arch: pacman.list aur.list slash pip3.list crontab.arch systemd_units groups vim lyrics bin
 
 mac: _mac
 	@make -B $< > /dev/null
 	@$(CFG) add --verbose Makefile >&2
 
-_mac: brew.list crontab.mac brew_cask.list
+_mac: brew.list crontab.mac brew_cask.list vim lyrics bin
 
 # store user crontab
 crontab.arch:

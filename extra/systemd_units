@@ -11,6 +11,7 @@ dbus-org.freedesktop.NetworkManager.service enabled
 dbus-org.freedesktop.nm-dispatcher.service  enabled
 display-manager.service                     enabled
 getty@.service                              enabled
+kbdrate.service                             enabled
 lightdm.service                             enabled
 mariadb.service                             enabled
 mysqld.service                              enabled
@@ -22,4 +23,4 @@ avahi-daemon.socket                         enabled
 org.cups.cupsd.socket                       enabled
 remote-fs.target                            enabled
 
-22 unit files listed.
+23 unit files listed.

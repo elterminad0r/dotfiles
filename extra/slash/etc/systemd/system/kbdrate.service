@@ -1,0 +1,15 @@
+# Set keyboard rate in tty
+# https://wiki.archlinux.org/index.php/Linux_console/Keyboard_configuration
+
+[Unit]
+Description=Keyboard repeat rate in tty.
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+StandardInput=tty
+StandardOutput=tty
+ExecStart=/usr/bin/kbdrate -s -d 200 -r 30
+
+[Install]
+WantedBy=multi-user.target
