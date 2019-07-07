@@ -13,4 +13,6 @@ set -eu
 # tap left control, programmatically. This is a little less intrusive than
 # insomniac-press
 xdotool key Control_L
-notify-send press "$(date +"%H:%M:%S")"
+msgdate="$(date +"%H:%M:%S")"
+echo press "$msgdate"
+notify-send press "$msgdate"
