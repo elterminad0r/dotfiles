@@ -128,8 +128,18 @@ complete -c xcat
 if version_assert 3 2 57; then
     source_if_exists /usr/share/git/completion/git-completion.bash \
                      "${BREW_PREFIX:-/usr/local}/etc/bash_completion.d/git-completion.bash"
-    # make g complete the same as git (obtained with `complete -p git`)
-    complete -o bashdefault -o default -o nospace -F __git_wrap__git_main g
+    # make g and cfg complete the same as git. Does some trickery in order copy
+    # from git as automagically as possible. Does some further trickery to feed
+    # the cfg completion the right GIT_DIR, so it can find labels in the
+    # repository.
+    # This is probably very bad in lots of ways but it's entirely my funeral
+    eval "$(complete -p git | sed 's/git$/g/')"
+    GOEDEL_GIT_COMP_FUNC="$(complete -p git | sed 's/.*-F *\(\w*\) *.*/\1/')"
+    _cfg() {
+        GIT_DIR="$HOME/.cfg" "$GOEDEL_GIT_COMP_FUNC"
+    }
+    eval "$(complete -p git | sed 's/git$/cfg/;
+    s/-F *\w* */-F _cfg /')"
 else
     >&2 echo "(not sourcing git completion)"
 fi
