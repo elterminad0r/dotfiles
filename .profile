@@ -55,9 +55,6 @@ export CLICOLOR=1
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
 
-# make caca programs run in curses, so they're properly in your terminal
-export CACA_DRIVER=ncurses
-
 # these need to be continuously set, particularly if oh-my-zsh is around
 export LC_CTYPE=en_GB.UTF-8
 export LC_ALL=en_GB.UTF-8

@@ -415,3 +415,5 @@ selfies() {
     \ls -t --directory "$HOME/Pictures/selfies"/* |
         grep "${2:-}" | head -"${1:-1}";
 }
+
+alias calcifer='{ command -v cacafire && CACA_DRIVER=ncurses cacafire; } || aafire -driver curses'
