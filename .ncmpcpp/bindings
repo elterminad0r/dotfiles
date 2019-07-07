@@ -11,9 +11,9 @@ def_key "k"
     scroll_up
 
 def_key "ctrl-f"
-    page_up
-def_key "ctrl-b"
     page_down
+def_key "ctrl-b"
+    page_up
 def_key "ctrl-d"
     push_characters "jjjjjjjjjjjjjjj"
 def_key "ctrl-u"
