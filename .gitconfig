@@ -43,7 +43,7 @@
 	# status. However if you just want to run git status (with default
 	# flags), use "g" or "cfg" as appropriate.
 	st = "status --show-stash"
-	d = "diff HEAD"
+	d = "diff --ignore-submodules HEAD"
 	# consistent with the existence of `git rm`, `git mv`, etc
 	ls = "ls-files"
 	ll = "log --stat"
