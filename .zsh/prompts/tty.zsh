@@ -1,4 +1,3 @@
-# hold off on the fancy business if in tty
-autoload -Uz promptinit
-promptinit
-prompt oliver
+# Prompt for in tty. Currently just uses the vanilla prompt
+
+source "$ZDOTDIR/prompts/vanilla.zsh"

@@ -47,6 +47,7 @@ export TERMINAL='termite'
 export BROWSER='firefox'
 export READER='zathura'
 export FILE='ranger'
+export IMG_VIEWER='feh'
 
 # make BSD utilities be coloured in
 export CLICOLOR=1

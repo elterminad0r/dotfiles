@@ -19,8 +19,9 @@ NetworkManager-dispatcher.service           enabled
 NetworkManager.service                      enabled
 org.cups.cupsd.service                      enabled
 postfix.service                             enabled
+vt-gruvbox.service                          enabled
 avahi-daemon.socket                         enabled
 org.cups.cupsd.socket                       enabled
 remote-fs.target                            enabled
 
-23 unit files listed.
+24 unit files listed.

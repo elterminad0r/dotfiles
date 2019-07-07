@@ -1,0 +1,12 @@
+[Unit]
+Description=Set tty colours to gruvbox
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+StandardInput=tty
+StandardOutput=tty
+ExecStart=/home/izaak/bin/setcolors /home/izaak/.themes/tty-gruvbox.dark
+
+[Install]
+WantedBy=multi-user.target

@@ -41,13 +41,6 @@ source_if_exists "$ZDOTDIR/dircolors.sh"
 # transparency in xterm
 [[ -n "$XTERM_VERSION" ]] && transset-df --id "$WINDOWID" 0.97 >/dev/null
 
-# provides things like the $fg_bold array
-autoload -Uz colors && colors
-
-unalias run-help
-autoload -Uz run-help
-alias help='run-help'
-
 # in general, just disable flow control
 stty -ixon
 alias reset='\reset; stty -ixon'
@@ -91,6 +84,35 @@ alias -g ....='../../..'
 alias -g .....='../../../..'
 alias -g ......='../../../../..'
 alias d='dirs -v | head -10'
+
+# Make the "help" command both exist and be more bash-like and useful
+unalias run-help
+autoload -Uz run-help
+alias help='run-help'
+
+# provides things like the $fg_bold array
+autoload -Uz colors && colors
+
+# load all the zsh prompts, and alias as a mental aid
+autoload -Uz promptinit && promptinit
+alias sayprompts='prompt -p'
+
+autoload -Uz zmv
+autoload -Uz ztodo
+autoload -Uz tetris
+zle -N tetris
+bindkey -M main '^X^T' 'tetris'
+
+autoload -Uz tetriscurses
+autoload -Uz sticky-note
+autoload -Uz calendar
+
+# try some suffix aliases to see if they stick
+# Means that eg if you try to "run" a file with an extension of .txt or .py as a
+# command, it will be opened in vim. Can be used on multiple files at once
+alias -s {txt,py,md}="${EDITOR:-vim}"
+alias -s {png,jpg,jpeg}="${IMG_VIEWER:-feh}"
+alias -s pdf="${READER:-evince}"
 
 # zsh syntax highlighting
 # IMPORTANT: This needs to go at the end of the file because it hooks into other
