@@ -167,13 +167,13 @@ alias vitx='vim --servername vim **/*.tex **/*.sty'
 # so I get my own vimrc when I use view
 alias view='vim -R'
 
-# open the most recently written session in ~/.vim/sessions
+# open the most recently written session in ~/.vim/sessions/auto
 revim() {
     local n="${1:-1}"
     # TODO
     # assumes that you've not got any newlines in your session names, because
     # chronological order is a PAIN with find.
-    vim -S "$(\ls -t --directory "$HOME/.vim/sessions"/* | head -n "$n" | tail -n 1)"
+    vim -S "$(\ls -t --directory "$HOME/.vim/sessions/auto"/* | head -n "$n" | tail -n 1)"
 }
 
 # if light locker exists, alias lock to be alongside poweroff & reboot etc
@@ -253,7 +253,7 @@ alias vit='"${EDITOR:-vim}" ~/Documents/TODO'
 alias viv='"${EDITOR:-vim}" ~/.vim/{vimrc,*.vim,gvimrc,{ft*,indent,after}/**.vim}'
 alias vix='"${EDITOR:-vim}" ~/.Xresources ~/.X/**(.) ~/.xinitrc ~/.xprofile'
 alias vitm='"${EDITOR:-vim}" ~/.tmux.conf'
-alias vid='vim -S ~/.vim/sessions/diary'
+alias vid='vim -S ~/.vim/sessions/deardiary.vim'
 alias visafe='vim -c "set noswapfile nobackup nowritebackup noundofile viminfo="'
 alias vienc='visafe ~/Documents/.enc/'
 

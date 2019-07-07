@@ -51,13 +51,13 @@ endif
 " more powerful than what you'd get using viminfo, as it can sort of restore
 " tabs and window splits.
 function! TimeStampSession()
-    let l:goedel_session_name = "~/.vim/sessions/" . strftime("%s") . ".vim"
+    let l:goedel_session_name = "~/.vim/sessions/auto/" . strftime("%s") . ".vim"
     execute "mksession " . l:goedel_session_name
     echo "wrote " . l:goedel_session_name
 endfunction
 
 augroup AutoSession
-    autocmd! VimLeave * call TimeStampSession()
+    autocmd! VimLeavePre * call TimeStampSession()
 augroup end
 
 " Keep swap files out of the way
@@ -79,8 +79,8 @@ set viewdir=~/.vim/view
 " (lack of %): don't store bufferlist. This means that vim with no arguments
 "              opens cleanly, which is nicer generally because sometimes you get
 "              weird tempfiles from git commits or command line editing. I
-"              automatically write session files to ~/.vim/sessions as well,
-"              which provide the functionality of un-closing a vim with a
+"              automatically write session files to ~/.vim/sessions/auto as
+"              well, which provide the functionality of un-closing a vim with a
 "              precious bufferlist (among other things). See
 "              $ZDOTDIR/goedel_aliases.sh
 " '100: store marks for 100 previously edited files
