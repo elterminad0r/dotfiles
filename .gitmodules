@@ -206,3 +206,23 @@
 	path = .vim/bundle/i3config.vim
 	url = https://github.com/mboughaba/i3config.vim.git
 	branch = master
+[submodule "builds/pplatex"]
+	path = builds/pplatex
+	url = https://github.com/stefanhepp/pplatex
+	branch = master
+[submodule "builds/linux-vt-setcolors"]
+	path = builds/linux-vt-setcolors
+	url = https://github.com/EvanPurkhiser/linux-vt-setcolors
+	branch = master
+[submodule "builds/fbterm-git"]
+	path = builds/fbterm-git
+	url = https://aur.archlinux.org/fbterm-git.git
+	branch = master
+[submodule "builds/xcwd"]
+	path = builds/xcwd
+	url = https://github.com/schischi/xcwd.git
+	branch = master
+[submodule "builds/phantomjs-bin"]
+	path = builds/phantomjs-bin
+	url = https://aur.archlinux.org/phantomjs-bin.git
+	branch = master

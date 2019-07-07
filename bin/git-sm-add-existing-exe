@@ -16,28 +16,32 @@ EOF
 
 # no need for anything so sophisticated as getopts. Furthermore, I like to be
 # able to put -h after positional arguments.
+reading_arguments='true'
 for arg; do
-    case "$arg" in
-        "-h"|"--help")
-            usage;
-            exit 0;
-            ;;
-        "--")
-            break;
-            ;;
-        "-"*)
-            >&2 echo "unrecognised option: $arg";
-            >&2 usage;
-            exit 1;
-            ;;
-        *)
-            ;;
-    esac
+    if [ "$reading_arguments" = "true" ]; then
+        shift
+        case "$arg" in
+            "-h"|"--help")
+                usage;
+                exit 0;
+                ;;
+            "--")
+                reading_arguments=false;
+                ;;
+            "-"*)
+                >&2 echo "unrecognised option: $arg";
+                >&2 usage;
+                exit 1;
+                ;;
+            *)
+                set -- "$@" "$arg"
+                ;;
+        esac
+    fi
 done
 
-echo "pwd: $PWD"
-cd -- "${GIT_PREFIX:-.}"
-echo "pwd: $PWD"
-git submodule add -b master \
-    "$(cd -- "$1";
-       git --git-dir=.git --work-tree=. remote get-url origin)" "$1"
+for sm; do
+    git submodule add -b master \
+        "$(cd -- "$sm";
+        git --git-dir=.git --work-tree=. remote get-url origin)" "$sm"
+done
