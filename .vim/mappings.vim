@@ -157,10 +157,26 @@ nnoremap gg go
 " mapmode-x, as there it is used to switch from [Visual] to [Selection]
 nnoremap <C-g> 2<C-g>
 
-" remap these to go between buffers. Not like there are any keys to substitute
-" their normal behaviour
-nmap <C-p> :bp<CR>
-nmap <C-n> :bn<CR>
+" remap these to go between buffers or tabs, if available. (It's not like there are
+" any keys to substitute their normal behaviour)
+function! CNTabCycle()
+    if tabpagenr("$") == 1
+        bnext
+    else
+        tabnext
+    endif
+endfunction
+
+function! CPTabCycle()
+    if tabpagenr("$") == 1
+        bprevious
+    else
+        tabprevious
+    endif
+endfunction
+
+nnoremap <C-n> :call CNTabCycle()<CR>
+nnoremap <C-p> :call CPTabCycle()<CR>
 
 " remap these to go between splits
 " <C-[hjk]> were useless anyway, and we store <C-l> in g<C-l>
@@ -226,24 +242,24 @@ xnoremap <Leader>t :s/\v<(.)(\w*)/\u\1\L\2/g<CR>
 " Converting to and from hex or binary dumps
 " xxd should have been packaged together with vim, and xxd-bin-hex is a Python
 " script in my ~/bin.
-nnoremap <Leader>xx :.!xxd<CR>
-xnoremap <Leader>xx :!xxd<CR>
-nnoremap <Leader>xX :.!xxd -r<CR>
-xnoremap <Leader>xX :!xxd -r<CR>
-nnoremap <Leader>xgx :%!xxd<CR>
-nnoremap <Leader>xgX :%!xxd -r<CR>
-nnoremap <Leader>xb :.!xxd -b<CR>
-xnoremap <Leader>xb :!xxd -b<CR>
-nnoremap <Leader>xB :.!xxd-bin-hex <bar> xxd -r -p<CR>
-xnoremap <Leader>xB :!xxd-bin-hex <bar> xxd -r -p<CR>
-nnoremap <Leader>xgb :%!xxd -b<CR>
-nnoremap <Leader>xgB :%!xxd-bin-hex <bar> xxd -r -p<CR>
-nnoremap <Leader>xtx :.!xxd-bin-hex <bar> xxd -r -p <bar> xxd<CR>
-xnoremap <Leader>xtx :!xxd-bin-hex <bar> xxd -r -p <bar> xxd<CR>
-nnoremap <Leader>xgtx :%!xxd-bin-hex <bar> xxd -r -p <bar> xxd<CR>
-nnoremap <Leader>xtb :.!xxd -r <bar> xxd -b<CR>
-xnoremap <Leader>xtb :!xxd -r <bar> xxd -b<CR>
-nnoremap <Leader>xgtb :%!xxd -r <bar> xxd -b<CR>
+nnoremap <Leader>gx :.!xxd<CR>
+xnoremap <Leader>gx :!xxd<CR>
+nnoremap <Leader>gX :.!xxd -r<CR>
+xnoremap <Leader>gX :!xxd -r<CR>
+nnoremap <Leader>ggx :%!xxd<CR>
+nnoremap <Leader>ggX :%!xxd -r<CR>
+nnoremap <Leader>gb :.!xxd -b<CR>
+xnoremap <Leader>gb :!xxd -b<CR>
+nnoremap <Leader>gB :.!xxd-bin-hex <bar> xxd -r -p<CR>
+xnoremap <Leader>gB :!xxd-bin-hex <bar> xxd -r -p<CR>
+nnoremap <Leader>ggb :%!xxd -b<CR>
+nnoremap <Leader>ggB :%!xxd-bin-hex <bar> xxd -r -p<CR>
+nnoremap <Leader>gtx :.!xxd-bin-hex <bar> xxd -r -p <bar> xxd<CR>
+xnoremap <Leader>gtx :!xxd-bin-hex <bar> xxd -r -p <bar> xxd<CR>
+nnoremap <Leader>ggtx :%!xxd-bin-hex <bar> xxd -r -p <bar> xxd<CR>
+nnoremap <Leader>gtb :.!xxd -r <bar> xxd -b<CR>
+xnoremap <Leader>gtb :!xxd -r <bar> xxd -b<CR>
+nnoremap <Leader>ggtb :%!xxd -r <bar> xxd -b<CR>
 
 " mappings for cApItAlIsAtIoN
 " TODO: make a proper operator of this
@@ -275,6 +291,12 @@ elseif has("python")
 else
     noremap <Leader>gx :echo "my anaconda don't"<CR>
     noremap <Leader>gX :echo "my anaconda don't"<CR>
+endif
+
+if executable("python")
+    nnoremap <Leader>gj :.!python -m json.tool<CR>
+    nnoremap <Leader>ggj :%!python -m json.tool<CR>
+    xnoremap <Leader>gj :!python -m json.tool<CR>
 endif
 
 " easier window resizing with ^W+++++ and ------ and <<<<<< and >>>>>

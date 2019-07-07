@@ -155,7 +155,7 @@ function! MkDirP(dirname)
 endfunction
 
 call MkDirP($HOME . "/.vim")
-for dirname in split("backups bundle sessions swap spell undo view")
+for dirname in split("backups bundle sessions sessions/auto swap spell undo view")
     call MkDirP($HOME . "/.vim/" . dirname)
 endfor
 
@@ -225,7 +225,7 @@ if !exists("*ReloadVimConf")
         endif
         call plug#load(keys(g:plugs))
         redraw | echo "reloaded " . $MYVIMRC
-        doautocmd VimEnter
+        doautoall VimEnter
     endfunction
 endif
 " reload vimrc when written
