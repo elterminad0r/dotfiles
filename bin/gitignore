@@ -1,0 +1,39 @@
+#!/usr/bin/env sh
+
+# FIGMENTIZE: gitignore
+
+# Retrieve one or more gitignore files from the big gitignore repository.
+
+set -eu
+
+if [ "$#" = 0 ]; then
+    >&2 echo "Gitignore: need one or more patterns to find"
+    exit 1
+fi
+
+for pattern; do
+    gitignore_code="0"
+
+    find "$HOME/programmeren/gitignore" -iname "*$pattern*" -type f -exec \
+        sh -c '
+            if [ "$#" = 1 ]; then
+                cat "$1"
+                exit 1
+            else
+                >&2 echo "Multiple matches for $pattern:"
+                >&2 printf "%s\n" "$@"
+                exit 2
+            fi' -- {} + || gitignore_code="$?"
+
+    case "$gitignore_code" in
+        "0")
+            >&2 echo "No matches for $pattern"
+            exit 1
+            ;;
+        "1")
+            ;;
+        "2")
+            exit 1
+            ;;
+    esac
+done

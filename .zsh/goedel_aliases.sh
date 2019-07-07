@@ -13,10 +13,8 @@
 # you about anything else. It uses plenty of posix incompatible [[ ]]
 
 # if tac command doesn't exist, use tail -r instead, and hope for the best
-if ! >/dev/null 2>&1 command -v tac; then
-    tac() {
-        tail -r -- "$@"
-    }
+if ! >/dev/null 2>&1 env which tac; then
+    alias tac='fallback-tac'
 fi
 
 # function to fully expand its arguments if they're aliases.
@@ -49,24 +47,6 @@ enhance() {
 
 alias xclarify='tr "\n" "\0" | xargs -0 printf "%q\n"'
 
-# if you want to really ruin someone's day, run this in a high frequency while
-# loop:
-# while true; do insomniac_twitch; sleep 0.5; done
-insomniac_twitch() {
-    local dis_w=$(xdotool getdisplaygeometry | awk '{print $1}')
-    local dis_h=$(xdotool getdisplaygeometry | awk '{print $2}')
-    local gen_x=$(shuf -i 1-"$dis_w" -n 1)
-    local gen_y=$(shuf -i 1-"$dis_h" -n 1)
-    xdotool mousemove "$gen_x" "$gen_y"
-    notify-send twitch "$(date +"%H:%M:%S")"
-}
-
-# tap left control, programmatically
-insomniac_press() {
-    xdotool key Control_L
-    notify-send press "$(date +"%H:%M:%S")"
-}
-
 # test out notify-send
 alias notificate='for c in low normal critical; do notify-send -u "$c" "$c message" "This has $c priority"; done'
 
@@ -98,44 +78,8 @@ alias ccat='highlight -O ansi'
 # an alternative with pygmentize is:
 # alias ccat='pygmentize -g -f terminal'
 
-# cat an eXecutable
-# TODO: make this adapt to functions and aliases (???)
-xcat() {
-    loc="$(sh -c 'command -v "$1"' DUMMY "$1")" || return 1
-    if [ -r "$loc" ]; then
-        if >/dev/null 2>&1 command -v isutf8; then
-            if isutf8 "$loc"; then
-                cat "$loc"
-            fi
-        # obviously not waterproof: if you have an executable called "text", for
-        # example. But then you deserve this anyway
-        elif file "$loc" | >/dev/null 2>&1 grep text; then
-            cat "$loc"
-        else
-            >&2 echo "not a text file"
-        fi
-    else
-        >&2 echo "not a file: '$loc'"
-    fi
-}
-
 # TODO: make this a more versatile command
 alias gpl="cat /usr/share/licenses/common/GPL3/license.txt"
-
-gitignore_cat() {
-    if [ "$#" = 0 ]; then
-        >&2 echo "no matches"
-    elif [ "$#" = 1 ]; then
-        cat "$1"
-    else
-        >&2 echo "matches:"
-        >&2 printf "%s\n" "$@"
-    fi
-}
-
-gitignore() {
-    gitignore_cat "$HOME/programmeren/gitignore"/**/*"$1"*
-}
 
 # DIY coloured man pages using an alias so it's faster
 # colours personally engineered to not be utterly disgusting, unlike OMZ's
@@ -375,12 +319,12 @@ alias pacman='pacman --color=auto'
 alias p='pacman'
 alias pacsystree='for i in $(pacman -Qeq); do pactree $i; done'
 
+# Frivolous aliases
+
 alias tolower='tr "[:upper:]" "[:lower:]"'
 alias toupper='tr "[:lower:]" "[:upper:]"'
 
 alias rot13='tr "A-Za-z" "N-ZA-Mn-za-m"'
-
-# Frivolous aliases
 
 if [ -n "$(echo | figlet -t 2>&1 || true)" ]; then
     FIG_FLAGS='-w "$COLUMNS"'

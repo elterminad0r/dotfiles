@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+
+# FIGMENTIZE: insomniac
+
+set -eu
+
+# tap left control, programmatically. This is a little less intrusive than
+# insomniac-press
+xdotool key Control_L
+notify-send press "$(date +"%H:%M:%S")"

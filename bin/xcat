@@ -1,0 +1,24 @@
+#!/usr/bin/env sh
+
+# FIGMENTIZE: xcat
+
+set -eu
+
+# cat an eXecutable
+# TODO: make this adapt to functions and aliases (???)
+loc="$(sh -c 'command -v "$1"' DUMMY "$1")" || return 1
+if [ -r "$loc" ]; then
+    if >/dev/null 2>&1 command -v isutf8; then
+        if isutf8 "$loc"; then
+            cat "$loc"
+        fi
+    # obviously not waterproof: if you have an executable called "text", for
+    # example. But then you deserve this anyway
+    elif file "$loc" | >/dev/null 2>&1 grep text; then
+        cat "$loc"
+    else
+        >&2 echo "not a text file"
+    fi
+else
+    >&2 echo "not a file: '$loc'"
+fi
