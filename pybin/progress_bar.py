@@ -4,8 +4,10 @@ writing over and over again, when writing programs on the command line that take
 time to execute.
 """
 
+# wget-like ascii
 ASCII_PROG_CHARS = ">", "=", " "
-UNICODE_PROG_CHARS = "▏▎▍▌▋▊▉█", "█", " "
+# pip-like unicode
+UNICODE_PROG_CHARS = "▏▎▍▌▋▊▉", "█", " "
 
 def format_bar(width, fraction, unicode=None, prog_chars=None):
     """
@@ -33,9 +35,15 @@ def format_bar(width, fraction, unicode=None, prog_chars=None):
 if __name__ == "__main__":
     import sys
     import time
+    import argparse
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("-a", "--ascii", action="store_true",
+            help="ASCII mode")
+    args = parser.parse_args()
     TOTAL = 1000
     for i in range(TOTAL + 1):
         time.sleep(0.01)
-        print("\r[{}]".format(format_bar(78, i / TOTAL, unicode=True)),
+        print("\r[{}]".format(format_bar(78, i / TOTAL,
+                              unicode=not args.ascii)),
               end="", file=sys.stderr, flush=True)
     print(file=sys.stderr)
