@@ -45,7 +45,7 @@ class SmartFormatter(ArgumentDefaultsHelpFormatter):
                                          subsequent_indent=indent)
                            for paragraph in text.split("\n\n"))
 
-class APEnumBase:
+class APEnum(enum.Enum):
     """
     Allow argparse arguments to be Enums. Lets you do things like
 
@@ -66,9 +66,6 @@ class APEnumBase:
             return cls[s.upper()]
         except KeyError:
             return s
-
-class APEnum(APEnumBase, enum.Enum):
-    pass
 
 if __name__ == "__main__":
     class MyEnum(APEnum):
