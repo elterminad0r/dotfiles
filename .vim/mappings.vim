@@ -204,15 +204,6 @@ nnoremap g<C-l> <C-l>
 " noremap gk k
 " noremap gj j
 
-" replace these with the screen versions. This means that if you some tab width,
-" it replaces that many characters rather than a single one, ensuring that
-" characters on the screen don't jump around.
-" Of course, you can still access the originals as they're just swapped
-noremap R gR
-noremap r gr
-noremap gR R
-noremap gr r
-
 " select previously inserted text
 nmap gV `[v`]
 
