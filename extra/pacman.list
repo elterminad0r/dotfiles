@@ -57,7 +57,7 @@ easytag
 efibootmgr
 electron
 elinks
-espeak
+espeak-ng
 evince
 exfat-utils
 expac
@@ -105,7 +105,8 @@ gparted
 gperf
 gpick
 graphviz
-grub
+grub-customizer
+grub-theme-vimix
 gtk-engine-murrine
 gtop
 gv
@@ -138,6 +139,7 @@ iw
 java-openjfx
 jfsutils
 jp2a
+jq
 js52
 jython
 kid3
@@ -169,6 +171,7 @@ man-pages
 mari0
 mariadb
 mediainfo
+meld
 mlocate
 mono
 moreutils

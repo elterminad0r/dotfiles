@@ -1,6 +1,7 @@
-.PHONY: default arch _arch mac _mac reflect_install mirrorlist.uk vim lyrics bin
+.PHONY: default arch _arch mac _mac reflect_install mirrorlist.uk vim lyrics bin playlists
 
-# Makefile to store information about the system.
+# Makefile to store information about the system. This is a kind of mix between
+# storing system files and a poor man's continuous integration.
 
 # Generally everything is silent, because I like to run this in a cron job, and
 # only have it email me if anything needs my attention.
@@ -9,7 +10,7 @@
 
 CFG = git --git-dir ~/.cfg --work-tree ~
 
-ETC_FILES = /etc/locale.gen /etc/locale.conf /etc/profile.d/libreoffice-still.sh /etc/lightdm/lightdm-gtk-greeter.conf /etc/my.cnf /etc/my.cnf.d /etc/pacman.conf /etc/pacman.d/mirrorlist /etc/systemd/logind.conf /etc/texmf/web2c/fmtutil.cnf /etc/pam.d/su /etc/pam.d/su-l /etc/postfix/aliases /etc/postfix/master.cf /etc/postfix/main.cf /etc/vconsole.conf /usr/local/share/kbd/keymaps/swap-esc-caps.map /etc/systemd/system/kbdrate.service /etc/systemd/system/vt-gruvbox.service
+ETC_FILES = /etc/locale.gen /etc/locale.conf /etc/profile.d/libreoffice-still.sh /etc/lightdm/lightdm-gtk-greeter.conf /etc/my.cnf /etc/my.cnf.d /etc/pacman.conf /etc/pacman.d/mirrorlist /etc/systemd/logind.conf /etc/texmf/web2c/fmtutil.cnf /etc/pam.d/su /etc/pam.d/su-l /etc/postfix/aliases /etc/postfix/master.cf /etc/postfix/main.cf /etc/vconsole.conf /usr/local/share/kbd/keymaps/swap-esc-caps.map /etc/systemd/system/kbdrate.service /etc/systemd/system/vt-gruvbox.service /boot/grub/grub.cfg
 
 default:
 	$(error "from Goedel: select an explicit target (eg mac or arch)")
@@ -28,6 +29,10 @@ arch: _arch
 lyrics:
 	@$(CFG) add --verbose ~/.lyrics >&2
 
+playlists:
+	@uniq -d ~/.config/mpd/playlists/*
+	@$(CFG) add --verbose ~/.config/mpd/playlists/* >&2
+
 vim:
 	@$(CFG) add --verbose ~/.vim/ftdetect >&2
 	@$(CFG) add --verbose ~/.vim/ftplugin >&2
@@ -37,8 +42,9 @@ vim:
 
 bin:
 	@$(CFG) add --verbose ~/bin
+	@$(CFG) add --verbose ~/pybin
 
-_arch: pacman.list aur.list slash pip3.list crontab.arch systemd_units groups vim lyrics bin
+_arch: pacman.list aur.list slash cpython3.pip pypy3.pip crontab.arch systemd_units groups vim lyrics bin playlists
 
 mac: _mac
 	@make -B $< > /dev/null
@@ -87,6 +93,10 @@ systemd_units:
 	@systemctl list-unit-files --state=enabled > $@
 	@$(CFG) add --verbose $@ >&2
 
-pip3.list:
+cpython3.pip:
 	@python3 -m pip freeze --user > $@
+	@$(CFG) add --verbose $@ >&2
+
+pypy3.pip:
+	@pypy3 -m pip freeze --user > $@
 	@$(CFG) add --verbose $@ >&2
