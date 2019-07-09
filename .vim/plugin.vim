@@ -164,7 +164,7 @@ let g:airline_mode_map = {
     \ '' : 'V-B',
     \ }
 
-function! AirlineViewThemes()
+function! AirlineViewThemes() abort
     for theme in airline#util#themes("")
         execute "AirlineTheme " . theme
         redraw!

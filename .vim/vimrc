@@ -65,7 +65,7 @@ source ~/.vim/mappings.vim
 source ~/.vim/command.vim
 
 " show hex characters as codes
-function! ToggleUHex()
+function! ToggleUHex() abort
     if &display =~# "uhex"
         set display-=uhex
     else
@@ -76,7 +76,7 @@ endfunction
 " Toggle all the crap I put in my columns, proxied by the number option. Written
 " in such a way that it does not break if I change my default options.
 let g:columns_are_on = 1
-function! ToggleColumn()
+function! ToggleColumn() abort
     if &number
         let g:columns_are_on = 0
         windo setlocal nonumber norelativenumber foldcolumn=0
@@ -103,7 +103,7 @@ endif
 " noh doesn't work from inside functions, so I use feedkeys instead. This is
 " probably pretty fragile or dangerous or whatever but who cares
 " TODO: make this cleverer about buffers & rehighlighting when you search
-function! ToggleHighlight()
+function! ToggleHighlight() abort
     if &hlsearch
         if g:goedel_highlighted
             call feedkeys(":nohlsearch\<CR>")
@@ -115,7 +115,7 @@ function! ToggleHighlight()
 endfunction
 
 " Insert mode version
-function! IToggleHighlight()
+function! IToggleHighlight() abort
     call feedkeys("\<C-o>")
     call ToggleHighlight()
 endfunction
@@ -146,17 +146,9 @@ endif
 
 " make useful directories in ~/.vim where they don't exist
 
-" make directory if it does not exist
-function! MkDirP(dirname)
-    if !isdirectory(a:dirname)
-        echomsg "mkdir" a:dirname
-        call mkdir(a:dirname)
-    endif
-endfunction
-
-call MkDirP($HOME . "/.vim")
+call mkdir($HOME . "/.vim", "p")
 for dirname in split("backups bundle sessions sessions/auto swap spell undo view")
-    call MkDirP($HOME . "/.vim/" . dirname)
+    call mkdir($HOME . "/.vim/" . dirname, "p")
 endfor
 
 " Basically, let vim load plugins for filetypes.
@@ -172,21 +164,61 @@ augroup TrailingWhitespaceMatch
     autocmd! VimEnter,WinEnter * match TrailingWhitespace /\s\+$/
 augroup END
 
+" nab cwd before autochdir kicks in, for session-writing porpoises
+if !exists("g:goedel_vim_start_directory")
+    let g:goedel_vim_start_directory = getcwd()
+endif
+
+" Automatically write session files. They are both uniquely identified with a
+" timestamp, and stored in a directory structure mirroring the actual directory
+" the session was written in.
+" I have a script "revim" in ~/bin to reopen the last session either from the
+" current directory, a given directory or globally. This is more powerful than
+" what you'd get using viminfo, as it can sort of restore tabs and window
+" splits.
+function! GoedelWriteSession() abort
+    let l:goedel_sess = "~/.vim/sessions/auto" . g:goedel_vim_start_directory
+                \ . "/" . strftime("%s") . ".vim"
+    call mkdir(fnamemodify(l:goedel_sess, ':p:h'), "p")
+    execute "mksession " . l:goedel_sess
+    echomsg "wrote session " . l:goedel_sess
+endfunction
+
+augroup AutoSession
+    autocmd! VimLeavePre * call GoedelWriteSession()
+augroup end
+
+function XYZ() abort
+    abc
+endfunction
+
 " generating and using ctags
 if executable("ctags")
-    function! MakeTags()
+    " Tags Recursive
+    function! MakeTagsR()
         silent !echo "runnning ctags in $(pwd)"; ctags -R -o .tags.new; mv -f .tags.new .tags
         redraw!
     endfunction
+    " Tags Flat
+    function! MakeTagsF()
+        silent !echo "runnning ctags in $(pwd)"; ctags -o .tags.new *; mv -f .tags.new .tags
+        redraw!
+    endfunction
 else
-    function! MakeTags()
+    function! MakeTagsR()
+        echoerr "ctags executable not found"
+    endfunction
+    function! MakeTagsF()
         echoerr "ctags executable not found"
     endfunction
 endif
 
-nnoremap <silent> <Leader>c :call MakeTags()<CR>
+call XYZ()
 
-function! GoedelCheckSearch()
+nnoremap <silent> <Leader>c :call MakeTagsR()<CR>
+nnoremap <silent> <Leader>C :call MakeTagsF()<CR>
+
+function! GoedelCheckSearch() abort
     if !empty($GOEDEL_VIMACK_SEARCH)
         let @/ = $GOEDEL_VIMACK_SEARCH
         silent! normal! n
@@ -195,7 +227,7 @@ function! GoedelCheckSearch()
     endif
 endfunction
 
-function! GoedelToggleSearch()
+function! GoedelToggleSearch() abort
     if !empty($GOEDEL_VIMACK_SEARCH)
         let g:goedel_vimack_search_store = $GOEDEL_VIMACK_SEARCH
         let $GOEDEL_VIMACK_SEARCH = ''
@@ -226,6 +258,10 @@ if !exists("*ReloadVimConf")
         call plug#load(keys(g:plugs))
         redraw | echo "reloaded " . $MYVIMRC
         doautoall VimEnter
+        " Fix local working directories in current, For some reason this is
+        " broken by the VimEnter autocmd event, although it should be fixed in
+        " other windows on account of autochdir, so I don't need windo
+        lcd %:p:h
     endfunction
 endif
 " reload vimrc when written
@@ -234,7 +270,7 @@ augroup ConfigReloadVim
     autocmd! BufWritePost ~/.vim/*rc,~/.vim/*vim nested call ReloadVimConf()
 augroup END
 
-function! ReloadTmuxConf()
+function! ReloadTmuxConf() abort
     !tmux source-file %
     redraw | echo "reloaded " . @%
 endfunction
@@ -242,7 +278,7 @@ augroup ConfigReloadTmux
     autocmd! BufWritePost ~/.tmux.conf call ReloadTmuxConf()
 augroup END
 
-function! ReloadXConf()
+function! ReloadXConf() abort
     !xrdb -merge %
     redraw | echo "reloaded ". @%
 endfunction
@@ -251,7 +287,7 @@ augroup ConfigReloadX
     autocmd! BufWritePost ~/.Xresources,~/.Xdefaults,~/.X/* call ReloadXConf()
 augroup END
 
-function! ReloadI3Conf()
+function! ReloadI3Conf() abort
     !i3-msg restart
     redraw | echo "reloaded " . @%
 endfunction
@@ -259,7 +295,7 @@ augroup ConfigReloadI3
     autocmd! BufWritePost ~/.config/i3/config,~/.config/i3status/config,~/.conkyrc,~/.config/i3blocks/config call ReloadI3Conf()
 augroup END
 
-function! ToggleAmbiwidth()
+function! ToggleAmbiwidth() abort
     if &ambiwidth ==# "single"
         set ambiwidth=double
     else

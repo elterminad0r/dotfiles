@@ -4,7 +4,7 @@
 
 " TODO: make this unnecessary
 
-function! GetShIndent()
+function! GetShIndent() abort
   let curline = getline(v:lnum)
   let lnum = prevnonblank(v:lnum - 1)
   if lnum == 0

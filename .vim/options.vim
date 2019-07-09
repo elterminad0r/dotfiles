@@ -21,7 +21,7 @@ endif
 
 " The following couple of options set Vim to write lots of useful metadata about
 " files in directories inside ~/.vim. These should be automatically created by
-" my vimrc, with the MkDirP function.
+" my vimrc.
 " This obviously isn't always desired - if you're editing files with sensitive
 " content, you'll want to disable all of this. Currently I have it set up so I
 " have an alias visafe in ~/.goedel_aliases which turns all this crap off to the
@@ -45,20 +45,6 @@ set sessionoptions=blank,buffers,curdir,folds,help,tabpages,winsize
 if has("terminal")
     set sessionoptions+=terminal
 endif
-
-" Automatically write session files. Uniquely identified with a timestamp.
-" I have a revim alias in ~/.goedel_aliases to reopen the last session. This is
-" more powerful than what you'd get using viminfo, as it can sort of restore
-" tabs and window splits.
-function! TimeStampSession()
-    let l:goedel_session_name = "~/.vim/sessions/auto/" . strftime("%s") . ".vim"
-    execute "mksession " . l:goedel_session_name
-    echo "wrote " . l:goedel_session_name
-endfunction
-
-augroup AutoSession
-    autocmd! VimLeavePre * call TimeStampSession()
-augroup end
 
 " Keep swap files out of the way
 set directory^=~/.vim/swap
@@ -311,7 +297,7 @@ set hidden
 " instead of b
 set switchbuf+=useopen,usetab
 
-" I like to reduce visible clutter by making tags hidden
+" I like to reduce visible clutter by making tags hidden filed
 set tags+=./.tags,.tags
 " tag binary search
 set tagbsearch

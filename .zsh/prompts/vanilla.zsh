@@ -20,7 +20,7 @@ setopt prompt_subst
 # TODO: customise this for dirty state
 zstyle ':vcs_info:*' actionformats \
     '%K{002}%F{000} (%s)-[%b|%a]%u%c %f%k'
-zstyle ':vcs_info:*' formats       \
+zstyle ':vcs_info:*' formats \
     '%K{002}%F{000} (%s)-[%b]%u%c %f%k'
 zstyle ':vcs_info:*' stagedstr "*"
 zstyle ':vcs_info:*' unstagedstr "+"

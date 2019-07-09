@@ -24,7 +24,7 @@ nnoremap g<C-l> <C-l>:redraw!<CR>
 nnoremap <Leader>f :set guifont=*<CR>
 
 " Allow increasing/decreasing the font size
-function! IncreaseFontSize()
+function! IncreaseFontSize() abort
     let &guifont = substitute(
      \ &guifont,
      \ '\d\+',
@@ -32,7 +32,7 @@ function! IncreaseFontSize()
      \ '')
 endfunction
 
-function! DecreaseFontSize()
+function! DecreaseFontSize() abort
     let &guifont = substitute(
      \ &guifont,
      \ '\d\+',
@@ -47,7 +47,7 @@ nmap <script> <SID>(fresize)= :ResetFont<CR><SID>(fresize)
 nmap <script> <SID>(fresize) <Nop>
 
 let g:goedel_gui_is_up = 1
-function! ToggleGUI()
+function! ToggleGUI() abort
     if g:goedel_gui_is_up
         " same as default guioptions, but without tabs, scrollbars, menus or
         " toolbars.
@@ -62,7 +62,7 @@ nnoremap <F7> :call ToggleGUI()<CR>
 inoremap <F7> <C-o>:call ToggleGUI()<CR>
 
 let g:goedel_cursor_is_blinking = 1
-function! ToggleBlinking()
+function! ToggleBlinking() abort
     if g:goedel_cursor_is_blinking
         " same as default options but turn off blinking
         set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,ve:ver35-Cursor-blinkon0,o:hor50-Cursor-blinkon0,i-ci:ver25-Cursor/lCursor-blinkon0,r-cr:hor20-Cursor/lCursor-blinkon0,sm:block-Cursor-blinkon0

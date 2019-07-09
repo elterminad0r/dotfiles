@@ -14,7 +14,7 @@
 " https://github.com/tpope/vim-sensible
 
 " self explanatory
-function! LaughManiacally()
+function! LaughManiacally() abort
     echohl ErrorMsg
     echo "Mwahahahahahahahaha"
     echohl None
@@ -49,7 +49,7 @@ xnoremap <C-c> "+y
 nnoremap <Leader>p :set paste!<CR>
 
 " crap, these turn the scrollwheel into a
-" weapon  of mass destruction.
+" weapon of mass destruction.
 " " Up and down to move lines around
 " " noremap <Up> ddkP
 " " noremap <Down> ddp
@@ -93,7 +93,7 @@ let s:save_cpo = &cpo | set cpo&vim
 if !exists('g:VeryLiteral')
     let g:VeryLiteral = 0
 endif
-function! s:VSetSearch(cmd)
+function! s:VSetSearch(cmd) abort
     let old_reg = getreg('"')
     let old_regtype = getregtype('"')
     normal! gvy
@@ -135,7 +135,7 @@ inoremap <C-c> <Esc>u
 " https://vim.fandom.com/wiki/Insert_a_single_character
 " remap S as it's equivalent to cc, which is the line command that fits with dd,
 " and yy.
-function! RepeatChar(char, count)
+function! RepeatChar(char, count) abort
     return repeat(a:char, a:count)
 endfunction
 " TODO: 2Sx doesn't work
@@ -159,7 +159,7 @@ nnoremap <C-g> 2<C-g>
 
 " remap these to go between buffers or tabs, if available. (It's not like there are
 " any keys to substitute their normal behaviour)
-function! CNTabCycle()
+function! CNTabCycle() abort
     if tabpagenr("$") == 1
         bnext
     else
@@ -167,7 +167,7 @@ function! CNTabCycle()
     endif
 endfunction
 
-function! CPTabCycle()
+function! CPTabCycle() abort
     if tabpagenr("$") == 1
         bprevious
     else
@@ -270,34 +270,48 @@ nnoremap <Leader>gU :.!b-cAt -r<CR>
 nnoremap <Leader>ggU :%!b-cAt -r<CR>
 xnoremap <Leader>gU :!b-cAt -r<CR>
 
-" X p a n d
+" E x p a n d
 " TODO: again, operate
 "       and make this higher IQ - it's not very adaptive
 "       really it deserves its own executable
 if has("python3")
-    nnoremap <Leader>gx :.py3do return " ".join(line)<CR>
-    nnoremap <Leader>ggx :%py3do return " ".join(line)<CR>
-    xnoremap <Leader>gx :py3do return " ".join(line)<CR>
-    nnoremap <Leader>gX :.py3do return line[::2]<CR>
-    nnoremap <Leader>ggX :%py3do return line[::2]<CR>
-    xnoremap <Leader>gX :py3do return line[::2]<CR>
+    nnoremap <Leader>ge :.py3do return " ".join(line)<CR>
+    nnoremap <Leader>gge :%py3do return " ".join(line)<CR>
+    xnoremap <Leader>ge :py3do return " ".join(line)<CR>
+    nnoremap <Leader>gE :.py3do return line[::2]<CR>
+    nnoremap <Leader>ggE :%py3do return line[::2]<CR>
+    xnoremap <Leader>gE :py3do return line[::2]<CR>
 elseif has("python")
-    nnoremap <Leader>gx :.pydo return " ".join(line)<CR>
-    nnoremap <Leader>ggx :%pydo return " ".join(line)<CR>
-    xnoremap <Leader>gx :%pydo return " ".join(line)<CR>
-    nnoremap <Leader>gX :.pydo return line[::2]<CR>
-    nnoremap <Leader>ggX :%pydo return line[::2]<CR>
-    xnoremap <Leader>gX :pydo return line[::2]<CR>
+    nnoremap <Leader>ge :.pydo return " ".join(line)<CR>
+    nnoremap <Leader>gge :%pydo return " ".join(line)<CR>
+    xnoremap <Leader>ge :%pydo return " ".join(line)<CR>
+    nnoremap <Leader>gE :.pydo return line[::2]<CR>
+    nnoremap <Leader>ggE :%pydo return line[::2]<CR>
+    xnoremap <Leader>gE :pydo return line[::2]<CR>
 else
-    noremap <Leader>gx :echo "my anaconda don't"<CR>
-    noremap <Leader>gX :echo "my anaconda don't"<CR>
+    noremap <Leader>ge :echo "my anaconda don't"<CR>
+    noremap <Leader>gE :echo "my anaconda don't"<CR>
 endif
 
-if executable("python")
+if executable("jq")
+    nnoremap <Leader>gj :.!jq<CR>
+    nnoremap <Leader>ggj :%!jq<CR>
+    xnoremap <Leader>gj :!jq<CR>
+    nnoremap <Leader>gJ :.!jq -c<CR>
+    nnoremap <Leader>ggJ :%!jq -c<CR>
+    xnoremap <Leader>gJ :!jq -c<CR>
+elseif executable("python")
+    " TODO: gj mappings here
     nnoremap <Leader>gj :.!python -m json.tool<CR>
     nnoremap <Leader>ggj :%!python -m json.tool<CR>
     xnoremap <Leader>gj :!python -m json.tool<CR>
+else
+    noremap <Leader>gj :echo "my system don't"<CR>
 endif
+
+nnoremap <Leader>gr :.!rev<CR>
+nnoremap <Leader>ggr :%!rev<CR>
+xnoremap <Leader>gr :!rev<CR>
 
 " easier window resizing with ^W+++++ and ------ and <<<<<< and >>>>>
 " https://www.vim.org/scripts/script.php?script_id=2223
@@ -326,10 +340,27 @@ nnoremap <script> <SID>(hscroll)H zH<SID>(hscroll)
 nnoremap <script> <SID>(hscroll)L zL<SID>(hscroll)
 nmap <script> <SID>(horscroll) <Nop>
 
+" Commentary functions but explicitly set commentstring to /*%s*/
+" TODO: make work
+function! StarCommentarySetup() abort
+    let b:goedel_star_commentstring_store =  &commentstring
+    setlocal commentstring=/*%s*/
+endfunction
+
+function! StarCommentaryTeardown() abort
+    let &l:commentstring = b:goedel_star_commentstring_store
+endfunction
+
+" nmap <Leader>*gcu :call StarCommentary() <bar> call StarCommentary()<CR>
+nmap <Leader>*gcc :call StarCommentarySetup()<CR><Plug>CommentaryLine:call StarCommentaryTeardown()<CR>
+" omap <Leader>*gc :call StarCommentary()<CR>
+" nmap <Leader>*gc :call StarCommentary()<CR>
+" xmap <Leader>*gc :call StarCommentarySetup()<CR><Plug>Commentary:call StarCommentaryTeardown()<CR>
+
 " Indent/dedent by a single space
 " I think this is probably pretty kludgey, but it seems to work
 " FIXME: v10<Right><Esc>. doesn't work to repeat the motion.
-function! IndentOne(type, ...)
+function! IndentOne(type, ...) abort
     let l:goedel_shiftwidth_store = &shiftwidth
     " set local to minimise destructive potential
     setlocal shiftwidth=1
@@ -341,7 +372,7 @@ function! IndentOne(type, ...)
     exec "setlocal shiftwidth=" . l:goedel_shiftwidth_store
 endfunction
 
-function! DedentOne(type, ...)
+function! DedentOne(type, ...) abort
     let l:goedel_shiftwidth_store = &shiftwidth
     setlocal shiftwidth=1
     if a:0

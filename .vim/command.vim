@@ -9,7 +9,7 @@
 " File to store custom vim commands
 
 " Run the file through figmentize
-function! Figmentize()
+function! Figmentize() abort
     if executable("figmentize")
         if &modified
             echoerr "This buffer is modified"
@@ -50,7 +50,7 @@ command! -nargs=+ Fig call Fig(<f-args>)
 " It's a function because I don't know how to do an e after a ! in a command
 " It seems like vim-eunuch/SudoWrite does the same thing, but this seems
 " portable enough for me
-function! W()
+function! W() abort
     silent w !sudo tee > /dev/null %
     " reload file only if it was written successfully
     if v:shell_error == 0
@@ -66,7 +66,7 @@ command! W call W()
 " reload/edit configuration files
 " TODO: some kind of centralised idea
 command! Vrc call ReloadVimConf()
-command! Evr argadd  ~/.vim/{vimrc,*.vim,gvimrc,{ft*,indent,after}/**.vim} | n
+command! Evr argadd ~/.vim/{vimrc,*.vim,gvimrc,{ft*,indent,after}/**.vim} | n
 " TODO: use $ZDOTDIR and $bASHDOTDIR
 command! Ezr argadd ~/.zsh/{zshrc,*.zsh,*.sh,zshenv,zprofile,prompts/*} ~/.bash/* ~/.bash/apparix/*.*sh ~/.profile | n
 " TODO: this is a workaround to get just files
