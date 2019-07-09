@@ -8,22 +8,28 @@
 #       \/     \/      \/
 # FIGMENTIZE: xcat
 
+# cat an eXecutable
+
 set -eu
 
-# cat an eXecutable
-# TODO: make this adapt to functions and aliases (???)
-loc="$(sh -c 'command -v "$1"' DUMMY "$1")" || return 1
+# https://unix.stackexchange.com/questions/275516/is-there-a-convenient-way-to-classify-files-as-binary-or-text
+
+loc="$(env which "$1")"
 if [ -r "$loc" ]; then
-    if >/dev/null 2>&1 command -v isutf8; then
-        if isutf8 "$loc"; then
-            cat "$loc"
-        fi
-    # obviously not waterproof: if you have an executable called "text", for
-    # example. But then you deserve this anyway
-    elif file "$loc" | >/dev/null 2>&1 grep text; then
+    if
+            if >/dev/null 2>&1 command -v isutf8; then
+                >/dev/null 2>&1 isutf8 "$loc"
+            elif >/dev/null 2>&1 grep --version | grep -q GNU; then
+                grep -Hm1 '' "$loc" | grep -q '^Binary'
+            # obviously not waterproof: if you have an executable called "text",
+            # for example. But then you deserve this anyway, and also why
+            # haven't you got any software installed
+            else
+                file "$loc" | >/dev/null 2>&1 grep text
+            fi; then
         cat "$loc"
     else
-        >&2 echo "not a text file"
+        >&2 echo "$loc appears to be a binary file"
     fi
 else
     >&2 echo "not a file: '$loc'"

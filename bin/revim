@@ -1,0 +1,22 @@
+#!/usr/bin/env zsh
+
+#                       .__
+# _______   ____ ___  __|__|  _____
+# \_  __ \_/ __ \\  \/ /|  | /     \
+#  |  | \/\  ___/ \   / |  ||  Y Y  \
+#  |__|    \___  > \_/  |__||__|_|  /
+#              \/                 \/
+# FIGMENTIZE: revim
+
+# Reopen a previously automatically saved vim session (see vimrc)
+
+# TODO assumes that you've not got any newlines in your session names, because
+#      chronological order is a PAIN with find.
+# TODO Write completions
+# TODO selection mode
+# TODO I have a script "revim" in ~/bin to reopen the last session either from
+#      the current directory, a given directory or globally. This is more
+#      powerful than what you'd get using viminfo, as it can sort of restore
+#      tabs and window splits.
+
+vim -S "$HOME"/.vim/sessions/auto/**/*(.om[1])

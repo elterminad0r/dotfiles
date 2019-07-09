@@ -7,14 +7,39 @@
 # FIGMENTIZE: aliases
 
 # this is a centralised repository of all my aliases, in addition to some
-# functions that are really aliases in spirit
+# functions that are really aliases in spirit. Some of the stuff in my ~/bin
+# evolved from aliases or functions in this file.
 
-# It seems to roughly work with both zsh and bash, but I couldn't possibly tell
-# you about anything else. It uses plenty of posix incompatible [[ ]]
+# Sometimes, I put aliases here more as a memory aid than anything else.
+
+# As you can tell by the file extension, it tries to be roughly almost sort of
+# agnostic to shells. It seems to roughly work with both zsh and bash, but I
+# couldn't possibly tell you about anything else. It's certainly hardly posix
+# compatible, and some of the more adventurous globs are really zsh-specific.
 
 # if tac command doesn't exist, use tail -r instead, and hope for the best
 if ! >/dev/null 2>&1 env which tac; then
     alias tac='fallback-tac'
+fi
+
+# Similarly, try to ensure that "say" performs text to speech synthesisation
+if ! >/dev/null 2>&1 command -v say; then
+    if >/dev/null 2>&1 command -v espeak-ng; then
+        alias say='espeak-ng'
+        alias squeak='espeak-ng -p 99'
+        alias seduce='espeak-ng -p 0'
+    elif >/dev/null 2>&1 command -v espeak; then
+        # fallbacks for when you have broken espeak instead of espeak-ng
+        say() {
+            espeak "$@" | paplay
+        }
+        squeak() {
+            espeak -p 99 "$@" | paplay
+        }
+        seduce() {
+            espeak -p 0 "$@" | paplay
+        }
+    fi
 fi
 
 # function to fully expand its arguments if they're aliases.
@@ -167,15 +192,6 @@ alias vitx='vim --servername vim **/*.tex **/*.sty'
 # so I get my own vimrc when I use view
 alias view='vim -R'
 
-# open the most recently written session in ~/.vim/sessions/auto
-revim() {
-    local n="${1:-1}"
-    # TODO
-    # assumes that you've not got any newlines in your session names, because
-    # chronological order is a PAIN with find.
-    vim -S "$(\ls -t --directory "$HOME/.vim/sessions/auto"/* | head -n "$n" | tail -n 1)"
-}
-
 # if light locker exists, alias lock to be alongside poweroff & reboot etc
 if >/dev/null 2>&1 command -v light-locker-command; then
     alias lock='light-locker-command -l'
@@ -220,7 +236,7 @@ esac
 # latex/pdf compilation related aliases
 alias lmk='latexmk'
 alias present='evince -s'
-alias latex="latex -synctex=1  --shell-escape -halt-on-error";
+alias latex="latex -synctex=1 --shell-escape -halt-on-error";
 alias pdflatex="pdflatex -synctex=1 -shell-escape -halt-on-error";
 alias xelatex="xelatex -synctex=1 -shell-escape -halt-on-error";
 
