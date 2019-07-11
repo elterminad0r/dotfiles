@@ -230,3 +230,11 @@
 	path = builds/cava
 	url = https://github.com/karlstav/cava
 	branch = master
+[submodule "builds/ttf-literation-mono-powerline-git"]
+	path = builds/ttf-literation-mono-powerline-git
+	url = https://aur.archlinux.org/ttf-literation-mono-powerline-git.git
+	branch = master
+[submodule "builds/polybar"]
+	path = builds/polybar
+	url = https://aur.archlinux.org/polybar.git
+	branch = master

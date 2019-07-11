@@ -27,6 +27,7 @@ calcurse
 cantata
 cbatticon
 cdrtools
+cgoban
 cheese
 chromium
 clang
@@ -99,6 +100,7 @@ gnome-mines
 gnome-power-manager
 gnome-terminal
 gnuchess
+gnugo
 gnu-netcat
 gnuplot
 go
@@ -207,6 +209,7 @@ pacgraph
 pacman-contrib
 pacutils
 pandoc
+parallel
 pass
 pavucontrol
 pdfjs
