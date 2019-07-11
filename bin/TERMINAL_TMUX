@@ -1,3 +1,3 @@
 #!/usr/bin/env sh
-# start terminal with tmux (see $ZDOTDIR/tmuxopen.sh)
-exec termite -e "sh -c \"GOEDEL_START_TMUX=true exec zsh\""
+# start terminal with tmux
+exec termite -e "sh -c \"tmux attach-session || tmux\""

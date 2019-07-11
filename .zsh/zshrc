@@ -34,7 +34,6 @@ function read_array() {
     done < "$1"
 }
 
-source_if_exists "$ZDOTDIR/tmuxopen.sh"
 source_if_exists "$ZDOTDIR/ttysetup.sh"
 source_if_exists "$ZDOTDIR/dircolors.sh"
 
