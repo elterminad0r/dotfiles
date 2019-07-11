@@ -188,7 +188,15 @@ alias cp='cp -i'
 alias vi=vim
 # TODO: add TODO file
 # VI TeX files, with a servername to enable SyncTeX
-alias vitx='vim --servername vim **/*.tex **/*.sty'
+if [ -n "$ZSH_VERSION" ]; then
+    vitx() {
+        emulate -L zsh
+        setopt nullglob
+        vim --servername vim **/*.tex **/*.sty TODO* *.bib
+    }
+else
+    alias vitx='vim --servername vim TODO **/*.bib **/*.tex **/*.sty'
+fi
 # so I get my own vimrc when I use view
 alias view='vim -R'
 
