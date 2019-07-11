@@ -262,6 +262,8 @@ if !exists("*ReloadVimConf")
         " broken by the VimEnter autocmd event, although it should be fixed in
         " other windows on account of autochdir, so I don't need windo
         lcd %:p:h
+        " Re-run filetype detection to reset local options
+        filetype detect
     endfunction
 endif
 " reload vimrc when written
