@@ -226,3 +226,7 @@
 	path = builds/phantomjs-bin
 	url = https://aur.archlinux.org/phantomjs-bin.git
 	branch = master
+[submodule "builds/cava"]
+	path = builds/cava
+	url = https://github.com/karlstav/cava
+	branch = master
