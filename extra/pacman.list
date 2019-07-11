@@ -54,6 +54,7 @@ dmenu
 dmidecode
 dunst
 easytag
+ed
 efibootmgr
 electron
 elinks
@@ -70,6 +71,7 @@ fbida
 fbreader
 fbset
 fbv
+fd
 feh
 ffmpegthumbnailer
 figlet

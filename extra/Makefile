@@ -1,5 +1,7 @@
 .PHONY: default arch _arch mac _mac reflect_install mirrorlist.uk vim lyrics bin playlists
 
+SHELL = bash
+
 # Makefile to store information about the system. This is a kind of mix between
 # storing system files and a poor man's continuous integration.
 
@@ -26,7 +28,10 @@ arch: _arch
 	@make -B _arch > /dev/null
 	@$(CFG) add --verbose Makefile >&2
 
+# https://unix.stackexchange.com/questions/31947/how-to-add-a-newline-to-the-end-of-a-file
 lyrics:
+	@sed -i 's/ *$$//' ~/.lyrics/*
+	@sed -i '$$a\' ~/.lyrics/*
 	@$(CFG) add --verbose ~/.lyrics >&2
 
 playlists:
