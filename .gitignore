@@ -10,6 +10,7 @@
 
 .tags
 tags
+.DS_store
 __pycache__
 *.pyc
 *.pdf
