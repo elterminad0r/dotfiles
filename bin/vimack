@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 #        .__                           __
 # ___  __|__|  _____  _____     ____  |  | __
@@ -21,10 +21,6 @@
 
 # Aims to be mostly functional if you have only POSIX utilities.
 
-# I have had to make it a bash script because POSIX shell makes it very hard to
-# be safe with newlines and nulls. It shouldn't have a big impact on performance
-# as the script itself doesn't do much heavy lifting.
-
 # TODO: spread the love
 #       write completions
 #       detect binary files in the find strategy
@@ -32,141 +28,112 @@
 
 set -eu
 
-usage() {
-    cat <<EOF
-vimack [OPTION...] [CONTENT_PATTERN [FILENAME_PATTERN [GOEDEL_PATTERN]]]
+args_return_code=0
 
-Search for the (grep) regular expression CONTENT_PATTERN recursively in current
-directory, in files with names matching (the grep regex) FILENAME_PATTERN, if
+args_code="$(
+argpar.sh "$(basename "$0")" -- "$@" << 'EOA'
+parser.description = """\
+Search for the (grep) regular expression content_pattern recursively in current
+directory, in files with names matching (the grep regex) filename_pattern, if
 given. An empty pattern matches everything.
 
-Open any matching files in \$EDITOR or vim.
+Open any matching files in $EDITOR or vim.
+"""
 
-Options:
--h, --help:       Show this message and exit
--d, --dryrun:     Just list files, in a parse-able format. Can be thought of as
-                  setting \$EDITOR to printf "%s\\n" or printf "%s\\0"
--0:               Use null separators if using --dryrun
--q,--quote:       Use \`printf "%q\n"\` to print dryrun matches. This will
-                  require GNU printf, probably. This tries to use nulls inside
-                  the pipeline, but the output is always newline separated
-                  because %q should be safe on newlines.
--l, --list:       List files and matches, intended more for "checking" if you
-                  have the command right before going into your editor.
--i, --ignorecase: Ignore case in file content searches.
--I, --fileignore: Ignore case in file name matching.
---quiet:          Don't complain about safety on newlines.
---rg, --ag, --ack, --find, --git:
-                  Use the corresponding strategy to find files.
-
+parser.epilog = """\
 This script also passes the environment variable GOEDEL_VIMACK_SEARCH to the
 editor (through the script vim-stdin). If given, it takes the value of
-GOEDEL_PATTERN, otherwise it becomes CONTENT_PATTERN. This allows you to adjust
+goedel_pattern, otherwise it becomes content_pattern. This allows you to adjust
 for different regex engines if you're using complicated patterns. I have my Vim
 set up to automatically jump to any matches (and I have a mapping to toggle
 this behaviour). Basically it's up to you what you do with it.
-EOF
-}
+"""
 
-expand_arg() {
-    case "$1" in
-        "--"*)
-            printf "%s\n" "$1"
-            ;;
-        "-"*)
-            # awk to fill in a trailing newline if fold doesn't add it, due to
-            # differences between GNU and BSD.
-            printf "%s" "${1#-}" | fold -w1 | sed "s/^/-/" | awk 1
-            ;;
-        *)
-            printf "%s\n" "$1"
-            ;;
-    esac
-}
+from textwrap import dedent
 
-# not using getopts, to some extent just to prove to myself that I don't need
-# to. Furthermore I like have long arguments, and also options starting with two
-# dashes. And letting options appear anywhere in the list.
-# https://unix.stackexchange.com/questions/258512/how-to-remove-a-positional-parameter-from
-# Using this to basically rotate through the argument list, only not rotating
-# the options back round.
-skip_remaining=false
-dryrun=false
-dryrun_nulls=false
-dryrun_quote=false
-list_files=false
-quiet_mode=false
-ignorecase=false
-file_ignorecase=false
-find_override=
-# TODO: this is unsafe on newlines in arguments
-for _arg; do
-    shift
-    if [ "$skip_remaining" = "true" ]; then
-        set -- "$@" "$_arg"
-    else
-        while IFS='' read -r arg; do
-            case "$arg" in
-                "-h"|"--help")
-                    usage
-                    exit 0
-                    ;;
-                "-d"|"--dryrun")
-                    dryrun=true
-                    ;;
-                "-0")
-                    dryrun_nulls=true
-                    quiet_mode=true
-                    ;;
-                "-q"|"--quote")
-                    dryrun_quote=true
-                    dryrun_nulls=true
-                    ;;
-                "-l"|"--list")
-                    list_files=true
-                    ;;
-                "-i"|"--ignorecase")
-                    ignorecase=true
-                    ;;
-                "-I"|"--fileignore")
-                    file_ignorecase=true
-                    ;;
-                "--quiet")
-                    quiet_mode=true
-                    ;;
-                "--rg"|"--ag"|"--ack"|"--find"|"--git")
-                    find_override=${arg#--}
-                    ;;
-                "--")
-                    skip_remaining=true
-                    ;;
-                "-"*)
-                    >&2 echo "unrecognised option: $arg"
-                    >&2 usage
-                    exit 1
-                    ;;
-                *)
-                    set -- "$@" "$arg"
-                    ;;
-            esac
-        done < <(expand_arg "$_arg")
-    fi
-done
+parser.add_argument("-d", "--dryrun", action="store_true",
+        help=dedent('''\
+                  Just list files, in a parse-able format. Can be thought of as
+                  setting $EDITOR to printf "%%s\\n" or printf
+                  "%%s\\0"'''))
+parser.add_argument("-0", action="store_true",
+        help="Use null separators if using --dryrun")
+parser.add_argument("-q", "--quote", action="store_true",
+        help=dedent('''\
+                  Use `printf "%%q\\n"` to print dryrun matches. This will
+                  require GNU printf, probably. This tries to use nulls inside
+                  the pipeline, but the output is always newline separated
+                  because %%q should be safe on newlines.'''))
+parser.add_argument("-l", "--list", action="store_true",
+        help=dedent('''\
+                  List files and matches, intended more for "checking" if you
+                  have the command right before going into your editor.'''))
+parser.add_argument("-i", "--ignorecase", action="store_true",
+        help="Ignore case in file content searches.")
+parser.add_argument("-I", "--fileignore", action="store_true",
+        help="Ignore case in file name matching.")
+parser.add_argument("--quiet", action="store_true",
+        help="Don't complain about safety on newlines.")
+strat_group = parser.add_mutually_exclusive_group()
+for strat in "rg ag ack find git".split():
+    strat_group.add_argument("--{}".format(strat), action="store_const",
+                             dest="find_override", const=strat,
+            help="Use the strategy '{}' to find files".format(strat))
+parser.add_argument("content_pattern", nargs="?",
+        help="Pattern to search for in file content.")
+parser.add_argument("filename_pattern", nargs="?",
+        help="Pattern to filter file names.")
+parser.add_argument("goedel_pattern", nargs="?",
+        help="Pattern to set $GOEDEL_VIMACK_SEARCH to.")
+EOA
+)" || args_return_code="$?"
 
-content_pattern="${1:-}"
-filename_pattern="${2:-}"
-goedel_pattern="${3:-$content_pattern}"
+# help message was shown
+if [ "$args_return_code" = "1" ]; then
+    [ -n "$args_code" ] && printf "%s\n" "$args_code"
+    exit 0
+elif [ ! "$args_return_code" = "0" ]; then
+    [ -n "$args_code" ] && printf "%s\n" "$args_code"
+    exit "$args_return_code"
+fi
 
-if [ -z "$find_override" ]; then
+# The default values. Grabbed from the output of argpar.sh, to stop shellcheck
+# from complaining
+arg_dryrun='False'
+arg_0='False'
+arg_quote='False'
+arg_list='False'
+arg_ignorecase='True'
+arg_fileignore='True'
+arg_quiet='False'
+
+eval "$args_code"
+
+# set some further defaults in case of certain arguments
+if [ "$arg_0" = "True" ]; then
+    arg_dryrun_nulls="True"
+    arg_quiet="True"
+fi
+
+if [ "$arg_quote" = "True" ]; then
+    arg_dryrun_nulls=true;
+fi
+
+arg_content_pattern="${arg_content_pattern-}"
+arg_filename_pattern="${arg_filename_pattern-}"
+arg_goedel_pattern="${arg_goedel_pattern-$arg_content_pattern}"
+
+# https://stackoverflow.com/questions/3601515/how-to-check-if-a-variable-is-set-in-bash
+if [ -z "${arg_find_override+x}" ]; then
     for com in rg ag ack find; do
         if >/dev/null 2>&1 command -v "$com"; then
-            find_override="$com"
+            arg_find_override="$com"
             break
         fi
     done
-    if [ -n "$find_override" ]; then
-        [ "$quiet_mode" = "false" ] && { printf "strategy: ";
-                                         command -v "$find_override"; } >&2
+    if [ -n "$arg_find_override" ]; then
+        [ "$arg_quiet" = "false" ] && { printf "strategy: ";
+                                        command -v "$arg_find_override"; } >&2
     else
         >&2 echo "could not find a suitable program for find_override"
         exit 1
@@ -177,7 +144,7 @@ fi
 # Of course, -0 isn't strictly POSIX, but what's a man supposed to do
 xargs_safe() {
     if [ "$zero_mode" = "false" ] &&
-       [ -n "$filename_pattern" ]; then
+       [ -n "$arg_filename_pattern" ]; then
         tr '\n' '\0'
     else
         cat
@@ -186,7 +153,7 @@ xargs_safe() {
 
 # Turn nulls back into newlines if needed.
 display_safe() {
-    if [ "$zero_mode" = "true" ]; then
+    if [ "$zero_mode" = "True" ]; then
         tr '\0' '\n'
     else
         cat
@@ -194,20 +161,20 @@ display_safe() {
 }
 
 do_vimack() {
-    if [ "$ignorecase" = "true" ]; then
+    if [ "$arg_ignorecase" = "True" ]; then
         icflags=-i
     else
         icflags=
     fi
-    if [ "$file_ignorecase" = "true" ]; then
+    if [ "$arg_fileignore" = "True" ]; then
         ic_fileflags=-i
     else
         ic_fileflags=
     fi
     if ! grep --version | head -n 1 | grep -q GNU ||
        ! sort --version | head -n 1 | grep -q GNU &&
-       [ -n "$filename_pattern" ] ||
-       [ "$find_override" = "find" ]; then
+       [ -n "$arg_filename_pattern" ] ||
+       [ "$arg_find_override" = "find" ]; then
         zero_mode=false
         rg_flags=
         ack_flags=
@@ -216,7 +183,7 @@ do_vimack() {
         grep_out_flags=
         find_flags=
         sort_flags=
-        if [ "$quiet_mode" = "false" ]; then
+        if [ "$arg_quiet" = "false" ]; then
             >&2 echo "warning: grep not safe on newlines: hit Enter to continue"
             read -r
         fi
@@ -230,11 +197,11 @@ do_vimack() {
         find_flags=-print0
         sort_flags=-z
     fi
-    if [ "$list_files" = "true" ]; then
-        "${find_override}_strategy_list"
-    elif [ "$dryrun" = "true" ]; then
-        "${find_override}_strategy_dry" |
-            if [ "$dryrun_quote" = "true" ]; then
+    if [ "$arg_list" = "True" ]; then
+        "${arg_find_override}_strategy_list"
+    elif [ "$arg_dryrun" = "True" ]; then
+        "${arg_find_override}_strategy_dry" |
+            if [ "$arg_quote" = "True" ]; then
                 if env printf --version |
                     head -n 1 | grep -q GNU; then
                     xargs_safe | xargs -0 env printf "%q\n"
@@ -244,14 +211,14 @@ do_vimack() {
                     >&2 echo "Can't find a suitable printf"
                     exit 1
                 fi
-            elif [ "$dryrun_nulls" = "true" ]; then
+            elif [ "$arg_dryrun_nulls" = "True" ]; then
                 xargs_safe
             else
                 xargs_safe | xargs -0 printf "%s\n"
             fi
     else
-        "${find_override}_strategy_dry" | xargs_safe |
-            GOEDEL_VIMACK_SEARCH="$goedel_pattern" vim-stdin -0
+        "${arg_find_override}_strategy_dry" | xargs_safe |
+            GOEDEL_VIMACK_SEARCH="$arg_goedel_pattern" vim-stdin -0
     fi
 }
 
@@ -263,7 +230,7 @@ do_vimack() {
 # newlines and nulls.
 files_grep_dry() {
     if [ -n "$1" ]; then
-        grep $ic_fileflags $grep_in_flags $grep_out_flags -- "${2:-$1}"
+        grep $ic_fileflags $grep_in_flags $grep_out_flags -- "${2-$1}"
     else
         cat
     fi
@@ -271,7 +238,7 @@ files_grep_dry() {
 
 files_grep_list() {
     if [ -n "$1" ]; then
-        grep $ic_fileflags $grep_in_flags -- "${2:-$1}"
+        grep $ic_fileflags $grep_in_flags -- "${2-$1}"
     else
         cat
     fi
@@ -280,76 +247,78 @@ files_grep_list() {
 # Generally wacky quoting throughout on purpose, so that we get word splitting
 
 rg_strategy_dry() {
-    rg -l $icflags $rg_flags -- "$content_pattern" |
-        files_grep_dry "$filename_pattern"
+    rg -l $icflags $rg_flags -- "$arg_content_pattern" |
+        files_grep_dry "$arg_filename_pattern"
 }
 
 # not robust on newlines, due to rg's weird output format
 rg_strategy_list() {
     grep_in_flags=
-    rg --color=ansi $icflags -- "$content_pattern" |
+    rg --color=ansi $icflags -- "$arg_content_pattern" |
         # wacky business to parse the ANSI codes from ripgrep
         # This is basically not at all guaranteed to be safe, but you really
         # shouldn't be putting ANSI SGR codes in your file names.
-        files_grep_list "$filename_pattern" \
-                         $'^\x1b\\[0m\x1b\\[35m[^\x1b]*'"$filename_pattern"$'[^\x1b]*\x1b\\[0m:' |
+        files_grep_list "$arg_filename_pattern" \
+                         "^.\\[0m.\\[3.m[^.]*${arg_filename_pattern}[^.]*.\\[0m:" |
         display_safe
 }
 
 ag_strategy_dry() {
-    ag -l $icflags $rg_flags -- "$content_pattern" |
-        files_grep_dry "$filename_pattern"
+    ag -l $icflags $rg_flags -- "$arg_content_pattern" |
+        files_grep_dry "$arg_filename_pattern"
 }
 
 # similar problem to rg
 ag_strategy_list() {
     grep_in_flags=
-    ag $icflags --color -- "$content_pattern" |
-        files_grep_list "$filename_pattern" \
-                        $'^\x1b\\[1;32m[^\x1b]*'"$filename_pattern"$'[^\x1b]*\x1b\\[0m\x1b\\[K:' |
+    ag $icflags --color -- "$arg_content_pattern" |
+        files_grep_list "$arg_filename_pattern" \
+                        "^.\\[1;3.m[^.]*${arg_filename_pattern}[^.]*.\\[0m.\\[K:" |
         display_safe
 }
 
 ack_strategy_dry() {
-    ack -l $icflags $ack_flags -- "$content_pattern" |
-        files_grep_dry "$filename_pattern"
+    ack -l $icflags $ack_flags -- "$arg_content_pattern" |
+        files_grep_dry "$arg_filename_pattern"
 }
 
 ack_strategy_list() {
-    ack $icflags $ack_flags --color -- "$content_pattern" |
-        files_grep_list "$filename_pattern" \
-                        $'^\x1b\\[1;32m[^\x1b]*'"$filename_pattern"$'[^\x1b]*\x1b\\[0m:' |
+    ack $icflags $ack_flags --color -- "$arg_content_pattern" |
+        files_grep_list "$arg_filename_pattern" \
+                        "^.\\[1;3.m[^.]*${arg_filename_pattern}[^.]*.\\[0m:" |
         display_safe
 }
 
+# grep -I is not strictly POSIX, but it's in GNU and BSD grep so it's good
+# enough for me.
 find_strategy_dry() {
     find . -name .git -prune -o -type f $find_flags |
-        files_grep_dry "$filename_pattern" |
+        files_grep_dry "$arg_filename_pattern" |
         xargs_safe  |
-        xargs -0 grep -l $icflags $grep_out_flags \
-                         -- "$content_pattern" |
+        xargs -0 grep -lI $icflags $grep_out_flags \
+                         -- "$arg_content_pattern" |
         sort $sort_flags;
 }
 
 find_strategy_list() {
     find . -name .git -prune -o -type f $find_flags |
-        files_grep_dry "$filename_pattern" |
+        files_grep_dry "$arg_filename_pattern" |
         xargs_safe  |
-        xargs -0 grep --color=always $icflags \
-                         -- "$content_pattern"
+        xargs -0 grep -I --color=always $icflags \
+                         -- "$arg_content_pattern"
 }
 
 git_strategy_dry() {
-    git grep -l $icflags $git_flags -- "$content_pattern" |
-        files_grep_dry "$filename_pattern"
+    git grep -lI $icflags $git_flags -- "$arg_content_pattern" |
+        files_grep_dry "$arg_filename_pattern"
 }
 
 # also not safe on newlines
 git_strategy_list() {
     grep_in_flags=
-    git grep $icflags --color=always -- "$content_pattern" |
-        files_grep_list "$filename_pattern" \
-                       $'^[^\x1b]*'"$filename_pattern"$'[^\x1b]*\x1b\\[36m:' |
+    git grep $icflags -I --color=always -- "$arg_content_pattern" |
+        files_grep_list "$arg_filename_pattern" \
+                       "^[^.]*${arg_filename_pattern}[^.]*.\\[3.m:" |
         display_safe
 }
 
