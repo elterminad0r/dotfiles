@@ -1,44 +1,43 @@
 #!/usr/bin/env sh
 
+#    ____  .__   __                                           .___   .___                      .__           __   .__            ____
+#   / ___\ |__|_/  |_       ______  _____         _____     __| _/ __| _/        ____  ___  ___|__|  _______/  |_ |__|  ____    / ___\
+#  / /_/  >|  |\   __\     /  ___/ /     \  ______\__  \   / __ | / __ | _______/ __ \ \  \/  /|  | /  ___/\   __\|  | /    \  / /_/  >
+#  \___  / |  | |  |       \___ \ |  Y Y  \/_____/ / __ \_/ /_/ |/ /_/ |/_____/\  ___/  >    < |  | \___ \  |  |  |  ||   |  \ \___  /
+# /_____/  |__| |__|      /____  >|__|_|  /       (____  /\____ |\____ |        \___  >/__/\_ \|__|/____  > |__|  |__||___|  //_____/
+#                              \/       \/             \/      \/     \/            \/       \/         \/                 \/
+# FIGMENTIZE: git sm-add-existing
+
 # Git subcommand to register an existing Git repository in the tree as a
 # submodule.
 
 set -eu
 
-usage() {
-    cat <<EOF
-git sm-add-existing-exe [-h|--help] SUBMODULE
-Perform 'git submodule add' on the existing Git repository SUBMODULE, setting
-the tracking branch to master on the remote repository at the location of the
-origin remote within SUBMODULE.
-EOF
-}
+args_return_code=0
 
-# no need for anything so sophisticated as getopts. Furthermore, I like to be
-# able to put -h after positional arguments.
-reading_arguments='true'
-for arg; do
-    if [ "$reading_arguments" = "true" ]; then
-        shift
-        case "$arg" in
-            "-h"|"--help")
-                usage;
-                exit 0;
-                ;;
-            "--")
-                reading_arguments=false;
-                ;;
-            "-"*)
-                >&2 echo "unrecognised option: $arg";
-                >&2 usage;
-                exit 1;
-                ;;
-            *)
-                set -- "$@" "$arg"
-                ;;
-        esac
-    fi
-done
+args_code="$(
+argpar.sh "$(basename "$0")" -- "$@" << 'EOA'
+parser.description = """\
+Perform 'git submodule add' on the existing Git repository submodule, setting
+the tracking branch to master on the remote repository at the location of the
+origin remote within submodule.
+"""
+
+parser.add_argument("passthrough", nargs="+", metavar="submodule",
+        help="Submodules to be added")
+EOA
+)" || args_return_code="$?"
+
+# help message was shown
+if [ "$args_return_code" = "3" ]; then
+    [ -n "$args_code" ] && printf "%s\n" "$args_code"
+    exit 0
+elif [ ! "$args_return_code" = "0" ]; then
+    [ -n "$args_code" ] && printf "%s\n" "$args_code"
+    exit "$args_return_code"
+fi
+
+eval "$args_code"
 
 for sm; do
     git submodule add -b master \

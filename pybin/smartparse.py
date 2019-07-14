@@ -18,6 +18,9 @@ Be careful as this does rely on implementation details.
 
 import argparse
 from argparse import *
+# Basically because I needed access to _HelpAction somewhere. Probably best to
+# think of a better solution to this but oh well
+from argparse import _HelpAction
 import enum
 import re
 import textwrap

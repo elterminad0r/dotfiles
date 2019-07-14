@@ -11,6 +11,10 @@
 # FIGMENTIZE: argpar.sh
 
 """
+There's no reason we can't have nice things! Have you ever wanted to use long
+options in a shell script? To set default values, read arguments into arrays,
+automatically display and format help and usage texts? Enter argpar.sh!
+
 Exposing Python's argparse to shell scripts. Basically I just cannot let go of
 Python's nice, long option, type checking, narg-supporting argument parsing, so
 I have created this monstrosity to ease my pain.
@@ -19,6 +23,10 @@ I think the filename extension .sh is warranted, because this program generates
 shell code to be eval'd, so really it's only a single stage of indirection away
 from shell code. Also it's just too good of a name to waste. Anyway it's only a
 symbolic link, don't get too worked up about it (you could even change it !!!)
+
+Single-valued arguments are formatted as variables. List-valued arguments are
+formatted as arrays, except for the destination "passthrough", which is passed
+to 'set --' (which means you can use it for POSIX shell scripts).
 
 Should provide code modifying the ArgumentParser named `parser` on stdin. Any
 positional arguments are treated as arguments to parse. Note that you can modify
@@ -37,6 +45,7 @@ For an example of how to use it, see vimack.
 """
 
 import sys
+import re
 import smartparse as argparse
 
 def get_args():
@@ -55,7 +64,17 @@ def shell_quote(s):
     everything. Not worried about prettiness here because everything should be
     happening at a runtime level anyway, not being typed by a user.
     """
-    return "'{}'".format(str(s).replace("'", "'\"'\"'"))
+    # Regular expression keeps the size of the output in some imitation of sane.
+    return "'{}'".format(re.sub("'+", "'\"\\g<0>\"'", str(s)))
+
+class ErrorHelpAction(argparse._HelpAction):
+    """
+    Help action that causes a non-zero exit code, so the caller knows not to
+    proceed.
+    """
+    def __call__(self, parser, namespace, values, option_string=None):
+        parser.print_help()
+        parser.exit(3)
 
 def caller_argparse(mod_code, args, prog):
     """
@@ -63,16 +82,11 @@ def caller_argparse(mod_code, args, prog):
     """
     # Add our own help so we can use a non-zero exit code
     parser = argparse.ArgumentParser(prog=prog, add_help=False)
-    parser.add_argument("-h", "--help", action="store_true",
+    parser.add_argument("-h", "--help", action=ErrorHelpAction,
             help="show this help message and exit")
     exec(mod_code)
     caller_args = parser.parse_args(args)
-    if caller_args.help:
-        parser.print_help()
-        sys.exit(1)
-    else:
-        del caller_args.__dict__["help"]
-        return caller_args
+    return caller_args
 
 def expose(args, prefix):
     """
@@ -80,8 +94,11 @@ def expose(args, prefix):
     """
     for var, val in args.__dict__.items():
         if isinstance(val, list):
-            print("{}{}=( {} )".format(prefix, var,
-                                       " ".join(map(shell_quote, val))))
+            if var == "passthrough":
+                print("set -- {}".format(" ".join(map(shell_quote, val))))
+            else:
+                print("{}{}=( {} )".format(prefix, var,
+                                           " ".join(map(shell_quote, val))))
         else:
             if val is not None:
                 print("{}{}={}".format(prefix, var, shell_quote(val)))

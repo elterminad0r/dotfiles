@@ -1,0 +1,29 @@
+#!/usr/bin/env sh
+
+#    ____  .__   __       .__   .__          __
+#   / ___\ |__|_/  |_     |  |  |__|  ____ _/  |_
+#  / /_/  >|  |\   __\    |  |  |  | /    \\   __\
+#  \___  / |  | |  |      |  |__|  ||   |  \|  |
+# /_____/  |__| |__|      |____/|__||___|  /|__|
+#                                        \/
+# FIGMENTIZE: git lint
+
+# Basically, tries to find files of a certain type in the repository, by both
+# extensions and shebangs, and then passes these to some other program.
+
+# TODO TODO TODO
+
+set -eu
+
+if ! grep --version | grep -q "GNU"; then
+    >&2 echo "Needs GNU grep for now"
+    exit 1
+fi
+
+{ git ls-files -z "*.py";
+  git grep -lz '' |
+    grep -zZ '\(^\|/\)[^/.]*$' |
+    xargs -0 gawk 'BEGIN { RS="\0"; ORS="\0" }
+                   FNR>1 { nextfile }
+                   /^#!.*python/ { print FILENAME ; nextfile }';
+} | xargs -0 pylint

@@ -1,35 +1,36 @@
 #!/usr/bin/env sh
 
-usage() {
-    cat <<EOF
-goedel_paste [-h|--help]
+# _________ _____________________ .____          ____   ____
+# \_   ___ \\__    ___/\______   \|    |         \   \ /   /
+# /    \  \/  |    |    |       _/|    |    ______\   Y   /
+# \     \____ |    |    |    |   \|    |___/_____/ \     /
+#  \______  / |____|    |____|_  /|_______ \        \___/
+#         \/                   \/         \/
+# FIGMENTIZE: CTRL-V
+
+args_return_code=0
+
+args_code="$(
+argpar.sh "$(basename "$0")" -- "$@" << 'EOA'
+parser.description = """\
 Attempt to write the contents of the system clipboard to stdout, by trying to
 figure out what system it's on and what executables are available. Should
 certainly work on MacOS and X on Linux if you have one of the clipboard
 interfaces installed (xclip, xsel).
-EOF
-}
+"""
+EOA
+)" || args_return_code="$?"
 
-# no need for anything so sophisticated as getopts. Furthermore, I like to be
-# able to put -h after positional arguments.
-for arg; do
-    case "$arg" in
-        "-h"|"--help")
-            usage;
-            exit 0;
-            ;;
-        "--")
-            break;
-            ;;
-        "-"*)
-            >&2 echo "unrecognised option: $arg";
-            >&2 usage;
-            exit 1;
-            ;;
-        *)
-            ;;
-    esac
-done
+# help message was shown
+if [ "$args_return_code" = "1" ]; then
+    [ -n "$args_code" ] && printf "%s\n" "$args_code"
+    exit 0
+elif [ ! "$args_return_code" = "0" ]; then
+    [ -n "$args_code" ] && printf "%s\n" "$args_code"
+    exit "$args_return_code"
+fi
+
+eval "$args_code"
 
 case "$(uname -s)" in
     Darwin)
