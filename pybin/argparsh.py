@@ -31,7 +31,13 @@ to 'set --' (which means you can use it for POSIX shell scripts).
 Should provide code modifying the ArgumentParser named `parser` on stdin. Any
 positional arguments are treated as arguments to parse. Note that you can modify
 the parser's description simply by setting the description property according to
-your wishes.
+your wishes. This is proper Python code, so you can use imports or loops or
+whatever you fancy, really.
+
+You can also supply post-parse code. This should be separated from the setup
+code by a line containing only "-" characters, and at least 3 of them. This code
+can modify or otherwise process the resulting `args` Namespace, and still has
+access to `parser` as well as anything else the setup code brought in.
 
 Obviously this allows execution of arbitrary Python code, but you could do that
 already if you're writing a shell script. Basically don't do anything ridiculous
@@ -76,23 +82,26 @@ class ErrorHelpAction(argparse._HelpAction):
         parser.print_help()
         parser.exit(3)
 
-def caller_argparse(mod_code, args, prog):
+def caller_argparse(mod_code, argv, prog):
     """
     Apply a caller's argument parsing to the caller's arguments
     """
+    mod_code_pre, *mod_code_post_list = re.split("\n-{3,}\n", mod_code)
     # Add our own help so we can use a non-zero exit code
     parser = argparse.ArgumentParser(prog=prog, add_help=False)
     parser.add_argument("-h", "--help", action=ErrorHelpAction,
             help="show this help message and exit")
-    exec(mod_code)
-    caller_args = parser.parse_args(args)
-    return caller_args
+    exec(mod_code_pre)
+    args = parser.parse_args(argv)
+    for mod_code_post in mod_code_post_list:
+        exec(mod_code_post)
+    return args
 
 def expose(args, prefix):
     """
     Expose a set of arguments as shell variable definitions
     """
-    for var, val in args.__dict__.items():
+    for var, val in vars(args).items():
         if isinstance(val, list):
             if var == "passthrough":
                 print("set -- {}".format(" ".join(map(shell_quote, val))))

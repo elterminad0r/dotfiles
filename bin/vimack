@@ -51,7 +51,8 @@ this behaviour). Basically it's up to you what you do with it.
 
 from textwrap import dedent
 
-parser.add_argument("-d", "--dryrun", action="store_true",
+mode = parser.add_mutually_exclusive_group()
+mode.add_argument("-d", "--dryrun", action="store_true",
         help=dedent('''\
                   Just list files, in a parse-able format. Can be thought of as
                   setting $EDITOR to printf "%%s\\n" or printf
@@ -64,7 +65,7 @@ parser.add_argument("-q", "--quote", action="store_true",
                   require GNU printf, probably. This tries to use nulls inside
                   the pipeline, but the output is always newline separated
                   because %%q should be safe on newlines.'''))
-parser.add_argument("-l", "--list", action="store_true",
+mode.add_argument("-l", "--list", action="store_true",
         help=dedent('''\
                   List files and matches, intended more for "checking" if you
                   have the command right before going into your editor.'''))
@@ -85,8 +86,15 @@ parser.add_argument("filename_pattern", nargs="?",
         help="Pattern to filter file names.")
 parser.add_argument("goedel_pattern", nargs="?",
         help="Pattern to set $GOEDEL_VIMACK_SEARCH to.")
+
+--------------------------------------------------------------------------------
+
+if (vars(args)["0"] or args.quote) and not args.dryrun:
+    parser.error("-0 and --quote may only be given with --dryrun")
 EOA
 )" || args_return_code="$?"
+
+
 
 # help message was shown
 if [ "$args_return_code" = "3" ]; then
