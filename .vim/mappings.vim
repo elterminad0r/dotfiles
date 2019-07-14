@@ -164,6 +164,7 @@ function! CNTabCycle() abort
         bnext
     else
         tabnext
+        echom "Cycled to tab " . tabpagenr()
     endif
 endfunction
 
@@ -172,6 +173,7 @@ function! CPTabCycle() abort
         bprevious
     else
         tabprevious
+        echom "Cycled to tab " . tabpagenr()
     endif
 endfunction
 
