@@ -195,20 +195,20 @@ endfunction
 " generating and using ctags
 if executable("ctags")
     " Tags Recursive
-    function! MakeTagsR()
+    function! MakeTagsR() abort
         silent !echo "runnning ctags in $(pwd)"; ctags -R -o .tags.new; mv -f .tags.new .tags
         redraw!
     endfunction
     " Tags Flat
-    function! MakeTagsF()
+    function! MakeTagsF() abort
         silent !echo "runnning ctags in $(pwd)"; ctags -o .tags.new *; mv -f .tags.new .tags
         redraw!
     endfunction
 else
-    function! MakeTagsR()
+    function! MakeTagsR() abort
         echoerr "ctags executable not found"
     endfunction
-    function! MakeTagsF()
+    function! MakeTagsF() abort
         echoerr "ctags executable not found"
     endfunction
 endif
@@ -250,7 +250,7 @@ augroup END
 " workaround because you can't redefine a running function.
 " This means that if this function is modified, YOU MUST EXIT VIM
 if !exists("*ReloadVimConf")
-    function! ReloadVimConf()
+    function! ReloadVimConf() abort
         source $MYVIMRC
         if has("gui_running")
             source $MYGVIMRC

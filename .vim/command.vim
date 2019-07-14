@@ -32,13 +32,13 @@ command! Figmentize call Figmentize()
 " figmentize script in ~/bin.
 " This function for example cannot pass arguments to figlet.
 if executable("figlet")
-    function! Fig(word, prefix)
+    function! Fig(word, prefix) abort
         let l:fig_output = map(systemlist("figlet " . a:word)[:-2],
                     \ "a:prefix . ' ' . substitute(v:val, ' *$', '', '')")
         call append(line("."), l:fig_output)
     endfunction
 else
-    function! Fig(...)
+    function! Fig(...) abort
         echoerr("Figlet executable not found")
     endfunction
 endif
