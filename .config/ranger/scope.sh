@@ -59,6 +59,16 @@ handle_extension() {
 
         # PDF
         pdf)
+            # preview as ASCII thumbnail
+            thumb_tmp_file="$(mktemp /tmp/ranger_scope_thumb_XXXXXXXXX)" &&
+            pdftoppm -f 1 -l 1 \
+                     -scale-to-x 1920 \
+                     -scale-to-y -1 \
+                     -singlefile \
+                     -jpeg -tiffcompression jpeg \
+                     -- "${FILE_PATH}" "$thumb_tmp_file" &&
+            img2txt --gamma=0.6 --width="${PV_WIDTH}" -- "$thumb_tmp_file.jpg" &&
+            exit 4
             # Preview as text conversion
             pdftotext -l 10 -nopgbrk -q -- "${FILE_PATH}" - | fmt -w ${PV_WIDTH} && exit 5
             mutool draw -F txt -i -- "${FILE_PATH}" 1-10 | fmt -w ${PV_WIDTH} && exit 5
@@ -188,12 +198,25 @@ handle_mime() {
         # Image
         image/*)
             # Preview as text conversion
-            # img2txt --gamma=0.6 --width="${PV_WIDTH}" -- "${FILE_PATH}" && exit 4
+            # this is currently broken on almost all normal terminals because of
+            # the libcaca people's weird approach to SGR codes
+            img2txt --gamma=0.6 --width="${PV_WIDTH}" -- "${FILE_PATH}" && exit 4
+             # preview with attributes of the video
             exiftool "${FILE_PATH}" && exit 5
             exit 1;;
 
-        # Video and audio
-        video/* | audio/*)
+        # Video
+        video/*)
+            thumb_tmp_file="$(mktemp /tmp/ranger_scope_thumb_XXXXXXXXX.png)" &&
+            ffmpegthumbnailer -i "${FILE_PATH}" -o "$thumb_tmp_file" -s 0 &&
+            img2txt --gamma=0.6 --width="${PV_WIDTH}" -- "$thumb_tmp_file" &&
+            exit 4;
+            mediainfo "${FILE_PATH}" && exit 5
+            exiftool "${FILE_PATH}" && exit 5
+            exit 1;;
+
+        # Audio
+        audio/*)
             mediainfo "${FILE_PATH}" && exit 5
             exiftool "${FILE_PATH}" && exit 5
             exit 1;;
