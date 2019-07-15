@@ -31,7 +31,7 @@ IMAGE_CACHE_PATH="${4}"  # Full path that should be used to cache image preview
 PV_IMAGE_ENABLED="${5}"  # 'True' if image previews are enabled, 'False' otherwise.
 
 FILE_EXTENSION="${FILE_PATH##*.}"
-FILE_EXTENSION_LOWER=$(echo ${FILE_EXTENSION} | tr '[:upper:]' '[:lower:]')
+FILE_EXTENSION_LOWER=$(echo "${FILE_EXTENSION}" | tr '[:upper:]' '[:lower:]')
 
 # Settings
 HIGHLIGHT_SIZE_MAX=262143  # 256KiB
@@ -67,11 +67,13 @@ handle_extension() {
                      -singlefile \
                      -jpeg -tiffcompression jpeg \
                      -- "${FILE_PATH}" "$thumb_tmp_file" &&
-            img2txt --gamma=0.6 --width="${PV_WIDTH}" -- "$thumb_tmp_file.jpg" &&
-            exit 4
+            { img2txt --gamma=0.6 --width="${PV_WIDTH}" -- "$thumb_tmp_file.jpg" &&
+              pdftotext -l 10 -nopgbrk -q -- "${FILE_PATH}" - | fmt -w "${PV_WIDTH}" ||
+              mutool draw -F txt -i -- "${FILE_PATH}" 1-10 | fmt -w "${PV_WIDTH}" &&
+              exiftool "${FILE_PATH}" || true; } && exit 4
             # Preview as text conversion
-            pdftotext -l 10 -nopgbrk -q -- "${FILE_PATH}" - | fmt -w ${PV_WIDTH} && exit 5
-            mutool draw -F txt -i -- "${FILE_PATH}" 1-10 | fmt -w ${PV_WIDTH} && exit 5
+            pdftotext -l 10 -nopgbrk -q -- "${FILE_PATH}" - | fmt -w "${PV_WIDTH}" && exit 5
+            mutool draw -F txt -i -- "${FILE_PATH}" 1-10 | fmt -w "${PV_WIDTH}" && exit 5
             exiftool "${FILE_PATH}" && exit 5
             exit 1;;
 
@@ -192,15 +194,18 @@ handle_mime() {
             fi
             highlight --replace-tabs="${HIGHLIGHT_TABWIDTH}" --out-format="${highlight_format}" \
                 --style="${HIGHLIGHT_STYLE}" --force -- "${FILE_PATH}" && exit 5
-            # pygmentize -f "${pygmentize_format}" -O "style=${PYGMENTIZE_STYLE}" -- "${FILE_PATH}" && exit 5
+            pygmentize -f "${pygmentize_format}" -O "style=${PYGMENTIZE_STYLE}" -- "${FILE_PATH}" && exit 5
             exit 2;;
 
         # Image
         image/*)
             # Preview as text conversion
             # this is currently broken on almost all normal terminals because of
-            # the libcaca people's weird approach to SGR codes
-            img2txt --gamma=0.6 --width="${PV_WIDTH}" -- "${FILE_PATH}" && exit 4
+            # the libcaca people's weird approach to SGR codes.
+            # It seems to work decently in Kitty, though, which also happens to
+            # support image previews. So there's that
+            { img2txt --gamma=0.6 --width="${PV_WIDTH}" -- "${FILE_PATH}" &&
+              exiftool "${FILE_PATH}" || true; } && exit 4
              # preview with attributes of the video
             exiftool "${FILE_PATH}" && exit 5
             exit 1;;
@@ -209,8 +214,8 @@ handle_mime() {
         video/*)
             thumb_tmp_file="$(mktemp /tmp/ranger_scope_thumb_XXXXXXXXX.png)" &&
             ffmpegthumbnailer -i "${FILE_PATH}" -o "$thumb_tmp_file" -s 0 &&
-            img2txt --gamma=0.6 --width="${PV_WIDTH}" -- "$thumb_tmp_file" &&
-            exit 4;
+            { img2txt --gamma=0.6 --width="${PV_WIDTH}" -- "$thumb_tmp_file" &&
+              exiftool "${FILE_PATH}" || true; } && exit 4;
             mediainfo "${FILE_PATH}" && exit 5
             exiftool "${FILE_PATH}" && exit 5
             exit 1;;
