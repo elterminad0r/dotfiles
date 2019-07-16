@@ -34,5 +34,5 @@ if >/dev/null 2>&1 command -v dircolors; then
     fi
 else
     >&2 echo "dircolors executable not found, using one I prepared earlier"
-    source "$ZDOTDIR/lscolor_fallback.sh"
+    source "$ZDOTDIR/solarized.lscolors"
 fi
