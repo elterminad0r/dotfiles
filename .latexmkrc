@@ -12,9 +12,9 @@
 # want if there's an error. Further use shell-escape by default because that's
 # useful for listings and things. Security implications: Don't buy LaTeX from
 # strangers with ulterior motives.
-$latex = "latex -synctex=1  --shell-escape -halt-on-error %O %S";
-$pdflatex = "pdflatex -synctex=1 -shell-escape -halt-on-error %O %S";
-$xelatex = "xelatex -synctex=1 -shell-escape -halt-on-error %O %S";
+$latex = "latex -synctex=1  --shell-escape -interaction=nonstopmode -halt-on-error %O %S";
+$pdflatex = "pdflatex -synctex=1 -shell-escape -interaction=nonstopmode -halt-on-error %O %S";
+$xelatex = "xelatex -synctex=1 -shell-escape -interaction=nonstopmode-halt-on-error %O %S";
 
 $sleep_time = 1;
 # PDF mode by default
@@ -28,7 +28,7 @@ $ps_previewer  = 'start gv --watch';
 use File::Which qw(which);
 foreach my $viewer (split " ", "zathura evince xdg-open mimeopen open") {
     if (defined(which $viewer)) {
-        $pdf_previewer = $viewer;
+        $pdf_previewer = "start $viewer";
         last; # this is basically break
     }
 }
