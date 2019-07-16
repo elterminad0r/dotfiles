@@ -369,8 +369,10 @@ if has("python") || has("python3")
     let g:UltiSnipsEditSplit="vertical"
     " mnemonic: "help"
     " this used to be a backspace, but we have a key for that nowadays
-    " this does, however, break xterm
-    let g:UltiSnipsListSnippets="<C-h>"
+    " this does, however, break xterm, so we apply it with discretion
+    if $TERM !~? '^xterm'
+        let g:UltiSnipsListSnippets="<C-h>"
+    endif
     " let g:UltiSnipsSnippetsDir = $HOME.'/vimfiles/bundle/vim-snippets/UltiSnips'
     " let g:UltiSnipsSnippetDirectories = ['UltiSnips']
     Plug 'SirVer/ultisnips'
