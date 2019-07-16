@@ -1,7 +1,11 @@
 " Vim session file to set up diary editing, and also protect myself from my
 " muscle memory to not mess up established tabs and windows
 
-source ~/.vim/sessions/diary_session.vim
+if filereadable(expand('~/.vim/sessions/diary_session.vim'))
+    source ~/.vim/sessions/diary_session.vim
+else
+    echom 'Starting new diary session'
+endif
 
 nunmap <C-q>
 cabbrev q qa
