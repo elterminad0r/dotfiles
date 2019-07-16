@@ -42,6 +42,11 @@ if ! >/dev/null 2>&1 command -v say; then
     fi
 fi
 
+# alias that silences whatever you put after it. I used to have this as a
+# function that I used all over the place, but I've decided now it's for
+# personal use only.
+alias s='>/dev/null 2>&1 '
+
 # function to fully expand its arguments if they're aliases.
 # obviously for personal use only, it uses eval etc and so forth ad nauseum
 # In zsh, you can interactively expand the current word as an alias using <C-x>a
@@ -99,9 +104,21 @@ alias ifpc='instantfpc -B'
 alias hoogle='hoogle --color=true'
 
 # cat with colours
-alias ccat='highlight -O ansi'
-# an alternative with pygmentize is:
-# alias ccat='pygmentize -g -f terminal'
+# Copied from default ranger scope.sh
+if >/dev/null 2>&1 command -v tput && [ "$(tput colors)" -ge 256 ]; then
+    goedel_highlight_format=xterm256
+    goedel_pygmentize_format=terminal256
+else
+    goedel_highlight_format=ansi
+    goedel_pygmentize_format=terminal
+fi
+if >/dev/null 2>&1 command -v highlight; then
+    alias ccat="highlight --replace-tabs=4 --out-format=$goedel_highlight_format --style=pablo --force"
+elif >/dev/null 2>&1 command -v pygmentize; then
+    alias ccat="pygmentize -f $goedel_pygmentize_format -O 'style=$autumn'"
+else
+    >&2 echo "Izaak's aliases: No suitable highlighter found for \`ccat\` alias"
+fi
 
 # TODO: make this a more versatile command
 alias gpl="cat /usr/share/licenses/common/GPL3/license.txt"
@@ -244,9 +261,9 @@ esac
 # latex/pdf compilation related aliases
 alias lmk='latexmk'
 alias present='evince -s'
-alias latex="latex -synctex=1 --shell-escape -halt-on-error";
-alias pdflatex="pdflatex -synctex=1 -shell-escape -halt-on-error";
-alias xelatex="xelatex -synctex=1 -shell-escape -halt-on-error";
+alias latex="latex -synctex=1 --shell-escape -interaction=nonstopmode -halt-on-error";
+alias pdflatex="pdflatex -synctex=1 -shell-escape -interaction=nonstopmode -halt-on-error";
+alias xelatex="xelatex -synctex=1 -shell-escape -interaction=nonstopmode -halt-on-error";
 
 # the space means that sudo can be followed by an alias (particularly things
 # like sudo p for sudo pacman)
