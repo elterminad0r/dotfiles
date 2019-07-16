@@ -115,7 +115,7 @@ fi
 if >/dev/null 2>&1 command -v highlight; then
     alias ccat="highlight --replace-tabs=4 --out-format=$goedel_highlight_format --style=pablo --force"
 elif >/dev/null 2>&1 command -v pygmentize; then
-    alias ccat="pygmentize -f $goedel_pygmentize_format -O 'style=$autumn'"
+    alias ccat="pygmentize -f $goedel_pygmentize_format -O 'style=autumn'"
 else
     >&2 echo "Izaak's aliases: No suitable highlighter found for \`ccat\` alias"
 fi

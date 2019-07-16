@@ -98,7 +98,8 @@ add_to_path() {
     esac
 }
 
-for bin_dir in "$HOME/bin" "$HOME/.gem/ruby/2.6.0/bin" "$HOME/.local/bin"; do
+for bin_dir in "$HOME/bin" "$HOME/.gem/ruby/2.6.0/bin" "$HOME/.local/bin" \
+               "$HOME/Library/Python/3.7/bin/"; do
     add_to_path "$bin_dir"
 done
 
