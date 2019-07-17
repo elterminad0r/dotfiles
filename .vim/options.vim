@@ -272,7 +272,7 @@ set infercase
 set cryptmethod=blowfish2
 
 " This is when vim does stuff with :find or something
-set path=.,**
+set path=.,**,~/pybin
 set wildmenu
 set wildignorecase
 " set wildignore+=*.pyc,*.swp,__pycache__,*.aux
