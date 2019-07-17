@@ -49,26 +49,20 @@ set up to automatically jump to any matches (and I have a mapping to toggle
 this behaviour). Basically it's up to you what you do with it.
 """
 
-from textwrap import dedent
-
 mode = parser.add_mutually_exclusive_group()
 mode.add_argument("-d", "--dryrun", action="store_true",
-        help=dedent('''\
-                  Just list files, in a parse-able format. Can be thought of as
-                  setting $EDITOR to printf "%%s\\n" or printf
-                  "%%s\\0"'''))
+        help='''Just list files, in a parse-able format. Can be thought of as
+                setting $EDITOR to printf "%%s\\n" or printf "%%s\\0"''')
 parser.add_argument("-0", action="store_true",
         help="Use null separators if using --dryrun")
 parser.add_argument("-q", "--quote", action="store_true",
-        help=dedent('''\
-                  Use `printf "%%q\\n"` to print dryrun matches. This will
-                  require GNU printf, probably. This tries to use nulls inside
-                  the pipeline, but the output is always newline separated
-                  because %%q should be safe on newlines.'''))
+        help='''Use `printf "%%q\\n"` to print dryrun matches. This will
+                require GNU printf, probably. This tries to use nulls inside the
+                pipeline, but the output is always newline separated because %%q
+                should be safe on newlines.''')
 mode.add_argument("-l", "--list", action="store_true",
-        help=dedent('''\
-                  List files and matches, intended more for "checking" if you
-                  have the command right before going into your editor.'''))
+        help='''List files and matches, intended more for "checking" if you
+                have the command right before going into your editor.''')
 parser.add_argument("-i", "--ignorecase", action="store_true",
         help="Ignore case in file content searches.")
 parser.add_argument("-I", "--fileignore", action="store_true",
