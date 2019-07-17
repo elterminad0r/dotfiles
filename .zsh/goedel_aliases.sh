@@ -368,8 +368,17 @@ alias toupper='trrr "{lower}" "{upper}"'
 alias tolower='trrr "{upper}" "{lower}"'
 alias death='trrr "{letters}" "{sc}"'
 alias bfseries='trrr "{thin}" "{bold}"'
-alias itshape='trrr "{straight}" "{italic}"'
-alias normalise='trrr "{upper}" "{nm_u}" | trrr "{lower}" "{nm_l}"'
+alias emph='trrr "{straight}{italic}" "{italic}{straight}"'
+alias normalise='trrr "{upper}{sc}" "{nm_u}" | trrr "{lower}" "{nm_l}"'
+# These only go from the standard ascii alphabet, but there is nothing stopping
+# them from being composed with the previous ones.
+alias scr='trrr "{nm_u}{nm_l}" "{scr_u}{scr_l}"'
+alias frak='trrr "{nm_u}{nm_l}" "{frk_u}{frk_l}"'
+alias sans='trrr "{nm_u}{nm_l}{nm_n}" "{sns_u}{sns_l}{sns_n}"'
+alias mathbb='trrr "{nm_u}{nm_l}{nm_n}" "{bb_u}{bb_l}{bb_n}"'
+# this one is particularly evil in a terminal, because it probably won't look
+# any different
+alias ttfamily='trrr "{nm_u}{nm_l}{nm_n}" "{tt_u}{tt_l}{tt_n}"'
 
 if [ -n "$(echo | figlet -t 2>&1 || true)" ]; then
     FIG_FLAGS='-w "$COLUMNS"'

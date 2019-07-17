@@ -26,10 +26,19 @@ much surjective, non-injective mappings, like making everything smallcaps:
 
 `trrr '{letters}' '{sc}'`, or
 
-`trrr '{upper}' '{nm_u}' | trrr '{lower}' '{nm_l}'` to make everything normal.
+`trrr '{upper}{sc}' '{nm_u}' | trrr '{lower}' '{nm_l}'` to make everything
+normal.
 
 I have personally defined several aliases with "common" translations that I find
 "useful".
+
+You can also supply four further optional arguments. The first two are sets to
+be subtracted from the specs, the second two are sets of characters for the
+specs to be intersected with. This is probably useful for something, although
+I've not quite figured out what it might be.
+
+This script also acts as a module, which can be used to grab useful predefined
+alphabets, or use some of the utility functions like `upper()` and `lower()`
 """
 
 import sys
@@ -90,7 +99,8 @@ alphabets = {
     "tt_u": "𝙰𝙱𝙲𝙳𝙴𝙵𝙶𝙷𝙸𝙹𝙺𝙻𝙼𝙽𝙾𝙿𝚀𝚁𝚂𝚃𝚄𝚅𝚆𝚇𝚈𝚉",
     "tt_l": "𝚊𝚋𝚌𝚍𝚎𝚏𝚐𝚑𝚒𝚓𝚔𝚕𝚖𝚗𝚘𝚙𝚚𝚛𝚜𝚝𝚞𝚟𝚠𝚡𝚢𝚣",
     "tt_n": "𝟶𝟷𝟸𝟹𝟺𝟻𝟼𝟽𝟾𝟿",
-    # TODO: x is faked here
+    # TODO: x is faked here. Apparently smallcaps X doesn't even exist,
+    #       according to Wikipedia.
     "sc": "ᴀʙᴄᴅᴇꜰɢʜɪᴊᴋʟᴍɴᴏᴘꞯʀꜱᴛᴜᴠᴡxʏᴢ",
     "bb_u": "𝔸𝔹ℂ𝔻𝔼𝔽𝔾ℍ𝕀𝕁𝕂𝕃𝕄ℕ𝕆ℙℚℝ𝕊𝕋𝕌𝕍𝕎𝕏𝕐ℤ",
     "bb_l": "𝕒𝕓𝕔𝕕𝕖𝕗𝕘𝕙𝕚𝕛𝕜𝕝𝕞𝕟𝕠𝕡𝕢𝕣𝕤𝕥𝕦𝕧𝕨𝕩𝕪𝕫",
@@ -105,10 +115,12 @@ for alph in alphabets:
         all_lower.append("{}_l".format(alph.rstrip("_u")))
 
 all_letters = [alph for alph in alphabets if not alph.endswith("_n")]
+all_numbers = [alph for alph in alphabets if alph.endswith("_n")]
 
 alphabets["lower"] = "".join(alphabets[a] for a in all_lower)
 alphabets["upper"] = "".join(alphabets[a] for a in all_upper)
 alphabets["letters"] = "".join(alphabets[a] for a in all_letters)
+alphabets["numbers"] = "".join(alphabets[a] for a in all_numbers)
 
 all_bold = """bf_u bf_l bf_n bi_u bi_l scb_u scb_l frb_u frb_l snb_u snb_l
               snb_n sbi_u sbi_l""".split()
@@ -155,17 +167,59 @@ def get_args():
             help="Spec for the set of characters to be translated")
     parser.add_argument("to_spec",
             help="Spec for the set of characters to be translated to")
+    parser.add_argument("from_spec_sub", nargs="?", default="",
+            help="Spec to subtract from from_spec")
+    parser.add_argument("to_spec_sub", nargs="?", default="",
+            help="Spec to subtract from to_spec")
+    parser.add_argument("from_spec_inter", nargs="?", default="",
+            help="Spec to intersect from_spec with")
+    parser.add_argument("to_spec_inter", nargs="?", default="",
+            help="Spec to intersect to_spec with")
     args = parser.parse_args()
     if not args.to_spec:
         parser.error("to_spec should be nonempty.")
     return args
 
-def trrr(from_spec, to_spec, alphabets):
+upper_trans = str.maketrans(alphabets["lower"], alphabets["upper"])
+lower_trans = str.maketrans(alphabets["upper"], alphabets["lower"])
+
+def upper(s):
+    """
+    Even more unicode-supporting uppercasing function
+    """
+    return s.translate(upper_trans).upper()
+
+def lower(s):
+    """
+    Even more unicode-supporting lowercasing function
+    """
+    return s.translate(lower_trans).lower()
+
+class YesMan:
+    """
+    Dummy class that replies yes to any membership queries, used for the
+    default type of intersection.
+    """
+    def __contains__(self, item):
+        return True
+
+def trrr(from_spec, to_spec, from_spec_sub, to_spec_sub,
+         from_spec_inter, to_spec_inter, alphabets):
     """
     Perform the actual translation, interpreting the specs using the alphabets.
     """
-    from_full = from_spec.format(**alphabets)
-    to_full = to_spec.format(**alphabets)
+    from_sub_set = set(from_spec_sub.format(**alphabets))
+    to_sub_set = set(to_spec_sub.format(**alphabets))
+    from_inter_set = set(from_spec_inter.format(**alphabets))
+    to_inter_set = set(to_spec_inter.format(**alphabets))
+    if not from_inter_set:
+        from_inter_set = YesMan()
+    if not to_inter_set:
+        to_inter_set = YesMan()
+    from_full = "".join(c for c in from_spec.format(**alphabets)
+            if c not in from_sub_set and c in from_inter_set)
+    to_full = "".join(c for c in to_spec.format(**alphabets)
+            if c not in to_sub_set and c in to_inter_set)
     if len(from_full) % len(to_full) == 0:
         to_full = to_full * (len(from_full) // len(to_full))
     else:
@@ -179,4 +233,5 @@ def trrr(from_spec, to_spec, alphabets):
 
 if __name__ == "__main__":
     args = get_args()
-    trrr(args.from_spec, args.to_spec, alphabets)
+    trrr(args.from_spec, args.to_spec, args.from_spec_sub, args.to_spec_sub,
+         args.from_spec_inter, args.from_spec_sub, alphabets)

@@ -16,6 +16,7 @@ elsewhere, in b_eChO and b_cAt in my ~/bin.
 from random import random
 
 from humandom import heads_tails
+from trrr import upper, lower
 
 class BaSeCaPiTaLiSeR:
     """
@@ -46,9 +47,9 @@ class CaPiTaLiSeR(BaSeCaPiTaLiSeR):
         for c in s:
             if c.isalpha():
                 if self.make_upcase:
-                    yield c.upper()
+                    yield upper(c)
                 else:
-                    yield c.lower()
+                    yield lower(c)
                 self.make_upcase = not self.make_upcase
             else:
                 yield c
@@ -64,9 +65,9 @@ class RAnDOMCApItALiseR(BaSeCaPiTaLiSeR):
         for c in s:
             if c.isalpha():
                 if random() < 0.5:
-                    yield c.upper()
+                    yield upper(c)
                 else:
-                    yield c.lower()
+                    yield lower(c)
             else:
                 yield c
 
@@ -84,9 +85,9 @@ class HumANdomcaPITalisEr(BaSeCaPiTaLiSeR):
         for c in s:
             if c.isalpha():
                 if next(self.bitstream):
-                    yield c.upper()
+                    yield upper(c)
                 else:
-                    yield c.lower()
+                    yield lower(c)
             else:
                 yield c
 
