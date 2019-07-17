@@ -66,7 +66,8 @@ import smartparse as argparse
 
 # Some of these may well look a lot like normal ASCII letters, depending on what
 # font you're using. However they are not, these are all Unicode letters, with
-# explicit semantics about their typesetting.
+# explicit semantics about their typesetting, save for the "nm_" normal
+# alphabets.
 alphabets = {
     "nm_u": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
     "nm_l": "abcdefghijklmnopqrstuvwxyz",
