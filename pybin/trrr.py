@@ -104,7 +104,9 @@ alphabets = {
     "sc": "ᴀʙᴄᴅᴇꜰɢʜɪᴊᴋʟᴍɴᴏᴘꞯʀꜱᴛᴜᴠᴡxʏᴢ",
     "bb_u": "𝔸𝔹ℂ𝔻𝔼𝔽𝔾ℍ𝕀𝕁𝕂𝕃𝕄ℕ𝕆ℙℚℝ𝕊𝕋𝕌𝕍𝕎𝕏𝕐ℤ",
     "bb_l": "𝕒𝕓𝕔𝕕𝕖𝕗𝕘𝕙𝕚𝕛𝕜𝕝𝕞𝕟𝕠𝕡𝕢𝕣𝕤𝕥𝕦𝕧𝕨𝕩𝕪𝕫",
-    "bb_n": "𝟘𝟙𝟚𝟛𝟜𝟝𝟞𝟟𝟠𝟡"}
+    "bb_n": "𝟘𝟙𝟚𝟛𝟜𝟝𝟞𝟟𝟠𝟡",
+    # https://jkirchartz.com/demos/fake_russian_generator.html
+    "cyrillic_fake": "ДБҪDԐҒGҤЇJҜLԠЙФPQЯSГЦVШӼҰZ"}
 
 all_lower = []
 all_upper = []
@@ -185,13 +187,18 @@ lower_trans = str.maketrans(alphabets["upper"], alphabets["lower"])
 
 def upper(s):
     """
-    Even more unicode-supporting uppercasing function
+    Even more unicode-supporting uppercasing function.
+
+    It only acts as a humble wrapper to str.upper(), moreover giving str.upper
+    precedence. This is because str.upper is already basically quite good at
+    multilingual casing, and I only care about the weird typesetting-y
+    codepoints for entirely nefarious purposes.
     """
     return s.translate(upper_trans).upper()
 
 def lower(s):
     """
-    Even more unicode-supporting lowercasing function
+    Even more unicode-supporting lowercasing function. See above
     """
     return s.translate(lower_trans).lower()
 
