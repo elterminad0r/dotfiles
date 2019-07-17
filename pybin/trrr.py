@@ -41,6 +41,8 @@ This script also acts as a module, which can be used to grab useful predefined
 alphabets, or use some of the utility functions like `upper()` and `lower()`
 """
 
+# TODO: implement character ranger like A-Z, maybe.
+
 import sys
 import smartparse as argparse
 
@@ -100,18 +102,19 @@ alphabets = {
     "tt_u": "𝙰𝙱𝙲𝙳𝙴𝙵𝙶𝙷𝙸𝙹𝙺𝙻𝙼𝙽𝙾𝙿𝚀𝚁𝚂𝚃𝚄𝚅𝚆𝚇𝚈𝚉",
     "tt_l": "𝚊𝚋𝚌𝚍𝚎𝚏𝚐𝚑𝚒𝚓𝚔𝚕𝚖𝚗𝚘𝚙𝚚𝚛𝚜𝚝𝚞𝚟𝚠𝚡𝚢𝚣",
     "tt_n": "𝟶𝟷𝟸𝟹𝟺𝟻𝟼𝟽𝟾𝟿",
-    # TODO: x is faked here. Apparently smallcaps X doesn't even exist,
-    #       according to Wikipedia.
-    "sc": "ᴀʙᴄᴅᴇꜰɢʜɪᴊᴋʟᴍɴᴏᴘꞯʀꜱᴛᴜᴠᴡxʏᴢ",
     "bb_u": "𝔸𝔹ℂ𝔻𝔼𝔽𝔾ℍ𝕀𝕁𝕂𝕃𝕄ℕ𝕆ℙℚℝ𝕊𝕋𝕌𝕍𝕎𝕏𝕐ℤ",
     "bb_l": "𝕒𝕓𝕔𝕕𝕖𝕗𝕘𝕙𝕚𝕛𝕜𝕝𝕞𝕟𝕠𝕡𝕢𝕣𝕤𝕥𝕦𝕧𝕨𝕩𝕪𝕫",
     "bb_n": "𝟘𝟙𝟚𝟛𝟜𝟝𝟞𝟟𝟠𝟡",
+    # TODO: x is faked here. Apparently smallcaps X doesn't even exist,
+    #       according to Wikipedia.
+    "sc": "ᴀʙᴄᴅᴇꜰɢʜɪᴊᴋʟᴍɴᴏᴘꞯʀꜱᴛᴜᴠᴡxʏᴢ",
     # https://jkirchartz.com/demos/fake_russian_generator.html
     "cyrillic_fake": "ДБҪDԐҒGҤЇJҜLԠЙФPQЯSГЦVШӼҰZ"}
 
 all_lower = []
 all_upper = []
 
+# get all alphabets for which it makes sense to convert between case.
 for alph in alphabets:
     if alph.endswith("_u"):
         all_upper.append(alph)
@@ -178,6 +181,9 @@ def get_args():
             help="Spec to intersect from_spec with")
     parser.add_argument("to_spec_inter", nargs="?", default="",
             help="Spec to intersect to_spec with")
+    parser.add_argument("-u", "--unbuffered", action="store_true",
+            help="""Flush stdout after each line, Useful in pipes if you want
+                    immediate output""")
     args = parser.parse_args()
     if not args.to_spec:
         parser.error("to_spec should be nonempty.")
@@ -212,7 +218,7 @@ class YesMan:
         return True
 
 def trrr(from_spec, to_spec, from_spec_sub, to_spec_sub,
-         from_spec_inter, to_spec_inter, alphabets):
+         from_spec_inter, to_spec_inter, alphabets, unbuffered):
     """
     Perform the actual translation, interpreting the specs using the alphabets.
     """
@@ -238,8 +244,10 @@ def trrr(from_spec, to_spec, from_spec_sub, to_spec_sub,
     trans = str.maketrans(from_full, to_full)
     for line in sys.stdin:
         sys.stdout.write(line.translate(trans))
+        if unbuffered:
+            sys.stdout.flush()
 
 if __name__ == "__main__":
     args = get_args()
     trrr(args.from_spec, args.to_spec, args.from_spec_sub, args.to_spec_sub,
-         args.from_spec_inter, args.from_spec_sub, alphabets)
+         args.from_spec_inter, args.from_spec_sub, alphabets, args.unbuffered)

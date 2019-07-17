@@ -363,22 +363,22 @@ alias pacsystree='for i in $(pacman -Qeq); do pactree $i; done'
 
 alias rot13='tr "A-Za-z" "N-ZA-Mn-za-m"'
 
-alias toupper='trrr "{lower}" "{upper}"'
-alias tolower='trrr "{upper}" "{lower}"'
-alias death='trrr "{letters}" "{sc}"'
-alias bfseries='trrr "{thin}" "{bold}"'
-alias emph='trrr "{straight}{italic}" "{italic}{straight}"'
-alias normalise='trrr "{upper}{sc}" "{nm_u}" | trrr "{lower}" "{nm_l}"'
+alias toupper='trrr -u "{lower}" "{upper}"'
+alias tolower='trrr -u "{upper}" "{lower}"'
+alias death='trrr -u "{letters}" "{sc}"'
+alias bfseries='trrr -u "{thin}" "{bold}"'
+alias emph='trrr -u "{straight}{italic}" "{italic}{straight}"'
+alias normalise='trrr -u "{upper}{sc}" "{nm_u}" | trrr -u "{lower}" "{nm_l}"'
 # These only go from the standard ascii alphabet, but there is nothing stopping
 # them from being composed with the previous ones.
-alias scr='trrr "{nm_u}{nm_l}" "{scr_u}{scr_l}"'
-alias frak='trrr "{nm_u}{nm_l}" "{frk_u}{frk_l}"'
-alias sans='trrr "{nm_u}{nm_l}{nm_n}" "{sns_u}{sns_l}{sns_n}"'
-alias mathbb='trrr "{nm_u}{nm_l}{nm_n}" "{bb_u}{bb_l}{bb_n}"'
-alias cyrillic='trrr "{nm_u}{nm_l}" "{cyrillic_fake}"'
+alias scr='trrr -u "{nm_u}{nm_l}" "{scr_u}{scr_l}"'
+alias frak='trrr -u "{nm_u}{nm_l}" "{frk_u}{frk_l}"'
+alias sans='trrr -u "{nm_u}{nm_l}{nm_n}" "{sns_u}{sns_l}{sns_n}"'
+alias mathbb='trrr -u "{nm_u}{nm_l}{nm_n}" "{bb_u}{bb_l}{bb_n}"'
+alias cyrillic='trrr -u "{nm_u}{nm_l}" "{cyrillic_fake}"'
 # this one is particularly evil in a terminal, because it probably won't look
 # any different
-alias ttfamily='trrr "{nm_u}{nm_l}{nm_n}" "{tt_u}{tt_l}{tt_n}"'
+alias ttfamily='trrr -u "{nm_u}{nm_l}{nm_n}" "{tt_u}{tt_l}{tt_n}"'
 
 if [ -n "$(echo | figlet -t 2>&1 || true)" ]; then
     FIG_FLAGS='-w "$COLUMNS"'
