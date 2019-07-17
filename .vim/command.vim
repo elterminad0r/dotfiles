@@ -73,7 +73,6 @@ command! Ezr argadd ~/.zsh/{zshrc,*.zsh,*.sh,zshenv,zprofile,prompts/*} ~/.bash/
 command! Exr argadd ~/.Xresources ~/.X/**/*.* ~/.xinitrc ~/.xprofile | n
 command! E3r argadd ~/.config/i3/config | n
 command! Efr argadd ~/fun | n
-command! Etr argadd ~/Documents/TODO | n
 command! Eur argadd ~/.tmux.conf | n
 
 " command to insert output of ex command into buffer
