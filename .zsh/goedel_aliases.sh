@@ -363,8 +363,6 @@ alias pacsystree='for i in $(pacman -Qeq); do pactree $i; done'
 
 alias rot13='tr "A-Za-z" "N-ZA-Mn-za-m"'
 
-alias toupper='trrr "{lower}" "{upper}"'
-alias tolower='trrr "{upper}" "{lower}"'
 alias death='trrr "{letters}" "{sc}"'
 alias bfseries='trrr "{thin}" "{bold}"'
 alias emph='trrr "{straight}{italic}" "{italic}{straight}"'

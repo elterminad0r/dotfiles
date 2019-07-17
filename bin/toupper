@@ -1,0 +1,39 @@
+#!/usr/bin/env python3
+
+# ___________________    ____ ___ __________ __________ _____________________
+# \__    ___/\_____  \  |    |   \\______   \\______   \\_   _____/\______   \
+#   |    |    /   |   \ |    |   / |     ___/ |     ___/ |    __)_  |       _/
+#   |    |   /    |    \|    |  /  |    |     |    |     |        \ |    |   \
+#   |____|   \_______  /|______/   |____|     |____|    /_______  / |____|_  /
+#                    \/                                         \/         \/
+# FIGMENTIZE: TOUPPER
+
+"""
+Make stdin uppercase, using a combination of Python and trrr to be as good at
+Unicode as possible.
+"""
+
+import sys
+
+import smartparse as argparse
+
+from trrr import upper
+
+def get_args():
+    """
+    Parse argv.
+    """
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("-u", "--unbuffered", action="store_true",
+            help="Flush output after each line")
+    return parser.parse_args()
+
+def main(unbuffered):
+    for line in sys.stdin:
+        sys.stdout.write(upper(line))
+        if unbuffered:
+            sys.stdout.flush()
+
+if __name__ == "__main__":
+    args = get_args()
+    main(args.unbuffered)
