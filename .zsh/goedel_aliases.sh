@@ -362,10 +362,14 @@ alias pacsystree='for i in $(pacman -Qeq); do pactree $i; done'
 
 # Frivolous aliases
 
-alias tolower='tr "[:upper:]" "[:lower:]"'
-alias toupper='tr "[:lower:]" "[:upper:]"'
-
 alias rot13='tr "A-Za-z" "N-ZA-Mn-za-m"'
+
+alias toupper='trrr "{lower}" "{upper}"'
+alias tolower='trrr "{upper}" "{lower}"'
+alias death='trrr "{letters}" "{sc}"'
+alias bfseries='trrr "{thin}" "{bold}"'
+alias itshape='trrr "{straight}" "{italic}"'
+alias normalise='trrr "{upper}" "{nm_u}" | trrr "{lower}" "{nm_l}"'
 
 if [ -n "$(echo | figlet -t 2>&1 || true)" ]; then
     FIG_FLAGS='-w "$COLUMNS"'
@@ -381,8 +385,9 @@ fi
 
 # display all figlet fonts
 figfonts() {
-    local exts="$(end='' printf "%s" '.*\.\('"$(
-        (end='' printf "flf tlf "  && figlet -I 5) | sed -e 's/  */\\|/g')"'\)$')"
+    local exts="$(printf "%s" '.*\.\('"$(
+        { printf "flf tlf " ; figlet -I 5 } |
+            sed -e 's/  */\\|/g')"'\)$')"
     echo "finding all $exts in $(figlet -I 2)"
     find "$(figlet -I 2)" -type f -regex "$exts" \
         -exec echo {} \; \
