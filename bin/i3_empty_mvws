@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-
-# executable to move an i3 window to a new empty workspace (the one after the
-# last workspace) and then follow it to that workspace
-
-local ws=$(($(i3-msg -t get_workspaces | tr , '\n' | grep '"num":' | cut -d : -f 2 | sort -rn | head -1) + 1))
-i3-msg move container to workspace $ws
-i3-msg workspace $ws

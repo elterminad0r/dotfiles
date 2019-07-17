@@ -1,4 +1,0 @@
-#!/bin/bash
-mpc play "$(mpc playlist -f "%position% %title%" |
-                dmenu_nice -p "Playlist Song" |
-                cut -f1 -d\ )"
