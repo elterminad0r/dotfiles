@@ -276,8 +276,8 @@ class YesMan:
 
 def trrr(from_spec, to_spec, from_spec_sub="", to_spec_sub="",
          from_spec_inter="", to_spec_inter="", in_file=sys.stdin,
-         out_file=sys.stdout, alphabets=alphabets, auxiliary=auxiliary,
-         unbuffered=False):
+         out_file=sys.stdout, err_file=sys.stderr, alphabets=alphabets,
+         auxiliary=auxiliary, unbuffered=False):
     """
     Perform the actual translation, interpreting the specs using the alphabets.
     """
@@ -298,13 +298,13 @@ def trrr(from_spec, to_spec, from_spec_sub="", to_spec_sub="",
     else:
         print("from_spec should resolve to a length that is a "
               "multiple of that of to_spec",
-                file=sys.stderr)
+                file=err_file)
         sys.exit(1)
     trans = str.maketrans(from_full, to_full)
-    for line in sys.stdin:
-        sys.stdout.write(line.translate(trans))
+    for line in in_file:
+        out_file.write(line.translate(trans))
         if unbuffered:
-            sys.stdout.flush()
+            out_file.flush()
 
 if __name__ == "__main__":
     args = get_args()
