@@ -145,7 +145,7 @@ def gen_flag_pair(flag1, flag2, alphabets):
     return list1, list2
 
 # all alphabets for which it makes sense to convert between case
-all_lower, all_upper = gen_flag_pair("u", "l", alphabets)
+all_upper, all_lower = gen_flag_pair("u", "l", alphabets)
 
 # all letters and all numbers
 all_letters = [alph for alph in alphabets if not has_flag(alph, "n")]
