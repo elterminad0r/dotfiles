@@ -274,6 +274,18 @@ class YesMan:
     def __contains__(self, item):
         return True
 
+def interpret_spec(spec, spec_sub, spec_inter, alphabets, auxiliary):
+    """
+    Build a proper character set from a spec, it's subtraction and its
+    intersection.
+    """
+    sub_set = set(spec_sub.format(**alphabets, **auxiliary))
+    inter_set = set(spec_inter.format(**alphabets, **auxiliary))
+    if not inter_set:
+        inter_set = YesMan()
+    return "".join(c for c in spec.format(**alphabets, **auxiliary)
+            if c not in sub_set and c in inter_set)
+
 def trrr(from_spec, to_spec, from_spec_sub="", to_spec_sub="",
          from_spec_inter="", to_spec_inter="", in_file=sys.stdin,
          out_file=sys.stdout, err_file=sys.stderr, alphabets=alphabets,
@@ -281,18 +293,10 @@ def trrr(from_spec, to_spec, from_spec_sub="", to_spec_sub="",
     """
     Perform the actual translation, interpreting the specs using the alphabets.
     """
-    from_sub_set = set(from_spec_sub.format(**alphabets, **auxiliary))
-    to_sub_set = set(to_spec_sub.format(**alphabets, **auxiliary))
-    from_inter_set = set(from_spec_inter.format(**alphabets, **auxiliary))
-    to_inter_set = set(to_spec_inter.format(**alphabets, **auxiliary))
-    if not from_inter_set:
-        from_inter_set = YesMan()
-    if not to_inter_set:
-        to_inter_set = YesMan()
-    from_full = "".join(c for c in from_spec.format(**alphabets, **auxiliary)
-            if c not in from_sub_set and c in from_inter_set)
-    to_full = "".join(c for c in to_spec.format(**alphabets, **auxiliary)
-            if c not in to_sub_set and c in to_inter_set)
+    from_full = interpret_spec(from_spec, from_spec_sub, from_spec_inter,
+                               alphabets, auxiliary)
+    to_full = interpret_spec(to_spec, to_spec_sub, to_spec_inter,
+                             alphabets, auxiliary)
     if len(from_full) % len(to_full) == 0:
         to_full = to_full * (len(from_full) // len(to_full))
     else:

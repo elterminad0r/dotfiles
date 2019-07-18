@@ -376,8 +376,11 @@ alias scr='trrr "{nm_u}{nm_l}" "{scr_u}{scr_l}"'
 alias frak='trrr "{nm_u}{nm_l}" "{frk_u}{frk_l}"'
 alias sans='trrr "{nm_u}{nm_l}{nm_n}" "{sns_u}{sns_l}{sns_n}"'
 alias mathbb='trrr "{nm_u}{nm_l}{nm_n}" "{bb_u}{bb_l}{bb_n}"'
+# totally semantically broken, but it makes it remain sort of legible-ish as
+# English
 alias comrade='trrr "{nm_u}{nm_l}" "{cyrillicfake}"'
-alias zeus='trrr "{notgreek}" "{greek}"'
+alias zeus='trrr "ABYFEZNHIKJUMSOQPRGTVLXCWDabyfeznhikjumsoqprgtvlxcwd" "{nm_ug}{nm_lg}"'
+
 # this one is particularly evil in a terminal, because it probably won't look
 # any different
 alias ttfamily='trrr "{nm_u}{nm_l}{nm_n}" "{tt_u}{tt_l}{tt_n}"'
