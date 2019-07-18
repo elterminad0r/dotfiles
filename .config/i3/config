@@ -199,8 +199,7 @@ bindsym $mod+8 workspace $ws8
 bindsym $mod+9 workspace $ws9
 bindsym $mod+0 workspace $ws10
 
-# TODO: replace with ws-select mode
-bindsym $mod+grave exec --no-startup-id ~/bin/i3_empty_ws
+# TODO: add with ws-select mode
 
 # left/right between workspaces
 # TODO: think of a better usage for minus and equal
@@ -220,8 +219,6 @@ bindsym $mod+Shift+7 move container to workspace $ws7
 bindsym $mod+Shift+8 move container to workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
-
-bindsym $mod+Shift+grave exec --no-startup-id ~/bin/i3_empty_mv
 
 # move container, and also move to workspace
 bindsym $mod+F1 move container to workspace $ws1 ; workspace $ws1
