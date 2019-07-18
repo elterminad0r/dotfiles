@@ -52,21 +52,19 @@ import smartparse as argparse
 # https://www.compart.com/en/unicode/decomposition/%3Cfont%3E
 # let s = ''; for (let e of document.querySelectorAll("p.text,div.text")) {s += e.innerHTML.trim()}; print(s)
 
+# see also https://en.wikipedia.org/wiki/Mathematical_operators_and_symbols_in_Unicode#Mathematical_Alphanumeric_Symbols_block
+
 # TODO: use some of these
-# 𝚨𝚩𝚪𝚫𝚬𝚭𝚮𝚯𝚰𝚱𝚲𝚳𝚴𝚵𝚶𝚷𝚸𝚹𝚺𝚻𝚼𝚽𝚾𝚿𝛀𝛁
-# 𝛂𝛃𝛄𝛅𝛆𝛇𝛈𝛉𝛊𝛋𝛌𝛍𝛎𝛏𝛐𝛑𝛒𝛓𝛔𝛕𝛖𝛗𝛘𝛙𝛚𝛛𝛜𝛝𝛞𝛟𝛠𝛡
-# 𝛢𝛣𝛤𝛥𝛦𝛧𝛨𝛩𝛪𝛫𝛬𝛭𝛮𝛯𝛰𝛱𝛲𝛳𝛴𝛵𝛶𝛷𝛸𝛹𝛺𝛻
-# 𝛼𝛽𝛾𝛿𝜀𝜁𝜂𝜃𝜄𝜅𝜆𝜇𝜈𝜉𝜊𝜋𝜌𝜍𝜎𝜏𝜐𝜑𝜒𝜓𝜔𝜕𝜖𝜗𝜘𝜙𝜚𝜛𝜜
-# 𝜝𝜞𝜟𝜠𝜡𝜢𝜣𝜤𝜥𝜦𝜧𝜨𝜩𝜪𝜫𝜬𝜭𝜮𝜯𝜰𝜱𝜲𝜳𝜴𝜵
-# 𝜶𝜷𝜸𝜹𝜺𝜻𝜼𝜽𝜾𝜿𝝀𝝁𝝂𝝃𝝄𝝅𝝆𝝇𝝈𝝉𝝊𝝋𝝌𝝍𝝎𝝏𝝐𝝑𝝒𝝓𝝔𝝕
-# 𝝖𝝗𝝘𝝙𝝚𝝛𝝜𝝝𝝞𝝟𝝠𝝡𝝢𝝣𝝤𝝥𝝦𝝧𝝨𝝩𝝪𝝫𝝬𝝭𝝮𝝯
-# 𝝰𝝱𝝲𝝳𝝴𝝵𝝶𝝷𝝸𝝹𝝺𝝻𝝼𝝽𝝾𝝿𝞀𝞁𝞂𝞃𝞄𝞅𝞆𝞇𝞈𝞉𝞊𝞋𝞌𝞍𝞎𝞏
-# 𝞐𝞑𝞒𝞓𝞔𝞕𝞖𝞗𝞘𝞙𝞚𝞛𝞜𝞝𝞞𝞟𝞠𝞡𝞢𝞣𝞤𝞥𝞦𝞧𝞨𝞩
-# 𝞪𝞫𝞬𝞭𝞮𝞯𝞰𝞱𝞲𝞳𝞴𝞵𝞶𝞷𝞸𝞹𝞺𝞻𝞼𝞽𝞾𝞿𝟀𝟁𝟂𝟃𝟄𝟅𝟆𝟇𝟈𝟉
-# ℏℓℹℼℽℾℿ⅀ⅅⅆⅇⅈⅉ
-# ﬠﬡﬢﬣﬤﬥﬦﬧﬨ﬩
-# 𝚤𝚥
-# 𝟊𝟋
+# variant greek letters:
+#     𝛜𝛝𝛞𝛟𝛠𝛡
+#     𝜖𝜗𝜘𝜙𝜚𝜛
+#     𝝐𝝑𝝒𝝓𝝔𝝕
+#     𝞊𝞋𝞌𝞍𝞎𝞏
+#     𝟄𝟅𝟆𝟇𝟈𝟉
+# misc maths: ℏℓℹℼℽℾℿ⅀ⅅⅆⅇⅈⅉ
+# hebrew letters (eg aleph): ﬠﬡﬢﬣﬤﬥﬦﬧﬨ﬩
+# dotless i, j: 𝚤𝚥
+# digammas: 𝟊𝟋
 
 # Some of these may well look a lot like normal ASCII letters, depending on what
 # font you're using. However they are not, these are all Unicode letters, with
@@ -113,7 +111,30 @@ alphabets = {
     #       according to Wikipedia.
     "sc": "ᴀʙᴄᴅᴇꜰɢʜɪᴊᴋʟᴍɴᴏᴘꞯʀꜱᴛᴜᴠᴡxʏᴢ",
     # https://jkirchartz.com/demos/fake_russian_generator.html
-    "cyrillicfake": "ДБҪDԐҒGҤЇJҜLԠЙФPQЯSГЦVШӼҰZ"}
+    "cyrillicfake": "ДБҪDԐҒGҤЇJҜLԠЙФPQЯSГЦVШӼҰZ",
+    "nm_ug": "ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡϴΣΤΥΦΧΨΩ∇",
+    "nm_lg": "αβγδεζηθικλμνξοπρςστυφχψω∂",
+    # ordering to be considered unstable. It's probably actually pretty
+    # insensitive to jam it all in in this way to make 26 letters, but I can't
+    # think of a better way to go about this
+    "nm_ubg": "𝚨𝚩𝚪𝚫𝚬𝚭𝚮𝚯𝚰𝚱𝚲𝚳𝚴𝚵𝚶𝚷𝚸𝚹𝚺𝚻𝚼𝚽𝚾𝚿𝛀𝛁",
+    "nm_lbg": "𝛂𝛃𝛄𝛅𝛆𝛇𝛈𝛉𝛊𝛋𝛌𝛍𝛎𝛏𝛐𝛑𝛒𝛓𝛔𝛕𝛖𝛗𝛘𝛙𝛚𝛛",
+    "nm_uig": "𝛢𝛣𝛤𝛥𝛦𝛧𝛨𝛩𝛪𝛫𝛬𝛭𝛮𝛯𝛰𝛱𝛲𝛳𝛴𝛵𝛶𝛷𝛸𝛹𝛺𝛻",
+    "nm_lig": "𝛼𝛽𝛾𝛿𝜀𝜁𝜂𝜃𝜄𝜅𝜆𝜇𝜈𝜉𝜊𝜋𝜌𝜍𝜎𝜏𝜐𝜑𝜒𝜓𝜔𝜕",
+    "nm_ubig": "𝜜𝜝𝜞𝜟𝜠𝜡𝜢𝜣𝜤𝜥𝜦𝜧𝜨𝜩𝜪𝜫𝜬𝜭𝜮𝜯𝜰𝜱𝜲𝜳𝜴𝜵",
+    "nm_lbig": "𝜶𝜷𝜸𝜹𝜺𝜻𝜼𝜽𝜾𝜿𝝀𝝁𝝂𝝃𝝄𝝅𝝆𝝇𝝈𝝉𝝊𝝋𝝌𝝍𝝎𝝏",
+    # annoyingly, there doesn't seem to exist a regular set of greek sans-serif
+    # symbols, so I'm reusing the normal Roman ones in order not to break large
+    # conversions. Similar for sans-serif italics.
+    "sns_ug": "ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡϴΣΤΥΦΧΨΩ∇",
+    "sns_lg": "αβγδεζηθικλμνξοπρςστυφχψω∂",
+    "sns_ubg": "𝝖𝝗𝝘𝝙𝝚𝝛𝝜𝝝𝝞𝝟𝝠𝝡𝝢𝝣𝝤𝝥𝝦𝝧𝝨𝝩𝝪𝝫𝝬𝝭𝝮𝝯",
+    "sns_lbg": "𝝰𝝱𝝲𝝳𝝴𝝵𝝶𝝷𝝸𝝹𝝺𝝻𝝼𝝽𝝾𝝿𝞀𝞁𝞂𝞃𝞄𝞅𝞆𝞇𝞈𝞉",
+    "sns_uig": "𝛢𝛣𝛤𝛥𝛦𝛧𝛨𝛩𝛪𝛫𝛬𝛭𝛮𝛯𝛰𝛱𝛲𝛳𝛴𝛵𝛶𝛷𝛸𝛹𝛺𝛻",
+    "sns_lig": "𝛼𝛽𝛾𝛿𝜀𝜁𝜂𝜃𝜄𝜅𝜆𝜇𝜈𝜉𝜊𝜋𝜌𝜍𝜎𝜏𝜐𝜑𝜒𝜓𝜔𝜕",
+    "sns_ubig": "𝞐𝞑𝞒𝞓𝞔𝞕𝞖𝞗𝞘𝞙𝞚𝞛𝞜𝞝𝞞𝞟𝞠𝞡𝞢𝞣𝞤𝞥𝞦𝞧𝞨𝞩",
+    "sns_lbig": "𝞪𝞫𝞬𝞭𝞮𝞯𝞰𝞱𝞲𝞳𝞴𝞵𝞶𝞷𝞸𝞹𝞺𝞻𝞼𝞽𝞾𝞿𝟀𝟁𝟂𝟃"
+    }
 
 auxiliary = {}
 
@@ -157,6 +178,9 @@ all_bold, all_thin = gen_flag_pair("b", "", alphabets)
 # all alphabets for which it makes sense to convert to/from italic
 all_italic, all_straight = gen_flag_pair("i", "", alphabets)
 
+# all alphabets for which it makes sense to convert to/from greek
+all_greek, all_notgreek = gen_flag_pair("g", "", alphabets)
+
 auxiliary["lower"] = "".join(alphabets[a] for a in all_lower)
 auxiliary["upper"] = "".join(alphabets[a] for a in all_upper)
 
@@ -165,6 +189,9 @@ auxiliary["thin"] = "".join(alphabets[a] for a in all_thin)
 
 auxiliary["italic"] = "".join(alphabets[a] for a in all_italic)
 auxiliary["straight"] = "".join(alphabets[a] for a in all_straight)
+
+auxiliary["greek"] = "".join(alphabets[a] for a in all_greek)
+auxiliary["notgreek"] = "".join(alphabets[a] for a in all_notgreek)
 
 auxiliary["letters"] = "".join(alphabets[a] for a in all_letters)
 auxiliary["numbers"] = "".join(alphabets[a] for a in all_numbers)

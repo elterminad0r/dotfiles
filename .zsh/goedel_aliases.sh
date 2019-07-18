@@ -363,6 +363,9 @@ alias pacsystree='for i in $(pacman -Qeq); do pactree $i; done'
 
 alias rot13='tr "A-Za-z" "N-ZA-Mn-za-m"'
 
+alias alphabet="echo 'abcdefghijklmnopqrstuvwxyz'"
+alias ALPHABET="echo 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'"
+
 alias death='trrr "{letters}" "{sc}"'
 alias bfseries='trrr "{thin}" "{bold}"'
 alias emph='trrr "{straight}{italic}" "{italic}{straight}"'
@@ -373,7 +376,8 @@ alias scr='trrr "{nm_u}{nm_l}" "{scr_u}{scr_l}"'
 alias frak='trrr "{nm_u}{nm_l}" "{frk_u}{frk_l}"'
 alias sans='trrr "{nm_u}{nm_l}{nm_n}" "{sns_u}{sns_l}{sns_n}"'
 alias mathbb='trrr "{nm_u}{nm_l}{nm_n}" "{bb_u}{bb_l}{bb_n}"'
-alias cyrillic='trrr "{nm_u}{nm_l}" "{cyrillicfake}"'
+alias comrade='trrr "{nm_u}{nm_l}" "{cyrillicfake}"'
+alias zeus='trrr "{notgreek}" "{greek}"'
 # this one is particularly evil in a terminal, because it probably won't look
 # any different
 alias ttfamily='trrr "{nm_u}{nm_l}{nm_n}" "{tt_u}{tt_l}{tt_n}"'
