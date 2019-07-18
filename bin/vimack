@@ -112,9 +112,13 @@ arg_quiet='False'
 eval "$args_code"
 
 # set some further defaults in case of certain arguments
-if [ "$arg_0" = "True" ]; then
-    arg_dryrun_nulls="True"
-    arg_quiet="True"
+if [ "$arg_dryrun" = "True" ]; then
+    if [ "$arg_0" = "True" ]; then
+        arg_dryrun_nulls="True"
+        arg_quiet="True"
+    else
+        arg_dryrun_nulls="False"
+    fi
 fi
 
 if [ "$arg_quote" = "True" ]; then
