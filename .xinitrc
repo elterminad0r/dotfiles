@@ -14,7 +14,7 @@ if command -v dbus-update-activation-environment >/dev/null 2>&1; then
         dbus-update-activation-environment DISPLAY XAUTHORITY
 fi
 
-[ -f /etc/xprofile ] && . /etc/xprofile
-[ -f ~/.xprofile ] && . ~/.xprofile
+[ -r /etc/xprofile ] && . /etc/xprofile
+[ -r ~/.xprofile ] && . ~/.xprofile
 
 exec i3
