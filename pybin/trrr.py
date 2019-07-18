@@ -163,38 +163,28 @@ def gen_flag_pair(flag1, flag2, alphabets):
         if has_flag(alph, flag1):
             list1.append(alph)
             list2.append(sub_flag(alph, flag1, flag2))
-    return list1, list2
+    return ("".join(alphabets[a] for a in list1),
+            "".join(alphabets[a] for a in list2))
 
 # all alphabets for which it makes sense to convert between case
-all_upper, all_lower = gen_flag_pair("u", "l", alphabets)
-
-# all letters and all numbers
-all_letters = [alph for alph in alphabets if not has_flag(alph, "n")]
-all_numbers = [alph for alph in alphabets if has_flag(alph, "n")]
+auxiliary["upper"], auxiliary["lower"] = gen_flag_pair("u", "l", alphabets)
 
 # all alphabets for which it makes sense to convert between weight
-all_bold, all_thin = gen_flag_pair("b", "", alphabets)
+auxiliary["bold"], auxiliary["thin"] = gen_flag_pair("b", "", alphabets)
 
 # all alphabets for which it makes sense to convert to/from italic
-all_italic, all_straight = gen_flag_pair("i", "", alphabets)
+auxiliary["italic"], auxiliary["straight"] = gen_flag_pair("i", "", alphabets)
 
 # all alphabets for which it makes sense to convert to/from greek
-all_greek, all_notgreek = gen_flag_pair("g", "", alphabets)
+auxiliary["greek"], auxiliary["notgreek"] = gen_flag_pair("g", "", alphabets)
 
-auxiliary["lower"] = "".join(alphabets[a] for a in all_lower)
-auxiliary["upper"] = "".join(alphabets[a] for a in all_upper)
-
-auxiliary["bold"] = "".join(alphabets[a] for a in all_bold)
-auxiliary["thin"] = "".join(alphabets[a] for a in all_thin)
-
-auxiliary["italic"] = "".join(alphabets[a] for a in all_italic)
-auxiliary["straight"] = "".join(alphabets[a] for a in all_straight)
-
-auxiliary["greek"] = "".join(alphabets[a] for a in all_greek)
-auxiliary["notgreek"] = "".join(alphabets[a] for a in all_notgreek)
-
-auxiliary["letters"] = "".join(alphabets[a] for a in all_letters)
-auxiliary["numbers"] = "".join(alphabets[a] for a in all_numbers)
+# all letters and all numbers
+# The blacklisting approach is a little unstable, I know, but it's s o m u c h
+# more concise
+auxiliary["letters"] = "".join(alphabets[a] for a in alphabets
+        if not (has_flag(a, "n") or has_flag(a, "g") or a == "cyrillicfake"))
+auxiliary["numbers"] = "".join(alphabets[a] for a in alphabets
+        if has_flag(a, "n"))
 
 def summarise_alphabets(alphabets):
     """
