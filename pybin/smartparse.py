@@ -13,6 +13,10 @@ by my frustrations and [1].
 
 Be careful as this does rely on implementation details.
 
+Also provides some other useful little utilities like a function to parse a
+number argument and check it is in an appropriate range, and an enum that can be
+used with the choices kwarg.
+
 [1]: https://stackoverflow.com/questions/3853722/python-argparse-how-to-insert-newline-in-the-help-text
 """
 
@@ -21,8 +25,10 @@ from argparse import *
 # Basically because I needed access to _HelpAction somewhere. Probably best to
 # think of a better solution to this but oh well
 from argparse import _HelpAction
+
 import enum
 import re
+import math
 import textwrap
 
 def ArgumentParser(*args, **kwargs):
@@ -70,11 +76,38 @@ class APEnum(enum.Enum):
         except KeyError:
             return s
 
+def num_in_range(lower=-math.inf, upper=math.inf,
+                 lower_inclusive=True, upper_inclusive=False, num_type=int):
+    """
+    Parse a number. By default, parses like an integer, but you can pass the
+    num_type argument to use a float or a Fraction, or anything that understands
+    comparisons with the lower and upper arguments, which are -∞ and ∞ by
+    default.
+
+    The range is inclusive on the lower bound, and exclusive on the upper bound,
+    like Python's range(), by default although that can be modified by the
+    lower_inclusive and upper_inclusive arguments.
+    """
+    def ranged_num(s):
+        val = num_type(s)
+        if not ((lower <= val if lower_inclusive else lower < val) and
+                (val <= upper if upper_inclusive else val < upper)):
+            raise ValueError("{} is not in the range {}{}, {}{}".format(
+                val,
+                "[" if lower_inclusive else "(",
+                lower, upper,
+                "]" if upper_inclusive else ")"))
+        return val
+    return ranged_num
+
 if __name__ == "__main__":
     class MyEnum(APEnum):
         ONE = enum.auto()
         TWO = enum.auto()
     parser = ArgumentParser(description=__doc__)
     parser.add_argument("number", type=MyEnum.argparse, choices=list(MyEnum))
+    parser.add_argument("--rating", type=num_in_range(1, 11), default=20,
+            help="How much you like this program on a scale of 1-10")
     args = parser.parse_args()
     print("you picked: {}".format(args.number))
+    print("you rated this program at {}/{}".format(args.rating, 10))
