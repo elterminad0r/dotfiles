@@ -373,7 +373,7 @@ alias scr='trrr "{nm_u}{nm_l}" "{scr_u}{scr_l}"'
 alias frak='trrr "{nm_u}{nm_l}" "{frk_u}{frk_l}"'
 alias sans='trrr "{nm_u}{nm_l}{nm_n}" "{sns_u}{sns_l}{sns_n}"'
 alias mathbb='trrr "{nm_u}{nm_l}{nm_n}" "{bb_u}{bb_l}{bb_n}"'
-alias cyrillic='trrr "{nm_u}{nm_l}" "{cyrillic_fake}"'
+alias cyrillic='trrr "{nm_u}{nm_l}" "{cyrillicfake}"'
 # this one is particularly evil in a terminal, because it probably won't look
 # any different
 alias ttfamily='trrr "{nm_u}{nm_l}{nm_n}" "{tt_u}{tt_l}{tt_n}"'
