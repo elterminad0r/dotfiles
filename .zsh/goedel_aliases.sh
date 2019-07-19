@@ -363,8 +363,8 @@ alias pacsystree='for i in $(pacman -Qeq); do pactree $i; done'
 
 alias rot13='tr "A-Za-z" "N-ZA-Mn-za-m"'
 
-alias alphabet="echo 'abcdefghijklmnopqrstuvwxyz'"
-alias ALPHABET="echo 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'"
+alias alpha="echo 'abcdefghijklmnopqrstuvwxyz'"
+alias ALPHA="echo 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'"
 
 # if you're here for a good time not a long time, try running
 # exec > >(frak -u | mathbb -u | bfseries -u)
@@ -386,7 +386,7 @@ alias hades='trrr "{notgreek}" "{greek}"'
 # totally semantically broken, but it makes it remain sort of legible-ish as
 # English
 alias comrade='trrr "{nm_u}{nm_l}" "{cyrillicfake}"'
-alias zeus='trrr "ABYFEZNHIKJUMSOQPRGTVLXCWDabyfeznhikjumsoqprgtvlxcwd" "{nm_ug}{nm_lg}"'
+alias zeus='trrr "ABLDEZHUIKJMNGOQPRSTYFXCWVabyfeznhikjumsoqpcgtvlxrwd" "{nm_ug}{nm_lg}"'
 
 # this one is particularly evil in a terminal, because it probably won't look
 # any different
