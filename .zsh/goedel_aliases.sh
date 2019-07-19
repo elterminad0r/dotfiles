@@ -366,7 +366,13 @@ alias rot13='tr "A-Za-z" "N-ZA-Mn-za-m"'
 alias alphabet="echo 'abcdefghijklmnopqrstuvwxyz'"
 alias ALPHABET="echo 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'"
 
+# if you're here for a good time not a long time, try running
+# exec > >(frak -u | mathbb -u | bfseries -u)
+# in an interactive shell. Wouldn't recommend doing this if your terminal isn't
+# very good at Unicode (it works for me in Termite but not really in urxvt, for
+# example. Also depends on your fonts.
 alias death='trrr "{letters}" "{sc}"'
+alias exist-cr='trrr "{letters}{numbers}" "a"'
 alias bfseries='trrr "{thin}" "{bold}"'
 alias emph='trrr "{straight}{italic}" "{italic}{straight}"'
 alias normalise='trrr "{upper}{sc}" "{nm_u}" | trrr "{lower}" "{nm_l}"'
