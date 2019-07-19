@@ -363,8 +363,9 @@ alias pacsystree='for i in $(pacman -Qeq); do pactree $i; done'
 
 alias rot13='tr "A-Za-z" "N-ZA-Mn-za-m"'
 
-alias alpha="echo 'abcdefghijklmnopqrstuvwxyz'"
-alias ALPHA="echo 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'"
+alias alpha='echo "abcdefghijklmnopqrstuvwxyz"'
+alias ALPHA='echo "ABCDEFGHIJKLMNOPQRSTUVWXYZ"'
+alias pang='echo "The quick brown fox jumps over the lazy dog"'
 
 # if you're here for a good time not a long time, try running
 # exec > >(frak -u | mathbb -u | bfseries -u)
