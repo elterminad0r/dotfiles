@@ -78,12 +78,17 @@ enhance() {
 alias xclarify='tr "\n" "\0" | xargs -0 printf "%q\n"'
 
 # test out notify-send
-alias notificate='for c in low normal critical; do notify-send -u "$c" "$c message" "This has $c priority"; done'
+alias notificate='for c in low normal critical; do
+                    notify-send -u "$c" "$c message" "This has $c priority";
+                  done'
 
 # function to cd to a lot of directories, for experimenting with DIRSTACK type
 # options
 # Also serves as a handy example of how to properly loop over find output.
-alias populate_dirstack='find "$HOME" -maxdepth 2 -type d -print0 | while IFS= read -r -d "" d; do cd "$d"; done'
+alias populate_dirstack='find "$HOME" -maxdepth 2 -type d -print0 |
+                         while IFS= read -r -d "" d; do
+                            cd "$d";
+                         done'
 
 # switch on/switch off networking
 alias airplane='nmcli radio all off'
@@ -113,7 +118,9 @@ else
     goedel_pygmentize_format=terminal
 fi
 if >/dev/null 2>&1 command -v highlight; then
-    alias ccat="highlight --replace-tabs=4 --out-format=$goedel_highlight_format --style=pablo --force"
+    alias ccat="highlight --replace-tabs=4 \
+                          --out-format=$goedel_highlight_format \
+                          --style=pablo --force"
 elif >/dev/null 2>&1 command -v pygmentize; then
     alias ccat="pygmentize -f $goedel_pygmentize_format -O 'style=autumn'"
 else
@@ -261,9 +268,12 @@ esac
 # latex/pdf compilation related aliases
 alias lmk='latexmk'
 alias present='evince -s'
-alias latex="latex -synctex=1 --shell-escape -interaction=nonstopmode -halt-on-error";
-alias pdflatex="pdflatex -synctex=1 -shell-escape -interaction=nonstopmode -halt-on-error";
-alias xelatex="xelatex -synctex=1 -shell-escape -interaction=nonstopmode -halt-on-error";
+alias latex="latex -synctex=1 --shell-escape
+                   -interaction=nonstopmode -halt-on-error";
+alias pdflatex="pdflatex -synctex=1 -shell-escape
+                   -interaction=nonstopmode -halt-on-error";
+alias xelatex="xelatex -synctex=1 -shell-escape
+                   -interaction=nonstopmode -halt-on-error";
 
 # the space means that sudo can be followed by an alias (particularly things
 # like sudo p for sudo pacman)
@@ -274,7 +284,8 @@ alias rzsh='sudo ZSH_DISABLE_COMPFIX=true ZDOTDIR="$ZDOTDIR" HOME="$HOME" zsh'
 alias bzsh='zsh -f'
 # plain (root)? zsh
 alias pzsh='GOEDEL_NO_POWERLINE=true zsh'
-alias przsh='sudo GOEDEL_NO_POWERLINE=true ZSH_DISABLE_COMPFIX=true ZDOTDIR="$ZDOTDIR" HOME="$HOME" zsh'
+alias przsh='sudo GOEDEL_NO_POWERLINE=true ZSH_DISABLE_COMPFIX=true \
+                  ZDOTDIR="$ZDOTDIR" HOME="$HOME" zsh'
 # reload zsh configuration properly, by replacing the current shell with a fresh
 # zsh. Make sure that zsh doesn't get any arguments.
 alias z='if [ -z "$(jobs)" ]; then exec zsh; else jobs; fi #'
@@ -288,17 +299,22 @@ alias bbash='bash --norc'
 # open various config files
 # TODO: some kind of centralised idea
 alias vi3='"${EDITOR:-vim}" ~/.config/i3/config'
-alias viz='"${EDITOR:-vim}" "$ZDOTDIR"/{zshrc,*.zsh,*.sh,zshenv,zprofile,prompts/*} "$BASHDOTDIR"/*(.) ~/.bash/plugins/apparix/*.*sh ~/.profile'
+alias viz='"${EDITOR:-vim}" \
+                "$ZDOTDIR"/{zshrc,*.zsh,*.sh,zshenv,zprofile,prompts/*} \
+                "$BASHDOTDIR"/*(.) ~/.bash/plugins/apparix/*.*sh ~/.profile'
 alias vig='"${EDITOR:-vim}" ~/.gitconfig'
-alias viv='"${EDITOR:-vim}" ~/.vim/{vimrc,*.vim,gvimrc,{ft*,indent,after}/**.vim}'
+alias viv='"${EDITOR:-vim}" \
+                ~/.vim/{vimrc,*.vim,gvimrc,{ft*,indent,after}/**.vim}'
 alias vix='"${EDITOR:-vim}" ~/.Xresources ~/.X/**(.) ~/.xinitrc ~/.xprofile'
 alias vitm='"${EDITOR:-vim}" ~/.tmux.conf'
 alias vid='vim -S ~/.vim/sessions/deardiary.vim'
-alias visafe='vim -c "set noswapfile nobackup nowritebackup noundofile viminfo="'
+alias visafe='vim -c
+                  "set noswapfile nobackup nowritebackup noundofile viminfo="'
 alias vienc='visafe ~/Documents/.enc/'
 
 # reload various types of configuration
-alias x='xrdb -merge -I"$XDOTDIR" ~/.Xresources; xmodmap ~/.Xmodmap; xset r rate 200 30'
+alias x='xrdb -merge -I"$XDOTDIR" ~/.Xresources; xmodmap ~/.Xmodmap;
+         xset r rate 200 30'
 alias t='tmux source-file ~/.tmux.conf'
 
 # restart or test wifi connection
@@ -329,7 +345,8 @@ gfc() {
     GIT_DIR="$HOME/.cfg" GIT_WORK_TREE="$HOME" tig
 }
 
-alias mutt='mutt -F <(cat <(~/.mutt/make_localrc.sh /var/spool/mail /var/mail) ~/.mutt/local.muttrc)'
+alias mutt='mutt -F <(cat <(~/.mutt/make_localrc.sh /var/spool/mail /var/mail) \
+                          ~/.mutt/local.muttrc)'
 alias gmail='\mutt -F ~/.mutt/gmail.muttrc'
 
 # get most recent n screenshots (1 by default)
@@ -387,7 +404,8 @@ alias hades='trrr "{notgreek}" "{greek}"'
 # totally semantically broken, but it makes it remain sort of legible-ish as
 # English
 alias comrade='trrr "{nm_u}{nm_l}" "{cyrillicfake}"'
-alias zeus='trrr "ABLDEZHUIKJMNGOQPRSTYFXCWVabyfeznhikjumsoqpcgtvlxrwd" "{nm_ug}{nm_lg}"'
+alias zeus='trrr "ABLDEZHUIKJMNGOQPRSTYFXCWVabyfeznhikjumsoqpcgtvlxrwd" \
+                 "{nm_ug}{nm_lg}"'
 
 # this one is particularly evil in a terminal, because it probably won't look
 # any different
@@ -428,12 +446,13 @@ alias lolcat='lolcat -f'
 
 # self explanatory
 # TODO: add The Box
-alias starwars='tput setaf 220 && tput bold && figlet -f starwars -w 80 "STAR WARS"'
+alias starwars='tput setaf 220 && tput bold &&
+                figlet -f starwars -w 80 "STAR WARS"'
 
 # hack to force buffering by line
 partytime() {
-    base64 --wrap=$COLUMNS /dev/urandom | lolcat -F 0.01 -p 1 | while read -r line;
-    do
+    base64 --wrap=$COLUMNS /dev/urandom | lolcat -F 0.01 -p 1 |
+    while read -r line; do
         echo "$line"
     done
 }
@@ -448,40 +467,60 @@ alias mathsparty='timestable -l 10000000 | pv -qlL 5 | lolcat -p 10 -F 0.01'
 
 # internet related
 alias parrot="curl parrot.live"
+
 # alias this to something really common
 # or better yet, write a function that randomly falls through to this but
 # normally doesn't, or that only does this after being called twenty times
-
-alias rick='echo "critical system update; do not interrupt"; mpv "https://www.youtube.com/watch?v=dQw4w9WgXcQ" -vo caca --really-quiet'
+alias rick='echo "critical system update; do not interrupt";
+            mpv "https://www.youtube.com/watch?v=dQw4w9WgXcQ" \
+                -vo caca --really-quiet || echo "Never mind"'
 
 # look cooler
 alias cmatrix='cmatrix -abu 1'
 
 alias mirrormirroronthewall='mpv /dev/video0'
-alias mirrormirrorontheascii='mpv /dev/video0 -vo caca'
+alias mirrormirrorontheascii='CACA_DRIVER=ncurses mpv /dev/video0 -vo caca'
 alias mirrormirroronthe16777216='mpv /dev/video0 -vo tct'
 alias mirrormirroronframebuffer='mpv /dev/video0 -vo drm'
 
 # FrameBufferScreenShot.
 fbss() {
-    local fbss_loc="$HOME/Pictures/screenshots/fb_\$(date +%Y%m%d_%H%M%S.png)"
-    mkdir -p "$(dirname "$selfie_loc")"
+    local fbss_loc="$HOME/Pictures/screenshots/fb_$(date +%Y%m%d_%H%M%S.png)"
+    mkdir -p "$(dirname "$fbss_loc")"
     sudo fbgrab "$fbss_loc"
 }
 
 selfie() {
-    local selfie_loc="${1:-$HOME/Pictures/screenshots/selfie_$(date +%Y%m%d_%H%M%S).jpg}"
+    local selfie_loc
+    selfie_loc="${1:-$HOME/Pictures/screenshots/selfie_$(date +%Y%m%d_%H%M%S).jpg}"
     mkdir -p "$(dirname "$selfie_loc")"
     echo "Taking selfie targeting $selfie_loc"
     ffmpeg -f video4linux2 -i /dev/video0 -ss 0:0:2 -frames 1 "$selfie_loc"
 }
 
-# just like screenshots()
-# TODO:
-# uses ls instead of find for chronological ordering
-selfies() {
-    \ls -t --directory "$HOME/Pictures/selfies"/* |
-        grep "${2:-}" | head -"${1:-1}";
+take_one() {
+    if >/dev/null 2>&1 command -v script; then
+        script -ttiming.script "${1:-typescript.script}"
+    elif >/dev/null 2>&1 command -v asciinema; then
+        asciinema rec "${1:-recording.cast}"
+    else
+        >&2 echo "No suitable software present"
+        return 1
+    fi
 }
 
-alias calcifer='{ command -v cacafire && CACA_DRIVER=ncurses cacafire; } || aafire -driver curses'
+rewind() {
+    local script_file="${1:-typescript.script}"
+    local ascnma_file="${1:-recording.cast}"
+    if [ -r "$script_file" ]; then
+        scriptreplay -ttiming.script "$script_file"
+    elif [ -r "$ascnma_file" ]; then
+        asciinema play "$ascnma_file"
+    else
+        >&2 echo "No suitable software present"
+        return 1
+    fi
+}
+
+alias calcifer='{ >/dev/null 2>&1 command -v cacafire &&
+                  CACA_DRIVER=ncurses cacafire; } || aafire -driver curses'
