@@ -164,22 +164,22 @@ alias tree="tree --dirsfirst"
 if >/dev/null 2>&1 ls --color -d /; then # GNU ls, probably
     # lc_all=c so that sorting is case sensitive, as it should be.
     alias ls='LC_ALL=C ls -h --group-directories-first --color=auto'
-    # long listings with and without group of owner
+    # long listings with and without group of owner (List, Long List)
     alias l='ls -l -G'
     alias ll='ls -l'
-    # long listing of all files
+    # long listing of all files (List All)
     alias la='ls -la'
-    # long listing sorted by time
+    # long listing sorted by time (List Time)
     alias lt='\ls -ltrh --color=auto'
-    # long listing sorted by size
+    # long listing sorted by size (List Bytes)
     alias lb='ls -lSr'
     # list directory arguments as directories, instead of listing their
-    # contents.
+    # contents. (List DIRectories)
     alias ldir='ls -l --directory'
-    # sort by extension
+    # sort by extension (List EXTensions)
     # TODO: possible on BSD?
     alias lext='ls -lX'
-elif >/dev/null 2>&1 gls --color -d .; then # GNU ls is on the system as "gls"
+elif >/dev/null 2>&1 gls --color -d /; then # GNU ls is on the system as "gls"
     alias ls='LC_ALL=C gls -h --group-directories-first --color=auto'
     alias l='ls -l -G'
     alias ll='ls -l'
@@ -188,7 +188,7 @@ elif >/dev/null 2>&1 gls --color -d .; then # GNU ls is on the system as "gls"
     alias lb='ls -lSr'
     alias ldir='ls -l --directory'
     alias lext='ls -lX'
-elif >/dev/null 2>&1 ls -G -d .; then # BSD ls, probably (eg as on MacOS)
+elif >/dev/null 2>&1 ls -G -d /; then # BSD ls, probably (eg as on MacOS)
     alias ls='LC_ALL=C ls -h -G'
     alias lt='\ls -ltrh -G'
     alias l='ls -l -o'
