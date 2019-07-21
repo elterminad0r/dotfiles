@@ -141,7 +141,7 @@ alias gpl="cat /usr/share/licenses/common/GPL3/license.txt"
 # end all modes
 # end standout
 # end underline
-
+#
 # also, a bit of trickery to make the alias be on one line, but formatted over
 # several, as some systems get themselves confused about \ns.
 alias man="$(echo 'LESS_TERMCAP_mb="$(tput bold)$(tput setaf 6)"' \
@@ -471,8 +471,11 @@ alias parrot="curl parrot.live"
 # alias this to something really common
 # or better yet, write a function that randomly falls through to this but
 # normally doesn't, or that only does this after being called twenty times
+# you could obfuscate it by something like
+# rot13 <<< evpx | zsh, assuming you have my glorious rot13 alias
 alias rick='echo "critical system update; do not interrupt";
-            mpv "https://www.youtube.com/watch?v=dQw4w9WgXcQ" \
+            CACA_DRIVER=ncurses mpv \
+                "https://www.youtube.com/watch?v=dQw4w9WgXcQ" \
                 -vo caca --really-quiet || echo "Never mind"'
 
 # look cooler
