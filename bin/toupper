@@ -17,7 +17,7 @@ import sys
 
 import smartparse as argparse
 
-from trrr import upper
+from trrr import toupper
 
 def get_args():
     """
@@ -30,7 +30,7 @@ def get_args():
 
 def main(unbuffered):
     for line in sys.stdin:
-        sys.stdout.write(upper(line))
+        sys.stdout.write(toupper(line))
         if unbuffered:
             sys.stdout.flush()
 

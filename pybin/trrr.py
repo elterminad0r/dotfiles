@@ -38,7 +38,7 @@ specs to be intersected with. This is probably useful for something, although
 I've not quite figured out what it might be.
 
 This script also acts as a module, which can be used to grab useful predefined
-alphabets, or use some of the utility functions like `upper()` and `lower()`
+alphabets, or use some of the utility functions like `toupper()` and `islower()`
 """
 
 # TODO: implement character ranger like A-Z, maybe.
@@ -239,7 +239,7 @@ def get_args():
 upper_trans = str.maketrans(auxiliary["lower"], auxiliary["upper"])
 lower_trans = str.maketrans(auxiliary["upper"], auxiliary["lower"])
 
-def upper(s):
+def toupper(s):
     """
     Even more unicode-supporting uppercasing function.
 
@@ -250,11 +250,39 @@ def upper(s):
     """
     return s.translate(upper_trans).upper()
 
-def lower(s):
+def tolower(s):
     """
     Even more unicode-supporting lowercasing function. See above
     """
     return s.translate(lower_trans).lower()
+
+def isupper(s):
+    """
+    Unicode-supporting uppercase detection function, similar to toupper(). Wraps
+    _isupper which acts on single characters.
+
+    Tries to short-circuit with the presumably fast Python primitive
+    str.isupper.
+    """
+    return s.isupper() or all(_isupper(c) for c in s)
+
+def islower(s):
+    """
+    Similar to isupper() above, with one crucial difference
+    """
+    return s.islower() or all(_islower(c) for c in s)
+
+def _isupper(c):
+    """
+    Determine if a single character is uppercase
+    """
+    return c.isupper() or c in upper_trans
+
+def _islower(c):
+    """
+    Determine if a single character is lowercase
+    """
+    return c.isupper() or c in upper_trans
 
 class YesMan:
     """
