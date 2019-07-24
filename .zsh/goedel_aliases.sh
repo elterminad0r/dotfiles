@@ -308,7 +308,7 @@ alias viv='"${EDITOR:-vim}" \
 alias vix='"${EDITOR:-vim}" ~/.Xresources ~/.X/**(.) ~/.xinitrc ~/.xprofile'
 alias vitm='"${EDITOR:-vim}" ~/.tmux.conf'
 alias vid='vim -S ~/.vim/sessions/deardiary.vim'
-alias visafe='vim -c
+alias visafe='vim -c \
                   "set noswapfile nobackup nowritebackup noundofile viminfo="'
 alias vienc='visafe ~/Documents/.enc/'
 
@@ -481,6 +481,9 @@ alias rick='echo "critical system update; do not interrupt";
 # look cooler
 alias cmatrix='cmatrix -abu 1'
 
+# If you came here from selfie, use the 's' key to take a "screenshot" - ie save
+# a frame from video0. My ~~/mpv.conf sets up proper templates so you keep the
+# name of the file you're playing, dates and clobber prevention
 alias mirrormirroronthewall='mpv /dev/video0'
 alias mirrormirrorontheascii='CACA_DRIVER=ncurses mpv /dev/video0 -vo caca'
 alias mirrormirroronthe16777216='mpv /dev/video0 -vo tct'
@@ -488,14 +491,17 @@ alias mirrormirroronframebuffer='mpv /dev/video0 -vo drm'
 
 # FrameBufferScreenShot.
 fbss() {
-    local fbss_loc="$HOME/Pictures/screenshots/fb_$(date +%Y%m%d_%H%M%S.png)"
+    local fbss_loc
+    fbss_loc="${1:-$HOME/Pictures/screenshots/fb_$(date +%Y%m%d_%H%M%S).png}"
     mkdir -p "$(dirname "$fbss_loc")"
     sudo fbgrab "$fbss_loc"
 }
 
+# fire up the webcam for a single frame to take a selfie. This is basically a
+# joke, it's better to use for example MPV. See `alias mirrormirroronthewall`
 selfie() {
     local selfie_loc
-    selfie_loc="${1:-$HOME/Pictures/screenshots/selfie_$(date +%Y%m%d_%H%M%S).jpg}"
+    selfie_loc="${1:-$HOME/Pictures/screenshots/selfie_$(date +%Y%m%d_%H%M%S).png}"
     mkdir -p "$(dirname "$selfie_loc")"
     echo "Taking selfie targeting $selfie_loc"
     ffmpeg -f video4linux2 -i /dev/video0 -ss 0:0:2 -frames 1 "$selfie_loc"
@@ -520,7 +526,7 @@ rewind() {
     elif [ -r "$ascnma_file" ]; then
         asciinema play "$ascnma_file"
     else
-        >&2 echo "No suitable software present"
+        >&2 echo "No suitable file to replay present"
         return 1
     fi
 }

@@ -1,4 +1,5 @@
 #!/usr/bin/env sh
+
 # start terminal with pwd
 # defined fallback so that you're not left unable to open a terminal
 

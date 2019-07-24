@@ -1,0 +1,25 @@
+#!/usr/bin/env sh
+
+# take a screenshot with scrot, ensuring existence of appropriate screenshots
+# directory and creating as safe of a name as possible.
+
+# First argument should be the name to assign to the screenshot, the remainder
+# are passed through to scrot.
+
+# TODO: it would be nicer to have a mktemp-like thing which instead just picks
+#       the lowest possible number.
+
+set -eu
+
+name="$1"
+shift
+
+dir="$HOME/Pictures/screenshots"
+mkdir -p "$dir"
+
+date_str="$(date +%Y%m%d_%H%M%S)"
+
+scr_fmt="$dir/${name}_${date_str}_XXX.png"
+
+# technically a race condition, but who cares
+scrot "$@" "$(mktemp -u "$scr_fmt")"

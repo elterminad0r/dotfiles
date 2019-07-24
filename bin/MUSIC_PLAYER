@@ -1,3 +1,5 @@
 #!/usr/bin/env sh
+
 # start music player (client)
+
 exec termite -e "ncmpcpp -s visualizer"

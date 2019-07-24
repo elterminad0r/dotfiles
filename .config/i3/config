@@ -391,9 +391,9 @@ bindsym --release $mod+Escape exec light-locker-command -l
 
 # screenshotting
 # TODO: protect against screenshots directory not existing
-bindsym --release Print exec scrot "$HOME/Pictures/screenshots/full_screenshot_%Y%m%d_%H%M%S.png"
-bindsym --release Shift+Print exec scrot -u "$HOME/Pictures/screenshots/win_screenshot_%Y%m%d_%H%M%S.png"
-bindsym --release $mod+Shift+Print exec scrot -s "$HOME/Pictures/screenshots/sel_screenshot_%Y%m%d_%H%M%S.png"
+bindsym --release Print exec $HOME/bin/WM_SCREENSHOT full
+bindsym --release Shift+Print exec $HOME/bin/WM_SCREENSHOT win -u
+bindsym --release $mod+Shift+Print exec $HOME/bin/WM_SCREENSHOT sel -s
 
 bindsym $mod+period exec --no-startup-id ~/bin/randombg --random
 bindsym $mod+Shift+comma exec --no-startup-id ~/bin/randombg --prev

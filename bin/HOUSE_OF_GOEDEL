@@ -1,3 +1,5 @@
 #!/usr/bin/env sh
+
 # start a maths environment
+
 exec termite -e "ipython --profile=maths"
