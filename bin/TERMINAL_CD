@@ -3,6 +3,8 @@
 # start terminal with pwd
 # defined fallback so that you're not left unable to open a terminal
 
+set -eu
+
 if command -v "$1"; then
     if target_dir="$("$@")"; then
         if [ -d "$target_dir" ]; then

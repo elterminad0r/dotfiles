@@ -2,6 +2,8 @@
 
 # Need bash for fancy parameter expansion
 
+set -eu
+
 for file; do
     dest_file="./slash/$file"
     mkdir -p "$(dirname "$dest_file")"

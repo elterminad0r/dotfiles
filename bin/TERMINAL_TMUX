@@ -2,4 +2,6 @@
 
 # start terminal with tmux
 
+set -eu
+
 exec termite -e "sh -c \"tmux attach-session || tmux\""

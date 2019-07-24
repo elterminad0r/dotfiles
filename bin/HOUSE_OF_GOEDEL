@@ -2,4 +2,6 @@
 
 # start a maths environment
 
+set -eu
+
 exec termite -e "ipython --profile=maths"

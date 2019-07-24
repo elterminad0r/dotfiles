@@ -8,6 +8,8 @@
 #         \/                   \/         \/
 # FIGMENTIZE: CTRL-V
 
+set -eu
+
 args_return_code=0
 
 args_code="$(

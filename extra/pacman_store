@@ -5,6 +5,8 @@
 # Creating lists of installed packages with Pacman, but eliminating full groups
 # and other redundant information
 
+set -eu
+
 pacman -Qg | cut -d' ' -f1 | uniq > .pacgroups.list
 
 true > .full_pacgroups.list

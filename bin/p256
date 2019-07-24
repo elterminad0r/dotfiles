@@ -6,6 +6,8 @@
 # It's bash because I need the -nt operator. I'll make use of the sh speedup
 # when POSIX gets with the times
 
+set -eu
+
 if [ "$#" -gt 0 ]; then
     cat <<EOF
 p256

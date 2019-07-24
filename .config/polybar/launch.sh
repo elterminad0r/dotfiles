@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -eu
+
 # launcher script for polybar, that tears down any already running polybars
 
 # Terminate already running bar instances

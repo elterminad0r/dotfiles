@@ -4,5 +4,7 @@
 
 # black magic: "$@" to expand to each given parameter as separate words.
 
+set -eu
+
 # dmenu -l 30 -fn "Liberation Mono-12" -nb "#222" -nf "#ddd" -sb "#555" -sf "#fff" -i "$@"
 dmenu -l 30 -fn "Liberation Mono-12" -nb '#282828' -nf '#ebdbb2' -sb '#458588' -sf '#282828' -i "$@"

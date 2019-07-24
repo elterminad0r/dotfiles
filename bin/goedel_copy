@@ -10,6 +10,8 @@
 
 # TODO: wl-clipboard?
 
+set -eu
+
 args_return_code=0
 
 args_code="$(

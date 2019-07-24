@@ -19,4 +19,6 @@
 #      powerful than what you'd get using viminfo, as it can sort of restore
 #      tabs and window splits.
 
+set -eu
+
 vim -S "$HOME"/.vim/sessions/auto/**/*(.om[1])
