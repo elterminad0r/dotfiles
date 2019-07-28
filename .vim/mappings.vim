@@ -188,8 +188,13 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+" <C-q> and <C-s> obtained by disabling flow control (stty -ixon)
+
 " Easily close a window
 nnoremap <C-q> <C-w>q
+
+" Easily save all, but only actually write if there were changes
+nnoremap <C-s> :wa<CR>
 
 nnoremap g<C-l> <C-l>
 
