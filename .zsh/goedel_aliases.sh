@@ -394,6 +394,9 @@ alias exist-cr='trrr "{letters}{numbers}" "a"'
 alias bfseries='trrr "{thin}" "{bold}"'
 alias emph='trrr "{straight}{italic}" "{italic}{straight}"'
 alias normalise='trrr "{upper}{sc}" "{nm_u}" | trrr "{lower}" "{nm_l}"'
+alias bel-air='rev | tac | trrr "{upright}{flip}" "{flip}{upright}"'
+alias erised='rev | trrr "{mirror}{notmirror}" "{notmirror}{mirror}"'
+alias bubble='trrr "{naked}" "{circle}"'
 # These only go from the standard ascii alphabet, but there is nothing stopping
 # them from being composed with the previous ones.
 alias scr='trrr "{nm_u}{nm_l}" "{scr_u}{scr_l}"'

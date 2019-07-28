@@ -54,6 +54,8 @@ import smartparse as argparse
 
 # see also https://en.wikipedia.org/wiki/Mathematical_operators_and_symbols_in_Unicode#Mathematical_Alphanumeric_Symbols_block
 
+# https://github.com/combatwombat/Lunicode.js/blob/master/lunicode.js
+
 # TODO: use some of these
 # variant greek letters:
 #     𝛜𝛝𝛞𝛟𝛠𝛡
@@ -65,6 +67,206 @@ import smartparse as argparse
 # hebrew letters (eg aleph): ﬠﬡﬢﬣﬤﬥﬦﬧﬨ﬩
 # dotless i, j: 𝚤𝚥
 # digammas: 𝟊𝟋
+
+# more upside down:
+ # '&' : '\u214b',
+ # '.' : '\u02D9',
+ # '"' : '\u201e',
+ # ';' : '\u061b',
+ # '[' : ']',
+ # '(' : ')',
+ # '{' : '}',
+ # '?' : '\u00BF',
+ # '!' : '\u00A1',
+ # "\'" : ',',
+ # '<' : '>',
+ # '\u203E' : '_',
+ # '\u00AF' : '_',
+ # '\u203F' : '\u2040',
+ # '\u2045' : '\u2046',
+ # '\u2234' : '\u2235',
+ # '\r' : '\n',
+ # 'ß' : 'ᙠ',
+
+ # '\u0308':  '\u0324',
+ # 'ä' : 'ɐ'+'\u0324',
+ # 'ö' : 'o'+'\u0324',
+ # 'ü' : 'n'+'\u0324',
+ # 'Ä' : '\u2200'+'\u0324',
+ # 'Ö' : 'O'+'\u0324',
+ # 'Ü' : '\u2229'+'\u0324',
+
+ # '´' : ' \u0317',
+ # 'é' : '\u01DD' + '\u0317',
+ # 'á' : '\u0250' + '\u0317',
+ # 'ó' : 'o' + '\u0317',
+ # 'ú' : 'n' + '\u0317',
+ # 'É' : '\u018e' + '\u0317',
+ # 'Á' : '\u2200' + '\u0317',
+ # 'Ó' : 'O' + '\u0317',
+ # 'Ú' : '\u2229' + '\u0317',
+
+ # '`' : ' \u0316',
+ # 'è' : '\u01DD' + '\u0316',
+ # 'à' : '\u0250' + '\u0316',
+ # 'ò' : 'o' + '\u0316',
+ # 'ù' : 'n' + '\u0316',
+ # 'È' : '\u018e' + '\u0316',
+ # 'À' : '\u2200' + '\u0316',
+ # 'Ò' : 'O' + '\u0316',
+ # 'Ù' : '\u2229' + '\u0316',
+
+ # '^' : ' \u032E',
+ # 'ê' : '\u01DD' + '\u032e',
+ # 'â' : '\u0250' + '\u032e',
+ # 'ô' : 'o' + '\u032e',
+ # 'û' : 'n' + '\u032e',
+ # 'Ê' : '\u018e' + '\u032e',
+ # 'Â' : '\u2200' + '\u032e',
+ # 'Ô' : 'O' + '\u032e',
+ # 'Û' : '\u2229' + '\u032e'
+
+# more mirrored:
+ # '1' : '',
+ # '2' : '',
+ # '3' : '',
+ # '4' : '',
+ # '5' : '',
+ # '6' : '',
+ # '7' : '',
+ # '&' : '',
+ # ';' : '',
+ # '[' : ']',
+ # '(' : ')',
+ # '{' : '}',
+ # '?' : '⸮',
+ # '<' : '>',
+
+ # 'ä' : 'ɒ'+'\u0308',
+ # 'ß' : 'ᙠ',
+
+ # '´' : '`',
+ # 'é' : 'ɘ' + '\u0300',
+ # 'á' : 'ɒ' + '\u0300',
+ # 'ó' : 'ò',
+ # 'ú' : 'ù',
+ # 'É' : 'Ǝ' + '\u0300',
+ # 'Á' : 'À',
+ # 'Ó' : 'Ò',
+ # 'Ú' : 'Ù',
+
+ # '`' : '´',
+ # 'è' : 'ɘ' + '\u0301',
+ # 'à' : 'ɒ' + '\u0301',
+ # 'È' : 'Ǝ' + '\u0301',
+
+ # 'ê' : 'ɘ' + '\u0302',
+ # 'â' : 'ɒ' + '\u0302',
+ # 'Ê' : 'Ǝ' + '\u0302',
+
+ # 'Ø' : 'ᴓ',
+ # 'ø' : 'ᴓ'
+
+# circled:
+ # ⒜
+ # ⒝
+ # ⒞
+ # ⒟
+ # ⒠
+ # ⒡
+ # ⒢
+ # ⒣
+ # ⒤
+ # ⒥
+ # ⒦
+ # ⒧
+ # ⒨
+ # ⒩
+ # ⒪
+ # ⒫
+ # ⒬
+ # ⒭
+ # ⒮
+ # ⒯
+ # ⒰
+ # ⒱
+ # ⒲
+ # ⒳
+ # ⒴
+ # ⒵
+ # ⑴
+ # ⑵
+ # ⑶
+ # ⑷
+ # ⑸
+ # ⑹
+ # ⑺
+ # ⑻
+ # ⑼
+ # ⑽
+ # ⑾
+ # ⑿
+ # ⒀
+ # ⒁
+ # ⒂
+ # ⒃
+ # ⒄
+ # ⒅
+ # ⒆
+ # ⒇
+ # ⒈
+ # ⒉
+ # ⒊
+ # ⒋
+ # ⒌
+ # ⒍
+ # ⒎
+ # ⒏
+ # ⒐
+ # ⒑
+ # ⒒
+ # ⒓
+ # ⒔
+ # ⒕
+ # ⒖
+ # ⒗
+ # ⒘
+ # ⒙
+ # ⒚
+ # ⒛
+ # ⑩
+ # ⑪
+ # ⑫
+ # ⑬
+ # ⑭
+ # ⑮
+ # ⑯
+ # ⑰
+ # ⑱
+ # ⑲
+ # ⑳
+ # ⓫
+ # ⓬
+ # ⓭
+ # ⓮
+ # ⓯
+ # ⓰
+ # ⓱
+ # ⓲
+ # ⓳
+ # ⓴
+ # ⓵
+ # ⓶
+ # ⓷
+ # ⓸
+ # ⓹
+ # ⓺
+ # ⓻
+ # ⓼
+ # ⓽
+ # ⓾
+ # ⓿
+
 
 # Some of these may well look a lot like normal ASCII letters, depending on what
 # font you're using. However they are not, these are all Unicode letters, with
@@ -110,6 +312,17 @@ alphabets = {
     # TODO: x is faked here. Apparently smallcaps X doesn't even exist,
     #       according to Wikipedia.
     "sc": "ᴀʙᴄᴅᴇꜰɢʜɪᴊᴋʟᴍɴᴏᴘꞯʀꜱᴛᴜᴠᴡxʏᴢ",
+    "nm_uf": "∀ᙠƆᗡƎℲ⅁HIſ⋊˥WNOԀΌᴚS⊥∩ΛMX⅄Z",
+    "nm_lf": "ɐqɔpǝɟɓɥıɾʞlɯuodbɹsʇnʌʍxʎz",
+    "nm_nf": "0⇂ᄅƐㄣގ9ㄥ86",
+    "nm_um": "AᙠƆᗡƎꟻᎮHIႱ⋊⅃MͶOꟼỌЯꙄTUVWXYƸ",
+    "nm_lm": "ɒdɔbɘᎸǫʜiꞁʞ|mᴎoqpɿꙅƚuvwxʏƹ",
+    "nm_uc": "ⒶⒷⒸⒹⒺⒻⒼⒽⒾⒿⓀⓁⓂⓃⓄⓅⓆⓇⓈⓉⓊⓋⓌⓍⓎⓏ",
+    "nm_lc": "ⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩ",
+    "nm_nc": "⓪①②③④⑤⑥⑦⑧⑨",
+    # 🅃🄷🄴 🅀🅄🄸🄲🄺 🄱🅁🄾🅆🄽 🄵🄾🅇 🄹🅄🄼🄿🅂 🄾🅅🄴🅁 🅃🄷🄴 🄻🄰🅉🅈 🄳🄾🄶
+    # 🆃🅷🅴 🆀🆄🅸🅲🅺 🅱🆁🅾🆆🅽 🅵🅾🆇 🅹🆄🅼🅿🆂 🅾🆅🅴🆁 🆃🅷🅴 🅻🅰🆉🆈 🅳🅾🅶
+    # T̲h̲e̲ ̲q̲u̲i̲c̲k̲ ̲b̲r̲o̲w̲n̲ ̲f̲o̲x̲ ̲j̲u̲m̲p̲s̲ ̲o̲v̲e̲r̲ ̲t̲h̲e̲ ̲l̲a̲z̲y̲ ̲d̲o̲g̲ ̲0̲1̲2̲3̲4̲5̲6̲7̲8̲9̲
     # https://jkirchartz.com/demos/fake_russian_generator.html
     "cyrillicfake": "ДБҪDԐҒGҤЇJҜLԠЙФPQЯSГЦVШӼҰZ",
     "nm_ug": "ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡϴΣΤΥΦΧΨΩ∇",
@@ -172,10 +385,19 @@ auxiliary["upper"], auxiliary["lower"] = gen_flag_pair("u", "l", alphabets)
 # all alphabets for which it makes sense to convert between weight
 auxiliary["bold"], auxiliary["thin"] = gen_flag_pair("b", "", alphabets)
 
-# all alphabets for which it makes sense to convert to/from italic
+# for which it makes sense to convert to/from italic
 auxiliary["italic"], auxiliary["straight"] = gen_flag_pair("i", "", alphabets)
 
-# all alphabets for which it makes sense to convert to/from greek
+# for which it makes sense to flip
+auxiliary["flip"], auxiliary["upright"] = gen_flag_pair("f", "", alphabets)
+
+# for which it makes sense to mirror
+auxiliary["mirror"], auxiliary["notmirror"] = gen_flag_pair("m", "", alphabets)
+
+# for which it makes sense to add circles
+auxiliary["circle"], auxiliary["naked"] = gen_flag_pair("c", "", alphabets)
+
+# for which it makes sense to convert to/from greek
 auxiliary["greek"], auxiliary["notgreek"] = gen_flag_pair("g", "", alphabets)
 
 # all letters and all numbers
@@ -216,6 +438,8 @@ def get_args():
     parser.add_argument("-l", "--list", action=ListAction,
             help="""Do not translate, instead produce a list of available
                     alphabets.""")
+    parser.add_argument("-d", "--dryrun", action="store_true",
+            help="Simply display the translation rules once processed")
     parser.add_argument("from_spec",
             help="Spec for the set of characters to be translated")
     parser.add_argument("to_spec",
@@ -264,8 +488,7 @@ def isupper(s):
     Tries to short-circuit with the presumably fast Python primitive
     str.isupper.
     """
-    return s.isupper() or all(_isupper(c) for c in s)
-
+    return s.isupper() or all(_isupper(c) for c in s) 
 def islower(s):
     """
     Similar to isupper() above, with one crucial difference
@@ -307,7 +530,7 @@ def interpret_spec(spec, spec_sub, spec_inter, alphabets, auxiliary):
 def trrr(from_spec, to_spec, from_spec_sub="", to_spec_sub="",
          from_spec_inter="", to_spec_inter="", in_file=sys.stdin,
          out_file=sys.stdout, err_file=sys.stderr, alphabets=alphabets,
-         auxiliary=auxiliary, unbuffered=False):
+         auxiliary=auxiliary, unbuffered=False, dryrun=False):
     """
     Perform the actual translation, interpreting the specs using the alphabets.
     """
@@ -315,6 +538,9 @@ def trrr(from_spec, to_spec, from_spec_sub="", to_spec_sub="",
                                alphabets, auxiliary)
     to_full = interpret_spec(to_spec, to_spec_sub, to_spec_inter,
                              alphabets, auxiliary)
+    if dryrun:
+        print("Resolved from_spec: {}".format(from_full))
+        print("Resolved to_spec  : {}".format(to_full))
     if len(from_full) % len(to_full) == 0:
         to_full = to_full * (len(from_full) // len(to_full))
     else:
@@ -322,11 +548,15 @@ def trrr(from_spec, to_spec, from_spec_sub="", to_spec_sub="",
               "multiple of that of to_spec",
                 file=err_file)
         sys.exit(1)
-    trans = str.maketrans(from_full, to_full)
-    for line in in_file:
-        out_file.write(line.translate(trans))
-        if unbuffered:
-            out_file.flush()
+    if dryrun:
+        for from_char, to_char in zip(from_full, to_full):
+            print("{} => {}".format(from_char, to_char))
+    else:
+        trans = str.maketrans(from_full, to_full)
+        for line in in_file:
+            out_file.write(line.translate(trans))
+            if unbuffered:
+                out_file.flush()
 
 if __name__ == "__main__":
     args = get_args()
