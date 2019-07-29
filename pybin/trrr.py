@@ -160,13 +160,13 @@ import smartparse as argparse
 
 # See has_flag for a description of the naming convention here.
 alphabets = {
-    "nm_uf": "∀ᙠƆᗡƎℲ⅁HIſ⋊˥WNOԀΌᴚS⊥∩ΛMX⅄Z",
-    "nm_lf": "ɐqɔpǝɟɓɥıɾʞlɯuodbɹsʇnʌʍxʎz",
-    "nm_nf": "0⇂ᄅƐㄣގ9ㄥ86",
     # nice little trick to add some miscellaneous characters without messing up
     # anything else
     "flipextra": "&.\";[({?!'<‾¯‿⁅∴ß",
     "flipextra_f": "⅋˙„؛])}¿¡,>__⁀⁆∵ᙠ",
+    "nm_uf": "∀ᙠƆᗡƎℲ⅁HIſ⋊˥WNOԀΌᴚS⊥∩ΛMX⅄Z",
+    "nm_lf": "ɐqɔpǝɟɓɥıɾʞlɯuodbɹsʇnʌʍxʎz",
+    "nm_nf": "0⇂ᄅƐㄣގ9ㄥ86",
     "nm_um": "AᙠƆᗡƎꟻᎮHIႱ⋊⅃MͶOꟼỌЯꙄTUVWXYƸ",
     "nm_lm": "ɒdɔbɘᎸǫʜiꞁʞ|mᴎoqpɿꙅƚuvwxʏƹ",
     "mirrorextra": "[({?<",
