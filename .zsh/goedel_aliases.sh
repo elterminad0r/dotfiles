@@ -397,6 +397,9 @@ alias normalise='trrr "{upper}{sc}" "{nm_u}" | trrr "{lower}" "{nm_l}"'
 alias bel-air='rev | tac | trrr "{upright}{flip}" "{flip}{upright}"'
 alias erised='rev | trrr "{mirror}{notmirror}" "{notmirror}{mirror}"'
 alias bubble='trrr "{naked}" "{circle}"'
+alias scrabble='trrr "{letters}" "{scrabble}"'
+alias scrabble2='trrr "{letters}" "{scrabble2}"'
+alias paren='trrr "{letters}" "{paren}" | trrr "{numbers}" "{paren_n}"'
 # These only go from the standard ascii alphabet, but there is nothing stopping
 # them from being composed with the previous ones.
 alias scr='trrr "{nm_u}{nm_l}" "{scr_u}{scr_l}"'
