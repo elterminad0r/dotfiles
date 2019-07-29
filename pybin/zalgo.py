@@ -65,10 +65,10 @@ def get_args():
     Parse argv
     """
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("mean", type=float, nargs="?", default=10.0,
+    parser.add_argument("mean", type=float, nargs="?", default=-1.0,
             help="""The mean of the normal distribution of the number of
                     diacritics added for each character""")
-    parser.add_argument("sd", type=float, nargs="?", default=2.0,
+    parser.add_argument("sd", type=float, nargs="?", default=5.0,
             help="""The standard deviation of the normal distribution of the
                     number of diacritics added for each character""")
     parser.add_argument("-r", "--revert", action="store_true",

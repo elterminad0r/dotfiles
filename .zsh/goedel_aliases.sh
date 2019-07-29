@@ -418,7 +418,7 @@ tourrr() {
              erised bubble scrabble scrabble2 paren scr "scr | bfseries" frak \
              "frak | bfseries" sans "sans | bfseries" "sans | emph" \
              "sans | bfseries | emph" mathbb zeus exist-cr b-cAt "b-cAt -r" \
-             cat cat cat cat zalgo cat cat cat cat; do
+             cat cat cat cat "zalgo 10 5" cat cat cat cat; do
         echo "$*" | eval "$i"
     done
 }
