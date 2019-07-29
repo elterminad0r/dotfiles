@@ -12,7 +12,7 @@ SHELL = bash
 
 CFG = git --git-dir ~/.cfg --work-tree ~
 
-ETC_FILES = /etc/locale.gen /etc/locale.conf /etc/profile.d/libreoffice-still.sh /etc/lightdm/lightdm-gtk-greeter.conf /etc/my.cnf /etc/my.cnf.d /etc/pacman.conf /etc/pacman.d/mirrorlist /etc/systemd/logind.conf /etc/texmf/web2c/fmtutil.cnf /etc/pam.d/su /etc/pam.d/su-l /etc/postfix/aliases /etc/postfix/master.cf /etc/postfix/main.cf /etc/vconsole.conf /usr/local/share/kbd/keymaps/swap-esc-caps.map /etc/systemd/system/kbdrate.service /etc/systemd/system/vt-gruvbox.service /boot/grub/grub.cfg  /boot/grub/themes/Vimix/background.png
+ETC_FILES = /etc/locale.gen /etc/locale.conf /etc/profile.d/libreoffice-still.sh /etc/lightdm/lightdm-gtk-greeter.conf /etc/my.cnf /etc/my.cnf.d /etc/pacman.conf /etc/pacman.d/mirrorlist /etc/systemd/logind.conf /etc/texmf/web2c/fmtutil.cnf /etc/pam.d/su /etc/pam.d/su-l /etc/postfix/aliases /etc/postfix/master.cf /etc/postfix/main.cf /etc/vconsole.conf /usr/local/share/kbd/keymaps/swap-esc-caps.map /etc/systemd/system/kbdrate.service /etc/systemd/system/vt-gruvbox.service /boot/grub/grub.cfg  /usr/share/grub/themes/Vimix/background.jpeg
 
 default:
 	$(error "from Goedel: select an explicit target (eg mac or arch)")
