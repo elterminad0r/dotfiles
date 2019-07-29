@@ -10,26 +10,28 @@
                      + "<br />" + output.innerHTML;
     input.value = '';
    }
+   let doReset = function() {
+    let output = document.getElementById("text_div");
+    output.innerHTML = '';
+   }
   </script>
   <style>
-   div.block{
-    overflow:hidden;
+   .container {
+    display: flex;
    }
-   div.block label{
-    width:160px;
-    display:block;
-    float:left;
-    text-align:left;
+
+   .left {
+    width: 400px;
    }
-   div.block .input{
-    margin-left:4px;
-    float:left;
+
+   .right {
+    flex-grow: 1;
    }
   </style>
  </head>
  <body>
-  <div>
-   <div style="float: left">
+  <div class="container">
+   <div class="left">
     <textarea name="the_text_input" rows="20" cols="50" id="text_input">
 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At v̢̮̯̑ͧ̔͑ͨ̕é̵̸͔͔͉̍͋ͩ͡ͅr͈̫̻̹͓̀ͦ̽͡ō͉͙̲ͩ͆̀ͧ͠ͅ e̷̟̱̽̓̉͒̒̕͜o̥̪̻̲͕̟̗̿̎̈͠ṣ̴̴̛̛̪͐ͬͧ͝ e̵̦t̗̟͇̀̿́ͩͦ̕ a̳̰͔̣̤̩͒̂ͦ̏ͨc̱̣̣̫̖̓́͒́̓c̵̣̥̘̑̔̊́̚ű̸͚̜̺͌͗s̢̞͚̾ͫ̑ͭ̐̈́̓̕a͇̹͈̟͕̱͆̊͆͡m̫̞ͭ̈̂͗͂̍ ḙ̡̝͖̠̇͆̍̂ͣ͢͡͝t̬͚̝̮ͣ̋ͫ̌̇̂͗̕͞ j̸̨̹͈͔̰̫̜ͯͦ̒u̸̘̼ͥ̎̾͏̷s̥͎͕̯̫̉͛̒͂ͬ̽t̵̼̗̎́ͯ̂̔ͮ͞ớ̧̬̤͛́ͪͨ͞ dͧ͌͗̊͗ͧͫ͆͂͗͝ű͚͈̙͙ͥ̾͛̾ò̸̦͕̺̝̤̬͉̩̥̊̉̕ ḋ͚͓͖ͩ̒͝ò̠̗̦͎̘̤ͧ̉l̷̪͔̜͉̾ͯ̈́̽o̵̵͇̲̥̤͌ͪ͌͊̾̇͢ṙ͓̦̐̀e͚̾ͩ͏̴̲̺͖̀͋͠͞s̢̧͕̓ͧͤͪ̚͜ e̠͎̜̮͓͇ͥͭ͐ͭt͎̜̹̽̈͆̇̌ e͖̘͕ͭ̓̄͗a̢̢̡̦̣̹͒̿͊͒̕̚ r̝̥̦̫̪̥͋̑͌ͣ̑e̷̜̣̖ͬ̿ͫ̓̏̏̆ͥ̉ͪb̧͖̜̬̻̖̈́ͣ̅ű̷̟̟ͤ͗̍́̔m͔͖͍͎͑̂͗̐ͯ̈͢. S̨̩͇̦ͨ́̊͢͡t͔̙͍͛ͧ͋̓e͉ͤ͌̌́͜ͅt̡̘͖̒̃ ç̜̥̙̟͙̥͌ͦl̴̨̢̜͈͈͂̒̉ͪͥ͆͝i̢̩ͫ̀ͮͤͅt̴̳͔̑ͣ̃͂͜͟ă̬̙̹͚̋͌̊͝ k̮̭͕̖͕͌̇͑̿ͨ̌͠͠͡͡a̴͇̣̗̩̹̬̿͆̀̈́̕͜͜s̛̫̮͖ͪͪ̉̐̃d̗̯͓͂̈͐̄̏ͧ g̷̱͖̩̟̑ͨ̕ͅṳ̸̡̑̔ͬb̯͇͖̼̫̲̞͋̑̈͌́̊ę̛̗͈̺͇͒̈ͭṙ̩̉́ͧ̅͠͏͔̊g̴̴̘̺͚͓͗̔͌ͬ͠r̴̠̹͕̥̜͗̊ę̞͇̞̱̹̫ͤ̌̉̕͞ͅņ̵̝̳̺̐ͯ͗̓̀͋͌͆͠, no sea takimata sanctus est Lorem ipsum dolor sit amet.
 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
@@ -40,9 +42,12 @@ Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod 
     <button onclick="doClick()">
      Add text
     </button>
+    <button onclick="doReset()">
+     Clear text
+    </button>
    </div>
-   <div id="text_div" style="float: right">
-    abc
+   <div class="right" id="text_div">
+    Example Text
    </div>
   </div>
  </body>
