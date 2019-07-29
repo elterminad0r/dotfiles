@@ -413,6 +413,16 @@ alias comrade='trrr "{nm_u}{nm_l}" "{cyrillicfake}"'
 alias zeus='trrr "ABLDEZHUIKJMNGOQPRSTYFXCWVabyfeznhikjumsoqpcgtvlxrwd" \
                  "{nm_ug}{nm_lg}"'
 
+tourrr() {
+    for i in rot13 death bfseries emph "bfseries | emph" bel-air \
+             erised bubble scrabble scrabble2 paren scr "scr | bfseries" frak \
+             "frak | bfseries" sans "sans | bfseries" "sans | emph" \
+             "sans | bfseries | emph" mathbb zeus exist-cr b-cAt "b-cAt -r" \
+             cat cat cat cat zalgo cat cat cat cat; do
+        echo "$*" | eval "$i"
+    done
+}
+
 # this one is particularly evil in a terminal, because it probably won't look
 # any different
 alias ttfamily='trrr "{nm_u}{nm_l}{nm_n}" "{tt_u}{tt_l}{tt_n}"'
