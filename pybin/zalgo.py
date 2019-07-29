@@ -4,6 +4,8 @@
 
 """
 Making scary looking "zalgo" text.
+
+Unbuffering will require Python 3.7.
 """
 
 import sys

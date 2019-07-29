@@ -39,6 +39,8 @@ I've not quite figured out what it might be.
 
 This script also acts as a module, which can be used to grab useful predefined
 alphabets, or use some of the utility functions like `toupper()` and `islower()`
+
+Unbuffering will require Python 3.7.
 """
 
 # TODO: implement character ranger like A-Z, maybe.

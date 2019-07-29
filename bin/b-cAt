@@ -10,6 +10,8 @@
 
 """
 Script to sPoNgEbOb CaPiTaLiSe stdin, or files from argv.
+
+Unbuffering will require Python 3.7.
 """
 
 import sys
@@ -24,14 +26,8 @@ def get_args():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("files", nargs="*", type=argparse.FileType("r"),
             help="files to cAt", default=[])
-    buffering = parser.add_mutually_exclusive_group()
-    buffering.add_argument("-b", "--block-size", type=int,
-            default=256 * 2 ** 10,
-            help="Size of blocks to read from input files")
-    buffering.add_argument("-l", "--line-buffered", action="store_true",
-            help="Buffer input and output by line")
-    buffering.add_argument("-u", "--unbuffered", action="store_true",
-            help="Do not buffer input or output.")
+    parser.add_argument("-u", "--unbuffered", action="store_true",
+            help="Reconfigure I/O objects to use line buffering")
     mode_group = parser.add_mutually_exclusive_group()
     mode_group.add_argument("-r", "--random", action="store_true",
             help="Use a random capitaliser instead")
@@ -43,15 +39,9 @@ def get_args():
 
 if __name__ == "__main__":
     args = get_args()
-    if args.unbuffered:
-        block_size = 1
-    elif args.block_size is not None:
-        block_size = args.block_size
-    if args.line_buffered:
-        file_iter = lambda f: f
-    else:
-        file_iter = lambda f: iter(partial(f.read, block_size), "")
     files = args.files
+    if args.unbuffered:
+        sys.stdout.reconfigure(line_buffering=True)
     if args.random:
         cApItAlIsEr = HumANdomcaPITalisEr()
     elif args.truerandom:
@@ -66,7 +56,5 @@ if __name__ == "__main__":
         files.append(sys.stdin)
     for file in files:
         with file:
-            for block in file_iter(file):
-                sys.stdout.write(cApItAlIsEr.process(block))
-                if args.unbuffered or args.line_buffered:
-                    sys.stdout.flush()
+            for line in file:
+                sys.stdout.write(cApItAlIsEr.process(line))
