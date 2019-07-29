@@ -1,0 +1,49 @@
+<?doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <script type="text/javascript">
+   let doClick = function() {
+    let input = document.getElementById("text_input");
+    let output = document.getElementById("text_div");
+    output.innerHTML = input.value.replace(/(?:\r\n|\r|\n)/g, '<br>')
+                     + "<br />" + output.innerHTML;
+    input.value = '';
+   }
+  </script>
+  <style>
+   div.block{
+    overflow:hidden;
+   }
+   div.block label{
+    width:160px;
+    display:block;
+    float:left;
+    text-align:left;
+   }
+   div.block .input{
+    margin-left:4px;
+    float:left;
+   }
+  </style>
+ </head>
+ <body>
+  <div>
+   <div style="float: left">
+    <textarea name="the_text_input" rows="20" cols="50" id="text_input">
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At v̢̮̯̑ͧ̔͑ͨ̕é̵̸͔͔͉̍͋ͩ͡ͅr͈̫̻̹͓̀ͦ̽͡ō͉͙̲ͩ͆̀ͧ͠ͅ e̷̟̱̽̓̉͒̒̕͜o̥̪̻̲͕̟̗̿̎̈͠ṣ̴̴̛̛̪͐ͬͧ͝ e̵̦t̗̟͇̀̿́ͩͦ̕ a̳̰͔̣̤̩͒̂ͦ̏ͨc̱̣̣̫̖̓́͒́̓c̵̣̥̘̑̔̊́̚ű̸͚̜̺͌͗s̢̞͚̾ͫ̑ͭ̐̈́̓̕a͇̹͈̟͕̱͆̊͆͡m̫̞ͭ̈̂͗͂̍ ḙ̡̝͖̠̇͆̍̂ͣ͢͡͝t̬͚̝̮ͣ̋ͫ̌̇̂͗̕͞ j̸̨̹͈͔̰̫̜ͯͦ̒u̸̘̼ͥ̎̾͏̷s̥͎͕̯̫̉͛̒͂ͬ̽t̵̼̗̎́ͯ̂̔ͮ͞ớ̧̬̤͛́ͪͨ͞ dͧ͌͗̊͗ͧͫ͆͂͗͝ű͚͈̙͙ͥ̾͛̾ò̸̦͕̺̝̤̬͉̩̥̊̉̕ ḋ͚͓͖ͩ̒͝ò̠̗̦͎̘̤ͧ̉l̷̪͔̜͉̾ͯ̈́̽o̵̵͇̲̥̤͌ͪ͌͊̾̇͢ṙ͓̦̐̀e͚̾ͩ͏̴̲̺͖̀͋͠͞s̢̧͕̓ͧͤͪ̚͜ e̠͎̜̮͓͇ͥͭ͐ͭt͎̜̹̽̈͆̇̌ e͖̘͕ͭ̓̄͗a̢̢̡̦̣̹͒̿͊͒̕̚ r̝̥̦̫̪̥͋̑͌ͣ̑e̷̜̣̖ͬ̿ͫ̓̏̏̆ͥ̉ͪb̧͖̜̬̻̖̈́ͣ̅ű̷̟̟ͤ͗̍́̔m͔͖͍͎͑̂͗̐ͯ̈͢. S̨̩͇̦ͨ́̊͢͡t͔̙͍͛ͧ͋̓e͉ͤ͌̌́͜ͅt̡̘͖̒̃ ç̜̥̙̟͙̥͌ͦl̴̨̢̜͈͈͂̒̉ͪͥ͆͝i̢̩ͫ̀ͮͤͅt̴̳͔̑ͣ̃͂͜͟ă̬̙̹͚̋͌̊͝ k̮̭͕̖͕͌̇͑̿ͨ̌͠͠͡͡a̴͇̣̗̩̹̬̿͆̀̈́̕͜͜s̛̫̮͖ͪͪ̉̐̃d̗̯͓͂̈͐̄̏ͧ g̷̱͖̩̟̑ͨ̕ͅṳ̸̡̑̔ͬb̯͇͖̼̫̲̞͋̑̈͌́̊ę̛̗͈̺͇͒̈ͭṙ̩̉́ͧ̅͠͏͔̊g̴̴̘̺͚͓͗̔͌ͬ͠r̴̠̹͕̥̜͗̊ę̞͇̞̱̹̫ͤ̌̉̕͞ͅņ̵̝̳̺̐ͯ͗̓̀͋͌͆͠, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+L̴̖̮̮͚͍̘̭͒ͭ̈̚͡ō̷̸̢̗͉ͬ̆̑̚͟r̵̲̦̲̋̋͌̾ḙ̶͕͉͆̽m̘͎̭̳̻ͯͫ́̉̕ i̗͓̤̖ͭ̒ͥ͘ṕ̷̢̫̠̤̏̏ͬ͘͢s̨͉͕̹͚͇̪̋̽ͣ̑͟u̵̻̳͔ͯͬ̋͆͠͠͝m̨̜͇͔̎́̆͞ͅ d͙̬̑ͦ̀̏̋ỏ̼̼̙̽͊ͭ͢ͅͅl͚ͮ̃͐͒̉ͭͣ̅ͧ̇͠͠o̶̴̡̡̜̺̝͌ͧ͟ȑ̵̴̛̹̩̰ͭͫ̆ s͍̻̹̜̪͒͂͘͠͏i̹ͨ̿ͪ̒ͤ̉̅̚t̸̙̎̒̓ͫ͑͟͡ a͔̻̥͐̕͜ͅ͏̕m̴̵̻̥͓̜ͤͭ̌ͬ̓e͖̦̟͒̀̎̌̉͘t̴̬̍̌̉ͫ̀ͣ͟, c̴ͪ̀́̿͋́ŏ̪͎ͬ̚͞n̶̨̡̩̱̣̪̋̊̿ͨͤ̕͟ș̱̀͌ͪ̀̽̂̅͒͜e͏̟ͩ͒̊ͤ̀ͨ͢t̷͕̳͇̙̪̟̭́̃͂͡e̴̩̺̼̅ͫ̕͜t̴̸̗̹̊̄͟ư̷͙͓̥̯̫ͫ̎̈͐́͟ṟ̢̨̤́̀̽͠͏͈̥ s͙͖̠̔ͪͪ̍͞à̧͎͉͖͔̱̍̄d̵͇̠ͯ̀ͮͭ͟ǐ̯͔͉́̒̊̊̌̚p̻̠̳̭͚̃̇͆̉ṣ̺͓̈́ͪ̈́̓́̚͠c͈͖͐͒ͪ͞͞i̬̱̝̜͈ͦ̑͆̊͘ͅn̝͎̫͉̥ͪ̐̾g̶̡̛͓̙͚̪ͬͣͫ͋ ȩ̶͖͎̙͎̥̝̀͂l̴̩̟̼̙ͦ̏̓̈́̔̓͘i̴̧̩͉͇ͦͩ̊̎ͪͦ̆͡͞ţ̛̮̭̹̝̩̌̉̄̃͢r̡̫̯̐ͮͮ̏͘͜, s̢͉͇̺̀̆̄͜ĕ͉͙̙̻̑̚͢ͅd̨͎̜̹͙͂ͨ̌̄ d̺̘̥͖͍̒i͇̎ͮͩ̈́ͥ̕͟ǎ̷̱̟̫̼̄͋m̬̖͛̿̏ͦ͛̆͘͘͠ n̯̳̙͐̋̅̍ͤͫ̈͘̚o̢͈ͤͪ́ͦͩn̴̥̜̖̓̒́̌́͛̉͜u̶̼̣̼͐̔ͦ͋̄m̬͈͘͠͏̙͊͞ý̷̦̪̣͇̮͆̀ e̲̙̔ͣį̦̮͈̺̰̗̮͗ͅŗ̷͙͙̔͐ͨ͝ṃ̷̧̯̓ͧ̌ó̵̷͍͎̦͆̌̔͗͟d̡̳̬̃̀ͬ́̐͘͟ tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+    </textarea>
+    <br/>
+    <button onclick="doClick()">
+     Add text
+    </button>
+   </div>
+   <div id="text_div" style="float: right">
+    abc
+   </div>
+  </div>
+ </body>
+</html>
