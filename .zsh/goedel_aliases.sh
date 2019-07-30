@@ -419,7 +419,7 @@ tourrr() {
              "frak | bfseries" sans "sans | bfseries" "sans | emph" \
              "sans | bfseries | emph" mathbb zeus exist-cr b-cAt "b-cAt -r" \
              cat cat cat cat "zalgo 10 5" cat cat cat cat; do
-        echo "$*" | eval "$i"
+        printf "%s\n" "${*:-$(pang)}" | eval "$i"
     done
 }
 
