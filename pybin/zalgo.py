@@ -23,7 +23,7 @@ from random import gauss, choice
 # from http://www.alanwood.net/unicode/combining_diacritical_marks.html,
 #      https://en.wikipedia.org/wiki/Combining_Diacritical_Marks
 
-combining = [chr(i) for i in range(768, 880)]
+combining = [chr(i) for i in range(0x0300, 0x036F + 1)]
 
 # set for membership testing
 combining_set = set(combining)
@@ -51,7 +51,7 @@ def zalgo(*args, **kwargs):
 
 def _unzalgo(s):
     """
-    Strip all combining diacritical marks from a string. This is packages as
+    Strip all combining diacritical marks from a string. This is packaged as
     "unzalgoing" although it might strip a little more if you've got
     multilingual text. However combining diacritical marks are really a fairly
     niche type of character so not a big worry.
