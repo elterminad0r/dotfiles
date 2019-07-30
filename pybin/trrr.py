@@ -382,7 +382,8 @@ def isupper(s):
     Tries to short-circuit with the presumably fast Python primitive
     str.isupper.
     """
-    return s.isupper() or all(_isupper(c) for c in s) 
+    return s.isupper() or all(_isupper(c) for c in s)
+
 def islower(s):
     """
     Similar to isupper() above, with one crucial difference
@@ -399,7 +400,7 @@ def _islower(c):
     """
     Determine if a single character is lowercase
     """
-    return c.isupper() or c in upper_trans
+    return c.islower() or c in lower_trans
 
 class YesMan:
     """
