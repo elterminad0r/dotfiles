@@ -40,7 +40,7 @@ def _zalgo(s, mean, sd):
         # better to use isalnum than any kind of whitelist because it knows
         # better about multilingual characters
         if c.isalnum():
-            for _ in range(int(gauss(mean, sd))):
+            for _ in range(int(0.5 + gauss(mean, sd))):
                 yield choice(combining)
 
 def zalgo(*args, **kwargs):
