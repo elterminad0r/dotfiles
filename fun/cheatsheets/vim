@@ -1,0 +1,210 @@
+vim:
+    command mode:
+        ^A to complete all matches of glob (nb it's ^A^A due to tmux)
+        ^F to open command window - allows editing commands with vim keys
+        :g/re/d: delete lines with re
+        :g!/re/d: delete lines without re (acts like grep, but in place)
+        :%s/find/replace/g: in each line, replace each instance of "find" with "replace.
+        :bufdo <com> - execute command in each buffer
+        :%bunload - unload each buffer. For example to fix syntax highlighting
+        :%s/<pat>//gn - count number of matches of <pat>
+        :verbose set option? - find out where option was set
+        :verbose map mapping? - find out where mapping was set
+        :verbose function fun - find out where function was set
+        :verbose autocmd .. - etc etc
+        :mkview [n] - make view number n (stored folds & scroll etc)
+        :loadview [n] - reload view n for current buffer
+        :retab: replace tabs with spaces
+        :redir @a <CR>:com<CR>:redir END<CR>: store the output of com in register a
+         execute("com"): return the result of ex command com as a string
+     -> :call append(line("."), execute("map yot")) will insert the current mapping of yot.
+        replace unicode sequences inline:
+        .py3do import re;return re.sub(r"\\u(....)", lambda m: chr(int(m.group(1), 16)), line)
+        I have for myself written the command "Rcom" to do this.
+        :Rcom smile - chin up!
+        :retab - reinsert tabs
+
+        :help usr - manual
+        :help pager - see help for vim's pager (when the output of a command has
+            a "-- More --" prompt at the bottom)
+        :help index - available commands
+            different indexes:
+                insert-
+                normal-
+                objects
+                CTRL_W
+                [
+                g
+                z
+                operator-pending-index
+                visual-index
+                ex-edit-index
+                ex-cmd-index
+                terminal-job-index
+        :help window-moving - moving windows
+        :help option-list - available options
+        :help digraphs-default - default digraphs
+        :echo getcompletion('', 'filetype') - list all filetypes
+        https://vim.fandom.com/wiki/Unused_keys
+        :helpgrep:  do a sort of vimgrep through all help files
+
+        quickfix:
+            :cc - go to current error
+            :cn - go to next error
+            :cp - go to previous error
+            :copen - show list
+
+    normal mode:
+        X: effective backspace
+        r: change character
+        R: change several characters
+        s: delete char + insert
+        =: autoformat
+        ^]: go to tag definition
+            this also works with tags in vim help files.
+        ^O: jump back up the stack ("out of")
+        ^I: jump down the stack    ("into")
+        ^A: increment number under cursor (due to tmux, use ^A^A)
+        ^X: decrement number under cursor
+        [n]^6/^^: go to buffer n. Without n, goes to alternate file (the #
+                  buffer in :ls)
+        g;: walk backward in changelist
+        g,: walk forward in changelist
+        gd: go to "definition": first occurrence of word under cursor
+        gf: go to filename under cursor (opens new buffer)
+        ga: get ascii value of char under cursor
+        gn: go to next search result and highlight it (or operate on it).
+        g?: rot13 encode text
+        *: search for word under cursor
+        #: search for word under cursor but backwards
+        ^G: show filename
+        g^G: show wordcount and some more stuff
+        qx(...)q: save all subsequent keystrokes up to the next q into the
+                  register x.
+        jumping:
+            `[, `] - go to either side of previously inserted text
+            ]s, [s - go to misspelled words
+            ]], [[ - go to sections
+            {}: jump between paragraphs. do not use these for navigation, as
+                they will mess up the jumplist. instead eg ^U^D.
+                see also paragraph text objects.
+        windows:
+            ^W =: make all windows the same size
+            ^W _: maximise vertically
+            ^W |: maximise horizontally
+            ^W -: decrease height
+            ^W +: increase height
+            ^W <: decrease width
+            ^W >: increase width
+            ^W q: close current window
+            ^W o: close all other windows
+            ^W [hjkl]: move between windows.
+                       I have these mapped to ^[hjkl].
+            ^W [HJKL]: move windows
+        scrolling:
+            ^Y: go up       (a tiny bit)
+            ^E: go down     (a tiny bit)
+            ^U: go up       (a little)
+            ^D: go down     (a little)
+            ^F: go forward  (a lot)
+            ^B: go backward (a lot)
+            zz: scroll so the cursor is in the centre line
+            zb: scroll so the cursor is in the middle line
+            zt: scroll so the cursor is in the bottom line
+            H: move cursor to top of screen
+            L: move cursor to bottom of screen
+            M: move cursor to middle of screen
+            N%: jump to N% of the way through the file
+        folds:
+            zf: create fold
+            zd: delete fold
+            zD: delete recursively
+            zE: delete all
+            ]z: go to end of fold
+            [z: go to start of fold
+            zj: go to next fold
+            zk: go to previous fold
+            zo: open fold
+            zO: open recursively
+            zc: close fold
+            zC: close recursively
+            zm: fold more
+            zM: fold MORE
+            zr: fold less
+            zR: fold LESS
+            zn: no folding
+            zN: not no folding
+
+        vimtex:
+            \ll - compile
+            \lv - view
+
+        vim-surround:
+            yss[delim] to add delim to current line
+            ys(obj)[delim] to add delim around textobject obj
+                            (so you need i(, i[ etc)
+            the left delimiter normally includes spaces, but the right does not
+            (eg play around with cs"[ vs cs"])
+        textobject preposition:
+            i: inside object
+            a: around object
+            s: object's surrounding (eg the brackets themselves)
+        textobjects:
+        (in TeX files:)
+            W: a WORD (goes to whitespace afaik)
+            w: a word (delimited by punctuation)
+            p: a paragraph
+            e: tex environment
+            $: inline math
+            c: command
+            d: generic delimiter
+            P: section
+            %: pair
+        otherwise:
+            w: word
+            s: sentence
+            p: paragraph
+            l: line (from kana/textobj-line)
+            (){}[]<>: brackets
+            t: HTML tag
+            "'`: string enclosed in corresponding quotes
+        vim-commentary:
+            gc: toggle comments
+            gcc: comments/uncomments line
+            gcgc: uncomment a contiguous block of comments
+
+    visual selection mode (x):
+        o jump to other side
+
+    insert mode:
+        completion: ^X followed b y
+            ^F: complete filename
+            ^]: complete tag
+            ^O: complete using the clever stuff (depends on plugins)
+            ^K: complete using dictionary
+            ^T: complete with thesaurus
+
+            ^E,^Y: as in normal mode
+        ^N: generic complete
+        ^T: indent line
+        ^D: dedent line
+        ^E: insert characters from line below
+        ^Y: insert characters from line above
+        ^R: insert register, eg
+            /: last search pattern
+            +: x clipboard contents
+            ": vim unnamed register contents (from last yank/delete)
+            =<expr>: insert an expression (eg ^R=$TERM)
+            also, use ^R^R for literal insert instead.
+                      ^R^O to not indent
+                      ^R^P to fix indent
+
+        UltiSnips from vim-snippets:
+            everywhere:
+                lorem: lorem ipsem
+                box:   draw a box
+
+    pager mode: when a command has a large output so it gets paged, displaying a
+            little "-- More -- " prompt at the bottom.
+        jdf - as normal
+        kub - as normal

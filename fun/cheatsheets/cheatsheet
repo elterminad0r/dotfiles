@@ -1,0 +1,67 @@
+wrapping text to 80 chars:
+fold -w 80 -s text.txt
+fmt -w 80 text.txt
+
+perl -de1: open perl repl
+
+zsh:
+sudo -e: edit file that needs sudo to be written
+
+you can time a for loop by using a subshell:
+$ time (for ...; done)
+
+you can expand a current word that is an alias using ^Xa
+
+print -P: print prompt-string
+
+python -m json.tool to prettyprint json
+
+while true; do fortune | cowsay -f $(cowsay -l | tail +2 | xargs shuf -n1 -e); done | pv -q -l -L 3 | lolcat
+
+# THIS IS EVIL:
+exec > >(lolcat)
+exec > /dev/null
+
+arch related
+lsblk to list block devices
+du -sbh for directory size
+df -h for remaining space on partitions
+fc-list to list fonts
+
+<space>command: run command without adding to history
+^L: clear screen (redraw)
+
+see total size of packages in the Arch repositories:
+pacman -Si | grep "Installed Size" | awk '{print $4$5}' | sed "s/B$//" | numfmt --from auto | awk '{s+=$1} END {print s}' | numfmt --to iec-i
+
+get dependency tree of whole system:
+for i in $(pacman -Qeq); do pactree $i; done
+
+set keyboard light
+dbus-send --system --type=method_call --dest="org.freedesktop.UPower" "/org/freedesktop/UPower/KbdBacklight" "org.freedesktop.UPower.KbdBacklight.SetBrightness" int32:0
+
+
+
+view webcam in mplayer really not much fun just use mpv or ffplay
+mplayer tv:// -tv driver=v4l2:device=/dev/video0:width=1280:height=720:fps=30:outfmt=yuy2
+
+view webcam in caca in terminal with mpv:
+mpv /dev/video0 -vo caca
+using truecolor:
+mpv /dev/video0 -vo tct
+just view it:
+mpv /dev/video0
+
+
+pv: pipe viewer
+lsblk: list block devices
+timeout: timeout a command
+
+installation size for all packages:
+p -Si | awk '/^Installed Size/ {print $4 substr($5, 1, length($5) - 1)}' | numfmt --from=auto | paste -sd+ | bc | numfmt --to=iec-i
+
+change username:
+for i in $(ack -l "/elterminad0r/"); do echo $i; sed -i "s/elterminad0r/goedel-gang/g" $i; cd $(dirname $i); ga .; gc -m "move to new username"; git remote set-url origin $(git remote get-url origin | sed "s/elterminad0r/goedel-gang/g"); ggpush; cd -; done
+
+view root partition remaining space continuously:
+while true; do df -h /dev/nvme0n1p2 | tail -1 | awk '{print $4}'; sleep 1; done

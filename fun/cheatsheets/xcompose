@@ -1,0 +1,78 @@
+vim: nospell scrolloff=0 syntax=off
+
+Coincidentally, this^ is a vim modeline.
+
+xcompose - prepend <Shift-AltGr> to:
+    seq  res
+  -----------
+    e'   é
+    e`   è
+    e"   ë
+    e^   ê
+    e<   ě
+    n~   ñ
+    ,c   ç
+    a*   å
+    a_   ā
+    a(   ă
+    ae   æ
+    oe   œ
+    ij   ĳ
+    ff   ﬀ
+    ??   ¿
+    ss   ß
+    !?   ‽
+    ?!   ⸘
+    #b   ♭
+    #f   ♮
+    ##   ♯
+    #q   ♩
+    #e   ♪
+    #E   ♫
+    #S   ♬
+    C=   €
+    c|   ¢
+    L=   ₤
+    "<   “
+    ">   ”
+    <<   «
+    >>   »
+    ..   …
+    ->   →
+    <-   ←
+    ---  —
+    xx   ×
+    :-   ÷
+    <=   ≤
+    >=   ≥
+    =/   ≠
+    =_   ≡
+    +-   ±
+    v/   √
+    -,   ¬
+    =>   ⇒
+    :.   ∴
+    .:   ∵
+    mu   µ
+    %o   ‰
+    No   №
+    88   ∞
+    oo   °
+    :)   ☺
+    :(   ☹
+    <3   ♥
+    oc   ©
+    or   ®
+    tm   ™
+    CCCP ☭
+    p!   ¶
+    so   §
+    (1)  ① etc
+    (a)  ⓐ etc
+    ^2   ² etc
+    _2   ₂ etc
+    ^_a  ª etc
+    12   ½ etc
+    poo  💩
+    FU   🖕
+    \o/  🙌

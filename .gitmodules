@@ -238,3 +238,7 @@
 	path = builds/polybar
 	url = https://aur.archlinux.org/polybar.git
 	branch = master
+[submodule "fun/academic"]
+	path = fun/academic
+	url = https://github.com/goedel-gang/maths.git
+	branch = master

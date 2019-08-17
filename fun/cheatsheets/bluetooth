@@ -1,0 +1,7 @@
+bluetoothctl
+power on
+agent on
+default-agent
+scan on
+pair 28<TAB>
+connect 28<TAB>
