@@ -282,7 +282,7 @@ set complete=.,w,b,u,t,i
 
 " Suffixes to try on the "gf" command. This lets me open \include{}-ed files or
 " import-ed files.
-set suffixesadd+=.tex,.sty.bib,.cls,.py
+set suffixesadd+=.tex,.sty,.bib,.cls,.py
 
 " Change directory to file being edited. This just aligns with how I like to
 " think, I suppose.
