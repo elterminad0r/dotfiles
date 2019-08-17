@@ -156,10 +156,12 @@ lesspipe
 libappindicator-gtk3
 libdbi
 libfaketime
+libfbclient
 libmythes
-libplacebo
+libnm-glib
 libreoffice-still
 libtiger
+libwnck
 libx86
 licenses
 lightdm-gtk-greeter-settings
@@ -225,6 +227,7 @@ perl-json
 perl-list-moreutils
 perl-lwp-protocol-https
 perl-term-readline-gnu
+pipewire
 postfix
 powerline
 processing
@@ -318,6 +321,7 @@ terminus-font
 termite
 tesseract-data-eng
 the_silver_searcher
+thunar-volman
 tidy
 tig
 tk
@@ -327,6 +331,7 @@ ttf-fira-sans
 ttf-font-awesome
 ttf-inconsolata
 ttf-ionicons
+tumbler
 typespeed
 unclutter
 unrar
@@ -346,7 +351,15 @@ xaos
 xdg-user-dirs
 xdotool
 xf86-video-intel
+xfce4-appfinder
+xfce4-panel
+xfce4-power-manager
+xfce4-session
+xfce4-settings
+xfce4-terminal
+xfdesktop
 xfmpc
+xfwm4-themes
 xorg-twm
 xorg-xfd
 xorg-xmag
@@ -357,7 +370,6 @@ zathura-pdf-mupdf
 zathura-ps
 zsh-completions
 base-devel
-xfce4
 texlive-most
 xorg
 xorg-apps
