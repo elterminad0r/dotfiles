@@ -12,6 +12,9 @@
 
 set -eu
 
+echo "# standard gitignore files from https://github.com/github/gitignore"
+echo
+
 if [ "$#" = 0 ]; then
     >&2 echo "Gitignore: need one or more patterns to find"
     exit 1
@@ -24,6 +27,7 @@ for pattern; do
         sh -c '
             if [ "$#" = 1 ]; then
                 cat "$1"
+                echo
                 exit 1
             else
                 >&2 echo "Multiple matches for $pattern:"
