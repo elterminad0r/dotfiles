@@ -109,7 +109,7 @@ autoload -Uz calendar
 # try some suffix aliases to see if they stick
 # Means that eg if you try to "run" a file with an extension of .txt or .py as a
 # command, it will be opened in vim. Can be used on multiple files at once
-alias -s {txt,py,md}="${EDITOR:-vim}"
+alias -s {txt,md}="${EDITOR:-vim}"
 alias -s {png,jpg,jpeg}="${IMG_VIEWER:-feh}"
 alias -s pdf="${READER:-evince}"
 

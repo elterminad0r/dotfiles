@@ -380,6 +380,9 @@ alias pacman='pacman --color=auto'
 alias p='pacman'
 alias pacsystree='for i in $(pacman -Qeq); do pactree $i; done'
 
+# could also use 'fold -sw 80', although that could break URLs apparently
+alias wrap='fmt -w 80'
+
 # Frivolous aliases
 
 alias rot13='tr "A-Za-z" "N-ZA-Mn-za-m"'
