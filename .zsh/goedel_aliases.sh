@@ -243,7 +243,11 @@ alias tt='elinks -dump -dump-width $COLUMNS "$HOME/Documents/timetable.html"'
 # executables in my ~/bin
 # These provide copy and paste, somewhat sensitive to what cliboard interfaces
 # there are on your system.
-alias c='goedel_copy'
+c() {
+    tee /dev/tty | goedel_copy "$@"
+    echo "-> copied to clipboard"
+}
+
 alias v='goedel_paste'
 
 # define the o alias to be a mimetype aware opener.
