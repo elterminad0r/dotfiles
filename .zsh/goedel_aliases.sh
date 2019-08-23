@@ -312,9 +312,9 @@ alias viv='"${EDITOR:-vim}" \
 alias vix='"${EDITOR:-vim}" ~/.Xresources ~/.X/**(.) ~/.xinitrc ~/.xprofile'
 alias vitm='"${EDITOR:-vim}" ~/.tmux.conf'
 alias vid='vim -S ~/.vim/sessions/deardiary.vim'
-alias visafe='vim -c \
+alias vinja='vim -c \
                   "set noswapfile nobackup nowritebackup noundofile viminfo="'
-alias vienc='visafe ~/Documents/.enc/'
+alias vienc='vinja ~/Documents/.enc/'
 
 # reload various types of configuration
 alias x='xrdb -merge -I"$XDOTDIR" ~/.Xresources; xmodmap ~/.Xmodmap;

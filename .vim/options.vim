@@ -24,7 +24,7 @@ endif
 " my vimrc.
 " This obviously isn't always desired - if you're editing files with sensitive
 " content, you'll want to disable all of this. Currently I have it set up so I
-" have an alias visafe in ~/.goedel_aliases which turns all this crap off to the
+" have an alias vinja in ~/.goedel_aliases which turns all this crap off to the
 " best of its ability.
 
 " enable modelines, for backwards systems like MacOS that disable them by
