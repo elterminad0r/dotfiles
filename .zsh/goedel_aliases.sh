@@ -397,7 +397,8 @@ alias pang='echo "The quick brown fox jumps over the lazy dog"'
 # very good at Unicode (it works for me in Termite but not really in urxvt, for
 # example. Also depends on your fonts.
 alias death='trrr "{letters}" "{sc}"'
-alias exist-cr='trrr "{letters}{numbers}" "a"'
+alias exist-cr='trrr "{letters}{numbers}" a'
+alias uwu='trrr rRlL wW'
 alias bfseries='trrr "{thin}" "{bold}"'
 alias emph='trrr "{straight}{italic}" "{italic}{straight}"'
 alias normalise='trrr "{upper}{sc}" "{nm_u}" | trrr "{lower}" "{nm_l}"'
