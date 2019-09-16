@@ -127,7 +127,6 @@ hub
 hunspell-en_GB
 hunspell-en_US
 hunspell-nl
-i3blocks
 i3-gaps
 i3lock
 i3status
@@ -190,6 +189,7 @@ mtpfs
 mupdf
 mupdf-tools
 mutt
+mypaint-brushes
 mythes-en
 mythes-nl
 nautilus
@@ -257,6 +257,7 @@ python-pylint
 python-pywal
 python-requestsexceptions
 python-scipy
+python-sphinx
 python-sphinxcontrib-websupport
 python-sphinx_rtd_theme
 python-sqlalchemy

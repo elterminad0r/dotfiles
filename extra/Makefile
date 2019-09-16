@@ -17,6 +17,10 @@ ETC_FILES = /etc/locale.gen /etc/locale.conf /etc/profile.d/libreoffice-still.sh
 default:
 	$(error "from Goedel: select an explicit target (eg mac or arch)")
 
+../fun:
+	@$(CFG) add --verbose $@/cheatsheets >&2
+	@$(CFG) add --verbose $@/lists/pasta >&2
+
 mirrorlist.uk:
 	reflector -c "United Kingdom" -f 100 --save $@
 	@$(CFG) add --verbose $@ >&2
@@ -46,16 +50,16 @@ vim:
 	@$(CFG) add --verbose ~/.vim/after >&2
 
 bin:
-	@$(CFG) add --verbose ~/bin
-	@$(CFG) add --verbose ~/pybin
+	@$(CFG) add --verbose ~/bin >&2
+	@$(CFG) add --verbose ~/pybin >&2
 
-_arch: pacman.list aur.list slash cpython3.pip pypy3.pip crontab.arch systemd_units groups vim lyrics bin playlists
+_arch: pacman.list aur.list slash cpython3.pip pypy3.pip crontab.arch systemd_units groups vim lyrics bin playlists ../fun
 
 mac: _mac
 	@make -B $< > /dev/null
 	@$(CFG) add --verbose Makefile >&2
 
-_mac: brew.list crontab.mac brew_cask.list vim lyrics bin
+_mac: brew.list crontab.mac brew_cask.list vim lyrics bin ../fun
 
 # store user crontab
 crontab.arch:
