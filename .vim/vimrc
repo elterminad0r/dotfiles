@@ -26,6 +26,11 @@
 " TODO: generally see how unimpaired does things, and maybe move on
 " TODO: make a proper little mode for toggling things, with a menu
 
+" undoing wrapping with something like
+" https://stackoverflow.com/questions/5651454/vim-join-all-lines-in-paragraph
+" :set tw=1000000
+" gggqG
+
 set encoding=utf-8
 
 " leave the heathens to their folly
