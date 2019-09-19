@@ -18,7 +18,7 @@ default:
 	$(error "from Goedel: select an explicit target (eg mac or arch)")
 
 ../fun:
-	@$(CFG) add --verbose $@/cheatsheets >&2
+	@$(CFG) add --verbose $@/cheatsheets/* >&2
 	@$(CFG) add --verbose $@/lists/pasta >&2
 
 mirrorlist.uk:
