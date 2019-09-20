@@ -216,10 +216,11 @@ if [ -n "$ZSH_VERSION" ]; then
     vitx() {
         emulate -L zsh
         setopt nullglob
-        vim --servername vim **/*.tex **/*.sty TODO* *.bib
+        vim --cmd "let g:columns_are_on = 0" --servername vim \
+            **/*.tex **/*.sty TODO* *.bib
     }
 else
-    alias vitx='vim --servername vim TODO **/*.bib **/*.tex **/*.sty'
+    alias vitx='vim --cmd "let g:columns_are_on = 0" --servername vim TODO **/*.bib **/*.tex **/*.sty'
 fi
 # so I get my own vimrc when I use view
 alias view='vim -R'

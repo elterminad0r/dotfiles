@@ -80,7 +80,9 @@ endfunction
 
 " Toggle all the crap I put in my columns, proxied by the number option. Written
 " in such a way that it does not break if I change my default options.
-let g:columns_are_on = 1
+if !exists("g:columns_are_on")
+    let g:columns_are_on = 1
+endif
 function! ToggleColumn() abort
     if &number
         let g:columns_are_on = 0
