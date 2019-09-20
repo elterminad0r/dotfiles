@@ -18,6 +18,12 @@ tail call optimisation.
 The internally used integer sequence representation of radices prefers
 little-endian, as this ensures we don't have to do any arithmetic with the
 length of the sequence, which I think makes for cleaner-looking functions.
+
+It doesn't to much error checking. By default, it considers the digits 0-9, A-Z,
+a-z as having values 0-61. It ignores unknown digits and digits that are too
+high for the given base.
+
+Everything is assumed to operate on the non-negative integers.
 """
 
 import sys
@@ -59,11 +65,24 @@ def from_base_ints_big(num, base):
 def to_base_ints(num, base):
     """
     Convert `num`, a Python integer, to a little-endian sequence of integers
-    representing digits in base `base`.
+    representing digits in base `base`. There are no leading zeroes except for
+    the special case in which `num` is 0.
     """
+    if not num:
+        yield 0
     while num:
         num, r = divmod(num, base)
         yield r
+
+def get_digits(num, base, digits):
+    """
+    Read digits from a string, discarding unknown or oversized digital values.
+    """
+    for c in num:
+        if c in digits:
+            value = digits[c]
+            if value < base:
+                yield value
 
 def from_base(num, base, digits=STANDARD_DIGIT_LOOKUP):
     """
@@ -73,7 +92,7 @@ def from_base(num, base, digits=STANDARD_DIGIT_LOOKUP):
 
     Ignores any characters not in `digits`.
     """
-    return from_base_ints_big((digits[c] for c in num if c in digits), base)
+    return from_base_ints_big(get_digits(num, base, digits), base)
 
 def to_base(num, base, digits=STANDARD_DIGITS):
     """
