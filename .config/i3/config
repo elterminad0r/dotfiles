@@ -387,7 +387,7 @@ bindsym $mod+Shift+m exec xdotool mousemove 960 540
 bindsym $mod+g exec dm-tool switch-to-greeter
 
 # TODO add sleep
-bindsym --release $mod+Escape exec light-locker-command -l
+bindsym --release $mod+Escape exec dm-tool lock
 
 # screenshotting
 # TODO: protect against screenshots directory not existing
