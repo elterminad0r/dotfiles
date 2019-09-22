@@ -207,13 +207,20 @@ set nojoinspaces
 "      TODO: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
 "            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
 "            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+"           PS: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+"               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+"               enim ad minim veniam, quis nostrud exercitation ullamco laboris
+"               nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+"               in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+"               nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+"               sunt in culpa qui officia deserunt mollit anim id est laborum.
 "   (see also: set formatlistpat)
 " l: do not break a line that was already too long before insertion
 set formatoptions+=tcqjronl
 " this makes the vim auto-formatting recognise unordered 'bullet point' lists
 " using -+*, in addition to the default ordered lists with numbers
 " Also, indent things after a TODO more nicely
-set formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*\\\|^\\s*[-+*]\\s*\\\|^\\s*\\%(TODO\\\|FIXME\\)[:]\\?\\s*
+set formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*\\\|^\\s*[-+*]\\s*\\\|^\\s*\\%(TODO\\\|FIXME\\\|PS\\)[:]\\?\\s*
 " this is further customised in ftplugin/tex.vim
 
 " tell Vim to assume that tex files are latex, by default
