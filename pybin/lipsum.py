@@ -26,21 +26,37 @@ from itertools import islice, cycle, repeat, chain
 LIPSUM_DIR = pathlib.Path.home() / "fun" / "lists" / "lipsum"
 PASTA_DIR = pathlib.Path.home() / "fun" / "lists" / "pasta"
 
-PASTA_REGISTRY = {
-        "gamers": PASTA_DIR / "they_targeted_gamers.txt",
-        "gnu/linux": PASTA_DIR / "gnu_linux.txt",
-        "gnu/linux2": PASTA_DIR / "gnu_linux_2.txt"}
+class PastaHashable:
+    """
+    Class that implements methods to allow argparse to test for membership after
+    applying a type, so we can use type= and choices= simultaneously. Also wraps
+    the file object protocols I need, which is just iteration.
+    """
+    REGISTRY = {
+            "gamers": PASTA_DIR / "they_targeted_gamers.txt",
+            "gnu/linux": PASTA_DIR / "gnu_linux.txt",
+            "gnu/linux2": PASTA_DIR / "gnu_linux_2.txt"}
 
-def pasta_factory(s):
-    """
-    Wrapper to convert short nicknames to filenames. Can't use argparse choices
-    because it should match the type of the value of the argument.
-    """
-    try:
-        return PASTA_REGISTRY[s].open("r")
-    except KeyError:
-        raise ValueError("Invalid pasta {!r}, choose one of {}".format(
-                s, list(PASTA_REGISTRY)))
+    def __init__(self, value):
+        self.value = value
+        if value in self.REGISTRY:
+            self.file = self.REGISTRY[value].open("r")
+        else:
+            # don't directly raise an error, rather let the parser do that
+            self.file = None
+
+    def __hash__(self):
+        return hash(self.value)
+
+    def __eq__(self, other):
+        return self.file is not None and self.value == other
+
+    def __repr__(self):
+        return repr(self.value)
+
+    def __iter__(self):
+        return self.file
+
 
 def get_args():
     """
@@ -55,7 +71,8 @@ def get_args():
     file_group.add_argument("-s", "--shakespeare", action="store_const",
             const=(LIPSUM_DIR / "shakespeare.txt").open("r"), dest="file",
             help="Print lines from the complete works of Shakespeare")
-    file_group.add_argument("-p", "--pasta", type=pasta_factory, dest="file",
+    file_group.add_argument("-p", "--pasta", type=PastaHashable,
+            choices=PastaHashable.REGISTRY, dest="file",
             help="Use a copypasta")
     parser.add_argument("paragraphs", type=int, nargs="?", default=5,
             help="""Number of paragraphs to generate. A negative integer `-n` is
