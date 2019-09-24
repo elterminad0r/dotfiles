@@ -15,4 +15,3 @@ compton --no-fading-openclose &
 . "$HOME/.profile"
 
 [ -r ~/.Xresources ] && xrdb -merge -I"$XDOTDIR" ~/.Xresources
-[ -r ~/.Xmodmap ] && xmodmap ~/.Xmodmap

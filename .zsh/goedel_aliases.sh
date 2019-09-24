@@ -318,7 +318,7 @@ alias vinja='vim -c \
 alias vienc='vinja ~/Documents/.enc/'
 
 # reload various types of configuration
-alias x='xrdb -merge -I"$XDOTDIR" ~/.Xresources; xmodmap ~/.Xmodmap;
+alias x='xrdb -merge -I"$XDOTDIR" ~/.Xresources
          xset r rate 200 30'
 alias t='tmux source-file ~/.tmux.conf'
 
