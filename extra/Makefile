@@ -39,8 +39,9 @@ lyrics:
 	@$(CFG) add --verbose ~/.lyrics >&2
 
 playlists:
-	@uniq -d ~/.config/mpd/playlists/*
+	@for i in ~/.config/mpd/playlists/*; do uniq -d "$$i"; done
 	@$(CFG) add --verbose ~/.config/mpd/playlists/* >&2
+	@$(CFG) add --verbose ~/Music/**/Makefile
 
 vim:
 	@$(CFG) add --verbose ~/.vim/ftdetect >&2

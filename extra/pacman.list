@@ -239,6 +239,7 @@ pygmentize
 pypy
 pypy3
 pyside2
+python2-attrs
 python2-libappindicator
 python2-numpy
 python2-powerline
