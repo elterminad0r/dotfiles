@@ -17,6 +17,9 @@
 # couldn't possibly tell you about anything else. It's certainly hardly posix
 # compatible, and some of the more adventurous globs are really zsh-specific.
 
+# silent alias for personal use (Like Vim's :silent)
+alias silent='>/dev/null 2>&1 '
+
 # if tac command doesn't exist, use tail -r instead, and hope for the best
 if ! >/dev/null 2>&1 env which tac; then
     alias tac='fallback-tac'
@@ -386,7 +389,7 @@ alias wrap='fmt -w 80'
 
 # Frivolous aliases
 
-alias rot13='tr "A-Za-z" "N-ZA-Mn-za-m"'
+alias rot13='tr "A-Za-z0-9" "N-ZA-Mn-za-m5-90-4"'
 
 alias alpha='echo "abcdefghijklmnopqrstuvwxyz"'
 alias ALPHA='echo "ABCDEFGHIJKLMNOPQRSTUVWXYZ"'
