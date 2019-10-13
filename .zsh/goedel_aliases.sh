@@ -321,8 +321,7 @@ alias vinja='vim -c \
 alias vienc='vinja ~/Documents/.enc/'
 
 # reload various types of configuration
-alias x='xrdb -merge -I"$XDOTDIR" ~/.Xresources
-         xset r rate 200 30'
+alias x='xrdb -merge -I"$XDOTDIR" ~/.Xresources'
 alias t='tmux source-file ~/.tmux.conf'
 
 # restart or test wifi connection
