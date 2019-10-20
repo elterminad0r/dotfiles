@@ -405,7 +405,7 @@ bindsym $mod+t exec --no-startup-id polybar-msg cmd toggle
 # turn borders/titles on or off
 bindsym $mod+Tab border toggle
 
-for_window [class=".*"] border none
+for_window [class=".*"] border pixel 1
 # for_window [class=".*"] border pixel 0
 # for_window [class=".*"] border normal
 # default_border pixel 1
@@ -413,17 +413,16 @@ for_window [class=".*"] border none
 
 # smart_borders on
 
-gaps inner 20
-gaps outer 5
+gaps inner 15
+gaps outer 0
 # smart_gaps on
 
 # turn gaps on or off
-bindsym $mod+y gaps inner all set 20, gaps outer all set 5
+bindsym $mod+y gaps inner all set 15, gaps outer all set 0
 bindsym $mod+u gaps inner all set 0, gaps outer all set 0
 
 exec --no-startup-id /usr/bin/dunst
 
-exec --no-startup-id mpd
 exec --no-startup-id redshift-gtk -l manual -l 52.2053:0.1218
 exec --no-startup-id nm-applet
 exec --no-startup-id light-locker
