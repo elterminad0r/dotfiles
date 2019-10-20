@@ -19,8 +19,7 @@ traverse, so strictly speaking it's a list.
 # TODO add option for a literal path
 # TODO add command line options for wallpaper directory, stack location, max
 #      stack size
-# TODO add mechanism for toggling cycling on and off (through some signpost
-#      file or flag in the pickle stack, presumably)
+# TODO docstrings
 
 import os
 import sys
@@ -57,6 +56,7 @@ def ensure_cache():
 class BackgroundStack:
     def __init__(self):
         self.stack = collections.deque(maxlen=MAX_STACK)
+        self.cycling = True
         self.random_bg()
 
     def set_bg(self, choice):
@@ -86,10 +86,18 @@ class BackgroundStack:
 
     def random_bg(self):
         # TODO: prevent repetition
-        choice = random.choice(list(WALLPAPERS.iterdir()))
-        self.stack.append(choice)
-        self.pos = len(self.stack) - 1
-        self.set_bg(choice)
+        if self.cycling:
+            choice = random.choice(list(WALLPAPERS.iterdir()))
+            self.stack.append(choice)
+            self.pos = len(self.stack) - 1
+            self.set_bg(choice)
+        else:
+            Notify.Notification.new("randombg", "cycling is off").show()
+
+    def toggle_cycle(self):
+        self.cycling = not self.cycling
+        Notify.Notification.new("randombg", "cycling set to {}"
+                .format(self.cycling)).show()
 
     def prev_bg(self):
         if self.pos > 0:
@@ -110,6 +118,8 @@ def get_args():
     action = parser.add_mutually_exclusive_group(required=True)
     action.add_argument("--random", action="store_true",
             help="choose random next background and move to top of stack")
+    action.add_argument("--toggle", action="store_true",
+            help="toggle cycling")
     action.add_argument("--next", action="store_true",
             help="move to next background in stack")
     action.add_argument("--prev", action="store_true",
@@ -134,6 +144,8 @@ if __name__ == "__main__":
             raise
         if args.random:
             stack.random_bg()
+        elif args.toggle:
+            stack.toggle_cycle()
         elif args.prev:
             stack.prev_bg()
         elif args.next:
