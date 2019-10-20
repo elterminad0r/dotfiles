@@ -14,6 +14,7 @@ getty@.service                              enabled
 kbdrate.service                             enabled
 lightdm.service                             enabled
 mariadb.service                             enabled
+mpd.service                                 enabled
 mysqld.service                              enabled
 NetworkManager-dispatcher.service           enabled
 NetworkManager.service                      enabled
@@ -21,7 +22,8 @@ org.cups.cupsd.service                      enabled
 postfix.service                             enabled
 vt-gruvbox.service                          enabled
 avahi-daemon.socket                         enabled
+mpd.socket                                  enabled
 org.cups.cupsd.socket                       enabled
 remote-fs.target                            enabled
 
-24 unit files listed.
+26 unit files listed.

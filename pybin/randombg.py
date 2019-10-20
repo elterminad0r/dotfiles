@@ -19,6 +19,8 @@ traverse, so strictly speaking it's a list.
 # TODO add option for a literal path
 # TODO add command line options for wallpaper directory, stack location, max
 #      stack size
+# TODO add mechanism for toggling cycling on and off (through some signpost
+#      file or flag in the pickle stack, presumably)
 
 import os
 import sys
