@@ -19,7 +19,6 @@ traverse, so strictly speaking it's a list.
 # TODO add option for a literal path
 # TODO add command line options for wallpaper directory, stack location, max
 #      stack size
-# TODO docstrings
 
 import os
 import sys
@@ -46,6 +45,9 @@ STACK = CACHE_HOME / "randombg" / "stack.pickle"
 MAX_STACK = 100
 
 def ensure_cache():
+    """
+    Ensure an appropriate directory to write the cache file to exists.
+    """
     if not STACK.exists():
         Notify.Notification.new(
                 "randombg",
@@ -54,12 +56,28 @@ def ensure_cache():
     return STACK
 
 class BackgroundStack:
+    """
+    The Stack object keeps track of previous backgrounds and is responsible for
+    cycling to new ones, or revisiting previous ones.
+
+    This object is persisted to a pickle file, so isn't initialised very often.
+
+    Uses lots of gobject notifications, as I like to put this script in a cron
+    job, so feedback has to be communicated graphically.
+    """
     def __init__(self):
+        """
+        Set attributes and set the first background.. The actual stack is
+        handled entirely through a deque, which has functionality to limit size.
+        """
         self.stack = collections.deque(maxlen=MAX_STACK)
         self.cycling = True
         self.random_bg()
 
     def set_bg(self, choice):
+        """
+        Set the background to a particular file using feh.
+        """
         if not isinstance(choice, pathlib.Path):
             notif = Notify.Notification.new(
                     "randombg",
@@ -85,6 +103,9 @@ class BackgroundStack:
                 sys.exit(1)
 
     def random_bg(self):
+        """
+        Choose a random background to set.
+        """
         # TODO: prevent repetition
         if self.cycling:
             choice = random.choice(list(WALLPAPERS.iterdir()))
@@ -95,11 +116,17 @@ class BackgroundStack:
             Notify.Notification.new("randombg", "cycling is off").show()
 
     def toggle_cycle(self):
+        """
+        Turn cycling on or off>
+        """
         self.cycling = not self.cycling
         Notify.Notification.new("randombg", "cycling set to {}"
                 .format(self.cycling)).show()
 
     def prev_bg(self):
+        """
+        Revisit previous background (making sure not to IndexError)
+        """
         if self.pos > 0:
             self.pos -= 1
             self.set_bg(self.stack[self.pos])
@@ -107,6 +134,9 @@ class BackgroundStack:
             Notify.Notification.new("randombg", "stack underflow").show()
 
     def next_bg(self):
+        """
+        Climb back up the stack. Only applicable after a call to prev_bg.
+        """
         if self.pos < len(self.stack) - 1:
             self.pos += 1
             self.set_bg(self.stack[self.pos])
@@ -114,6 +144,9 @@ class BackgroundStack:
             Notify.Notification.new("randombg", "stack overflow").show()
 
 def get_args():
+    """
+    Parse argv
+    """
     parser = argparse.ArgumentParser(description=__doc__)
     action = parser.add_mutually_exclusive_group(required=True)
     action.add_argument("--random", action="store_true",
