@@ -382,11 +382,14 @@ cppath() {
 alias pacman='pacman --color=auto'
 alias p='pacman'
 alias pacsystree='for i in $(pacman -Qeq); do pactree $i; done'
+alias pacclean='sudo paccache -m ~/paccache -k 2'
 
 # could also use 'fold -sw 80', although that could break URLs apparently
 alias wrap='fmt -w 80'
 
 # Frivolous aliases
+
+alias insomniac-loop='while insomniac-press && sleep 60; do :; done'
 
 alias rot13='tr "A-Za-z0-9" "N-ZA-Mn-za-m5-90-4"'
 
