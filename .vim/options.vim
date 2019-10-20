@@ -257,7 +257,8 @@ set colorcolumn=+1
 set linebreak
 set breakindent
 set display+=lastline
-set showbreak=+++\ 
+" Just to avoid trailing whitespace, for general linting purposes
+let &g:showbreak = "+++ "
 
 " backspace, space, ~ can go between lines in normal/visual mode
 " also allow <Left> and <Right> to do this, even though I remap these, for the

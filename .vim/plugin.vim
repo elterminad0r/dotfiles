@@ -312,8 +312,10 @@ let g:rainbow_conf = {
 Plug 'luochen1990/rainbow'
 nnoremap yo( :RainbowToggle<CR>
 
-" vimgrep-like thing but with ack, but actually with ag
-if executable('ag')
+" vimgrep-like thing but with ack, but actually with rg or ag if possible.
+if executable('rg')
+    let g:ackprg = 'rg --vimgrep'
+elseif executable('ag')
     let g:ackprg = 'ag --vimgrep'
 endif
 Plug 'mileszs/ack.vim'
