@@ -510,7 +510,7 @@ alias parrot="curl parrot.live"
 alias rick='echo "critical system update; do not interrupt";
             CACA_DRIVER=ncurses mpv \
                 "https://www.youtube.com/watch?v=dQw4w9WgXcQ" \
-                -vo caca --really-quiet || echo "Never mind"'
+                -vo caca --really-quiet; echo "Never mind"'
 
 # look cooler
 alias cmatrix='cmatrix -abu 1'
@@ -566,4 +566,6 @@ rewind() {
 }
 
 alias calcifer='{ >/dev/null 2>&1 command -v cacafire &&
-                  CACA_DRIVER=ncurses cacafire; } || aafire -driver curses'
+                  { CACA_DRIVER=ncurses cacafire || true;
+                  };
+                } || aafire -driver curses'
