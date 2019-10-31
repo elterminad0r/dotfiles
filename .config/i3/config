@@ -380,8 +380,8 @@ bindsym $mod+Shift+XF86AudioPrev exec --no-startup-id mpc -q seekthrough -10
 # bindsym $mod+XF86AudioPrev exec mpc prev -q
 
 # hide mouse
-bindsym $mod+m exec xdotool mousemove 1920 1080
-bindsym $mod+Shift+m exec xdotool mousemove 960 540
+bindsym $mod+m exec --no-startup-id xdotool mousemove 1920 1080
+bindsym $mod+Shift+m exec --no-startup-id xdotool mousemove 960 540
 
 # open lightdm greeter
 bindsym $mod+g exec dm-tool switch-to-greeter
