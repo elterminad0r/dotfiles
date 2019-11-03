@@ -248,8 +248,14 @@ alias tt='elinks -dump -dump-width $COLUMNS "$HOME/Documents/timetable.html"'
 # These provide copy and paste, somewhat sensitive to what cliboard interfaces
 # there are on your system.
 c() {
-    tee /dev/tty | goedel_copy "$@"
-    echo "-> copied to clipboard"
+    # basically, see if copying is "safe" by trying to copy some random garbage
+    # before doing any ambitious stuff
+    local sentinel="$(base64 /dev/urandom | head -1)"
+    if { echo "$sentinel" | goedel_copy "$@";
+         [ "$(goedel_paste)" = "$sentinel" ] }; then
+        tee /dev/tty | goedel_copy "$@"
+        echo "-> copied to clipboard"
+    fi
 }
 
 alias v='goedel_paste'
