@@ -243,13 +243,16 @@ alias maths='ipython --profile=maths'
 # display my timetable for school using elinks
 alias tt='elinks -dump -dump-width $COLUMNS "$HOME/Documents/timetable.html"'
 
-# new and improved c & v, inspired by & modified from OMZ. Aliases pointing to
-# executables in my ~/bin
 # These provide copy and paste, somewhat sensitive to what cliboard interfaces
-# there are on your system.
+# there are on your system. Inspired by OMZ.
+
+# This is completely intended as an
+# interactive front-end to goedel_copy. If you're for some reason copying
+# stuff in a script, recommend goedel_copy or just xclip, xsel etc as
+# appropriate.
 c() {
     # basically, see if copying is "safe" by trying to copy some random garbage
-    # before doing any ambitious stuff
+    # before doing any ambitious stuff.
     local sentinel="$(base64 /dev/urandom | head -1)"
     if { echo "$sentinel" | goedel_copy "$@";
          [ "$(goedel_paste)" = "$sentinel" ] }; then
