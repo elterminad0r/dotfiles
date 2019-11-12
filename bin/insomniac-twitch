@@ -8,18 +8,18 @@
 #          \/      \/              \/      \/          \/      \/
 # FIGMENTIZE: insomniac
 
-# Move the mouse programmatically
+# Move the mouse programmatically.
 
 set -eu
 
 # if you want to really ruin someone's day, run this in a high frequency while
 # loop:
-# while true; do insomniac_twitch; sleep 0.5; done
+# while true; do insomniac-twitch; sleep 0.5; done
 dis_w="$(xdotool getdisplaygeometry | awk '{print $1}')"
 dis_h="$(xdotool getdisplaygeometry | awk '{print $2}')"
 gen_x="$(shuf -i 1-"$dis_w" -n 1)"
 gen_y="$(shuf -i 1-"$dis_h" -n 1)"
-xdotool mousemove "$gen_x" "$gen_y"
+ydotool mousemove "$gen_x" "$gen_y"
 msgdate="$(date +"%H:%M:%S")"
 echo twitch "$msgdate"
 notify-send twitch "$msgdate"

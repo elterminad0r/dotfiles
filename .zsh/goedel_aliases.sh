@@ -395,8 +395,6 @@ alias wrap='fmt -w 80'
 
 # Frivolous aliases
 
-alias insomniac-loop='while insomniac-press && sleep 60; do :; done'
-
 alias clock='while true; do clear && date && sleep 0.5; done'
 
 alias rot13='tr "A-Za-z0-9" "N-ZA-Mn-za-m5-90-4"'

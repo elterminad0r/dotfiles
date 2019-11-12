@@ -10,9 +10,14 @@
 
 set -eu
 
-# tap left control, programmatically. This is a little less intrusive than
-# insomniac-press
-xdotool key Control_L
-msgdate="$(date +"%H:%M:%S")"
-echo press "$msgdate"
-notify-send press "$msgdate"
+# move the mouse along a 1x1 pixel square, programmatically
+# less intrusive than insomniac-twitch, I find.
+while true; do
+    for xy in "1 0" "0 1" "-1 0" "0 -1"; do
+        xdotool mousemove_relative -- $xy
+        msgdate="$(date +"%H:%M:%S")"
+        echo insomniac "$msgdate"
+        notify-send insomniac "$msgdate"
+        sleep 60
+    done
+done
