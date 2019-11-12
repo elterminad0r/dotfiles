@@ -30,6 +30,8 @@ import numpy as np
 
 from sympy import init_session
 init_session()
+
+pow = __builtins__["pow"]
 ###END
 
 with open(__file__, "r") as setupfile:

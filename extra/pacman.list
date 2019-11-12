@@ -27,6 +27,7 @@ boost
 bsd-games
 cabextract
 calcurse
+camlp5
 cantata
 cbatticon
 cdrtools
@@ -44,6 +45,7 @@ coq-doc
 cowsay
 cpulimit
 cpupower
+cronie
 ctags
 cuneiform
 cups-pdf

@@ -23,6 +23,8 @@ import collections
 from collections import *
 import operator
 from operator import *
+
+pow = __builtins__["pow"]
 ###END
 
 with open(__file__, "r") as setupfile:
