@@ -360,7 +360,9 @@ Plug 'kana/vim-textobj-entire'
 xmap ag <Plug>(textobj-entire-a)
 omap ag <Plug>(textobj-entire-a)
 
-if has("python") || has("python3")
+" This ordering is important! Vim needs to be asked if it has Python 3 first so
+" that it loads Python 3.
+if has("python3") || has("python")
     " Set of snippets for ultisnips to use
     Plug 'honza/vim-snippets'
 
