@@ -255,7 +255,7 @@ c() {
     # before doing any ambitious stuff.
     local sentinel="$(base64 /dev/urandom | head -1)"
     if { echo "$sentinel" | goedel_copy "$@";
-         [ "$(goedel_paste)" = "$sentinel" ] }; then
+         [ "$(goedel_paste)" = "$sentinel" ]; }; then
         tee /dev/tty | goedel_copy "$@"
         echo "-> copied to clipboard"
     fi
