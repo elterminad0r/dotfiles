@@ -228,9 +228,10 @@ fi
 # so I get my own vimrc when I use view
 alias view='vim -R'
 
-# if light locker exists, alias lock to be alongside poweroff & reboot etc
-if >/dev/null 2>&1 command -v light-locker-command; then
-    alias lock='light-locker-command -l'
+# if light locker (or possibly some other display manager) exists, alias lock to
+# be alongside poweroff & reboot etc
+if >/dev/null 2>&1 command -v dm-tool; then
+    alias lock='dm-tool lock'
 else
     # mess around with quotes for ships and giggs
     # I basically just prefer to have a consistent outer quoting style here.
