@@ -48,8 +48,6 @@ Unbuffering will require Python 3.7.
 import sys
 import re
 
-import smartparse as argparse
-
 # Big start gained by scraping from here:
 # https://www.compart.com/en/unicode/decomposition/%3Cfont%3E
 # let s = ''; for (let e of document.querySelectorAll("p.text,div.text")) {s += e.innerHTML.trim()}; print(s)
@@ -311,23 +309,25 @@ def summarise_alphabets(alphabets):
     for k, alph in alphabets.items():
         print("    {:{w}}: {}".format(k, alph, w=w))
 
-class ListAction(argparse._HelpAction):
-    """
-    Action that must override any other parsing to produce a list and exit,
-    which is actually very similar functionality to -h, so we reappropriate
-    HelpAction.
-    """
-    def __call__(self, parser, namespace, values, option_string=None):
-        print("Base alphabets:")
-        summarise_alphabets(alphabets)
-        print("Composed alphabets:")
-        summarise_alphabets(auxiliary)
-        sys.exit()
-
 def get_args():
     """
     Parse argv
     """
+    import smartparse as argparse
+
+    class ListAction(argparse._HelpAction):
+        """
+        Action that must override any other parsing to produce a list and exit,
+        which is actually very similar functionality to -h, so we reappropriate
+        HelpAction.
+        """
+        def __call__(self, parser, namespace, values, option_string=None):
+            print("Base alphabets:")
+            summarise_alphabets(alphabets)
+            print("Composed alphabets:")
+            summarise_alphabets(auxiliary)
+            sys.exit()
+
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("-l", "--list", action=ListAction,
             help="""Do not translate, instead produce a list of available

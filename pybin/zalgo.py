@@ -16,8 +16,6 @@ Unbuffering will require Python 3.7.
 
 import sys
 
-import smartparse as argparse
-
 from random import gauss, choice
 
 # from http://www.alanwood.net/unicode/combining_diacritical_marks.html,
@@ -70,6 +68,8 @@ def get_args():
     """
     Parse argv
     """
+    import smartparse as argparse
+
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("mean", type=float, nargs="?", default=-1.0,
             help="""The mean of the normal distribution of the number of

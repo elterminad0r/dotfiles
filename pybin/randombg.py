@@ -29,8 +29,6 @@ import subprocess
 import pathlib
 import shutil
 
-import smartparse as argparse
-
 import gi
 gi.require_version('Notify', '0.7')
 from gi.repository import Notify
@@ -147,6 +145,8 @@ def get_args():
     """
     Parse argv
     """
+    import smartparse as argparse
+
     parser = argparse.ArgumentParser(description=__doc__)
     action = parser.add_mutually_exclusive_group(required=True)
     action.add_argument("--random", action="store_true",

@@ -35,7 +35,7 @@ def format_bar(width, fraction, unicode=None, prog_chars=None):
 if __name__ == "__main__":
     import sys
     import time
-    import argparse
+    import smartparse as argparse
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("-a", "--ascii", action="store_true",
             help="ASCII mode")

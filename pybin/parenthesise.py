@@ -13,8 +13,6 @@ Parenthesising sequences. Inspired by the question about associative operators
 from the Cambridge 1A Groups Introductory Examples Sheet.
 """
 
-import smartparse as argparse
-
 from itertools import product, chain
 from functools import reduce
 from operator import mul
@@ -99,6 +97,8 @@ def get_args():
     """
     Parse argv
     """
+    import smartparse as argparse
+
     parser = argparse.ArgumentParser()
     parser.add_argument("n", type=int, nargs="?", default=5,
             help="Order of bracketing to produce")

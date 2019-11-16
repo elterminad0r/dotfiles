@@ -29,8 +29,6 @@ Everything is assumed to operate on the non-negative integers.
 import sys
 import string
 
-import smartparse as argparse
-
 STANDARD_DIGITS = "{}{}{}".format(string.digits,
                                   string.ascii_uppercase,
                                   string.ascii_lowercase)
@@ -105,6 +103,8 @@ def get_args():
     """
     Parse command line arguments
     """
+    import smartparse as argparse
+
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("from_base", type=int,
             help="Base of the string in stdin")

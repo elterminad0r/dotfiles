@@ -25,8 +25,6 @@ understand so that I can modify/improve it etc.
 import re
 import enum
 
-import smartparse as argparse
-
 class CB(enum.Enum):
     """
     Capitalisation Behaviour: Enum specifying capitalisation behaviour.
@@ -62,3 +60,6 @@ def make_repl(pat, behaviour):
     def repl(match):
         repl_string = match.expand(pat)
     return repl, called
+
+def get_args():
+    import smartparse as argparse

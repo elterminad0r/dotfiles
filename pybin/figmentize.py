@@ -41,7 +41,6 @@ import sys
 import time
 import pathlib
 import os.path
-import smartparse as argparse
 import json
 
 def get_figlet_default():
@@ -95,6 +94,8 @@ def get_args():
     """
     Process argv
     """
+    import smartparse as argparse
+
     config = get_config()
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("file", type=argparse.FileType("r"),

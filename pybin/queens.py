@@ -12,8 +12,6 @@ The "n queens" problem in Python - how many ways are there to fit n queens on an
 n by n chessboard, such that no pair of queens attacks one another?
 """
 
-import smartparse as argparse
-
 from itertools import islice
 
 # Uses the standard backtracking algorithm. Also, as no two queens may be on the
@@ -84,6 +82,8 @@ def get_args():
     """
     Parse argv
     """
+    import smartparse as argparse
+
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("n", type=int, nargs="?", default=8,
             help="Board size")

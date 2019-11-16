@@ -18,7 +18,6 @@ the terminal screen, as this isn't a straightforward function to invert.
 TODO: use Grover's algorithm instead.
 """
 
-import smartparse as argparse
 import shutil
 
 VERT = "│"
@@ -74,6 +73,11 @@ def timestable(w, h):
             pad=pad, VERT=VERT))
 
 def get_args():
+    """
+    Parse argv
+    """
+    import smartparse as argparse
+
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("-w", type=int, help="width of table")
     parser.add_argument("-l", type=int, help="height of table")

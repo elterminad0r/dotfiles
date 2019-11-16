@@ -19,8 +19,6 @@ Generating lorem ipsum text from some appropriately formatted file, by default
 import sys
 import pathlib
 
-import smartparse as argparse
-
 from itertools import islice, cycle, repeat, chain
 
 LIPSUM_DIR = pathlib.Path.home() / "fun" / "lists" / "lipsum"
@@ -62,6 +60,8 @@ def get_args():
     """
     Parse argv
     """
+    import smartparse as argparse
+
     parser = argparse.ArgumentParser(description=__doc__)
     file_group = parser.add_mutually_exclusive_group()
     # important that this argument goes first so the default gets triggered
