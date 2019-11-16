@@ -1,0 +1,13 @@
+UNIT FILE                    STATE  
+mpd.service                  enabled
+xdg-user-dirs-update.service enabled
+dirmngr.socket               enabled
+gpg-agent-browser.socket     enabled
+gpg-agent-extra.socket       enabled
+gpg-agent-ssh.socket         enabled
+gpg-agent.socket             enabled
+p11-kit-server.socket        enabled
+pipewire.socket              enabled
+pulseaudio.socket            enabled
+
+10 unit files listed.

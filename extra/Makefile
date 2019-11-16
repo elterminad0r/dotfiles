@@ -54,7 +54,7 @@ bin:
 	@$(CFG) add --verbose ~/bin >&2
 	@$(CFG) add --verbose ~/pybin >&2
 
-_arch: pacman.list aur.list slash cpython3.pip pypy3.pip crontab.arch systemd_units groups vim lyrics bin playlists ../fun
+_arch: pacman.list aur.list slash cpython3.pip pypy3.pip crontab.arch systemd_units systemd_user_units groups vim lyrics bin playlists ../fun
 
 mac: _mac
 	@make -B $< > /dev/null
@@ -101,6 +101,10 @@ groups:
 # TODO: strip frivolities
 systemd_units:
 	@systemctl list-unit-files --state=enabled > $@
+	@$(CFG) add --verbose $@ >&2
+
+systemd_user_units:
+	@systemctl list-unit-files --user --state=enabled > $@
 	@$(CFG) add --verbose $@ >&2
 
 cpython3.pip:
