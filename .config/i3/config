@@ -427,7 +427,7 @@ exec --no-startup-id /usr/bin/dunst
 exec --no-startup-id redshift-gtk -l manual -l 52.2053:0.1218
 exec --no-startup-id nm-applet
 exec --no-startup-id light-locker
-exec --no-startup-id ~/bin/randombg --random
+exec --no-startup-id ~/bin/randombg --random-force
 
 exec --no-startup-id "$TERMINAL"
 exec i3-msg "workspace $ws2; exec firefox"

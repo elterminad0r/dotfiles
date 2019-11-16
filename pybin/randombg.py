@@ -102,12 +102,12 @@ class BackgroundStack:
                 print("No feh executable", file=sys.stderr)
                 sys.exit(1)
 
-    def random_bg(self):
+    def random_bg(self, force=False):
         """
         Choose a random background to set.
         """
         # TODO: prevent repetition
-        if self.cycling:
+        if force or self.cycling:
             choice = random.choice(list(WALLPAPERS.iterdir()))
             self.stack.append(choice)
             self.pos = len(self.stack) - 1
@@ -150,15 +150,17 @@ def get_args():
     parser = argparse.ArgumentParser(description=__doc__)
     action = parser.add_mutually_exclusive_group(required=True)
     action.add_argument("--random", action="store_true",
-            help="choose random next background and move to top of stack")
+            help="Choose random next background and move to top of stack")
+    action.add_argument("--random-force", action="store_true",
+            help="Cycle irrespective of cycling setting")
     action.add_argument("--toggle", action="store_true",
-            help="toggle cycling")
+            help="Toggle cycling")
     action.add_argument("--next", action="store_true",
-            help="move to next background in stack")
+            help="Move to next background in stack")
     action.add_argument("--prev", action="store_true",
-            help="move to previous background in stack")
+            help="Move to previous background in stack")
     action.add_argument("--init", action="store_true",
-            help="initialise the background stack")
+            help="Initialise the background stack")
     return parser.parse_args()
 
 if __name__ == "__main__":
@@ -177,6 +179,8 @@ if __name__ == "__main__":
             raise
         if args.random:
             stack.random_bg()
+        elif args.random_force:
+            stack.random_bg(force=True)
         elif args.toggle:
             stack.toggle_cycle()
         elif args.prev:
