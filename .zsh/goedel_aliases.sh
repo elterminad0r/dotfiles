@@ -563,7 +563,7 @@ take_one() {
 rewind() {
     local script_file="${1:-typescript.script}"
     local ascnma_file="${1:-recording.cast}"
-    if [ -r "$script_file" ]; then
+    if [ -r "$script_file" ] && [ -r "timing.script" ]; then
         scriptreplay -ttiming.script "$script_file"
     elif [ -r "$ascnma_file" ]; then
         asciinema play "$ascnma_file"
