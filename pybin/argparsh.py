@@ -53,12 +53,12 @@ For an example of how to use it, see vimack.
 import sys
 import re
 
+import smartparse as argparse
+
 def get_args():
     """
     Parse argv
     """
-    import smartparse as argparse
-
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--prefix", default="arg_",
             help="Prefix to attach to the outputted shell variables")
