@@ -51,7 +51,7 @@ function! ToggleGUI() abort
     if g:goedel_gui_is_up
         " same as default guioptions, but without tabs, scrollbars, menus or
         " toolbars.
-        set guioptions=agiLtc
+        set guioptions=agitc
     else
         set guioptions&
     endif
