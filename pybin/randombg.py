@@ -131,6 +131,13 @@ class BackgroundStack:
         else:
             Notify.Notification.new("randombg", "stack underflow").show()
 
+    def restore(self):
+        """
+        Set background to current background (useful eg after a reboot)
+        """
+        self.set_bg(self.stack[-1])
+        Notify.Notification.new("randombg", "restored background").show()
+
     def next_bg(self):
         """
         Climb back up the stack. Only applicable after a call to prev_bg.
@@ -153,6 +160,8 @@ def get_args():
             help="Choose random next background and move to top of stack")
     action.add_argument("--random-force", action="store_true",
             help="Cycle irrespective of cycling setting")
+    action.add_argument("--restore", action="store_true",
+            help="Restore the current background")
     action.add_argument("--toggle", action="store_true",
             help="Toggle cycling")
     action.add_argument("--next", action="store_true",
@@ -181,6 +190,8 @@ if __name__ == "__main__":
             stack.random_bg()
         elif args.random_force:
             stack.random_bg(force=True)
+        elif args.restore:
+            stack.restore()
         elif args.toggle:
             stack.toggle_cycle()
         elif args.prev:

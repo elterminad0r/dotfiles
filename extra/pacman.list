@@ -38,7 +38,6 @@ clang
 cloc
 cmake
 cmatrix
-compton
 conky
 coq
 coq-doc
@@ -231,6 +230,7 @@ perl-json
 perl-list-moreutils
 perl-lwp-protocol-https
 perl-term-readline-gnu
+picom
 pipewire
 postfix
 powerline
@@ -376,6 +376,7 @@ zathura-pdf-mupdf
 zathura-ps
 zsh-completions
 base-devel
+base
 texlive-most
 xorg
 xorg-apps

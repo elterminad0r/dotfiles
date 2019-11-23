@@ -36,5 +36,5 @@
 # first three letters of the particular day or month (case does not matter).
 # Ranges or lists of names are not allowed.
 
-*/30 * * * * DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus DISPLAY=:0 PYTHONPATH="$HOME/pybin:$PYTHONPATH" "$HOME/bin/randombg" --random
-0 * * * * cd "$HOME/extra" && make arch
+*/30 * * * * DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$UID/bus DISPLAY=:0 PYTHONPATH="$HOME/pybin:$PYTHONPATH" "$HOME/bin/randombg" --random
+0 * * * * XDG_RUNTIME_DIR=unix:path=/run/user/$UID DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$UID/bus cd "$HOME/extra" && make arch

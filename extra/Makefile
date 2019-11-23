@@ -103,9 +103,10 @@ systemd_units:
 	@systemctl list-unit-files --state=enabled > $@
 	@$(CFG) add --verbose $@ >&2
 
-systemd_user_units:
-	@systemctl list-unit-files --user --state=enabled > $@
-	@$(CFG) add --verbose $@ >&2
+# TODO: this breaks under cron. rewrite as timer unit
+# systemd_user_units:
+# 	@systemctl list-unit-files --user --state=enabled > $@
+# 	@$(CFG) add --verbose $@ >&2
 
 cpython3.pip:
 	@python3 -m pip freeze --user > $@
