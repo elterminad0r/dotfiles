@@ -218,7 +218,9 @@ def make_backup(filename, contents):
     Make a backup of a file
     """
     # make the file path non-absolute in order to join it
-    backup_path = escape(BACKUP_DIR / pathlib.Path(filename).relative_to(pathlib.Path().absolute().root))
+    backup_path = escape(BACKUP_DIR
+                       / (pathlib.Path(filename)
+                          .relative_to(pathlib.Path().absolute().root)))
     backup_path.parent.mkdir(parents=True, exist_ok=True)
     print("writing backup to {!s}".format(backup_path), file=sys.stderr)
     with backup_path.open("w") as backup_file:

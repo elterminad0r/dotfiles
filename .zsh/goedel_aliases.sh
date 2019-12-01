@@ -405,7 +405,7 @@ alias rot13='tr "A-Za-z0-9" "N-ZA-Mn-za-m5-90-4"'
 
 alias alpha='echo "abcdefghijklmnopqrstuvwxyz"'
 alias ALPHA='echo "ABCDEFGHIJKLMNOPQRSTUVWXYZ"'
-alias pang='echo "The quick brown fox jumps over the lazy dog"'
+alias pang='shuf -n1 ~/fun/lists/pangrams.txt'
 
 # if you're here for a good time not a long time, try running
 # exec > >(frak -u | mathbb -u | bfseries -u)
