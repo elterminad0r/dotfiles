@@ -250,3 +250,7 @@
 	path = programmeren/nctfe
 	url = https://github.com/goedel-gang/nctfe.git
 	branch = master
+[submodule ".vim/bundle/lean.vim"]
+	path = .vim/bundle/lean.vim
+	url = https://github.com/leanprover/lean.vim.git
+	branch = master

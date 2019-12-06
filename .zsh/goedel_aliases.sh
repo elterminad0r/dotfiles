@@ -405,7 +405,9 @@ alias rot13='tr "A-Za-z0-9" "N-ZA-Mn-za-m5-90-4"'
 
 alias alpha='echo "abcdefghijklmnopqrstuvwxyz"'
 alias ALPHA='echo "ABCDEFGHIJKLMNOPQRSTUVWXYZ"'
-alias pang='shuf -n1 ~/fun/lists/pangrams.txt'
+alias pang='if [ -r "$HOME/fun/lists/pangrams.txt" ]; then
+    shuf -n1 "$HOME/fun/lists/pangrams.txt"
+    else echo "Sphinx of black quartz, judge my vows"; fi'
 
 # if you're here for a good time not a long time, try running
 # exec > >(frak -u | mathbb -u | bfseries -u)

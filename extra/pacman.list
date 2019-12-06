@@ -38,6 +38,7 @@ clang
 cloc
 cmake
 cmatrix
+code
 conky
 coq
 coq-doc
@@ -303,7 +304,6 @@ redshift
 reflector
 reiserfsprogs
 reptyr
-ripgrep
 rofi
 rpmextract
 rsync

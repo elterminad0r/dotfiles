@@ -353,6 +353,9 @@ Plug 'rkennedy/vim-delphi', { 'for': 'pascal' }
 " Filetype for i3 config files
 Plug 'mboughaba/i3config.vim', { 'for': 'i3config' }
 
+" filetype for Lean theorem prover source
+Plug 'leanprover/lean.vim', { 'for': 'lean' }
+
 " I want e to be a LaTeX environment, so will use g instead.
 let g:textobj_entire_no_default_key_mappings=1
 Plug 'kana/vim-textobj-entire'
