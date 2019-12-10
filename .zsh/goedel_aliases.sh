@@ -407,7 +407,7 @@ alias alpha='echo "abcdefghijklmnopqrstuvwxyz"'
 alias ALPHA='echo "ABCDEFGHIJKLMNOPQRSTUVWXYZ"'
 alias pang='if [ -r "$HOME/fun/lists/pangrams.txt" ]; then
     shuf -n1 "$HOME/fun/lists/pangrams.txt"
-    else echo "Sphinx of black quartz, judge my vows"; fi'
+    else echo "Sphinx of black quartz, judge my vow"; fi'
 
 # if you're here for a good time not a long time, try running
 # exec > >(frak -u | mathbb -u | bfseries -u)
