@@ -33,7 +33,8 @@ class PastaHashable:
     REGISTRY = {
             "gamers": PASTA_DIR / "they_targeted_gamers.txt",
             "gnu/linux": PASTA_DIR / "gnu_linux.txt",
-            "gnu/linux2": PASTA_DIR / "gnu_linux_2.txt"}
+            "gnu/linux2": PASTA_DIR / "gnu_linux_2.txt",
+            "bees": PASTA_DIR / "beemovie.txt"}
 
     def __init__(self, value):
         self.value = value
