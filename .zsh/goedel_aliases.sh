@@ -251,6 +251,7 @@ alias tt='elinks -dump -dump-width $COLUMNS "$HOME/Documents/timetable.html"'
 # interactive front-end to goedel_copy. If you're for some reason copying
 # stuff in a script, recommend goedel_copy or just xclip, xsel etc as
 # appropriate.
+# TODO: this breaks in pipes
 c() {
     # basically, see if copying is "safe" by trying to copy some random garbage
     # before doing any ambitious stuff.
