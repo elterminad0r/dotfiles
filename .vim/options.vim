@@ -69,13 +69,13 @@ set viewdir=~/.vim/view
 "              well, which provide the functionality of un-closing a vim with a
 "              precious bufferlist (among other things). See
 "              $ZDOTDIR/goedel_aliases.sh
-" '100: store marks for 100 previously edited files
-" /100: store 100 previous searches
-" :100: store 100 previous commands issued
+" '10000: store marks for 10000 previously edited files
+" /10000: store 10000 previous searches
+" :10000: store 10000 previous commands issued
 " <1000000: store at most 1000000 lines of each buffer
-" @1000: store 1000 lines of input-line history
+" @100000: store 100000 lines of input-line history
 " s10000: allow items to be 10000 Kbyte in size
-set viminfo='100,/100,:100,<1000000,s10000,@1000,h,n~/.vim/viminfo
+set viminfo='10000,/10000,:10000,<1000000,s10000,@10000,h,n~/.vim/viminfo
 
 " remember 10000 lines of command-line history in memory
 set history=10000
