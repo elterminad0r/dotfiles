@@ -84,6 +84,7 @@ ffmpegthumbnailer
 figlet
 firefox
 firejail
+fish
 flashplugin
 fontforge
 fortune-mod
@@ -148,7 +149,6 @@ iw
 java-openjfx
 jfsutils
 jp2a
-jq
 js52
 jython
 kid3
@@ -250,9 +250,7 @@ python2-attrs
 python2-libappindicator
 python2-numpy
 python2-powerline
-python2-prompt_toolkit
 python2-pylint
-python2-pyqt5
 python-ansi2html
 python-html2text
 python-matplotlib
