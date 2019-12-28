@@ -66,6 +66,7 @@ endif
 " Source the sub-rc files for various components
 source ~/.vim/plugin.vim
 source ~/.vim/options.vim
+source ~/.vim/digraphs.vim
 source ~/.vim/mappings.vim
 source ~/.vim/command.vim
 
