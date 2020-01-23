@@ -253,6 +253,7 @@ python2-powerline
 python2-pylint
 python-ansi2html
 python-html2text
+python-lockfile
 python-matplotlib
 python-networkx
 python-pandas
@@ -314,7 +315,6 @@ shellcheck
 simplescreenrecorder
 smartmontools
 s-nail
-sonata
 sox
 speedtest-cli
 sshpass
@@ -357,6 +357,7 @@ xaos
 xdg-user-dirs
 xdotool
 xf86-video-intel
+xf86-video-vesa
 xfce4-appfinder
 xfce4-panel
 xfce4-power-manager
@@ -366,6 +367,14 @@ xfce4-terminal
 xfdesktop
 xfmpc
 xfwm4-themes
+xorg-docs
+xorg-fonts-100dpi
+xorg-fonts-75dpi
+xorg-server-devel
+xorg-server-xephyr
+xorg-server-xnest
+xorg-server-xvfb
+xorg-server-xwayland
 xorg-twm
 xorg-xfd
 xorg-xmag
@@ -377,7 +386,7 @@ zathura-ps
 zsh-completions
 base-devel
 base
+pyqt5
 texlive-most
-xorg
 xorg-apps
 xorg-fonts
