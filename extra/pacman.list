@@ -140,6 +140,7 @@ i3status
 iftop
 inkscape
 inotify-tools
+intel-media-sdk
 intel-ucode
 iotop
 ipython
@@ -164,7 +165,6 @@ libfbclient
 libmythes
 libnm-glib
 libreoffice-still
-libtiger
 libwnck
 libx86
 lightdm-gtk-greeter-settings
@@ -291,7 +291,6 @@ qt5-styleplugins
 qt5-tools
 qt5-translations
 qt5-virtualkeyboard
-qt5-wayland
 qt5-webglplugin
 qt5-webkit
 qt5-webview
@@ -383,6 +382,7 @@ youtube-dl
 zathura-cb
 zathura-pdf-mupdf
 zathura-ps
+zenity
 zsh-completions
 base-devel
 base

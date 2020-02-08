@@ -242,10 +242,6 @@
 	path = fun/academic
 	url = https://github.com/goedel-gang/maths.git
 	branch = master
-[submodule "Documents/dexter-notes"]
-	path = Documents/dexter-notes
-	url = https://github.com/dalcde/cam-notes
-	branch = master
 [submodule "programmeren/nctfe"]
 	path = programmeren/nctfe
 	url = https://github.com/goedel-gang/nctfe.git

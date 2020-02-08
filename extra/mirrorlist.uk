@@ -3,29 +3,29 @@
 ################################################################################
 
 # With:       reflector -c 'United Kingdom' -f 100 --save mirrorlist.uk
-# When:       2019-06-22 15:10:37 UTC
+# When:       2020-02-03 18:33:25 UTC
 # From:       https://www.archlinux.org/mirrors/status/json/
-# Retrieved:  2019-06-22 15:10:12 UTC
-# Last Check: 2019-06-22 14:58:32 UTC
+# Retrieved:  2020-02-03 18:33:23 UTC
+# Last Check: 2020-02-03 18:07:42 UTC
 
 Server = https://archlinux.uk.mirror.allworldit.com/archlinux/$repo/os/$arch
 Server = https://mirror.netweaver.uk/archlinux/$repo/os/$arch
-Server = http://archlinux.mirrors.uk2.net/$repo/os/$arch
-Server = https://mirrors.ukfast.co.uk/sites/archlinux.org/$repo/os/$arch
 Server = https://mirror.bytemark.co.uk/archlinux/$repo/os/$arch
+Server = https://www.mirrorservice.org/sites/ftp.archlinux.org/$repo/os/$arch
+Server = https://lon.mirror.rackspace.com/archlinux/$repo/os/$arch
+Server = http://mirror.bytemark.co.uk/archlinux/$repo/os/$arch
 Server = http://archlinux.uk.mirror.allworldit.com/archlinux/$repo/os/$arch
 Server = http://mirror.netweaver.uk/archlinux/$repo/os/$arch
-Server = http://mirror.bytemark.co.uk/archlinux/$repo/os/$arch
-Server = http://mirrors.manchester.m247.com/arch-linux/$repo/os/$arch
 Server = http://www.mirrorservice.org/sites/ftp.archlinux.org/$repo/os/$arch
-Server = https://www.mirrorservice.org/sites/ftp.archlinux.org/$repo/os/$arch
-Server = http://mirrors.ukfast.co.uk/sites/archlinux.org/$repo/os/$arch
+Server = http://mirrors.manchester.m247.com/arch-linux/$repo/os/$arch
 Server = http://arch.serverspace.co.uk/arch/$repo/os/$arch
-Server = rsync://mirrors.uk2.net/archlinux/$repo/os/$arch
-Server = rsync://mirror.bytemark.co.uk/archlinux/$repo/os/$arch
-Server = rsync://mirror.netweaver.uk/archlinux/$repo/os/$arch
-Server = rsync://mirrors.manchester.m247.com/archlinux/$repo/os/$arch
-Server = rsync://arch.serverspace.co.uk/Arch/$repo/os/$arch
+Server = http://lon.mirror.rackspace.com/archlinux/$repo/os/$arch
 Server = rsync://archlinux.uk.mirror.allworldit.com/archlinux/$repo/os/$arch
-Server = rsync://mirrors.ukfast.co.uk/archlinux.org/$repo/os/$arch
+Server = https://mirrors.ukfast.co.uk/sites/archlinux.org/$repo/os/$arch
+Server = rsync://arch.serverspace.co.uk/Arch/$repo/os/$arch
 Server = rsync://rsync.mirrorservice.org/ftp.archlinux.org/$repo/os/$arch
+Server = rsync://mirrors.uk2.net/archlinux/$repo/os/$arch
+Server = rsync://mirrors.manchester.m247.com/archlinux/$repo/os/$arch
+Server = http://mirrors.ukfast.co.uk/sites/archlinux.org/$repo/os/$arch
+Server = rsync://lon.mirror.rackspace.com/archlinux/$repo/os/$arch
+Server = rsync://mirrors.ukfast.co.uk/archlinux.org/$repo/os/$arch

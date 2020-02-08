@@ -9,8 +9,17 @@
 # FIGMENTIZE: xprofile
 
 xset r rate 200 30
-unclutter --timeout 1 &
-compton --no-fading-openclose &
+if ! >/dev/null 2>&1 pgrep unclutter; then
+    if >/dev/null 2>&1 command -v unclutter; then
+        unclutter --timeout 1 &
+    fi
+fi
+
+if ! >/dev/null 2>&1 pgrep compton; then
+    if >/dev/null 2>&1 command -v compton; then
+        compton --no-fading-openclose &
+    fi
+fi
 
 . "$HOME/.profile"
 
