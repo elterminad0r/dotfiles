@@ -91,6 +91,7 @@ fortune-mod
 fpc
 freemind
 fzf
+gap-doc
 gdb
 geckodriver
 gedit-plugins
@@ -143,7 +144,6 @@ inotify-tools
 intel-media-sdk
 intel-ucode
 iotop
-ipython
 ipython2
 irssi
 iw
@@ -254,21 +254,15 @@ python2-pylint
 python-ansi2html
 python-html2text
 python-lockfile
-python-matplotlib
-python-networkx
 python-pandas
-python-pillow
 python-pipenv
 python-praw
 python-pylint
 python-pywal
 python-requestsexceptions
-python-scipy
-python-sphinx
 python-sphinxcontrib-websupport
 python-sphinx_rtd_theme
 python-sqlalchemy
-python-sympy
 python-virtualenvwrapper
 python-whoosh
 python-xdg
@@ -296,7 +290,6 @@ qt5-webkit
 qt5-webview
 qt5-xmlpatterns
 qutebrowser
-r
 ranger
 redshift
 reflector
@@ -307,6 +300,7 @@ rpmextract
 rsync
 rust
 rxvt-unicode
+sagemath
 sane
 sc
 scrot
