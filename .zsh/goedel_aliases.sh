@@ -204,6 +204,8 @@ else # some other ls (solaris?)
     true
 fi
 
+alias pgrep="pgrep -l"
+
 # safety first
 alias rm='rm -i'
 alias mv='mv -i'
@@ -350,6 +352,16 @@ g() {
     git "$@"
 }
 
+# make directory and cd to it
+mkcd() {
+    if ! [ "$#" = 1 ]; then
+        >&2 echo "Need one argument"
+        return 1
+    else
+        mkdir -p "$1" && cd "$1"
+    fi
+}
+
 # special git for dotfiles
 # it's a function because it can't be trusted to have its completion inferred
 # from the alias, and I define my own completion in $ZDOTDIR/zcomp/_cfg.
@@ -393,7 +405,7 @@ cppath() {
 alias pacman='pacman --color=auto'
 alias p='pacman'
 alias pacsystree='for i in $(pacman -Qeq); do pactree $i; done'
-alias pacclean='sudo paccache -m ~/paccache -k 2'
+alias pacclean='sudo paccache -m ~/paccache -k 1'
 
 # could also use 'fold -sw 80', although that could break URLs apparently
 alias wrap='fmt -w 80'

@@ -150,6 +150,7 @@ iw
 java-openjfx
 jfsutils
 jp2a
+jq
 js52
 jython
 kid3
@@ -242,7 +243,6 @@ projectm-sdl
 protobuf
 pulseaudio-bluetooth
 pv
-pygmentize
 pypy
 pypy3
 pyside2
@@ -251,9 +251,11 @@ python2-libappindicator
 python2-numpy
 python2-powerline
 python2-pylint
+python2-virtualenv
 python-ansi2html
 python-html2text
 python-lockfile
+python-more-itertools
 python-pandas
 python-pipenv
 python-praw
@@ -263,6 +265,7 @@ python-requestsexceptions
 python-sphinxcontrib-websupport
 python-sphinx_rtd_theme
 python-sqlalchemy
+python-typed-ast
 python-virtualenvwrapper
 python-whoosh
 python-xdg
@@ -323,6 +326,7 @@ the_silver_searcher
 thunar-volman
 tidy
 tig
+time
 tk
 tmux
 transset-df
@@ -379,7 +383,6 @@ zathura-ps
 zenity
 zsh-completions
 base-devel
-base
 pyqt5
 texlive-most
 xorg-apps
