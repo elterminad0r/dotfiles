@@ -31,6 +31,7 @@ camlp5
 cantata
 cbatticon
 cdrtools
+celt
 cgoban
 cheese
 chromium
@@ -157,6 +158,7 @@ kid3
 kitty
 kmag
 konsole
+ladspa
 latex2rtf
 lesspipe
 libappindicator-gtk3
@@ -166,6 +168,7 @@ libfbclient
 libmythes
 libnm-glib
 libreoffice-still
+libtiger
 libwnck
 libx86
 lightdm-gtk-greeter-settings
@@ -178,6 +181,7 @@ lolcat
 lshw
 lsof
 ltrace
+lv2
 lynx
 man-pages
 mari0
@@ -247,7 +251,6 @@ pypy
 pypy3
 pyside2
 python2-attrs
-python2-libappindicator
 python2-numpy
 python2-powerline
 python2-pylint
@@ -288,6 +291,7 @@ qt5-styleplugins
 qt5-tools
 qt5-translations
 qt5-virtualkeyboard
+qt5-wayland
 qt5-webglplugin
 qt5-webkit
 qt5-webview
