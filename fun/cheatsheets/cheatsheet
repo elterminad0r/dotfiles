@@ -1,23 +1,30 @@
-unlocking session:
+# vim: syntax=zsh
+
+# unlocking session:
 loginctl unlock-session 2
 
-remove file from git history:
+# remove file from git history:
 cfg filter-branch --force --index-filter "git rm --cached --ignore-unmatch fun/cheatsheets/.references" --prune-empty --tag-name-filter cat -- --all
-(from https://help.github.com/en/articles/removing-sensitive-data-from-a-repository)
+# (from https://help.github.com/en/articles/removing-sensitive-data-from-a-repository)
 
-wrapping text to 80 chars:
+# wrapping text to 80 chars:
 fold -w 80 -s text.txt
 fmt -w 80 text.txt
 
+# formatting tables:
+column -t
+# for csv:
+column -t -s,
+
 perl -de1: open perl repl
 
-zsh:
+# zsh:
 sudo -e: edit file that needs sudo to be written
 
-you can time a for loop by using a subshell:
-$ time (for ...; done)
+# you can time a for loop by using a subshell:
+time (for ...; done)
 
-you can expand a current word that is an alias using ^Xa
+# you can expand a current word that is an alias using ^Xa
 
 print -P: print prompt-string
 
