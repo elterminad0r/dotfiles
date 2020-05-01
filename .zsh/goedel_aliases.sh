@@ -205,6 +205,7 @@ else # some other ls (solaris?)
 fi
 
 alias pgrep="pgrep -l"
+alias pgrepl="pgrep -a"
 
 # safety first
 alias rm='rm -i'
@@ -336,6 +337,8 @@ alias vienc='vinja ~/Documents/.enc/'
 # reload various types of configuration
 alias x='xrdb -merge -I"$XDOTDIR" ~/.Xresources'
 alias t='tmux source-file ~/.tmux.conf'
+
+alias xreset='xset r rate 200 30; xmodmap "$HOME/.Xmodmap"'
 
 # restart or test wifi connection
 alias wifirestart='sudo systemctl restart NetworkManager.service'

@@ -268,6 +268,10 @@ nnoremap <Leader>gU :.!b-cAt -r<CR>
 nnoremap <Leader>ggU :%!b-cAt -r<CR>
 xnoremap <Leader>gU :!b-cAt -r<CR>
 
+" mappings for Alignment of github markdown tables
+nnoremap <Leader>gga :%!ghmdpp<CR>
+xnoremap <Leader>ga :!ghmdpp<CR>
+
 " E x p a n d
 " TODO: again, operate
 "       and make this higher IQ - it's not very adaptive
