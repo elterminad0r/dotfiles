@@ -365,6 +365,15 @@ mkcd() {
     fi
 }
 
+mvcd() {
+    if ! [ "$#" = 2 ]; then
+        >&2 echo "Need two arguments"
+        return 1
+    else
+        mv "$1" "$2" && cd "$2"
+    fi
+}
+
 # special git for dotfiles
 # it's a function because it can't be trusted to have its completion inferred
 # from the alias, and I define my own completion in $ZDOTDIR/zcomp/_cfg.
@@ -412,6 +421,9 @@ alias pacclean='sudo paccache -m ~/paccache -k 1'
 
 # could also use 'fold -sw 80', although that could break URLs apparently
 alias wrap='fmt -w 80'
+# appears to be the limit for width. Not sure if implementation detail.
+# TODO: better way to do this
+alias unwrap='fmt -w 2500'
 
 # Frivolous aliases
 

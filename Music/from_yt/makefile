@@ -2,7 +2,7 @@
 
 CFG = git --git-dir ~/.cfg --work-tree ~
 
-default: tags_archive
+default:
 	youtube-dl -a list.txt -f 140 --download-archive archive.txt
 
 tags_archive:

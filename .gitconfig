@@ -44,6 +44,7 @@
 	# flags), use "g" or "cfg" as appropriate.
 	st = "status --show-stash"
 	d = "diff --ignore-submodules HEAD"
+	dl =  "diff --ignore-submodules HEAD --compact-summary"
 	# consistent with the existence of `git rm`, `git mv`, etc
 	ls = "ls-files"
 	ll = "log --stat"

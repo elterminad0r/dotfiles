@@ -30,11 +30,9 @@ class PastaHashable:
     applying a type, so we can use type= and choices= simultaneously. Also wraps
     the file object protocols I need, which is just iteration.
     """
-    REGISTRY = {
-            "gamers": PASTA_DIR / "they_targeted_gamers.txt",
-            "gnu/linux": PASTA_DIR / "gnu_linux.txt",
-            "gnu/linux2": PASTA_DIR / "gnu_linux_2.txt",
-            "bees": PASTA_DIR / "beemovie.txt"}
+    REGISTRY = {}
+    for pasta_file in PASTA_DIR.iterdir():
+        REGISTRY[pasta_file.name.rstrip(".txt")] = pasta_file
 
     def __init__(self, value):
         self.value = value

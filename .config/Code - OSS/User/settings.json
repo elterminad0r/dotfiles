@@ -1,4 +1,5 @@
 {
+    "window.zoomLevel": 0,
     "files.exclude": {
         "**/.git": true,
         "**/.svn": true,
@@ -6,10 +7,5 @@
         "**/CVS": true,
         "**/.DS_Store": true,
         "**/*.olean": true
-    },
-    "window.zoomLevel": 1,
-    "editor.fontFamily": "'Liberation Mono','Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
-    "editor.wordWrap": "on",
-    "files.insertFinalNewline": true,
-    "editor.tabSize": 2
+    }
 }

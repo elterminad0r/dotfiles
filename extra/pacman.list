@@ -114,6 +114,7 @@ gnu-netcat
 gnuplot
 go
 gobject-introspection
+gource
 gparted
 gperf
 gpick
@@ -121,6 +122,8 @@ graphviz
 grub-customizer
 grub-theme-vimix
 gtk-engine-murrine
+gtkmm
+gtkspell
 gtop
 gv
 haskell-pretty-show
@@ -131,6 +134,7 @@ haskell-yaml
 highlight
 hoogle
 hplip
+hspell
 htop
 hub
 hunspell-en_GB
@@ -161,7 +165,6 @@ konsole
 ladspa
 latex2rtf
 lesspipe
-libappindicator-gtk3
 libdbi
 libfaketime
 libfbclient
@@ -169,6 +172,7 @@ libmythes
 libnm-glib
 libreoffice-still
 libtiger
+libvoikko
 libwnck
 libx86
 lightdm-gtk-greeter-settings
@@ -203,6 +207,7 @@ mypaint-brushes
 mythes-en
 mythes-nl
 nautilus
+nautilus-sendto
 ncdu
 ncmpcpp
 nemo
@@ -242,9 +247,7 @@ picom
 pipewire
 postfix
 powerline
-processing
 projectm-sdl
-protobuf
 pulseaudio-bluetooth
 pv
 pypy
@@ -254,7 +257,6 @@ python2-attrs
 python2-dbus
 python2-gobject
 python2-numpy
-python2-powerline
 python2-psutil
 python2-pylint
 python2-virtualenv
@@ -264,9 +266,11 @@ python-lockfile
 python-more-itertools
 python-mutagen
 python-pandas
+python-pew
 python-pipenv
 python-praw
 python-pylint
+python-pytoml
 python-pywal
 python-pyxdg
 python-requestsexceptions
@@ -291,7 +295,6 @@ qt5-remoteobjects
 qt5-script
 qt5-scxml
 qt5-serialbus
-qt5-styleplugins
 qt5-tools
 qt5-translations
 qt5-virtualkeyboard
@@ -326,7 +329,6 @@ sshpass
 strace
 swi-prolog
 syslog-ng
-tabbed
 terminator
 terminus-font
 termite
@@ -338,7 +340,6 @@ tig
 time
 tk
 tmux
-transset-df
 ttf-fira-sans
 ttf-font-awesome
 ttf-inconsolata
@@ -393,7 +394,6 @@ zathura-ps
 zenity
 zsh-completions
 base-devel
-pyqt5
 texlive-most
 xorg-apps
 xorg-fonts
