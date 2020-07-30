@@ -126,6 +126,7 @@ gtkmm
 gtkspell
 gtop
 gv
+handbrake-cli
 haskell-pretty-show
 haskell-primes
 haskell-tf-random
@@ -166,6 +167,7 @@ ladspa
 latex2rtf
 lesspipe
 libdbi
+libdvdcss
 libfaketime
 libfbclient
 libmythes
@@ -181,6 +183,7 @@ linux
 linux-firmware
 logrotate
 lolcat
+lsdvd
 lshw
 lsof
 ltrace
@@ -215,7 +218,6 @@ neofetch
 neovim
 netctl
 network-manager-applet
-networkmanager-dispatcher-ntpd
 newsboat
 nmap
 noto-fonts-emoji
