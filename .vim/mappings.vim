@@ -340,7 +340,7 @@ nnoremap <script> <SID>(hscroll)h zh<SID>(hscroll)
 nnoremap <script> <SID>(hscroll)l zl<SID>(hscroll)
 nnoremap <script> <SID>(hscroll)H zH<SID>(hscroll)
 nnoremap <script> <SID>(hscroll)L zL<SID>(hscroll)
-nmap <script> <SID>(horscroll) <Nop>
+nmap <script> <SID>(hscroll) <Nop>
 
 " Commentary functions but explicitly set commentstring to /*%s*/
 " TODO: make work

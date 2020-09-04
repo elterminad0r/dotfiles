@@ -226,6 +226,9 @@ set formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*\\\|^\\s*[-+*]\\s*\\\|^\\s*\\%(TO
 " tell Vim to assume that tex files are latex, by default
 let g:tex_flavor = 'latex'
 
+" Do not treat '=' as part of a file-name when using gf or ^X^F
+set isfname-==
+
 " shorten certain types of diagnostic/informational messages more (eg [w]
 " instead of "written")
 set shortmess=atToO

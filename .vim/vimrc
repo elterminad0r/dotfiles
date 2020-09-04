@@ -124,8 +124,10 @@ endfunction
 
 " Insert mode version
 function! IToggleHighlight() abort
-    call feedkeys("\<C-o>")
-    call ToggleHighlight()
+    if &hlsearch
+        call feedkeys("\<C-o>")
+        call ToggleHighlight()
+    endif
 endfunction
 
 " colour related options that have to happen after sourcing plugins
