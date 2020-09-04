@@ -2,7 +2,7 @@
 
 set -eu
 
-echo "just use replaygain"
+>&2 echo "just use replaygain"
 exit 1
 
 do_loudnorm() {

@@ -274,11 +274,12 @@ if !exists("*ReloadVimConf")
         filetype detect
     endfunction
 endif
-" reload vimrc when written
-augroup ConfigReloadVim
-    " the nested makes things not break - see autocmd-nested
-    autocmd! BufWritePost ~/.vim/*rc,~/.vim/*vim nested call ReloadVimConf()
-augroup END
+
+" " reload vimrc when written. Disabled because it's annoying
+" augroup ConfigReloadVim
+"     " the nested makes things not break - see autocmd-nested
+"     autocmd! BufWritePost ~/.vim/*rc,~/.vim/*vim nested call ReloadVimConf()
+" augroup END
 
 function! ReloadTmuxConf() abort
     !tmux source-file %

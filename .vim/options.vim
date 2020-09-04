@@ -72,7 +72,7 @@ set viewdir=~/.vim/view
 " '10000: store marks for 10000 previously edited files
 " /10000: store 10000 previous searches
 " :10000: store 10000 previous commands issued
-" <1000000: store at most 1000000 lines of each buffer
+" <1000000: store at most 1000000 lines of each register
 " @100000: store 100000 lines of input-line history
 " s10000: allow items to be 10000 Kbyte in size
 set viminfo='10000,/10000,:10000,<1000000,s10000,@10000,h,n~/.vim/viminfo
@@ -226,7 +226,7 @@ set formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*\\\|^\\s*[-+*]\\s*\\\|^\\s*\\%(TO
 " tell Vim to assume that tex files are latex, by default
 let g:tex_flavor = 'latex'
 
-" shorten certain types of diagnostic/informational messages more (eg [+]
+" shorten certain types of diagnostic/informational messages more (eg [w]
 " instead of "written")
 set shortmess=atToO
 
@@ -305,7 +305,7 @@ set hidden
 " instead of b
 set switchbuf+=useopen,usetab
 
-" I like to reduce visible clutter by making tags hidden filed
+" I like to reduce visible clutter by making tags hidden files
 set tags+=./.tags,.tags
 " tag binary search
 set tagbsearch

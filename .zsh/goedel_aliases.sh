@@ -355,7 +355,7 @@ g() {
     git "$@"
 }
 
-# make directory and cd to it
+# mkdir and cd
 mkcd() {
     if ! [ "$#" = 1 ]; then
         >&2 echo "Need one argument"
@@ -365,12 +365,33 @@ mkcd() {
     fi
 }
 
+# mkdir and mv
+mkmv() {
+    if ! [ "$#" = 2 ]; then
+        >&2 echo "Need two arguments"
+        return 1
+    else
+        mkdir -p "$2" && mv "$1" "$2"
+    fi
+}
+
+# mv and cd
 mvcd() {
     if ! [ "$#" = 2 ]; then
         >&2 echo "Need two arguments"
         return 1
     else
         mv "$1" "$2" && cd "$2"
+    fi
+}
+
+# mkdir and mv and cd
+mkmvcd() {
+    if ! [ "$#" = 2 ]; then
+        >&2 echo "Need two arguments"
+        return 1
+    else
+        mkdir -p "$2" && mv "$1" "$2" && cd "$2"
     fi
 }
 
