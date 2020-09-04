@@ -250,3 +250,7 @@
 	path = .vim/bundle/lean.vim
 	url = https://github.com/leanprover/lean.vim.git
 	branch = master
+[submodule "builds/loudgain"]
+	path = builds/loudgain
+	url = https://aur.archlinux.org/loudgain.git
+	branch = master

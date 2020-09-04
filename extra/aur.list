@@ -3,6 +3,7 @@ networkmanager-dispatcher-ntpd
 polybar
 processing
 python2-libappindicator
+python2-pylint
 qt5-canvas3d
 qt5-styleplugins
 sonata

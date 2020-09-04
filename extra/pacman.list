@@ -20,7 +20,7 @@ base
 bash-completion
 basket
 bdf-unifont
-bind-tools
+bind
 blueman
 bluez-utils
 boost
@@ -46,6 +46,7 @@ coq-doc
 cowsay
 cpulimit
 cpupower
+cracklib
 cronie
 ctags
 cuneiform
@@ -63,7 +64,6 @@ dunst
 easytag
 ed
 efibootmgr
-electron
 elinks
 emacs
 espeak-ng
@@ -127,6 +127,8 @@ gtkspell
 gtop
 gv
 handbrake-cli
+haskell-bitarray
+haskell-cmark-gfm
 haskell-pretty-show
 haskell-primes
 haskell-tf-random
@@ -158,6 +160,7 @@ jfsutils
 jp2a
 jq
 js52
+js60
 jython
 kid3
 kitty
@@ -168,6 +171,7 @@ latex2rtf
 lesspipe
 libdbi
 libdvdcss
+libebur128
 libfaketime
 libfbclient
 libmythes
@@ -205,6 +209,7 @@ mpv
 mtpfs
 mupdf
 mupdf-tools
+musepack-tools
 mutt
 mypaint-brushes
 mythes-en
@@ -260,7 +265,6 @@ python2-dbus
 python2-gobject
 python2-numpy
 python2-psutil
-python2-pylint
 python2-virtualenv
 python-ansi2html
 python-html2text
@@ -358,10 +362,14 @@ vim-spell-en
 vim-spell-nl
 vim-spell-uk
 vlc
+vorbisgain
 w3m
+wavegain
 wdiff
 wget
+words
 wtf
+wxgtk2
 xaos
 xdg-user-dirs
 xdotool

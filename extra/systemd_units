@@ -1,27 +1,20 @@
-UNIT FILE                                   STATE   VENDOR PRESET
-org.cups.cupsd.path                         enabled disabled     
-autovt@.service                             enabled disabled     
-avahi-daemon.service                        enabled disabled     
-bluetooth.service                           enabled disabled     
-cronie.service                              enabled disabled     
-cups-browsed.service                        enabled disabled     
-dbus-org.bluez.service                      enabled disabled     
-dbus-org.freedesktop.Avahi.service          enabled disabled     
-dbus-org.freedesktop.NetworkManager.service enabled disabled     
-dbus-org.freedesktop.nm-dispatcher.service  enabled disabled     
-display-manager.service                     enabled disabled     
-getty@.service                              enabled enabled      
-kbdrate.service                             enabled disabled     
-lightdm.service                             enabled disabled     
-mariadb.service                             enabled disabled     
-mysqld.service                              enabled disabled     
-NetworkManager-dispatcher.service           enabled disabled     
-NetworkManager.service                      enabled disabled     
-org.cups.cupsd.service                      enabled disabled     
-postfix.service                             enabled disabled     
-vt-gruvbox.service                          enabled disabled     
-avahi-daemon.socket                         enabled disabled     
-org.cups.cupsd.socket                       enabled disabled     
-remote-fs.target                            enabled enabled      
+UNIT FILE                         STATE   VENDOR PRESET
+org.cups.cupsd.path               enabled disabled     
+avahi-daemon.service              enabled disabled     
+bluetooth.service                 enabled disabled     
+cronie.service                    enabled disabled     
+cups-browsed.service              enabled disabled     
+getty@.service                    enabled enabled      
+kbdrate.service                   enabled disabled     
+lightdm.service                   enabled disabled     
+mariadb.service                   enabled disabled     
+NetworkManager-dispatcher.service enabled disabled     
+NetworkManager.service            enabled disabled     
+org.cups.cupsd.service            enabled disabled     
+postfix.service                   enabled disabled     
+vt-gruvbox.service                enabled disabled     
+avahi-daemon.socket               enabled disabled     
+org.cups.cupsd.socket             enabled disabled     
+remote-fs.target                  enabled enabled      
 
-24 unit files listed.
+17 unit files listed.
