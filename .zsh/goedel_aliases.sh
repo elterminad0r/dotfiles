@@ -45,11 +45,6 @@ if ! >/dev/null 2>&1 command -v say; then
     fi
 fi
 
-# alias that silences whatever you put after it. I used to have this as a
-# function that I used all over the place, but I've decided now it's for
-# personal use only.
-alias s='>/dev/null 2>&1 '
-
 # function to fully expand its arguments if they're aliases.
 # obviously for personal use only, it uses eval etc and so forth ad nauseum
 # In zsh, you can interactively expand the current word as an alias using <C-x>a
@@ -355,6 +350,8 @@ g() {
     git "$@"
 }
 
+# I AM DETERMINED TO FIND EVERY USEFUL COMBINATION
+
 # mkdir and cd
 mkcd() {
     if ! [ "$#" = 1 ]; then
@@ -367,31 +364,56 @@ mkcd() {
 
 # mkdir and mv
 mkmv() {
-    if ! [ "$#" = 2 ]; then
+    if ! [ "$#" -ge 2 ]; then
         >&2 echo "Need two arguments"
         return 1
     else
-        mkdir -p "$2" && mv "$1" "$2"
+        for last; do true; done
+        mkdir -p "$last" && mv "$@"
+    fi
+}
+
+# mkdir and cp
+mkcp() {
+    if ! [ "$#" -ge 2 ]; then
+        >&2 echo "Need two arguments"
+        return 1
+    else
+        for last; do true; done
+        mkdir -p "$last" && cp "$@"
     fi
 }
 
 # mv and cd
 mvcd() {
-    if ! [ "$#" = 2 ]; then
+    if ! [ "$#" -ge 2 ]; then
         >&2 echo "Need two arguments"
         return 1
     else
-        mv "$1" "$2" && cd "$2"
+        for last; do true; done
+        mv "$@" && cd "$last"
     fi
 }
 
-# mkdir and mv and cd
-mkmvcd() {
-    if ! [ "$#" = 2 ]; then
+# cp and cd
+cpcd() {
+    if ! [ "$#" -ge 2 ]; then
         >&2 echo "Need two arguments"
         return 1
     else
-        mkdir -p "$2" && mv "$1" "$2" && cd "$2"
+        for last; do true; done
+        cp "$@" && cd "$last"
+    fi
+}
+
+# mkdir and cp and cd
+mkcpcd() {
+    if ! [ "$#" -ge 2 ]; then
+        >&2 echo "Need two arguments"
+        return 1
+    else
+        for last; do true; done
+        mkdir -p "$last" && mv "$last" && cd "$last"
     fi
 }
 

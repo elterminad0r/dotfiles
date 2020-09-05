@@ -162,13 +162,16 @@ for dirname in split("backups bundle sessions sessions/auto swap spell undo view
 endfor
 
 " Basically, let vim load plugins for filetypes.
-" This is pretty essential to any vim user's quality of life
+" This is pretty essential to any vim user's quality of life. This enables
+" features like automatic disabling of 'expandtab' in Makefiles, and automatic
+" indentation after the start of a function or if statement in programming
+" languages.
 " Technically speaking vim-plug already does this for me. however i don't have
 " the presence of mind to remember to reinstate this should I grow tired of
 " vim-plug, so it stays.
 filetype plugin indent on
 
-" similarly name and shame trailing whitespace
+" name and shame trailing whitespace
 highlight TrailingWhitespace ctermbg=red guibg=red
 augroup TrailingWhitespaceMatch
     autocmd! VimEnter,WinEnter * match TrailingWhitespace /\s\+$/

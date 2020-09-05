@@ -72,7 +72,7 @@ Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-tbone'
 
 " ^A^X work with dates and times
-Plug 'tpope/vim-speeddating'
+" Plug 'tpope/vim-speeddating'
 
 " Get unix utils like rm as vim commands. Less of the !rm and !chmod etc
 Plug 'tpope/vim-eunuch'
@@ -86,7 +86,7 @@ Plug 'easymotion/vim-easymotion'
 
 " support for fzf
 " TODO start using this (:Files, :Buffers, :GFiles)
-Plug 'junegunn/fzf.vim'
+" Plug 'junegunn/fzf.vim'
 
 " this might be useful idk
 " TODO figure out which bits i need
@@ -342,7 +342,7 @@ Plug 'kana/vim-textobj-user'
 " Access lines as text objects with 'l'
 Plug 'kana/vim-textobj-line'
 
-" textobjects for folds
+" textobjects for folds with az and iz
 Plug 'kana/vim-textobj-fold'
 
 " makes modern objfpc .pas files be highlighted properly (eg understand //
