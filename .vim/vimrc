@@ -152,14 +152,53 @@ if &t_Co > 2 || has("gui_running")
             colorscheme default
         endtry
     endif
+    function! SampleSchemes() abort
+        let l:schemes = getcompletion('', 'color')
+        " for some reason execute gives a null byte
+        let l:cur_scheme = execute('colorscheme')[1:]
+        let l:cur_pos = index(l:schemes, l:cur_scheme)
+        if l:cur_pos < 0
+            echoerr "There's a bug in determining the current colourscheme!"
+            " safety return
+            return
+        endif
+        while v:true
+            redraw
+            echo "Current scheme (" . (l:cur_pos + 1) . "/" . len(l:schemes)
+                \ . "): " . l:schemes[l:cur_pos] . " [phlnq]"
+            let l:user_com = getchar()
+            if l:user_com == char2nr("p") || l:user_com == char2nr("h")
+                let l:cur_pos += len(l:schemes) - 1
+                let l:cur_pos %= len(l:schemes)
+            elseif l:user_com == char2nr("n") || l:user_com == char2nr("l")
+                let l:cur_pos += 1
+                let l:cur_pos %= len(l:schemes)
+            elseif l:user_com == char2nr("q") || l:user_com == char2nr("\<Esc>")
+                break
+            endif
+            execute 'colorscheme ' . l:schemes[l:cur_pos]
+        endwhile
+    endfunction
+    command! SampleSchemes call SampleSchemes()
 endif
 
 " make useful directories in ~/.vim where they don't exist
-
-call mkdir($HOME . "/.vim", "p")
-for dirname in split("backups bundle sessions sessions/auto swap spell undo view")
-    call mkdir($HOME . "/.vim/" . dirname, "p")
-endfor
+if has("patch-8.0.1708")
+    call mkdir($HOME . "/.vim", "p")
+    for dirname in split("backups bundle sessions sessions/auto swap spell undo view")
+        call mkdir($HOME . "/.vim/" . dirname, "p")
+    endfor
+else
+    function! MKDirP(dirname) abort
+        if !isdirectory(a:dirname)
+            call mkdir(a:dirname, "p")
+        endif
+    endfunction
+    call MKDirP($HOME . "/.vim")
+    for dirname in split("backups bundle sessions sessions/auto swap spell undo view")
+        call MKDirP($HOME . "/.vim/" . dirname)
+    endfor
+endif
 
 " Basically, let vim load plugins for filetypes.
 " This is pretty essential to any vim user's quality of life. This enables

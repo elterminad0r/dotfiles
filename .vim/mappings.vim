@@ -45,8 +45,7 @@ xnoremap < <gv
 xnoremap <C-c> "+y
 
 " Toggle Paste mode
-" TODO: similar mapping for normal mode? (probably redundant due to ^R^O+)
-nnoremap <Leader>p :set paste!<CR>
+nnoremap <Leader>p :set paste! <bar> set paste?<CR>
 
 " crap, these turn the scrollwheel into a
 " weapon of mass destruction.
