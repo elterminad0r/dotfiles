@@ -15,9 +15,9 @@ if ! >/dev/null 2>&1 pgrep unclutter; then
     fi
 fi
 
-if ! >/dev/null 2>&1 pgrep compton; then
-    if >/dev/null 2>&1 command -v compton; then
-        compton --no-fading-openclose &
+if ! >/dev/null 2>&1 pgrep picom; then
+    if >/dev/null 2>&1 command -v picom; then
+        picom &
     fi
 fi
 

@@ -572,6 +572,9 @@ partytime() {
     done
 }
 
+# offensive wtf
+alias wtf='wtf -o'
+
 # random {cowsay,cowthink}
 alias rcowsay='cowsay -f $(cowsay -l | tail +2 | xargs shuf -n1 -e)'
 alias rcowthink='cowthink -f $(cowsay -l | tail +2 | xargs shuf -n1 -e)'
@@ -591,7 +594,7 @@ alias parrot="curl parrot.live"
 alias rick='echo "critical system update; do not interrupt";
             CACA_DRIVER=ncurses mpv \
                 "https://www.youtube.com/watch?v=dQw4w9WgXcQ" \
-                -vo caca --really-quiet; echo "Never mind"'
+                --vo=caca --really-quiet; echo "Never mind"'
 
 # look cooler
 alias cmatrix='cmatrix -abu 1'
@@ -599,10 +602,10 @@ alias cmatrix='cmatrix -abu 1'
 # If you came here from selfie, use the 's' key to take a "screenshot" - ie save
 # a frame from video0. My ~~/mpv.conf sets up proper templates so you keep the
 # name of the file you're playing, dates and clobber prevention
-alias mirrormirroronthewall='mpv /dev/video0'
-alias mirrormirrorontheascii='CACA_DRIVER=ncurses mpv /dev/video0 -vo caca'
-alias mirrormirroronthe16777216='mpv /dev/video0 -vo tct'
-alias mirrormirroronframebuffer='mpv /dev/video0 -vo drm'
+alias mirrormirroronthewall='mpv --vf=hflip /dev/video0'
+alias mirrormirrorontheascii='CACA_DRIVER=ncurses mpv --vf=hflip /dev/video0 --vo=caca'
+alias mirrormirroronthe16777216='mpv /dev/video0 --vf=hflip --vo=tct'
+alias mirrormirroronframebuffer='mpv /dev/video0 --vf=hflip --vo=drm'
 
 # FrameBufferScreenShot.
 fbss() {

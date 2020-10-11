@@ -10,6 +10,9 @@ from math import gcd
 # TODO: optimisation (not just the Easter course)
 # TODO: can 0 ever be interesting?
 # TODO: still some double counting with repeated digits.
+# TODO: really this is a sort of big tree, where sometimes we give redundant
+#       information about edges. eg when we say all of 555 / 2553 = 55 / 253,
+#       555 / 2553 = 5 / 23, 55 / 235 = 5 / 23.
 
 def remove_dups(g):
     return (x for x, _ in groupby(g))
@@ -89,6 +92,6 @@ def simplifies(a, b):
                     if any(t[0] != "0" and t[1] > 0 for t in cancel_digits):
                         digits_cancel(a, b, a_digits, b_digits, cancel_digits)
 
-for t in range(10, 10000):
+for t in range(10000, 100000):
     for i in range(10, t // 2):
         simplifies(i, t - i)
