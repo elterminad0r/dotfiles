@@ -254,3 +254,7 @@
 	path = builds/loudgain
 	url = https://aur.archlinux.org/loudgain.git
 	branch = master
+[submodule "builds/zoom"]
+	path = builds/zoom
+	url = https://aur.archlinux.org/zoom.git
+	branch = master
