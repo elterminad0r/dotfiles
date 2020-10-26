@@ -64,6 +64,7 @@ dunst
 easytag
 ed
 efibootmgr
+electron
 elinks
 emacs
 espeak-ng
@@ -147,6 +148,7 @@ i3-gaps
 i3lock
 i3status
 iftop
+inetutils
 inkscape
 inotify-tools
 intel-media-sdk
@@ -269,6 +271,7 @@ python2-numpy
 python2-psutil
 python2-virtualenv
 python-ansi2html
+python-future
 python-html2text
 python-lockfile
 python-more-itertools
@@ -320,6 +323,7 @@ reptyr
 rofi
 rpmextract
 rsync
+rubiks
 rust
 rxvt-unicode
 sagemath
@@ -349,6 +353,7 @@ tig
 time
 tk
 tmux
+tracker-miners
 ttf-fira-sans
 ttf-font-awesome
 ttf-inconsolata
