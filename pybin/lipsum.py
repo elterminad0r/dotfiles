@@ -32,7 +32,7 @@ class PastaHashable:
     """
     REGISTRY = {}
     for pasta_file in PASTA_DIR.iterdir():
-        REGISTRY[pasta_file.name.rstrip(".txt")] = pasta_file
+        REGISTRY[pasta_file.name[:-4]] = pasta_file
 
     def __init__(self, value):
         self.value = value

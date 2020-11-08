@@ -132,6 +132,7 @@ haskell-bitarray
 haskell-cmark-gfm
 haskell-pretty-show
 haskell-primes
+haskell-regex-pcre
 haskell-tf-random
 haskell-time-locale-compat
 haskell-yaml
@@ -179,6 +180,7 @@ libfaketime
 libfbclient
 libmythes
 libnm-glib
+liborcus
 libreoffice-still
 libtiger
 libvoikko
@@ -285,7 +287,6 @@ python-pytoml
 python-pywal
 python-pyxdg
 python-requestsexceptions
-python-sphinxcontrib-websupport
 python-sphinx_rtd_theme
 python-sqlalchemy
 python-typed-ast
