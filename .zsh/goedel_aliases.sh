@@ -476,6 +476,8 @@ alias rot13='tr "A-Za-z0-9" "N-ZA-Mn-za-m5-90-4"'
 
 alias alpha='echo "abcdefghijklmnopqrstuvwxyz"'
 alias ALPHA='echo "ABCDEFGHIJKLMNOPQRSTUVWXYZ"'
+alias alphaALPHA='echo "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"'
+alias ALPHA_alpha='echo "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"'
 alias pang='if [ -r "$HOME/fun/lists/pangrams.txt" ]; then
     shuf -n1 "$HOME/fun/lists/pangrams.txt"
     else echo "Sphinx of black quartz, judge my vow"; fi'
@@ -507,8 +509,9 @@ alias hades='trrr "{notgreek}" "{greek}"'
 # totally semantically broken, but it makes it remain sort of legible-ish as
 # English
 alias comrade='trrr "{nm_u}{nm_l}" "{cyrillicfake}"'
-alias zeus='trrr "ABLDEZHUIKJMNGOQPRSTYFXCWVabyfeznhikjumsoqpcgtvlxrwd" \
-                 "{nm_ug}{nm_lg}"'
+alias zeus='trrr "{nm_u}{nm_l}" "{greekfake}"'
+alias zeus2='trrr "ABLDEZHUIKJMNGOQPRSTYFXCWVabyfeznhikjumsoqpcgtvlxrwd" \
+                  "{nm_ug}{nm_lg}"'
 
 tourrr() {
     local text="${*:-$(pang)}"
@@ -594,7 +597,7 @@ alias parrot="curl parrot.live"
 alias rick='echo "critical system update; do not interrupt";
             CACA_DRIVER=ncurses mpv \
                 "https://www.youtube.com/watch?v=dQw4w9WgXcQ" \
-                --vo=caca --really-quiet; echo "Never mind"'
+                -vo caca --really-quiet; echo "Never mind"'
 
 # look cooler
 alias cmatrix='cmatrix -abu 1'

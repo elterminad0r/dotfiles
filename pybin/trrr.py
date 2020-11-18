@@ -181,6 +181,10 @@ alphabets = {
     "cyrillicfake": "ДБҪDԐҒGҤЇJҜLԠЙФPQЯSГЦVШӼҰZ",
     "nm_ug": "ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡϴΣΤΥΦΧΨΩ∇",
     "nm_lg": "αβγδεζηθικλμνξοπρςστυφχψω∂",
+    "greekfake": ("ΛβζΔξΓΦΠιτΚζΣηϴραΩΞτυ∇ΨχγΞ"
+                 # ABCDEFGHIJKLMNOPQRSTUVWXYZ
+                 # abcdefghijklmnopqrstuvwxyz
+                  "αβςδεφξλιτκιμηθρσςζτμυωχγζ"),
     # ordering to be considered unstable. It's probably actually pretty
     # insensitive to jam it all in in this way to make 26 letters, but I can't
     # think of a better way to go about this

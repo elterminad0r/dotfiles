@@ -126,6 +126,7 @@ gtk-engine-murrine
 gtkmm
 gtkspell
 gtop
+guile2.0
 gv
 handbrake-cli
 haskell-bitarray
