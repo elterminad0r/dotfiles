@@ -47,7 +47,7 @@ noremap g<Space> <Space>
 " To see what kind of mappings there are with it, issue :map <Leader>
 
 " colour-related options, wrapped in some conditions just to be on the safe side
-if &t_Co > 2 || has("gui_running")
+if &term == "xterm-kitty" || &t_Co > 2 || has("gui_running")
     syntax enable
     " do not set hlsearch if it is already set, as this will annoyingly
     " re-highlight searches if you've set :noh
@@ -131,9 +131,9 @@ function! IToggleHighlight() abort
 endfunction
 
 " colour related options that have to happen after sourcing plugins
-if &t_Co > 2 || has("gui_running")
+if &term == "xterm-kitty" || &t_Co > 2 || has("gui_running")
     if &term != "linux"
-        " if the solarized colorscheme exists, load it
+        " if the gruvbox colorscheme exists, load it
         try
             " TODO: provide default colorscheme with not too objectionable
             "       highlighting of cursorcolumn, cursorline, line numbers and

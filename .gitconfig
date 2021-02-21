@@ -38,6 +38,8 @@
 [alias]
 	c = "commit -v"
 	ca = "commit -v --all"
+	cam = "commit -v --amend --reset-author"
+	caam = "commit -v --all --amend --reset-author"
 	co = "checkout"
 	# alias to set some options, and also if you want to pass further options to
 	# status. However if you just want to run git status (with default
@@ -92,3 +94,10 @@
 	# but you know roughly the subject it's in. Can also be used to show what
 	# aliases do if you want to use them yourself.
 	al = "!git config --get-regexp '^alias' | sed 's/^alias\\.//' | grep -i --color=auto \"$1\" #"
+	aln = "!git config --get-regexp '^alias' | sed 's/^alias\\.//' | grep -i --color=auto \"\\\\b$1\\\\b\" #"
+	edit = "!\"${EDITOR:-vim}\" \"$HOME/.gitconfig\""
+[init]
+	# :)
+	defaultBranch = main
+[pull]
+	ff = only
