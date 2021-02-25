@@ -58,6 +58,11 @@ zstyle ':completion:*:*:*:users' ignored-patterns \
         rpc rpcuser rpm rtkit scard shutdown squid sshd statd svn sync tftp \
         usbmux uucp vcsa wwwrun xfs '_*'
 
+# don't complete on latex garbage files
+zstyle ':completion:*:*:*:files' ignored-patterns \
+        "*.aux" "*.lof" "*.log" "*.lot" "*.fls" "*.out" "*.toc" \
+        "*.fdb_latexmk" "*.synctex.gz" "*.idx" "*.ilg" "*.ind"
+
 zstyle '*' single-ignored show
 
 zstyle ':completion:*' completer _expand _complete _ignored
